@@ -2,9 +2,9 @@
   "authorization": "2026-10-26 用户取消审核，要求直接修复并仅打Windows包",
   "mapsChecked": 83,
   "mapsWithSharedRepairs": 48,
-  "decodedBytes": 251518976,
+  "decodedBytes": 255713280,
   "budgetBytes": 268435456,
-  "allPackedFramePixelsVerified": 1709,
+  "allPackedFramePixelsVerified": 1713,
   "worldFramesResampled": 636,
   "originalGameMapsAndEventsChanged": false,
   "assets": {
@@ -23,6 +23,7 @@
     "surface-indoor-stone-v5.png": "efbd5b81e79e019170de34c9cd65feebb060c476fa902839bf620b8bad35f444",
     "surface-city-stone-v5.png": "26a8e8fc535347982f7e942e669cb8ed6c931713c3f82b78ef239fbdde3598f5",
     "surface-mountain-wall-v5.png": "2b96eb8a99d27b25d0e0fe1a7757d240babe7f32c1ecef65a58329007cd72c26",
-    "surface-bamboo-forest-v5.png": "c94f00b2c3d56a11635181fbe509995522c0172c25f5a2ddcb1a9da0c5c95e2c"
+    "surface-bamboo-forest-v5.png": "c94f00b2c3d56a11635181fbe509995522c0172c25f5a2ddcb1a9da0c5c95e2c",
+    "enhanced-surface-fallback-v5.png": "a88de2f760ddd42374833dcd752476bdac7dec5203b90a44a5887cdcb121aacc"
   }
 }

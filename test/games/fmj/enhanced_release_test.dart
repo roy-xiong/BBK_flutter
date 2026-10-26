@@ -140,7 +140,7 @@ void main() {
     }
     expect(entrances, 68);
     final decorations = atlas['decorations'] as Map<String, dynamic>;
-    expect(decorations.length, 26);
+    expect(decorations.keys.where((key) => key.startsWith('2:')).length, 26);
     for (final entry in decorations.entries) {
       final map = data.maps[entry.key]!;
       for (final item in (entry.value as List).cast<Map>()) {

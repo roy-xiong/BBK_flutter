@@ -384,14 +384,14 @@
       "source": "assets/modern/enhanced-art-sources.json",
       "destination": "assets/fmj/modern/enhanced-art-sources.json",
       "sourceSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e",
-      "importedSha256": "102667e57b64a6fa59f19d3c3638347d3f60b2eb499383df594d3beabc5fbb3e"
+      "importedSha256": "9951bf9fa336cfd45fa3308a8aaf564b96f346d75b59a6ac5767a6ced36f8cfc"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "7ab766a968958ac39a567ad13b3f24d26f89edce180309148c1190b16af28a39"
+      "importedSha256": "cde1e97f5611a506b3427010626bb84733225c935c58ec4baf26b1df8de50f0a"
     },
     {
       "game": "fmj",
@@ -517,7 +517,7 @@
       "source": "test/enhanced_release_test.dart",
       "destination": "test/games/fmj/enhanced_release_test.dart",
       "sourceSha256": "e69f058f52b467827b657fec0bcea25a4607aac7b329709da1231db5de435b1a",
-      "importedSha256": "771521f053f5caa1caa440004bb51fa093d3f822ff1539324efcb398e4db3dac"
+      "importedSha256": "4361c90e5b64acf215cb2b7a9ae6d9b6743a7fd02fff7e19ebb414bc3d676638"
     },
     {
       "game": "fmj",
@@ -2179,6 +2179,12 @@
       "destination": "assets/fmj/modern/surface-mountain-wall-v5.png",
       "importedSha256": "2b96eb8a99d27b25d0e0fe1a7757d240babe7f32c1ecef65a58329007cd72c26",
       "approval": "tool/fmj_art_v5_changes.json"
+    },
+    {
+      "game": "fmj",
+      "destination": "assets/fmj/modern/enhanced-surface-fallback-v5.png",
+      "importedSha256": "a88de2f760ddd42374833dcd752476bdac7dec5203b90a44a5887cdcb121aacc",
+      "approval": "tool/fmj_art_v5_changes.json"
     }
   ],
   "integrationRevisions": [
@@ -2445,6 +2451,24 @@
       "previousImportedSha256": "f559ecda9c9dccf7ab81b870670e532eb1acf15922240149ddd759c703f7f9a4",
       "currentSha256": "7ab766a968958ac39a567ad13b3f24d26f89edce180309148c1190b16af28a39",
       "reason": "用户取消审核并授权直接接入83图美术修订及仅Windows打包"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art-sources.json",
+      "previousImportedSha256": "102667e57b64a6fa59f19d3c3638347d3f60b2eb499383df594d3beabc5fbb3e",
+      "currentSha256": "9951bf9fa336cfd45fa3308a8aaf564b96f346d75b59a6ac5767a6ced36f8cfc",
+      "reason": "完善全图材质备用切片与陈设覆盖验证"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "7ab766a968958ac39a567ad13b3f24d26f89edce180309148c1190b16af28a39",
+      "currentSha256": "cde1e97f5611a506b3427010626bb84733225c935c58ec4baf26b1df8de50f0a",
+      "reason": "完善全图材质备用切片与陈设覆盖验证"
+    },
+    {
+      "destination": "test/games/fmj/enhanced_release_test.dart",
+      "previousImportedSha256": "771521f053f5caa1caa440004bb51fa093d3f822ff1539324efcb398e4db3dac",
+      "currentSha256": "4361c90e5b64acf215cb2b7a9ae6d9b6743a7fd02fff7e19ebb414bc3d676638",
+      "reason": "完善全图材质备用切片与陈设覆盖验证"
     }
   ]
 }
