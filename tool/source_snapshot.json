@@ -1315,7 +1315,7 @@
       "source": "test/desktop_visual_controls_test.dart",
       "destination": "test/games/sgby/desktop_visual_controls_test.dart",
       "sourceSha256": "c2636114cee66ccea63e29b2fd2b1d4da22d58e88ff589f90efce6e9de3be135",
-      "importedSha256": "e21db0447c635b835ea6ec2f88b47aeafc8ae0c6452e25ea7990733d6ad09909"
+      "importedSha256": "9f5bea9be6acc4aa21548d8d903cda0c11d3ee4e0da344542b7e3e47765e8b56"
     },
     {
       "game": "sgby",
@@ -2106,7 +2106,7 @@
       "source": "test/realistic_ui_test.dart",
       "destination": "test/games/sgby/realistic_ui_test.dart",
       "sourceSha256": "f0b43fbd0ce94d5358f6351c4d3cd7609d27c6e3111c2297e8d9d0f382c2ed29",
-      "importedSha256": "564d06e7ba7697a0299cc2130272eb9fd07e6ad973226d1149cc16af633aae31"
+      "importedSha256": "f9e77cb1525b06d5ba7afa0f0cc2d8c53a33760213d4c61984e60aa8bde14305"
     },
     {
       "game": "sgby",

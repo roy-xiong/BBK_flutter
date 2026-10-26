@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'support/persistence_cleanup.dart';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -107,10 +108,8 @@ void main() {
         await tester.pumpWidget(const SizedBox());
       } finally {
         vm.dispose();
-        await tester.runAsync(() async {
-          await vm.flushPersistence();
-          await f.directory.delete(recursive: true);
-        });
+        await flushGamePersistence(tester, vm);
+        await tester.runAsync(() => f.directory.delete(recursive: true));
         tester.view.resetPhysicalSize();
         tester.view.resetDevicePixelRatio();
         debugDefaultTargetPlatformOverride = null;
@@ -143,10 +142,8 @@ void main() {
       await tester.pumpWidget(const SizedBox());
     } finally {
       f!.vm.dispose();
-      await tester.runAsync(() async {
-        await f.vm.flushPersistence();
-        await f.directory.delete(recursive: true);
-      });
+      await flushGamePersistence(tester, f.vm);
+      await tester.runAsync(() => f.directory.delete(recursive: true));
       tester.view.resetPhysicalSize();
       tester.view.resetDevicePixelRatio();
     }

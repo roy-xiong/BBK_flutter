@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'support/persistence_cleanup.dart';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
@@ -179,10 +180,8 @@ void main() {
       } finally {
         await tester.pumpWidget(const SizedBox.shrink());
         vm.dispose();
-        await tester.runAsync(() async {
-          await vm.flushPersistence();
-          await directory.delete(recursive: true);
-        });
+        await flushGamePersistence(tester, vm);
+        await tester.runAsync(() => directory.delete(recursive: true));
         GameArt.previewFontFamily = null;
       }
     });

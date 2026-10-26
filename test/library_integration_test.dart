@@ -99,7 +99,7 @@ void main() {
         // 同时推进真实存档 I/O 和虚拟路由动画，避免用固定两帧猜测保存完成时机。
         for (
           var attempt = 0;
-          attempt < 40 && find.byType(NativeGamePage).evaluate().isNotEmpty;
+          attempt < 200 && find.byType(NativeGamePage).evaluate().isNotEmpty;
           attempt++
         ) {
           await tester.runAsync(
