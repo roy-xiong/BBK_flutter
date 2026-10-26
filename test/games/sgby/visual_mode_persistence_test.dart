@@ -60,7 +60,7 @@ void main() {
     } finally {
       vm.dispose();
       restored?.dispose();
-      await Future<void>.delayed(const Duration(milliseconds: 20));
+      await vm.flushPersistence();
       await directory.delete(recursive: true);
     }
   });

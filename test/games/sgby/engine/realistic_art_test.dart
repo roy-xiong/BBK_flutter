@@ -141,7 +141,7 @@ void main() {
       expect(vm.session!.renderer.selectedCity(world), 22);
     } finally {
       vm.dispose();
-      await Future<void>.delayed(const Duration(milliseconds: 30));
+      await vm.flushPersistence();
       await directory.delete(recursive: true);
     }
   });

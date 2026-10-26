@@ -1126,7 +1126,7 @@
       "source": "lib/ui/features/game/view_models/game_view_model.dart",
       "destination": "lib/games/sgby/ui/features/game/view_models/game_view_model.dart",
       "sourceSha256": "84d5fd993d62c8446d0a129f364f66f136905c9b1039c904805b8042b2a6d270",
-      "importedSha256": "22c7379bde165fb992642f6359bf999be380f76489fa0c070eb9678266bf8c95"
+      "importedSha256": "46b26a3b4c2933c5185809a420a363d3a0a7187a79e3e820f12034c87b72979d"
     },
     {
       "game": "sgby",
@@ -1301,7 +1301,7 @@
       "source": "test/data/autosave_view_model_test.dart",
       "destination": "test/games/sgby/data/autosave_view_model_test.dart",
       "sourceSha256": "488bcd300a767380c0dc94a9438bbf7134089ac888a32521561cf5ac41ab7711",
-      "importedSha256": "bcb0161b167fccf432c83a3ca6932a7618b8f5de2f2aaa0dd75d35cbac4137a6"
+      "importedSha256": "076ceaf49eaa0e3800ce89f2d1517e0a8b22a649cee65093af5eb0bac12410e3"
     },
     {
       "game": "sgby",
@@ -1315,7 +1315,7 @@
       "source": "test/desktop_visual_controls_test.dart",
       "destination": "test/games/sgby/desktop_visual_controls_test.dart",
       "sourceSha256": "c2636114cee66ccea63e29b2fd2b1d4da22d58e88ff589f90efce6e9de3be135",
-      "importedSha256": "7c3e79407df9f1f70b0c1080003e7bf757b90bb66431f4b1b9548ac01c7eac22"
+      "importedSha256": "e21db0447c635b835ea6ec2f88b47aeafc8ae0c6452e25ea7990733d6ad09909"
     },
     {
       "game": "sgby",
@@ -1483,7 +1483,7 @@
       "source": "test/engine/realistic_art_test.dart",
       "destination": "test/games/sgby/engine/realistic_art_test.dart",
       "sourceSha256": "820944ce3bf3bcec64a955e7af1d5b00fd475cbaa826e4b13ee13f4ac60b4a9e",
-      "importedSha256": "e290311a656d649ffab0af07727e82980036701f5a6d6026350eba376f638dcb"
+      "importedSha256": "6b6999ada1439ad420fd9c540bdf1578eac9f3de17989cc0c4e4b2202d344a0e"
     },
     {
       "game": "sgby",
@@ -2099,14 +2099,14 @@
       "source": "test/keyboard_mapping_test.dart",
       "destination": "test/games/sgby/keyboard_mapping_test.dart",
       "sourceSha256": "e0e713292a53a148c57d8cd8cb6d4e511890bb4c88a36629b69a66325f367904",
-      "importedSha256": "9825cee7826b23185f25341bb6432a7b2e39471131550bc4f760c038628486c8"
+      "importedSha256": "ae358037f4a0e8c8e2b2f5d9f2808be663c1c565b9277de3133228c2eb350a3a"
     },
     {
       "game": "sgby",
       "source": "test/realistic_ui_test.dart",
       "destination": "test/games/sgby/realistic_ui_test.dart",
       "sourceSha256": "f0b43fbd0ce94d5358f6351c4d3cd7609d27c6e3111c2297e8d9d0f382c2ed29",
-      "importedSha256": "3e571187cf8b6ee98ba212831ba74696c8d01951af351b251f7cbb68203be12b"
+      "importedSha256": "564d06e7ba7697a0299cc2130272eb9fd07e6ad973226d1149cc16af633aae31"
     },
     {
       "game": "sgby",
@@ -2127,7 +2127,7 @@
       "source": "test/visual_mode_persistence_test.dart",
       "destination": "test/games/sgby/visual_mode_persistence_test.dart",
       "sourceSha256": "bcfca1a2c3ede0d9ce5cbbf9114644aea923f9070c5553ada2b429d098ee812d",
-      "importedSha256": "5d52f3a62d940628acae78e0f57542c637b44ff908056cf6367c50b32e8144e7"
+      "importedSha256": "bcebaa10ed563ef9cfbed6b7461dec6818b75db8b4483b0af37e6ad651698ee6"
     },
     {
       "game": "sgby",

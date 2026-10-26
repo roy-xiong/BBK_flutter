@@ -180,7 +180,7 @@ void main() {
         await tester.pumpWidget(const SizedBox.shrink());
         vm.dispose();
         await tester.runAsync(() async {
-          await Future<void>.delayed(const Duration(milliseconds: 30));
+          await vm.flushPersistence();
           await directory.delete(recursive: true);
         });
         GameArt.previewFontFamily = null;

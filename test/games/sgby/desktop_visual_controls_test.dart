@@ -108,7 +108,7 @@ void main() {
       } finally {
         vm.dispose();
         await tester.runAsync(() async {
-          await Future<void>.delayed(const Duration(milliseconds: 20));
+          await vm.flushPersistence();
           await f.directory.delete(recursive: true);
         });
         tester.view.resetPhysicalSize();
@@ -144,7 +144,7 @@ void main() {
     } finally {
       f!.vm.dispose();
       await tester.runAsync(() async {
-        await Future<void>.delayed(const Duration(milliseconds: 20));
+        await f.vm.flushPersistence();
         await f.directory.delete(recursive: true);
       });
       tester.view.resetPhysicalSize();

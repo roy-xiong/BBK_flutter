@@ -66,6 +66,7 @@ final class GameViewModel extends ChangeNotifier {
   bool _busy = false;
   bool _processing = false;
   bool _savingSettings = false;
+  Future<void>? _settingsSaveTask;
   int _uiPauseDepth = 0;
   int _generation = 0;
   int _submittedFrame = -1;
@@ -778,7 +779,17 @@ final class GameViewModel extends ChangeNotifier {
       'gameOptions': _session?.options.toJson(),
       'searchHistory': _session?.enhancements.history,
     };
-    if (!_savingSettings) unawaited(_saveSettings());
+    if (!_savingSettings) {
+      final task = _saveSettings();
+      _settingsSaveTask = task;
+      unawaited(task);
+    }
+  }
+
+  /// 等待设置合并循环及存档队列，供合集退出和临时目录清理使用。
+  Future<void> flushPersistence() async {
+    await _settingsSaveTask;
+    await _saves.flush();
   }
 
   Future<void> _saveSettings() async {

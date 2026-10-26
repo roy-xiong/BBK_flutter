@@ -85,6 +85,7 @@ final class _NativeGamePageState extends State<NativeGamePage> {
       );
       if (confirmed != true || !mounted) return;
       await fmjModel?.persist(rethrowOnFailure: true);
+      await _sgby?.flushPersistence();
       if (!mounted) return;
       _leaving = true;
       // 用户已经确认，直接执行程序化 pop；PopScope 只拦截系统的返回请求。
