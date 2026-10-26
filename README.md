@@ -35,6 +35,7 @@ test/games/          原游戏回归测试与原版比对素材
 
 - iOS 18 的 `AppIcon.appiconset` 含默认、深色与灰度着色变体。
 - iOS 26 / macOS 26 使用 `Runner/BBKIcon.icon`，在系统图标样式中选择默认或深色时呈现对应外观；旧系统由 Xcode 生成兼容图标。
+- macOS 15 及更早系统在应用运行时自动切换 Dock 的浅色、深色图标，不更改系统主题。
 - Android、Windows 使用同一套浅色设计导出的各尺寸资源。
 - `tool/render_icons.cjs` 可用 Node.js 和 `sharp` 重新光栅化 SVG；运行应用不需要这些工具。
 
