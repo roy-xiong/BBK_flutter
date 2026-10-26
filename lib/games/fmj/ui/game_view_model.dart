@@ -126,7 +126,10 @@ final class GameViewModel extends ChangeNotifier {
       }
       game.onSaveChanged = () => unawaited(persist());
       loading = false;
-      _timer = Timer.periodic(const Duration(milliseconds: 40), (_) => _tick());
+      _timer = Timer.periodic(
+        const Duration(milliseconds: 40),
+        (_) => advanceFrame(),
+      );
       _render();
       notifyListeners();
     } catch (e) {
@@ -138,19 +141,27 @@ final class GameViewModel extends ChangeNotifier {
     }
   }
 
-  void _tick() {
+  /// 推进一次40ms前台帧；输入的长按门槛使用真实时间，游戏模拟仍按所选倍速推进。
+  ///
+  /// 与虚拟方向键保持相同的320ms长按识别门槛，不能将它也除以倍速，否则四倍速
+  /// 下80ms的普通短按就会进入连走。进入长按后才按倍速累计105ms的游戏重复间隔。
+  void advanceFrame() {
     final game = engine;
     if (_disposed || paused || game == null) return;
     final held = _held;
     if (held != null) {
-      // 手动长按与自动寻路使用相同的游戏时间，避免四倍速只加快自动走路。
-      _heldElapsed += 40 * game.runSpeed;
-      var interval = _heldRepeating ? 105 : 320;
-      while (_heldElapsed >= interval) {
-        _heldElapsed -= interval;
-        _heldRepeating = true;
+      if (!_heldRepeating) {
+        _heldElapsed += 40;
+        if (_heldElapsed >= 320) {
+          _heldElapsed = (_heldElapsed - 320) * game.runSpeed;
+          _heldRepeating = true;
+        }
+      } else {
+        _heldElapsed += 40 * game.runSpeed;
+      }
+      while (_heldRepeating && _heldElapsed >= 105) {
+        _heldElapsed -= 105;
         game.key(held);
-        interval = 105;
         if (game.operation != null ||
             game.battle != null ||
             game.cursor?.running == true) {
@@ -170,6 +181,7 @@ final class GameViewModel extends ChangeNotifier {
   void down(GameKey key) {
     final game = engine;
     if (game == null || paused || _disposed) return;
+    if (_held == key) return; // 同一方向按住期间不因重复KeyDown重发第一步。
     _held = key.index < 4 ? key : null;
     _heldElapsed = 0;
     _heldRepeating = false;

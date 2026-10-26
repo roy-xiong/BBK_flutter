@@ -132,7 +132,7 @@
       "source": "lib/ui/game_view_model.dart",
       "destination": "lib/games/fmj/ui/game_view_model.dart",
       "sourceSha256": "786dff4519fccfd2727406d85205e84ad72394a542c0ece02ca086e142e1a202",
-      "importedSha256": "a083331a426d65c3d2c709de16279d47068717525ded076187a02726c12ac841"
+      "importedSha256": "d8a7e8e312201e65808705f96b87dab0a29aadc3835dcc8c4175bb1c0d5e08d5"
     },
     {
       "game": "fmj",
@@ -160,7 +160,7 @@
       "source": "lib/ui/modern_game_view.dart",
       "destination": "lib/games/fmj/ui/modern_game_view.dart",
       "sourceSha256": "7fead2e2d569c14ca9d2d9c012124c82b450b5e1e0c75310b0bc47eb495d45c0",
-      "importedSha256": "7fead2e2d569c14ca9d2d9c012124c82b450b5e1e0c75310b0bc47eb495d45c0"
+      "importedSha256": "85734a1a94bf324a4d9f82bdd2a1a1946fdb7dff5bc624b82a3a7a2a53cf0ab0"
     },
     {
       "game": "fmj",
@@ -2301,6 +2301,18 @@
       "previousImportedSha256": "5e75bf722b16445cccbd502e46c3dacb84c74b889f791748f72899ae416474ec",
       "currentSha256": "f559ecda9c9dccf7ab81b870670e532eb1acf15922240149ddd759c703f7f9a4",
       "reason": "补充石座/去皇冠；图集无损去重、保留角色来源标记并恢复内存预算"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_view_model.dart",
+      "previousImportedSha256": "a083331a426d65c3d2c709de16279d47068717525ded076187a02726c12ac841",
+      "currentSha256": "d8a7e8e312201e65808705f96b87dab0a29aadc3835dcc8c4175bb1c0d5e08d5",
+      "reason": "用户反馈键盘短按多步与主/子菜单间距，2026-10-26"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_game_view.dart",
+      "previousImportedSha256": "7fead2e2d569c14ca9d2d9c012124c82b450b5e1e0c75310b0bc47eb495d45c0",
+      "currentSha256": "85734a1a94bf324a4d9f82bdd2a1a1946fdb7dff5bc624b82a3a7a2a53cf0ab0",
+      "reason": "用户反馈键盘短按多步与主/子菜单间距，2026-10-26"
     }
   ]
 }

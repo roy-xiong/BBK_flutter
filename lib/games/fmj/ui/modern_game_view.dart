@@ -270,6 +270,7 @@ final class _ModernSceneView extends StatelessWidget {
                       menu: menu,
                       model: model,
                       scale: (constraints.maxWidth / 640).clamp(1.0, 1.6),
+                      maxHeight: constraints.maxHeight * .9,
                     ),
                   ),
                 ),
@@ -572,11 +573,13 @@ final class _NativeMenu extends StatefulWidget {
     required this.menu,
     required this.model,
     this.scale = 1,
+    required this.maxHeight,
   });
   final GameEngine game;
   final GameMenu menu;
   final GameViewModel model;
   final double scale;
+  final double maxHeight;
   @override
   State<_NativeMenu> createState() => _NativeMenuState();
 }
@@ -587,8 +590,21 @@ final class _NativeMenuState extends State<_NativeMenu> {
   GameMenu? _observed;
   int _selected = -1, _page = 0;
   bool get _detailed => ['inventory', 'magic'].contains(widget.menu.kind);
-  double get _extent =>
-      (widget.menu.kind == 'state' ? 164.0 : 52.0) * widget.scale;
+
+  /// 每行高度由菜单实际可用高度决定；主菜单四项完整可见，长列表继续滚动。
+  double get _extent {
+    if (widget.menu.kind == 'state') return 152.0 * widget.scale;
+    final header =
+        (widget.menu.kind == 'main' ? 50.0 : 28.0) * widget.scale + 18;
+    final count = widget.menu.kind == 'equipment'
+        ? 8
+        : widget.menu.items.length;
+    final visibleRows = widget.menu.kind == 'main' ? 4 : count.clamp(1, 5);
+    return ((widget.maxHeight - header) / visibleRows).clamp(
+      22.0,
+      42.0 * widget.scale,
+    );
+  }
 
   /// 保持按键选中项可见；SELECT/START 只滚动物品说明，不能滚走选中物品后误用。
   void _reveal() {
@@ -701,16 +717,16 @@ final class _NativeMenuState extends State<_NativeMenu> {
         itemCount: items.length,
         itemBuilder: (context, i) => ListTile(
           dense: true,
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 8 * scale,
-            vertical: 3 * scale,
-          ),
+          contentPadding: EdgeInsets.symmetric(horizontal: 8 * scale),
+          minVerticalPadding: 0,
+          minTileHeight: _extent,
+          visualDensity: VisualDensity.compact,
           selected: i == menu.selected,
           selectedTileColor: _gold.withValues(alpha: .14),
           leading: menu.kind == 'state' && i < game.players.length
               ? SizedBox(
                   width: 44 * scale,
-                  height: 64 * scale,
+                  height: 56 * scale,
                   child: CustomPaint(
                     painter: PortraitPainter(
                       game.players[i].index,
@@ -722,9 +738,9 @@ final class _NativeMenuState extends State<_NativeMenu> {
               : null,
           title: Text(
             items[i],
-            maxLines: menu.kind == 'state' ? 7 : 2,
+            maxLines: menu.kind == 'state' ? 7 : 1,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: _paper, fontSize: 13 * scale, height: 1.4),
+            style: TextStyle(color: _paper, fontSize: 13 * scale, height: 1.25),
           ),
           onTap: () => widget.model.action((g) {
             if (!identical(g.menus.lastOrNull, menu) || i >= items.length) {
@@ -826,6 +842,11 @@ final class _NativeMenuState extends State<_NativeMenu> {
                   ),
                 ),
                 IconButton(
+                  constraints: BoxConstraints.tightFor(
+                    width: 28 * scale,
+                    height: 28 * scale,
+                  ),
+                  padding: EdgeInsets.zero,
                   onPressed: () => widget.model.action((g) {
                     if (identical(g.menus.lastOrNull, menu)) {
                       g.press(GameKey.cancel);
