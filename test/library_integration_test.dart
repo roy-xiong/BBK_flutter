@@ -112,9 +112,20 @@ void main() {
         expect(tester.takeException(), isNull);
       } finally {
         await tester.pumpWidget(const SizedBox());
-        await tester.runAsync(
-          () => Future<void>.delayed(const Duration(milliseconds: 100)),
-        );
+        var writesFinished = false;
+        Future.wait([
+          repository.flush(),
+          fmjSaves.flush(),
+          sgbySaves.flush(),
+        ]).then((_) => writesFinished = true);
+        // 存档由页面销毁时提交。交替推进真实 I/O 和测试帧，等待队列完成信号。
+        for (var attempt = 0; attempt < 500 && !writesFinished; attempt++) {
+          await tester.runAsync(
+            () => Future<void>.delayed(const Duration(milliseconds: 20)),
+          );
+          await tester.pump(const Duration(milliseconds: 20));
+        }
+        expect(writesFinished, isTrue, reason: '清理临时目录前必须等待全部存档写入');
         await tester.runAsync(() => directory.delete(recursive: true));
       }
     });

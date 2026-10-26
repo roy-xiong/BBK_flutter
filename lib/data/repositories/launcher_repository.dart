@@ -10,6 +10,9 @@ final class LauncherRepository {
   final Future<Directory> Function() _provider;
   Future<void> _tail = Future<void>.value();
 
+  /// 等待最近选择项落盘；调用者可在此后安全备份或清理本应用目录。
+  Future<void> flush() => _tail;
+
   Future<LibraryGame?> readSelection() async {
     await _tail;
     final root = await _provider();

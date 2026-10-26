@@ -18,6 +18,9 @@ final class GameSaveRepository {
   final GameSaveCodec _codec = GameSaveCodec();
   Future<Directory>? _directory;
   Future<void> _writeTail = Future<void>.value();
+
+  /// 等待已提交的存档及设置写入，避免目录被读取或清理时仍在替换文件。
+  Future<void> flush() => _writeTail;
   static const _gameLimit = 4 * 1024 * 1024;
   static const _settingsLimit = 256 * 1024;
 

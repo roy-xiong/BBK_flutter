@@ -10,6 +10,9 @@ final class SaveRepository {
   Directory? _directory;
   Future<void> _tail = Future.value();
 
+  /// 等待当前已排队的快照落盘，供宿主备份和测试清理在安全时机读取目录。
+  Future<void> flush() => _tail;
+
   /// 默认写入本应用的伏魔记目录；测试仍可注入独立临时目录。
   Future<Directory> _folder() async {
     final existing = _directory;

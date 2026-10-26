@@ -27,7 +27,7 @@
       "source": "lib/data/save_repository.dart",
       "destination": "lib/games/fmj/data/save_repository.dart",
       "sourceSha256": "5e4428f6160cd5effa20cc14cc4d92280cd7975465952b96292c59f30fc12e7a",
-      "importedSha256": "4ed599765727f6a85c67a7b5b7110a233a24ac1fd95052d51ed23013fe0ee4ef"
+      "importedSha256": "a3472457c04f8c4a8724599e548f71a3b5aaa542a7f8b7304b7852203d91aeb0"
     },
     {
       "game": "fmj",
@@ -692,7 +692,7 @@
       "source": "lib/data/repositories/game_save_repository.dart",
       "destination": "lib/games/sgby/data/repositories/game_save_repository.dart",
       "sourceSha256": "c5cbdd1ddb1b0fb599a804c2d4b392bddfd305f1b81d2c3eed6b0655915e0e5b",
-      "importedSha256": "d9a25bdb9eeedd0151a5f3f0d4dac1904ee761c19f91bdf29b1f5c600882b7af"
+      "importedSha256": "7cefa88853ebb32f05af5bfb91e5facd8396f62b2252f614efa11164080c51f0"
     },
     {
       "game": "sgby",
