@@ -1,0 +1,35 @@
+name: BBK Flutter 发布下载链接
+on:
+  workflow_run:
+    workflows: [BBK Flutter 手动打包]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 补发已成功的打包 Run ID
+        type: string
+        required: true
+permissions:
+  actions: read
+  contents: write
+concurrency:
+  group: bbk-flutter-release-${{ github.event.workflow_run.id || inputs.run_id }}
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_repository.full_name == github.repository) }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - run: python3 -m unittest discover -s tool/tests -p 'test_publish_release.py' -v
+      - name: 发布已校验的原始安装包
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          SOURCE_RUN_ID: ${{ github.event.workflow_run.id || inputs.run_id }}
+        run: python3 tool/publish_release.py
