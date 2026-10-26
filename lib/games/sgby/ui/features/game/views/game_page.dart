@@ -198,7 +198,10 @@ class _GamePageState extends State<GamePage>
     return PopScope<Object?>(
       canPop: false,
       onPopInvokedWithResult: (didPop, _) {
-        if (!didPop) _viewModel.send(GameInput.cancel);
+        // 合集由外层统一确认返回；独立游戏继续将系统返回映射为取消键。
+        if (!didPop && widget.onReturnToLibrary == null) {
+          _viewModel.send(GameInput.cancel);
+        }
       },
       child: Focus(
         focusNode: _focus,

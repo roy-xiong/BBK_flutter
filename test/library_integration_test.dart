@@ -96,11 +96,17 @@ void main() {
         await tester.binding.handlePopRoute();
         await tester.pump(const Duration(milliseconds: 250));
         await tester.tap(find.widgetWithText(FilledButton, '返回游戏库'));
-        await tester.runAsync(
-          () => Future<void>.delayed(const Duration(milliseconds: 80)),
-        );
-        await tester.pump(const Duration(milliseconds: 350));
-        await tester.pump(const Duration(milliseconds: 350));
+        // 同时推进真实存档 I/O 和虚拟路由动画，避免用固定两帧猜测保存完成时机。
+        for (
+          var attempt = 0;
+          attempt < 40 && find.byType(NativeGamePage).evaluate().isNotEmpty;
+          attempt++
+        ) {
+          await tester.runAsync(
+            () => Future<void>.delayed(const Duration(milliseconds: 25)),
+          );
+          await tester.pump(const Duration(milliseconds: 100));
+        }
         expect(find.byType(NativeGamePage), findsNothing);
         expect(find.text('选择游戏'), findsOneWidget);
         expect(tester.takeException(), isNull);

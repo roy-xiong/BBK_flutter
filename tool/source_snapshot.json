@@ -1175,7 +1175,7 @@
       "source": "lib/ui/features/game/views/game_page.dart",
       "destination": "lib/games/sgby/ui/features/game/views/game_page.dart",
       "sourceSha256": "b9fa4d3c62037d986974041d2092a65b40418fe1a29e2cd606850f0ad33e2a30",
-      "importedSha256": "c03c020bda6f2828c23be0b69842152d32756afd9110c3719fcdec24ea08b320"
+      "importedSha256": "f46999989f5b8ac909379ba074433a74a2248fe33d451ced25dc2ebe4ecc94ed"
     },
     {
       "game": "sgby",

@@ -86,11 +86,9 @@ final class _NativeGamePageState extends State<NativeGamePage> {
       if (confirmed != true || !mounted) return;
       await fmjModel?.persist(rethrowOnFailure: true);
       if (!mounted) return;
-      setState(() => _leaving = true);
-      // 先让 PopScope 接收新的 canPop，再发出 pop；防止程序化返回被自身拦截。
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) Navigator.of(context).pop();
-      });
+      _leaving = true;
+      // 用户已经确认，直接执行程序化 pop；PopScope 只拦截系统的返回请求。
+      Navigator.of(context).pop();
     }
 
     try {
@@ -164,7 +162,7 @@ final class _NativeGamePageState extends State<NativeGamePage> {
       game = const Scaffold(body: Center(child: Text('游戏暂不可用')));
     }
     return PopScope(
-      canPop: _leaving,
+      canPop: false,
       onPopInvokedWithResult: (didPop, _) {
         if (!didPop) unawaited(_requestLeave());
       },
