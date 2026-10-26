@@ -56,6 +56,8 @@ test/games/          原游戏回归测试与原版比对素材
 
 每次打包递增 `pubspec.yaml` 版本并提交，所有选中平台引用同一提交。产物包含 SHA-256：
 
+打包成功后，`BBK Flutter 发布下载链接` 自动校验原始安装包并发布到 [GitHub Releases](https://github.com/roy-xiong/BBK_flutter/releases)。已有成功任务也可用该流程的 `run_id` 输入补发，无须重新打包。发布标签绑定实际构建的版本提交，附件完整上传并核对摘要后才公开。
+
 - macOS：通用 arm64 / x86_64 的 DMG、ZIP，校验 ad-hoc 签名。
 - Android：固定签名 APK。
 - iOS：未签名 IPA，安装前需自行签名。
