@@ -34,43 +34,6 @@ final class ModernWorldObjects {
         target,
         paint,
       );
-      if (drawn && actor.sprite == 2) {
-        final board = Rect.fromLTWH(
-          target.left + tile * .5,
-          target.top + tile * 1.25,
-          tile * 3,
-          tile,
-        );
-        canvas.drawRRect(
-          RRect.fromRectAndRadius(board, Radius.circular(tile * .05)),
-          paint..color = const Color(0xff25453f),
-        );
-        canvas.drawRRect(
-          RRect.fromRectAndRadius(
-            board.deflate(.7),
-            Radius.circular(tile * .05),
-          ),
-          paint
-            ..color = const Color(0xffd2b77f)
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 1,
-        );
-        final name = TextPainter(
-          text: TextSpan(
-            text: '三清宫',
-            style: (textStyle ?? const TextStyle()).copyWith(
-              fontSize: tile * .58,
-              color: const Color(0xfff0dbac),
-            ),
-          ),
-          textDirection: TextDirection.ltr,
-        )..layout();
-        name.paint(
-          canvas,
-          board.center - Offset(name.width / 2, name.height / 2),
-        );
-        name.dispose();
-      }
       return drawn;
     }
     if (actor.sprite == 8) {
@@ -113,6 +76,27 @@ final class ModernWorldObjects {
         target,
         paint,
       );
+    }
+    if (actor.sprite == 31) {
+      // 天道保持剧情机关身份，地图用与战斗相符的深色道袍、空手四向形象。
+      final key =
+          'world:tiandao:${actor.direction.clamp(1, 4)}/${[0, 1, 2, 1][actor.step % 4]}';
+      final sprite = art.sprites[key];
+      if (sprite != null) {
+        final height = tile * 1.7,
+            width = height * sprite.rect.width / sprite.rect.height;
+        return art.drawSprite(
+          canvas,
+          key,
+          Rect.fromLTWH(
+            point.dx + tile / 2 - width / 2,
+            point.dy + tile - height,
+            width,
+            height,
+          ),
+          paint,
+        );
+      }
     }
     final phase = [0, 1, 2, 1][actor.step % 4];
     final key = art.sprites.containsKey('mechanism:${actor.sprite}/$phase')

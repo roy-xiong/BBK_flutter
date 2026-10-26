@@ -70,3 +70,5 @@ macOS 预览包使用 ad-hoc 签名，未做 Apple 开发者签名和公证。�
 手动打包会同时递增 `versionName` 和构建号，并把 [CHANGELOG.md](CHANGELOG.md) 的「未发布」内容归档到本次版本。Release 从实际构建提交读取对应版本的变更记录，正文附上各安装包直链；只有附件全部上传且摘要一致才公开。
 
 伏魔记已接入逐项审核通过的美术修订，版本组合和资源校验信息见 `tool/fmj_art_approval.json`。来源工程和原始ROM/地图/剧情资源保留，合集内修订可从 `tool/source_snapshot.json` 的 `integrationRevisions` 追溯。
+
+Windows版解压整个便携包后运行 `步步高经典游戏2.exe`，保留旁边的DLL和data目录。本轮83图修订与图集内存记录见 `tool/fmj_art_v5_changes.json`。

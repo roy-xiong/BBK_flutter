@@ -15,10 +15,14 @@ final class ModernTerrain {
     return list != null && tile >= 0 && tile < list.length ? list[tile] : null;
   }
 
-  static String sceneMaterial(int tileset, int tile, bool walkable) =>
-      tileset == 8
-      ? (walkable ? 'cave' : 'cave-wall')
-      : _rule(tileset, tile)?.$1 ?? base(tileset);
+  /// 山壁与枯树按原组合分别采样，103至109号枯树碎片不能再当云气/石栏铺底。
+  static String sceneMaterial(int tileset, int tile, bool walkable) {
+    if (tileset == 8) return walkable ? 'cave' : 'cave-wall';
+    if (tileset == 2 && tile >= 86 && tile <= 93) return 'mountain-wall';
+    if (tileset == 2 && tile >= 103 && tile <= 109) return 'earth';
+    return _rule(tileset, tile)?.$1 ?? base(tileset);
+  }
+
   static String? material(int tileset, int tile) => _rule(tileset, tile)?.$1;
   static String? structureKey(int tileset, int tile) =>
       _rule(tileset, tile)?.$3;

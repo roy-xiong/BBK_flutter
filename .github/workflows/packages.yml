@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       platform:
-        description: 打包平台（当前先验收 macOS，其他平台验收后手动选择）
+        description: 打包平台（仅构建所选平台）
         type: choice
         default: macos
         options: [macos, android, ios, windows, all]
@@ -184,8 +184,16 @@ jobs:
         shell: pwsh
         run: |
           $bundle = 'build/windows/x64/runner/Release'
+          Rename-Item "$bundle/bbk_flutter.exe" '步步高经典游戏2.exe'
           Get-ChildItem "$env:WINDIR/System32/vcruntime140*.dll" | Copy-Item -Destination $bundle
           Copy-Item "$env:WINDIR/System32/msvcp140.dll" $bundle
+          @'
+          步步高经典游戏2
+
+          请先解压整个ZIP，再运行「步步高经典游戏2.exe」。
+          data目录、flutter_windows.dll和其他DLL需要保留在EXE旁。
+          键盘方向键短按走一格，长按连续移动；可在游戏内查看或修改键盘映射。
+          '@ | Set-Content -Encoding utf8 "$bundle/开始游戏.txt"
           New-Item -ItemType Directory -Force dist | Out-Null
           Compress-Archive -Path "$bundle/*" -DestinationPath 'dist/BBK-Flutter-Windows-portable-${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}.zip'
           python tool/checksums.py dist

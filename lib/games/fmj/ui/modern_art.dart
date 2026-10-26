@@ -29,6 +29,7 @@ final class SceneBuilding {
     this.floor = false,
     this.cells,
     this.visualHeight,
+    this.visualWidth,
   });
   final String key;
   final bool floor;
@@ -39,6 +40,9 @@ final class SceneBuilding {
 
   /// 视觉高度独立于原占地，井等立体物件可向上延伸，碰撞与入口范围不变。
   final double? visualHeight;
+
+  /// 静态掌柜的形象可略宽于原一格占地，中心与脚底仍贴齐原位置，交互格不变。
+  final double? visualWidth;
   bool contains(double px, double py) =>
       px >= x && px <= x + width && py >= y && py < y + height;
 }
@@ -278,12 +282,15 @@ final class ModernArt {
                       .toList(growable: false);
                   final visualHeight = (item['visualHeight'] as num?)
                       ?.toDouble();
+                  final visualWidth = (item['visualWidth'] as num?)?.toDouble();
                   if (x < 0 || y < 0 || w <= 0 || h <= 0) {
                     throw FormatException('建筑占地无效：$key');
                   }
                   if (covered?.any((cell) => cell < 0) == true ||
                       visualHeight != null &&
-                          (!visualHeight.isFinite || visualHeight <= 0)) {
+                          (!visualHeight.isFinite || visualHeight <= 0) ||
+                      visualWidth != null &&
+                          (!visualWidth.isFinite || visualWidth <= 0)) {
                     throw FormatException('物件细节范围无效：$key');
                   }
                   return SceneBuilding(
@@ -295,6 +302,7 @@ final class ModernArt {
                     floor: item['floor'] == true,
                     cells: covered == null ? null : List.unmodifiable(covered),
                     visualHeight: visualHeight,
+                    visualWidth: visualWidth,
                   );
                 }),
               ),
@@ -372,7 +380,15 @@ final class ModernArt {
     final ground = groundTextures[material];
     if (ground != null) {
       // 土路与草地采用更长周期，避免暗色土斑在短距离内重复成网格；铺装保持细节密度。
-      final span = material == 'earth' || material == 'grass' ? 8.0 : 4.0;
+      final span =
+          const {
+            'earth',
+            'grass',
+            'bamboo-forest',
+            'mountain-wall',
+          }.contains(material)
+          ? 8.0
+          : 4.0;
       // 审核通过的殿内地板与整面砖墙按每格64px原稿取样，墙梁仅在整面墙的
       // 上下沿出现，不将一整面墙压进四格或给每格重新加木框。
       final spanX = material.startsWith('hall-') ? ground.width / 64.0 : span;

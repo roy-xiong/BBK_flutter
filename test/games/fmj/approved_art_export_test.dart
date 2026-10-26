@@ -53,7 +53,7 @@ void main() {
       }
 
       try {
-        for (final id in ['2:7', '2:8', '1:7', '1:32', '1:22', '1:23', '3:8']) {
+        for (final id in data.maps.keys) {
           final map = data.maps[id]!;
           game.map = map;
           game.npcs.clear();
@@ -151,5 +151,5 @@ void main() {
         art.dispose();
       }
     });
-  }, timeout: const Timeout(Duration(minutes: 3)));
+  }, timeout: const Timeout(Duration(minutes: 6)));
 }

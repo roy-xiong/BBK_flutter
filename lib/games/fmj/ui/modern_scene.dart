@@ -105,7 +105,7 @@ final class ModernScenePainter extends CustomPainter {
             (y < 3 ||
                 y >= map.height - 3 &&
                     const {20, 21, 24}.contains(map.cell(x, y) & 127));
-        final material = map.tiles == 6
+        var material = map.tiles == 6
             ? (hallWall ? 'hall-wall' : 'hall-floor')
             : buildingGround.contains(y * map.width + x)
             ? ModernTerrain.base(map.tiles)
@@ -114,6 +114,16 @@ final class ModernScenePainter extends CustomPainter {
                 map.cell(x, y) & 127,
                 map.canWalk(x, y),
               );
+        final sourceTile = map.cell(x, y) & 127;
+        if (map.tiles == 2 && sourceTile >= 86 && sourceTile <= 93) {
+          material = 'mountain-wall';
+        } else if (map.tiles == 2 && sourceTile >= 103 && sourceTile <= 109) {
+          material = 'earth';
+        } else if (const {3, 5, 7}.contains(map.tiles) && material == 'stone') {
+          material = 'indoor-stone';
+        } else if (map.tiles == 1 && material == 'stone') {
+          material = 'city-stone';
+        }
         if (!art.drawGround(
           canvas,
           material,
@@ -164,6 +174,30 @@ final class ModernScenePainter extends CustomPainter {
         }
         final tile = map.cell(x, y) & 127,
             key = ModernTerrain.structureKey(map.tiles, tile);
+        if (map.tiles == 2 && tile >= 2 && tile <= 7) {
+          art.drawGround(
+            canvas,
+            'bamboo-forest',
+            camera.target(column, row),
+            x,
+            y,
+            _paint..color = Colors.white,
+          );
+          continue;
+        }
+        if (map.tiles == 2 && tile >= 86 && tile <= 93) continue;
+        if (map.tiles == 2 && tile >= 103 && tile <= 109) continue;
+        if (map.tiles == 1 &&
+            const {60, 63, 64, 67, 68}.contains(tile) &&
+            (x < 4 || x >= map.width - 4 || y < 3 || y >= map.height - 2)) {
+          art.drawSprite(
+            canvas,
+            'structure:city-wall:$tile/0',
+            camera.target(column, row),
+            _paint..color = Colors.white,
+          );
+          continue;
+        }
         if (map.tiles == 6 &&
             ({20, 21, 24}.contains(tile) ||
                 ModernTerrain.role(map.tiles, tile) == 'altar-object')) {
@@ -219,10 +253,11 @@ final class ModernScenePainter extends CustomPainter {
       final visualHeight = (b.visualHeight ?? b.height.toDouble())
           .clamp(0.0, b.y + b.height.toDouble())
           .toDouble();
+      final visualWidth = b.visualWidth ?? b.width.toDouble();
       final footprint = Rect.fromLTWH(
-        point.dx,
+        point.dx + (b.width - visualWidth) * tileSize / 2,
         point.dy + (b.height - visualHeight) * tileSize,
-        b.width * tileSize,
+        visualWidth * tileSize,
         visualHeight * tileSize,
       );
       if (!footprint.overlaps(const Rect.fromLTWH(0, 0, 640, 384))) continue;
@@ -261,7 +296,7 @@ final class ModernScenePainter extends CustomPainter {
         b.y + b.height.toDouble(),
         () {
           canvas.save();
-          if (hasProtected && map.tiles != 6) {
+          if (hasProtected && map.tiles != 6 && !b.key.startsWith('world:')) {
             final bounds = Path()..addRect(footprint);
             canvas.clipPath(
               Path.combine(PathOperation.difference, bounds, protected),

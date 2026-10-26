@@ -1,0 +1,28 @@
+{
+  "authorization": "2026-10-26 用户取消审核，要求直接修复并仅打Windows包",
+  "mapsChecked": 83,
+  "mapsWithSharedRepairs": 48,
+  "decodedBytes": 251518976,
+  "budgetBytes": 268435456,
+  "allPackedFramePixelsVerified": 1709,
+  "worldFramesResampled": 636,
+  "originalGameMapsAndEventsChanged": false,
+  "assets": {
+    "enhanced-00.png": "d4d587d78d2e55e09017b83d6e276510fbe2eac81372a9f2ac1381f3b47089fe",
+    "enhanced-01.png": "f6de4546b8de615dbd81bdf7d82d341c9a444e74364500f7c75c2d4d32b949fe",
+    "enhanced-02.png": "942a0d9b1754460e8e4f81299dc554ff2afd80b8621f18ee9dbfd3dc146a4c9d",
+    "enhanced-03.png": "9ca7d0a0e08e9f7ad01fd32010dd43cfa3d65c3c4225eb838742d69dfaf13f25",
+    "enhanced-04.png": "7ac59f8464bd42526d01f6b4da887904d575609ecfc145f49ba7f98b2cf7e6a0",
+    "enhanced-05.png": "60873839f5ae76b52440614522cebe326274ca4a386f70a1dbd0c526c189f669",
+    "enhanced-06.png": "dec32b24b2ce98f6e3306c3b0b111c7d627bd756ed8656ead9db0471e809522c",
+    "enhanced-07.png": "5acea2a1ae5d90c2c7de94b816e6343f33df1eed3f78473fa07a542eb7bf306d",
+    "enhanced-08.png": "60362596a3a23f47af8d307e24696d07f3b455d31f5c8172467dc3e38912062a",
+    "enhanced-09.png": "ffd5e09b4a1e1f6d42298e045d516baaa8f9660b565e37ec54f00618bfb89faa",
+    "enhanced-10.png": "b0de0ee1a044b50484ac60781d0d65dceba614d4274c2f2e111252e9af4629d8",
+    "enhanced-11.png": "012fc4b293e1f59af5a513fd4b296bb2f16a915571293345a3298866b91c6101",
+    "surface-indoor-stone-v5.png": "efbd5b81e79e019170de34c9cd65feebb060c476fa902839bf620b8bad35f444",
+    "surface-city-stone-v5.png": "26a8e8fc535347982f7e942e669cb8ed6c931713c3f82b78ef239fbdde3598f5",
+    "surface-mountain-wall-v5.png": "2b96eb8a99d27b25d0e0fe1a7757d240babe7f32c1ecef65a58329007cd72c26",
+    "surface-bamboo-forest-v5.png": "c94f00b2c3d56a11635181fbe509995522c0172c25f5a2ddcb1a9da0c5c95e2c"
+  }
+}
