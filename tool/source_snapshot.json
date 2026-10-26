@@ -174,7 +174,7 @@
       "source": "lib/ui/modern_scene.dart",
       "destination": "lib/games/fmj/ui/modern_scene.dart",
       "sourceSha256": "0ca7e7194f78502f1fc560c83b6a82701c4082b531bfc9e57d50dd480af0ba15",
-      "importedSha256": "24467d5f56aee216c01fdced8e94f6bcf5dd86694da03bee85bcc62e11e4bf92"
+      "importedSha256": "b43fd96a87832150de913f26aeab4c426560ebd1ed1cb4b78945114ee4b38295"
     },
     {
       "game": "fmj",
@@ -293,105 +293,105 @@
       "source": "assets/modern/enhanced-00.png",
       "destination": "assets/fmj/modern/enhanced-00.png",
       "sourceSha256": "a23454a3f68d1fcd3083e623107dddb3b232db9fc622cee82bc8f81de294240b",
-      "importedSha256": "a23454a3f68d1fcd3083e623107dddb3b232db9fc622cee82bc8f81de294240b"
+      "importedSha256": "82092024e133b5f0c43676fd2e37b8dd3a564d33cacf52a47076cd1e08808997"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-01.png",
       "destination": "assets/fmj/modern/enhanced-01.png",
       "sourceSha256": "858ff7001a89094388d608450f6b103e6a41e20de456d882dc3e9f5e10909b1a",
-      "importedSha256": "858ff7001a89094388d608450f6b103e6a41e20de456d882dc3e9f5e10909b1a"
+      "importedSha256": "f32cb49275f9ecf5ea7f18e5c213eabd9371f1666908195d59916e6ed51fa4de"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-02.png",
       "destination": "assets/fmj/modern/enhanced-02.png",
       "sourceSha256": "7c773e85c7558577489ec290c1784475a322489f40cfffe5a120528c5a15906a",
-      "importedSha256": "7c773e85c7558577489ec290c1784475a322489f40cfffe5a120528c5a15906a"
+      "importedSha256": "44e5e79e1e2cdd52c2bd1052ae890765669ded672f5b6172a53baacaff0c7c93"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-03.png",
       "destination": "assets/fmj/modern/enhanced-03.png",
       "sourceSha256": "7cd41907a10ec92b398d9e5a46dff8c1a33942771d3656021085865594a26d4c",
-      "importedSha256": "7cd41907a10ec92b398d9e5a46dff8c1a33942771d3656021085865594a26d4c"
+      "importedSha256": "e85fb5ff92cd9341e01ea35299810db1883206ea2e5b523dd374fac545fb2b7e"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-04.png",
       "destination": "assets/fmj/modern/enhanced-04.png",
       "sourceSha256": "1c29ad7b1e297216c27b2be2dc9d42ec290cc0829ad120dcf87a6e0bc96ad641",
-      "importedSha256": "1c29ad7b1e297216c27b2be2dc9d42ec290cc0829ad120dcf87a6e0bc96ad641"
+      "importedSha256": "b2957d2129c874f321386212bf911ecc9716da28178d18fd435a18e685f6d6b5"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-05.png",
       "destination": "assets/fmj/modern/enhanced-05.png",
       "sourceSha256": "f6b3135d409b967f1bc45af71e40d201ca444e0df647d0e29eeb7284ff8b92ba",
-      "importedSha256": "f6b3135d409b967f1bc45af71e40d201ca444e0df647d0e29eeb7284ff8b92ba"
+      "importedSha256": "5bc92200fd470b81031ffe972e53a50f1d613e74abd0fdd5c1a8595bb17cd9ef"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-06.png",
       "destination": "assets/fmj/modern/enhanced-06.png",
       "sourceSha256": "6f8ec480887060d00418f11181a7a22fa85f3fded4dda1c45bafc01869b4528d",
-      "importedSha256": "6f8ec480887060d00418f11181a7a22fa85f3fded4dda1c45bafc01869b4528d"
+      "importedSha256": "599f2afb6f62fe5c25931e4f056f65140c61b0b148088a9eb347f5df170773d3"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-07.png",
       "destination": "assets/fmj/modern/enhanced-07.png",
       "sourceSha256": "eca46747531bb706e1ab5dccf4317e2e0ac69a47b26f22478e537157c7ee48e5",
-      "importedSha256": "eca46747531bb706e1ab5dccf4317e2e0ac69a47b26f22478e537157c7ee48e5"
+      "importedSha256": "e307bfe0a9c97c249b161db69a3ef400761f741f973dd7962bb40a958a5fcffc"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-08.png",
       "destination": "assets/fmj/modern/enhanced-08.png",
       "sourceSha256": "ef7cc8f00cbd4fe4258f6786ee37a321eb19931f4f7a58f56d597b23b987e1a8",
-      "importedSha256": "ef7cc8f00cbd4fe4258f6786ee37a321eb19931f4f7a58f56d597b23b987e1a8"
+      "importedSha256": "e71a983300be8d115f5c85206be15be4c5cdd84c9ac0d3074b3596aedcd5b4e8"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-09.png",
       "destination": "assets/fmj/modern/enhanced-09.png",
       "sourceSha256": "1ce89330d66574640f0b490270faea4dce643b25819aaa8f498eafce7d72f21a",
-      "importedSha256": "1ce89330d66574640f0b490270faea4dce643b25819aaa8f498eafce7d72f21a"
+      "importedSha256": "367bc8631b8cc309c8e9330196f737cfb9df9b60cc9b90fbc6bfd67695c68a1e"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-10.png",
       "destination": "assets/fmj/modern/enhanced-10.png",
       "sourceSha256": "446ad1ac681ee0de6965ad4790df6c22572760e629fb8b5a20d5df7ec573b2b9",
-      "importedSha256": "446ad1ac681ee0de6965ad4790df6c22572760e629fb8b5a20d5df7ec573b2b9"
+      "importedSha256": "51d9888c85b500cbd700f44e3083c7341dd43272f5d0b2f98dc83ad9ac5874c1"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-11.png",
       "destination": "assets/fmj/modern/enhanced-11.png",
       "sourceSha256": "f048f9fa743c0eaccc80794b7f1e9f84dc2665a194c518ffa79148faf35ceb84",
-      "importedSha256": "f048f9fa743c0eaccc80794b7f1e9f84dc2665a194c518ffa79148faf35ceb84"
+      "importedSha256": "bc394789f32956578207b331f963d8b35d1357912bf0ffd97717fa3a5fc3881f"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-12.png",
       "destination": "assets/fmj/modern/enhanced-12.png",
       "sourceSha256": "a38e00e3b00f3dd808cd96831fa7346c6312a7ba8f2a6fea4f8eb37e2200ba61",
-      "importedSha256": "a38e00e3b00f3dd808cd96831fa7346c6312a7ba8f2a6fea4f8eb37e2200ba61"
+      "importedSha256": "5f9dfd1a62ea0e4a267b5374f9fe54da2cbd6caae52e49e3d0deeca6279b9328"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-art-sources.json",
       "destination": "assets/fmj/modern/enhanced-art-sources.json",
       "sourceSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e",
-      "importedSha256": "1407564fc49b64ab263b95be865a8d277495c8a336fb0b4cf5b3b21c7390cd65"
+      "importedSha256": "5f35343a71e224c4755f41986a2471e61d1992e5694e2b4667e5fe50e1d20ee1"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "5e75bf722b16445cccbd502e46c3dacb84c74b889f791748f72899ae416474ec"
+      "importedSha256": "f559ecda9c9dccf7ab81b870670e532eb1acf15922240149ddd759c703f7f9a4"
     },
     {
       "game": "fmj",
@@ -2140,32 +2140,20 @@
   "supplementalFiles": [
     {
       "game": "fmj",
-      "destination": "assets/fmj/modern/approved-v4-00.png",
-      "importedSha256": "21d078dfa81c8694ee839b0cded9a44df837fc32accc9c09b48080d320d3eed4",
-      "approval": "tool/fmj_art_approval.json"
-    },
-    {
-      "game": "fmj",
-      "destination": "assets/fmj/modern/approved-v4-01.png",
-      "importedSha256": "0b929fce6161d8ad446051943e77badb96e310ab409c177861a6588206fe9ffb",
-      "approval": "tool/fmj_art_approval.json"
-    },
-    {
-      "game": "fmj",
-      "destination": "assets/fmj/modern/surface-cave-wall-v1.png",
-      "importedSha256": "e58a043e439c3874b0748f824e9a90f8c1e86193e3a5ee987f54ab67400c8f9c",
-      "approval": "tool/fmj_art_approval.json"
-    },
-    {
-      "game": "fmj",
       "destination": "assets/fmj/modern/surface-hall-floor-v1.png",
-      "importedSha256": "7213c1c513980acf9e891d72d5f6eb5010259e9e369abdf229042b75b524e6c6",
+      "importedSha256": "596680016985b42c99a54be0d41def2a8228028d78efdcd54817596db838aca6",
       "approval": "tool/fmj_art_approval.json"
     },
     {
       "game": "fmj",
       "destination": "assets/fmj/modern/surface-hall-wall-v4.png",
       "importedSha256": "0519bfd25977ce74ce173ea169967fa3582227817cab87666a45133fc4bc28a9",
+      "approval": "tool/fmj_art_approval.json"
+    },
+    {
+      "game": "fmj",
+      "destination": "assets/fmj/modern/surface-cave-wall-v1.png",
+      "importedSha256": "e58a043e439c3874b0748f824e9a90f8c1e86193e3a5ee987f54ab67400c8f9c",
       "approval": "tool/fmj_art_approval.json"
     }
   ],
@@ -2217,6 +2205,102 @@
       "previousImportedSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
       "currentSha256": "5e75bf722b16445cccbd502e46c3dacb84c74b889f791748f72899ae416474ec",
       "reason": "2026-10-26 用户确认V4美术及灯洞/倍速修复"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_scene.dart",
+      "previousImportedSha256": "24467d5f56aee216c01fdced8e94f6bcf5dd86694da03bee85bcc62e11e4bf92",
+      "currentSha256": "b43fd96a87832150de913f26aeab4c426560ebd1ed1cb4b78945114ee4b38295",
+      "reason": "补充石座/去皇冠；图集无损去重、保留角色来源标记并恢复内存预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-00.png",
+      "previousImportedSha256": "a23454a3f68d1fcd3083e623107dddb3b232db9fc622cee82bc8f81de294240b",
+      "currentSha256": "82092024e133b5f0c43676fd2e37b8dd3a564d33cacf52a47076cd1e08808997",
+      "reason": "补充石座/去皇冠；图集无损去重、保留角色来源标记并恢复内存预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-01.png",
+      "previousImportedSha256": "858ff7001a89094388d608450f6b103e6a41e20de456d882dc3e9f5e10909b1a",
+      "currentSha256": "f32cb49275f9ecf5ea7f18e5c213eabd9371f1666908195d59916e6ed51fa4de",
+      "reason": "补充石座/去皇冠；图集无损去重、保留角色来源标记并恢复内存预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-02.png",
+      "previousImportedSha256": "7c773e85c7558577489ec290c1784475a322489f40cfffe5a120528c5a15906a",
+      "currentSha256": "44e5e79e1e2cdd52c2bd1052ae890765669ded672f5b6172a53baacaff0c7c93",
+      "reason": "补充石座/去皇冠；图集无损去重、保留角色来源标记并恢复内存预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-03.png",
+      "previousImportedSha256": "7cd41907a10ec92b398d9e5a46dff8c1a33942771d3656021085865594a26d4c",
+      "currentSha256": "e85fb5ff92cd9341e01ea35299810db1883206ea2e5b523dd374fac545fb2b7e",
+      "reason": "补充石座/去皇冠；图集无损去重、保留角色来源标记并恢复内存预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-04.png",
+      "previousImportedSha256": "1c29ad7b1e297216c27b2be2dc9d42ec290cc0829ad120dcf87a6e0bc96ad641",
+      "currentSha256": "b2957d2129c874f321386212bf911ecc9716da28178d18fd435a18e685f6d6b5",
+      "reason": "补充石座/去皇冠；图集无损去重、保留角色来源标记并恢复内存预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-05.png",
+      "previousImportedSha256": "f6b3135d409b967f1bc45af71e40d201ca444e0df647d0e29eeb7284ff8b92ba",
+      "currentSha256": "5bc92200fd470b81031ffe972e53a50f1d613e74abd0fdd5c1a8595bb17cd9ef",
+      "reason": "补充石座/去皇冠；图集无损去重、保留角色来源标记并恢复内存预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-06.png",
+      "previousImportedSha256": "6f8ec480887060d00418f11181a7a22fa85f3fded4dda1c45bafc01869b4528d",
+      "currentSha256": "599f2afb6f62fe5c25931e4f056f65140c61b0b148088a9eb347f5df170773d3",
+      "reason": "补充石座/去皇冠；图集无损去重、保留角色来源标记并恢复内存预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-07.png",
+      "previousImportedSha256": "eca46747531bb706e1ab5dccf4317e2e0ac69a47b26f22478e537157c7ee48e5",
+      "currentSha256": "e307bfe0a9c97c249b161db69a3ef400761f741f973dd7962bb40a958a5fcffc",
+      "reason": "补充石座/去皇冠；图集无损去重、保留角色来源标记并恢复内存预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-08.png",
+      "previousImportedSha256": "ef7cc8f00cbd4fe4258f6786ee37a321eb19931f4f7a58f56d597b23b987e1a8",
+      "currentSha256": "e71a983300be8d115f5c85206be15be4c5cdd84c9ac0d3074b3596aedcd5b4e8",
+      "reason": "补充石座/去皇冠；图集无损去重、保留角色来源标记并恢复内存预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-09.png",
+      "previousImportedSha256": "1ce89330d66574640f0b490270faea4dce643b25819aaa8f498eafce7d72f21a",
+      "currentSha256": "367bc8631b8cc309c8e9330196f737cfb9df9b60cc9b90fbc6bfd67695c68a1e",
+      "reason": "补充石座/去皇冠；图集无损去重、保留角色来源标记并恢复内存预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-10.png",
+      "previousImportedSha256": "446ad1ac681ee0de6965ad4790df6c22572760e629fb8b5a20d5df7ec573b2b9",
+      "currentSha256": "51d9888c85b500cbd700f44e3083c7341dd43272f5d0b2f98dc83ad9ac5874c1",
+      "reason": "补充石座/去皇冠；图集无损去重、保留角色来源标记并恢复内存预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-11.png",
+      "previousImportedSha256": "f048f9fa743c0eaccc80794b7f1e9f84dc2665a194c518ffa79148faf35ceb84",
+      "currentSha256": "bc394789f32956578207b331f963d8b35d1357912bf0ffd97717fa3a5fc3881f",
+      "reason": "补充石座/去皇冠；图集无损去重、保留角色来源标记并恢复内存预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-12.png",
+      "previousImportedSha256": "a38e00e3b00f3dd808cd96831fa7346c6312a7ba8f2a6fea4f8eb37e2200ba61",
+      "currentSha256": "5f9dfd1a62ea0e4a267b5374f9fe54da2cbd6caae52e49e3d0deeca6279b9328",
+      "reason": "补充石座/去皇冠；图集无损去重、保留角色来源标记并恢复内存预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art-sources.json",
+      "previousImportedSha256": "1407564fc49b64ab263b95be865a8d277495c8a336fb0b4cf5b3b21c7390cd65",
+      "currentSha256": "5f35343a71e224c4755f41986a2471e61d1992e5694e2b4667e5fe50e1d20ee1",
+      "reason": "补充石座/去皇冠；图集无损去重、保留角色来源标记并恢复内存预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "5e75bf722b16445cccbd502e46c3dacb84c74b889f791748f72899ae416474ec",
+      "currentSha256": "f559ecda9c9dccf7ab81b870670e532eb1acf15922240149ddd759c703f7f9a4",
+      "reason": "补充石座/去皇冠；图集无损去重、保留角色来源标记并恢复内存预算"
     }
   ]
 }

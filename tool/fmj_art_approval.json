@@ -1,11 +1,6 @@
 {
   "schema": 1,
   "approval": "2026-10-26 用户确认 V4，要求接入后仅构建macOS",
-  "originalAtlasPagesUnchanged": 13,
-  "newAtlasPages": [
-    "approved-v4-00.png",
-    "approved-v4-01.png"
-  ],
   "revisedFrames": 106,
   "updatedNpcAliases": 180,
   "graves": [
@@ -23,10 +18,46 @@
     }
   ],
   "assets": {
-    "approved-v4-00.png": "21d078dfa81c8694ee839b0cded9a44df837fc32accc9c09b48080d320d3eed4",
-    "approved-v4-01.png": "0b929fce6161d8ad446051943e77badb96e310ab409c177861a6588206fe9ffb",
-    "surface-cave-wall-v1.png": "e58a043e439c3874b0748f824e9a90f8c1e86193e3a5ee987f54ab67400c8f9c",
-    "surface-hall-floor-v1.png": "7213c1c513980acf9e891d72d5f6eb5010259e9e369abdf229042b75b524e6c6",
-    "surface-hall-wall-v4.png": "0519bfd25977ce74ce173ea169967fa3582227817cab87666a45133fc4bc28a9"
-  }
+    "enhanced-00.png": "82092024e133b5f0c43676fd2e37b8dd3a564d33cacf52a47076cd1e08808997",
+    "enhanced-01.png": "f32cb49275f9ecf5ea7f18e5c213eabd9371f1666908195d59916e6ed51fa4de",
+    "enhanced-02.png": "44e5e79e1e2cdd52c2bd1052ae890765669ded672f5b6172a53baacaff0c7c93",
+    "enhanced-03.png": "e85fb5ff92cd9341e01ea35299810db1883206ea2e5b523dd374fac545fb2b7e",
+    "enhanced-04.png": "b2957d2129c874f321386212bf911ecc9716da28178d18fd435a18e685f6d6b5",
+    "enhanced-05.png": "5bc92200fd470b81031ffe972e53a50f1d613e74abd0fdd5c1a8595bb17cd9ef",
+    "enhanced-06.png": "599f2afb6f62fe5c25931e4f056f65140c61b0b148088a9eb347f5df170773d3",
+    "enhanced-07.png": "e307bfe0a9c97c249b161db69a3ef400761f741f973dd7962bb40a958a5fcffc",
+    "enhanced-08.png": "e71a983300be8d115f5c85206be15be4c5cdd84c9ac0d3074b3596aedcd5b4e8",
+    "enhanced-09.png": "367bc8631b8cc309c8e9330196f737cfb9df9b60cc9b90fbc6bfd67695c68a1e",
+    "enhanced-10.png": "51d9888c85b500cbd700f44e3083c7341dd43272f5d0b2f98dc83ad9ac5874c1",
+    "enhanced-11.png": "bc394789f32956578207b331f963d8b35d1357912bf0ffd97717fa3a5fc3881f",
+    "enhanced-12.png": "5f9dfd1a62ea0e4a267b5374f9fe54da2cbd6caae52e49e3d0deeca6279b9328",
+    "surface-hall-floor-v1.png": "596680016985b42c99a54be0d41def2a8228028d78efdcd54817596db838aca6",
+    "surface-hall-wall-v4.png": "0519bfd25977ce74ce173ea169967fa3582227817cab87666a45133fc4bc28a9",
+    "surface-cave-wall-v1.png": "e58a043e439c3874b0748f824e9a90f8c1e86193e3a5ee987f54ab67400c8f9c"
+  },
+  "losslessRepack": {
+    "pages": [
+      "enhanced-00.png",
+      "enhanced-01.png",
+      "enhanced-02.png",
+      "enhanced-03.png",
+      "enhanced-04.png",
+      "enhanced-05.png",
+      "enhanced-06.png",
+      "enhanced-07.png",
+      "enhanced-08.png",
+      "enhanced-09.png",
+      "enhanced-10.png",
+      "enhanced-11.png",
+      "enhanced-12.png"
+    ],
+    "allFrameRgbaAndSizesVerified": 1676,
+    "uniqueImages": 1124,
+    "decodedBytes": 267247616,
+    "budgetBytes": 268435456
+  },
+  "additionalApproval": [
+    "三清像加独立石座",
+    "红衣人物去正面皇冠，与其他方向统一束发"
+  ]
 }

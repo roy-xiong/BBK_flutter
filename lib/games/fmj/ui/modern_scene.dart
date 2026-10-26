@@ -121,6 +121,9 @@ final class ModernScenePainter extends CustomPainter {
           camera.left + column,
           hallWall && y >= map.height - 3
               ? y - (map.height - 3)
+              : material == 'hall-floor'
+              ? y -
+                    3 // 顶部三行始终是墙，离线裁掉未使用的地板像素以控制解码内存。
               : camera.top + row,
           _paint,
         )) {
