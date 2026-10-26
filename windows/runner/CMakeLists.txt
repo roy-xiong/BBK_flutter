@@ -20,6 +20,10 @@ add_executable(${BINARY_NAME} WIN32
 # that need different build settings.
 apply_standard_settings(${BINARY_NAME})
 
+# 中文原生窗口标题必须按UTF-8解析，避免宿主系统代码页将宽字符串编译成乱码。
+# 只作用于C++编译；资源脚本继续使用其自身的code_page声明。
+target_compile_options(${BINARY_NAME} PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:/utf-8>")
+
 # Add preprocessor definitions for the build version.
 target_compile_definitions(${BINARY_NAME} PRIVATE "FLUTTER_VERSION=\"${FLUTTER_VERSION}\"")
 target_compile_definitions(${BINARY_NAME} PRIVATE "FLUTTER_VERSION_MAJOR=${FLUTTER_VERSION_MAJOR}")
