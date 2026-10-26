@@ -26,7 +26,7 @@ jobs:
         with:
           ref: main
           persist-credentials: false
-      - run: python3 -m unittest discover -s tool/tests -p 'test_publish_release.py' -v
+      - run: python3 -m unittest discover -s tool/tests -p 'test_*.py' -v
       - name: 发布已校验的原始安装包
         env:
           GH_TOKEN: ${{ github.token }}

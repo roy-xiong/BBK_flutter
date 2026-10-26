@@ -19,7 +19,7 @@ final class _BbkAppState extends State<BbkApp> {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-    title: '步步高经典游戏',
+    title: '步步高经典游戏2',
     debugShowCheckedModeBanner: false,
     theme: AppTheme.dark(),
     home: LauncherPage(repository: _launcher, fmjSaves: _fmj, sgbySaves: _sgby),

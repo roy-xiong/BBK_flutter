@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="步步高经典游戏"
+        android:label="步步高经典游戏2"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

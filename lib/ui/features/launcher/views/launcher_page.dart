@@ -79,7 +79,7 @@ final class _LauncherPageState extends State<LauncherPage> {
 
   void _about() => showAboutDialog(
     context: context,
-    applicationName: '步步高经典游戏',
+    applicationName: '步步高经典游戏2',
     applicationVersion: const String.fromEnvironment(
       'BBK_VERSION',
       defaultValue: '1.0.0',
@@ -95,7 +95,7 @@ final class _LauncherPageState extends State<LauncherPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: const Text('步步高经典游戏'),
+      title: const Text('步步高经典游戏2'),
       actions: [
         IconButton(
           tooltip: '关于与设置说明',

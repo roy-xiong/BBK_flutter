@@ -20,6 +20,8 @@ jobs:
       - run: flutter analyze --no-pub
       - run: python3 tool/verify_source_snapshot.py
       - name: 原有两款游戏及合集入口回归
+        env:
+          FMJ_EXPORT_APPROVED_ART: '1'
         shell: bash
         run: |
           set -o pipefail

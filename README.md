@@ -1,6 +1,6 @@
-# BBK Flutter
+# 步步高经典游戏2
 
-步步高经典游戏合集，内置 **伏魔记**与**三国霸业**两个纯 Flutter / Dart 游戏。首页沿用 BBK 的游戏封面选择方式，支持触摸、鼠标与键盘。
+步步高经典游戏2，内置 **伏魔记**与**三国霸业**两个纯 Flutter / Dart 游戏。首页沿用 BBK 的游戏封面选择方式，支持触摸、鼠标与键盘。
 
 ## 来源
 
@@ -64,3 +64,9 @@ test/games/          原游戏回归测试与原版比对素材
 - Windows：带运行库的便携 ZIP。
 
 macOS 预览包使用 ad-hoc 签名，未做 Apple 开发者签名和公证。素材及原引擎许可信息保存在 `licenses/` 与各资源清单中。
+
+## 版本与变更说明
+
+手动打包会同时递增 `versionName` 和构建号，并把 [CHANGELOG.md](CHANGELOG.md) 的「未发布」内容归档到本次版本。Release 从实际构建提交读取对应版本的变更记录，正文附上各安装包直链；只有附件全部上传且摘要一致才公开。
+
+伏魔记已接入逐项审核通过的美术修订，版本组合和资源校验信息见 `tool/fmj_art_approval.json`。来源工程和原始ROM/地图/剧情资源保留，合集内修订可从 `tool/source_snapshot.json` 的 `integrationRevisions` 追溯。

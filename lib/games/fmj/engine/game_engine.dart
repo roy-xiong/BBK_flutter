@@ -112,69 +112,81 @@ final class GameEngine {
       cursor?.running != true &&
       players.isNotEmpty;
   bool get forceClassic => operation?.movie?.id == '1:3';
+
+  /// 同一倍速作用于整个游戏时钟。输入、寻路、剧情与战斗不得分别重复乘速。
+  int get runSpeed => (preferences['runSpeed'] as int? ?? 1).clamp(1, 4);
   void Function()? onSaveChanged;
 
-  /// 每次推进固定 40ms，后台/弹窗期间由上层停止驱动，恢复后不补算离开时间。
+  /// 一次前台回调对应 40ms 实际时间，以倍速执行原有固定步长，再统一输出画面。
+  ///
+  /// 保留逐步状态转换，奖励、脚本事件和碰撞仍按原顺序各执行一次；不直接跳过
+  /// 升级卡片或动画。菜单、后台由原有入口暂停，恢复时不追赶离开期间的时间。
   void update() {
     if (error.isNotEmpty) return;
     try {
-      ticks++;
-      if (screen == 'intro') {
-        final movie = intro;
-        if (movie == null || !movie.update()) {
-          if (movie?.id == '1:247') {
-            intro = GameMovie(data, 1, 248)..iterations = 4;
-          } else {
-            screen = 'title';
-            intro = null;
-          }
-        }
-      } else if (screen == 'play' && menus.isEmpty) {
-        final current = cursor;
-        if (current != null &&
-            (current.running || battle == null) &&
-            current.timer > 0 &&
-            current.timerEvent > 0) {
-          current.timerCounter -= 40;
-          if (current.timerCounter <= 0) {
-            current.timerCounter += current.timer;
-            triggerEvent(current.timerEvent);
-          }
-        }
-        final op = operation;
-        if (op != null) {
-          _updateOperation(op);
-        } else if (cursor?.running == true) {
-          _process();
-        } else if (battle != null) {
-          battle?.update();
-        } else {
-          _updateNpcs();
-          navigation.tick();
-          if (route.isNotEmpty) {
-            _walkElapsed += 40;
-            // 原版按 105ms / 倍速缩短输入间隔，不按固定间隔瞬移多格。
-            final speed = (preferences['runSpeed'] as int? ?? 1).clamp(1, 4);
-            while (route.isNotEmpty && _walkElapsed * speed >= 105) {
-              // 累计实际毫秒，避免将多格移动压成一次跳跃。
-              _walkElapsed -= 105 / speed;
-              _routeStep();
-              if (cursor?.running == true ||
-                  operation != null ||
-                  battle != null) {
-                _walkElapsed = 0;
-                break;
-              }
-            }
-          } else {
-            _walkElapsed = 0;
-          }
-        }
+      final steps = screen == 'play' && menus.isEmpty ? runSpeed : 1;
+      for (var step = 0; step < steps; step++) {
+        _updateStep();
       }
       render();
     } catch (e) {
       error = '游戏状态异常：$e';
       route.clear();
+    }
+  }
+
+  /// 原引擎的一次 40ms 模拟；此层只处理游戏时间，不另读倍速或驱动平台定时器。
+  void _updateStep() {
+    ticks++;
+    if (screen == 'intro') {
+      final movie = intro;
+      if (movie == null || !movie.update()) {
+        if (movie?.id == '1:247') {
+          intro = GameMovie(data, 1, 248)..iterations = 4;
+        } else {
+          screen = 'title';
+          intro = null;
+        }
+      }
+    } else if (screen == 'play' && menus.isEmpty) {
+      final current = cursor;
+      if (current != null &&
+          (current.running || battle == null) &&
+          current.timer > 0 &&
+          current.timerEvent > 0) {
+        current.timerCounter -= 40;
+        if (current.timerCounter <= 0) {
+          current.timerCounter += current.timer;
+          triggerEvent(current.timerEvent);
+        }
+      }
+      final op = operation;
+      if (op != null) {
+        _updateOperation(op);
+      } else if (cursor?.running == true) {
+        _process();
+      } else if (battle != null) {
+        battle?.update();
+      } else {
+        _updateNpcs();
+        navigation.tick();
+        if (route.isNotEmpty) {
+          _walkElapsed += 40;
+          // 倍速已由外层游戏时钟处理；此处仍是每 105ms 游戏时间走一格。
+          while (route.isNotEmpty && _walkElapsed >= 105) {
+            _walkElapsed -= 105;
+            _routeStep();
+            if (cursor?.running == true ||
+                operation != null ||
+                battle != null) {
+              _walkElapsed = 0;
+              break;
+            }
+          }
+        } else {
+          _walkElapsed = 0;
+        }
+      }
     }
   }
 
@@ -482,7 +494,8 @@ final class GameEngine {
       case 54:
         sceneName = cmd.string;
       case 55:
-        operation = GameOperation('timed', text: sceneName, args: [1000]);
+        // 地点名短暂提示即可；700ms 为一倍速时长，其他倍速共用游戏时钟。
+        operation = GameOperation('timed', text: sceneName, args: [700]);
       case 56:
         operation = GameOperation('delay', args: [40]);
       case 58:

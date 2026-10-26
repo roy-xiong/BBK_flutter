@@ -75,6 +75,35 @@ def verify_artifact(folder, platform, version, build):
     return [folder / name for name in sorted(names)]
 
 
+def version_changes(changelog, version, build):
+    """只读取实际构建提交中的版本章节，防止 main 后续更新串入旧版本说明。"""
+    heading = re.escape(f'{version}+{build}')
+    match = re.search(r'^## ' + heading + r'\s*\n(.*?)(?=^## |\Z)', changelog, re.M | re.S)
+    if not match or not match[1].strip():
+        raise ValueError('实际构建版本缺少变更记录')
+    return match[1].strip()
+
+
+def release_notes(repository, tag, version, build, platforms, changes, files, run_url, revision):
+    """Release 正文明确提供直达附件的下载链接，附件校验完成后才公开。"""
+    labels = {'.dmg': 'macOS DMG 安装包', '.zip': 'macOS ZIP 便携包', '.apk': 'Android APK', '.ipa': 'iOS 未签名 IPA'}
+    downloads = []
+    for path in files:
+        if path.name == 'SHA256SUMS.txt':
+            label = 'SHA-256 校验清单'
+        elif 'Windows' in path.name:
+            label = 'Windows ZIP 便携包'
+        else:
+            label = labels.get(path.suffix, path.name)
+        downloads.append(f'- [{label}](https://github.com/{repository}/releases/download/{tag}/{path.name})')
+    platform_names = {'macos': 'macOS', 'ios': 'iOS', 'android': 'Android', 'windows': 'Windows'}
+    selected = '、'.join(platform_names[p] for p in sorted(platforms))
+    macos = '\nmacOS 同时兼容 Apple Silicon 与 Intel，应用名为「步步高经典游戏2」。采用 ad-hoc 签名，未做 Apple 公证。\n' if 'macos' in platforms else ''
+    return (f'步步高经典游戏2 **{version}+{build}** · 本次平台：**{selected}**。\n\n'
+            f'### 本次变更\n\n{changes}\n\n### 下载\n\n' + '\n'.join(downloads) + '\n'
+            + macos + f'\n[成功的打包流水线]({run_url}) · 构建提交 `{revision}`。\n')
+
+
 def main():
     repository, run_id = os.environ['GH_REPO'], os.environ['SOURCE_RUN_ID']
     if not re.fullmatch(r'[\w.-]+/[\w.-]+', repository) or not re.fullmatch(r'[1-9]\d*', run_id):
@@ -96,6 +125,8 @@ def main():
     pubspec = base64.b64decode(content['content']).decode()
     if not re.search(r'^version:\s*' + re.escape(f'{version}+{build}') + r'\s*$', pubspec, re.M):
         raise ValueError('实际构建提交与安装包版本不一致')
+    history = api(f'{prefix}/contents/CHANGELOG.md?ref={revision}')
+    changes = version_changes(base64.b64decode(history['content']).decode(), version, build)
     tag = f'v{version}-build.{build}'
     tag_ref = api(f'{prefix}/git/ref/tags/{tag}', missing_ok=True)
     if tag_ref and tag_ref['object']['sha'] != revision:
@@ -120,14 +151,14 @@ def main():
         (output / 'SHA256SUMS.txt').write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest() + '  ' + p.name + '\n' for p in files))
         files = sorted(output.iterdir())
         notes = root / 'release-notes.md'
-        notes.write_text(f'纯 Flutter 原生合集：伏魔记与三国霸业。\n\n版本 **{version}+{build}**。本次平台：**{", ".join(sorted(platforms))}**。\n\n下载下方 DMG 或 ZIP，SHA-256 见附件。macOS 包兼容 Intel 与 Apple Silicon，使用 ad-hoc 签名，未做 Apple 公证。\n\niOS/macOS 包含浅色、深色图标，macOS 15 及更早系统另有 Dock 图标适配。\n\n[成功的源打包任务]({run["html_url"]}) · 构建提交 `{revision}`。\n\n其他平台等待 macOS 验收后再打包。\n', encoding='utf-8')
+        notes.write_text(release_notes(repository, tag, version, build, platforms, changes, files, run['html_url'], revision), encoding='utf-8')
         if existing and not existing['draft']:
             remote = {asset['name']:asset for asset in existing['assets']}
             if set(remote) != {p.name for p in files}:
                 raise ValueError('已有正式 Release 的附件不一致，拒绝覆盖')
         else:
             if not existing:
-                gh('release', 'create', tag, '--repo', repository, '--draft', '--prerelease', '--title', f'BBK Flutter {version}+{build} · macOS 预览版', '--notes-file', str(notes))
+                gh('release', 'create', tag, '--repo', repository, '--draft', '--prerelease', '--title', f'步步高经典游戏2 {version}+{build} · {" / ".join(sorted(platforms))}', '--notes-file', str(notes))
             gh('release', 'upload', tag, *[str(p) for p in files], '--repo', repository, '--clobber')
             current = api(f'{prefix}/releases?per_page=100')
             release = next(item for item in current if item['tag_name'] == tag)

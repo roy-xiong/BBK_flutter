@@ -373,6 +373,10 @@ final class ModernArt {
     if (ground != null) {
       // 土路与草地采用更长周期，避免暗色土斑在短距离内重复成网格；铺装保持细节密度。
       final span = material == 'earth' || material == 'grass' ? 8.0 : 4.0;
+      // 审核通过的殿内地板与整面砖墙按每格64px原稿取样，墙梁仅在整面墙的
+      // 上下沿出现，不将一整面墙压进四格或给每格重新加木框。
+      final spanX = material.startsWith('hall-') ? ground.width / 64.0 : span;
+      final spanY = material.startsWith('hall-') ? ground.height / 64.0 : span;
       final tx = target.left - worldX * target.width;
       final ty = target.top - worldY * target.height;
       final key = (
@@ -386,8 +390,8 @@ final class ModernArt {
       var shader = _groundShaders.remove(key);
       if (shader == null) {
         final matrix = Float64List(16)
-          ..[0] = target.width * span / ground.width
-          ..[5] = target.height * span / ground.height
+          ..[0] = target.width * spanX / ground.width
+          ..[5] = target.height * spanY / ground.height
           ..[10] = 1
           ..[12] = tx
           ..[13] = ty

@@ -33,7 +33,7 @@ jobs:
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add pubspec.yaml
+          git add pubspec.yaml CHANGELOG.md
           git commit -m 'chore: package ${{ steps.version.outputs.version }}+${{ steps.version.outputs.build }} [skip ci]'
           git push origin HEAD:main
           echo "revision=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
@@ -54,6 +54,8 @@ jobs:
       - run: flutter analyze --no-pub
       - run: python3 tool/verify_source_snapshot.py
       - name: 原有两款游戏及合集入口回归
+        env:
+          FMJ_EXPORT_APPROVED_ART: '1'
         shell: bash
         run: |
           set -o pipefail
@@ -84,7 +86,7 @@ jobs:
           xcode-version: '26.6'
       - run: flutter pub get --enforce-lockfile
       - name: 构建 macOS 通用包
-        run: flutter build macos --release --no-pub --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}
+        run: flutter build macos --release --no-pub --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}
       - run: bash tool/package_macos.sh '${{ needs.version.outputs.version }}' '${{ needs.version.outputs.build }}'
       - uses: actions/upload-artifact@v4
         with:
@@ -117,7 +119,7 @@ jobs:
           BBK_ANDROID_SIGNING: ${{ secrets.BBK_ANDROID_SIGNING }}
         run: python3 tool/restore_android_signing.py
       - run: flutter pub get --enforce-lockfile
-      - run: flutter build apk --release --no-pub --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}
+      - run: flutter build apk --release --no-pub --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}
       - run: python3 tool/verify_android_signature.py build/app/outputs/flutter-apk/app-release.apk
       - name: 分发 APK
         run: |
@@ -148,7 +150,7 @@ jobs:
         with:
           xcode-version: '26.6'
       - run: flutter pub get --enforce-lockfile
-      - run: flutter build ios --release --no-codesign --no-pub --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}
+      - run: flutter build ios --release --no-codesign --no-pub --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}
       - name: 打包未签名 IPA
         run: |
           mkdir -p dist build/ipa/Payload
@@ -177,7 +179,7 @@ jobs:
           flutter-version: '3.44.4'
           cache: true
       - run: flutter pub get --enforce-lockfile
-      - run: flutter build windows --release --no-pub --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}
+      - run: flutter build windows --release --no-pub --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}
       - name: 打包 Windows 便携版
         shell: pwsh
         run: |

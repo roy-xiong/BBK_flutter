@@ -143,12 +143,20 @@ final class GameViewModel extends ChangeNotifier {
     if (_disposed || paused || game == null) return;
     final held = _held;
     if (held != null) {
-      _heldElapsed += 40;
-      final interval = _heldRepeating ? 105 : 320;
-      if (_heldElapsed >= interval) {
+      // 手动长按与自动寻路使用相同的游戏时间，避免四倍速只加快自动走路。
+      _heldElapsed += 40 * game.runSpeed;
+      var interval = _heldRepeating ? 105 : 320;
+      while (_heldElapsed >= interval) {
         _heldElapsed -= interval;
         _heldRepeating = true;
         game.key(held);
+        interval = 105;
+        if (game.operation != null ||
+            game.battle != null ||
+            game.cursor?.running == true) {
+          _heldElapsed = 0;
+          break;
+        }
       }
     }
     game.update();

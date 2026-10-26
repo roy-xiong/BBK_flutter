@@ -10,6 +10,18 @@ spec.loader.exec_module(publisher)
 
 
 class ReleaseTests(unittest.TestCase):
+    def test_notes_use_only_built_version_and_include_direct_download_links(self):
+        history = '## 未发布\n\n- 未来修改\n\n## 1.0.7+8\n\n- 修复熄灯和倍速\n\n## 1.0.6+7\n\n- 旧版本\n'
+        changes = publisher.version_changes(history, '1.0.7', '8')
+        self.assertEqual(changes, '- 修复熄灯和倍速')
+        with self.assertRaises(ValueError):
+            publisher.version_changes(history, '1.0.8', '9')
+        names = [Path('BBK-Flutter-macOS-1.0.7-build.8.dmg'), Path('BBK-Flutter-macOS-1.0.7-build.8.zip'), Path('SHA256SUMS.txt')]
+        notes = publisher.release_notes('roy-xiong/BBK_flutter', 'v1.0.7-build.8', '1.0.7', '8', ['macos'], changes, names, 'https://example.invalid/run', 'a' * 40)
+        self.assertIn('步步高经典游戏2', notes)
+        self.assertIn('/releases/download/v1.0.7-build.8/BBK-Flutter-macOS-1.0.7-build.8.dmg', notes)
+        self.assertNotIn('未来修改', notes)
+
     def test_uses_version_commit_instead_of_trigger_commit(self):
         commits = [{'sha':'b'*40,'parents':[{'sha':'a'*40}], 'commit':{'message':'chore: package 1.0.6+7 [skip ci]'}}]
         self.assertEqual(publisher.build_commit(commits,'a'*40,'1.0.6','7'),'b'*40)

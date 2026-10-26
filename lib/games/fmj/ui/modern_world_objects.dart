@@ -85,16 +85,34 @@ final class ModernWorldObjects {
       return true;
     }
     if (actor.sprite == 7) {
-      _lamp(canvas, target);
+      // 原脚本击败护灯兽后先停止动画，再将步帧设为0；亮灯动画本身也会经过
+      // 0帧，不能只读当前帧而让尚未通关的灯周期性熄灭。存档已保存这两个值。
+      _lamp(canvas, target, lit: actor.state == 4 || actor.step % 4 != 0);
       return true;
     }
     if (actor.sprite == 9 || actor.sprite == 15) {
-      _chest(
+      final opened =
+          original.frames.length > 1 && [0, 1, 2, 1][actor.step % 4] == 1;
+      if (art.drawObject(
         canvas,
+        'mechanism:chest-${opened ? 'open' : 'closed'}/0',
         target,
-        opened: original.frames.length > 1 && [0, 1, 2, 1][actor.step % 4] == 1,
-      );
+        paint,
+      )) {
+        return true;
+      }
+      _chest(canvas, target, opened: opened);
       return true;
+    }
+    if (actor.sprite == 23 || actor.sprite == 24) {
+      // 仅替换已确认的慕容玄倒地形象与蛇妖。等比贴齐原机关底部，完整保留头脚，
+      // 出现坐标、遮挡范围、原剧情身份和交互仍由引擎持有。
+      return art.drawObject(
+        canvas,
+        'mechanism:${actor.sprite}/0',
+        target,
+        paint,
+      );
     }
     final phase = [0, 1, 2, 1][actor.step % 4];
     final key = art.sprites.containsKey('mechanism:${actor.sprite}/$phase')
@@ -299,8 +317,8 @@ final class ModernWorldObjects {
     canvas.restore();
   }
 
-  /// 伏魔灯绘成实体铜灯，区别于已移除的人造入口光圈。
-  static void _lamp(Canvas canvas, Rect rect) {
+  /// 伏魔灯的灯座始终存在；熄灭后只保留暗色灯芯，不绘制火焰或绿色光团。
+  static void _lamp(Canvas canvas, Rect rect, {required bool lit}) {
     canvas.save();
     canvas.translate(rect.left, rect.top);
     canvas.scale(rect.width / 100, rect.height / 100);
@@ -317,6 +335,21 @@ final class ModernWorldObjects {
       const Rect.fromLTWH(23, 51, 54, 18),
       p..color = const Color(0xffc4a65e),
     );
+    if (!lit) {
+      canvas.drawOval(
+        const Rect.fromLTWH(29, 52, 42, 10),
+        p..color = const Color(0xff413e32),
+      );
+      canvas.drawLine(
+        const Offset(49, 55),
+        const Offset(51, 49),
+        p
+          ..color = const Color(0xff292b29)
+          ..strokeWidth = 2,
+      );
+      canvas.restore();
+      return;
+    }
     canvas.drawOval(
       const Rect.fromLTWH(32, 24, 36, 37),
       p..color = const Color(0xff428d70),

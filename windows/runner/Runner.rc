@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.xiongjian" "\0"
-            VALUE "FileDescription", "bbk_flutter" "\0"
+            VALUE "FileDescription", "步步高经典游戏2" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "bbk_flutter" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2026 com.xiongjian. All rights reserved." "\0"
             VALUE "OriginalFilename", "bbk_flutter.exe" "\0"
-            VALUE "ProductName", "bbk_flutter" "\0"
+            VALUE "ProductName", "步步高经典游戏2" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

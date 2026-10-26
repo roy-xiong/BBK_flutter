@@ -100,7 +100,14 @@ final class ModernScenePainter extends CustomPainter {
           canvas.drawRect(target, _paint..color = const Color(0xff182725));
           continue;
         }
-        final material = buildingGround.contains(y * map.width + x)
+        final hallWall =
+            map.tiles == 6 &&
+            (y < 3 ||
+                y >= map.height - 3 &&
+                    const {20, 21, 24}.contains(map.cell(x, y) & 127));
+        final material = map.tiles == 6
+            ? (hallWall ? 'hall-wall' : 'hall-floor')
+            : buildingGround.contains(y * map.width + x)
             ? ModernTerrain.base(map.tiles)
             : ModernTerrain.sceneMaterial(
                 map.tiles,
@@ -112,7 +119,9 @@ final class ModernScenePainter extends CustomPainter {
           material,
           target,
           camera.left + column,
-          camera.top + row,
+          hallWall && y >= map.height - 3
+              ? y - (map.height - 3)
+              : camera.top + row,
           _paint,
         )) {
           art.draw(
@@ -152,6 +161,37 @@ final class ModernScenePainter extends CustomPainter {
         }
         final tile = map.cell(x, y) & 127,
             key = ModernTerrain.structureKey(map.tiles, tile);
+        if (map.tiles == 6 &&
+            ({20, 21, 24}.contains(tile) ||
+                ModernTerrain.role(map.tiles, tile) == 'altar-object')) {
+          // 墙面已按世界坐标连续铺设，供台已由完整物件接管；不叠回旧褐色碎片。
+          continue;
+        }
+        if (map.tiles == 8) {
+          // 洞壁沿原不可行走格绘制统一岩层，边缘明暗只标出真实的洞壁轮廓。
+          if (!map.canWalk(x, y)) {
+            final target = camera.target(column, row);
+            if (map.canWalk(x, y - 1)) {
+              canvas.drawLine(
+                target.topLeft,
+                target.topRight,
+                _paint
+                  ..color = const Color(0xff819389)
+                  ..strokeWidth = tileSize * .047,
+              );
+            }
+            if (map.canWalk(x, y + 1)) {
+              canvas.drawLine(
+                target.bottomLeft,
+                target.bottomRight,
+                _paint
+                  ..color = const Color(0xff1f3030)
+                  ..strokeWidth = tileSize * .094,
+              );
+            }
+          }
+          continue;
+        }
         if (key == null) continue;
         if (!art.drawSprite(
           canvas,
@@ -218,7 +258,7 @@ final class ModernScenePainter extends CustomPainter {
         b.y + b.height.toDouble(),
         () {
           canvas.save();
-          if (hasProtected) {
+          if (hasProtected && map.tiles != 6) {
             final bounds = Path()..addRect(footprint);
             canvas.clipPath(
               Path.combine(PathOperation.difference, bounds, protected),

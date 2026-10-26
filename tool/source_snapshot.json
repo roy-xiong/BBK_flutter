@@ -48,7 +48,7 @@
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1"
+      "importedSha256": "185e4a6eb938523f9939146723e9872bd2acf3ad532e1ccb435abc014b997a83"
     },
     {
       "game": "fmj",
@@ -132,14 +132,14 @@
       "source": "lib/ui/game_view_model.dart",
       "destination": "lib/games/fmj/ui/game_view_model.dart",
       "sourceSha256": "786dff4519fccfd2727406d85205e84ad72394a542c0ece02ca086e142e1a202",
-      "importedSha256": "e40d52a2ebbf134a643cbb385fc282f42267477e359f06773f323165c6278dae"
+      "importedSha256": "a083331a426d65c3d2c709de16279d47068717525ded076187a02726c12ac841"
     },
     {
       "game": "fmj",
       "source": "lib/ui/modern_art.dart",
       "destination": "lib/games/fmj/ui/modern_art.dart",
       "sourceSha256": "7aaabd5830dd20ecab38ff42b95a9205e8d1cc33b86e8924849ab00ea4428f85",
-      "importedSha256": "70b6d644314ee9c201558d1a62dc59d6aed8e626a0ed0fad991989a1e8ec0949"
+      "importedSha256": "9e04cbdc69bca470213cc5f7c9bf5c903a8060c4e2f07c612c0a6b9a704280fb"
     },
     {
       "game": "fmj",
@@ -174,7 +174,7 @@
       "source": "lib/ui/modern_scene.dart",
       "destination": "lib/games/fmj/ui/modern_scene.dart",
       "sourceSha256": "0ca7e7194f78502f1fc560c83b6a82701c4082b531bfc9e57d50dd480af0ba15",
-      "importedSha256": "0ca7e7194f78502f1fc560c83b6a82701c4082b531bfc9e57d50dd480af0ba15"
+      "importedSha256": "24467d5f56aee216c01fdced8e94f6bcf5dd86694da03bee85bcc62e11e4bf92"
     },
     {
       "game": "fmj",
@@ -188,14 +188,14 @@
       "source": "lib/ui/modern_world_objects.dart",
       "destination": "lib/games/fmj/ui/modern_world_objects.dart",
       "sourceSha256": "85eaba354c8b9d6094bf0540b7cf52a9094a88f1051e35c7414fd139a7342613",
-      "importedSha256": "85eaba354c8b9d6094bf0540b7cf52a9094a88f1051e35c7414fd139a7342613"
+      "importedSha256": "848131649acdbb96fe302f61661eb07dcedf1d20ef460f3e300d5a3a85ea231a"
     },
     {
       "game": "fmj",
       "source": "lib/ui/original_tile_catalog.dart",
       "destination": "lib/games/fmj/ui/original_tile_catalog.dart",
       "sourceSha256": "fb68d5b4a2432681e46a6fe1318c47c2096c4039ec735e448940997c82bbfdd9",
-      "importedSha256": "fb68d5b4a2432681e46a6fe1318c47c2096c4039ec735e448940997c82bbfdd9"
+      "importedSha256": "dd21da07c494164eb9c7302c9ea8a9d94cc0a15ba262cf983b694bff799ea9dc"
     },
     {
       "game": "fmj",
@@ -384,14 +384,14 @@
       "source": "assets/modern/enhanced-art-sources.json",
       "destination": "assets/fmj/modern/enhanced-art-sources.json",
       "sourceSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e",
-      "importedSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e"
+      "importedSha256": "1407564fc49b64ab263b95be865a8d277495c8a336fb0b4cf5b3b21c7390cd65"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4"
+      "importedSha256": "5e75bf722b16445cccbd502e46c3dacb84c74b889f791748f72899ae416474ec"
     },
     {
       "game": "fmj",
@@ -2135,6 +2135,88 @@
       "destination": "licenses/sgby/ibaye-MIT.txt",
       "sourceSha256": "e19d16207f2b8b86f409c20a181d9afacb96048b78c3fe666194404d8f45bfe1",
       "importedSha256": "e19d16207f2b8b86f409c20a181d9afacb96048b78c3fe666194404d8f45bfe1"
+    }
+  ],
+  "supplementalFiles": [
+    {
+      "game": "fmj",
+      "destination": "assets/fmj/modern/approved-v4-00.png",
+      "importedSha256": "21d078dfa81c8694ee839b0cded9a44df837fc32accc9c09b48080d320d3eed4",
+      "approval": "tool/fmj_art_approval.json"
+    },
+    {
+      "game": "fmj",
+      "destination": "assets/fmj/modern/approved-v4-01.png",
+      "importedSha256": "0b929fce6161d8ad446051943e77badb96e310ab409c177861a6588206fe9ffb",
+      "approval": "tool/fmj_art_approval.json"
+    },
+    {
+      "game": "fmj",
+      "destination": "assets/fmj/modern/surface-cave-wall-v1.png",
+      "importedSha256": "e58a043e439c3874b0748f824e9a90f8c1e86193e3a5ee987f54ab67400c8f9c",
+      "approval": "tool/fmj_art_approval.json"
+    },
+    {
+      "game": "fmj",
+      "destination": "assets/fmj/modern/surface-hall-floor-v1.png",
+      "importedSha256": "7213c1c513980acf9e891d72d5f6eb5010259e9e369abdf229042b75b524e6c6",
+      "approval": "tool/fmj_art_approval.json"
+    },
+    {
+      "game": "fmj",
+      "destination": "assets/fmj/modern/surface-hall-wall-v4.png",
+      "importedSha256": "0519bfd25977ce74ce173ea169967fa3582227817cab87666a45133fc4bc28a9",
+      "approval": "tool/fmj_art_approval.json"
+    }
+  ],
+  "integrationRevisions": [
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
+      "currentSha256": "185e4a6eb938523f9939146723e9872bd2acf3ad532e1ccb435abc014b997a83",
+      "reason": "2026-10-26 用户确认V4美术及灯洞/倍速修复"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_view_model.dart",
+      "previousImportedSha256": "e40d52a2ebbf134a643cbb385fc282f42267477e359f06773f323165c6278dae",
+      "currentSha256": "a083331a426d65c3d2c709de16279d47068717525ded076187a02726c12ac841",
+      "reason": "2026-10-26 用户确认V4美术及灯洞/倍速修复"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_art.dart",
+      "previousImportedSha256": "70b6d644314ee9c201558d1a62dc59d6aed8e626a0ed0fad991989a1e8ec0949",
+      "currentSha256": "9e04cbdc69bca470213cc5f7c9bf5c903a8060c4e2f07c612c0a6b9a704280fb",
+      "reason": "2026-10-26 用户确认V4美术及灯洞/倍速修复"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_scene.dart",
+      "previousImportedSha256": "0ca7e7194f78502f1fc560c83b6a82701c4082b531bfc9e57d50dd480af0ba15",
+      "currentSha256": "24467d5f56aee216c01fdced8e94f6bcf5dd86694da03bee85bcc62e11e4bf92",
+      "reason": "2026-10-26 用户确认V4美术及灯洞/倍速修复"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_world_objects.dart",
+      "previousImportedSha256": "85eaba354c8b9d6094bf0540b7cf52a9094a88f1051e35c7414fd139a7342613",
+      "currentSha256": "848131649acdbb96fe302f61661eb07dcedf1d20ef460f3e300d5a3a85ea231a",
+      "reason": "2026-10-26 用户确认V4美术及灯洞/倍速修复"
+    },
+    {
+      "destination": "lib/games/fmj/ui/original_tile_catalog.dart",
+      "previousImportedSha256": "fb68d5b4a2432681e46a6fe1318c47c2096c4039ec735e448940997c82bbfdd9",
+      "currentSha256": "dd21da07c494164eb9c7302c9ea8a9d94cc0a15ba262cf983b694bff799ea9dc",
+      "reason": "2026-10-26 用户确认V4美术及灯洞/倍速修复"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art-sources.json",
+      "previousImportedSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e",
+      "currentSha256": "1407564fc49b64ab263b95be865a8d277495c8a336fb0b4cf5b3b21c7390cd65",
+      "reason": "2026-10-26 用户确认V4美术及灯洞/倍速修复"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
+      "currentSha256": "5e75bf722b16445cccbd502e46c3dacb84c74b889f791748f72899ae416474ec",
+      "reason": "2026-10-26 用户确认V4美术及灯洞/倍速修复"
     }
   ]
 }

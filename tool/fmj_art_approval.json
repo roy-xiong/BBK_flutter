@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "approval": "2026-10-26 用户确认 V4，要求接入后仅构建macOS",
+  "originalAtlasPagesUnchanged": 13,
+  "newAtlasPages": [
+    "approved-v4-00.png",
+    "approved-v4-01.png"
+  ],
+  "revisedFrames": 106,
+  "updatedNpcAliases": 180,
+  "graves": [
+    {
+      "map": "1:7",
+      "count": 14
+    },
+    {
+      "map": "1:32",
+      "count": 11
+    },
+    {
+      "map": "1:37",
+      "count": 2
+    }
+  ],
+  "assets": {
+    "approved-v4-00.png": "21d078dfa81c8694ee839b0cded9a44df837fc32accc9c09b48080d320d3eed4",
+    "approved-v4-01.png": "0b929fce6161d8ad446051943e77badb96e310ab409c177861a6588206fe9ffb",
+    "surface-cave-wall-v1.png": "e58a043e439c3874b0748f824e9a90f8c1e86193e3a5ee987f54ab67400c8f9c",
+    "surface-hall-floor-v1.png": "7213c1c513980acf9e891d72d5f6eb5010259e9e369abdf229042b75b524e6c6",
+    "surface-hall-wall-v4.png": "0519bfd25977ce74ce173ea169967fa3582227817cab87666a45133fc4bc28a9"
+  }
+}

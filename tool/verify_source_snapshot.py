@@ -1,11 +1,11 @@
-"""核对随合集导入的资源，以及未经语义改动的两个 Dart 游戏引擎。"""
+"""核对导入快照与有明确修订记录的资源/引擎，保留原始来源摘要。"""
 from pathlib import Path
 import hashlib
 import json
 
 snapshot = json.loads(Path('tool/source_snapshot.json').read_text())
 count = 0
-for item in snapshot['files']:
+for item in snapshot['files'] + snapshot.get('supplementalFiles', []):
     path = Path(item['destination'])
     if not path.is_file():
         raise SystemExit(f'导入文件缺失：{path}')
