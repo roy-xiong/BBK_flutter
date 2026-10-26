@@ -87,10 +87,17 @@ final class _WorldInformation extends StatelessWidget {
                 style: const TextStyle(color: _paper, fontSize: 12),
               )
             else if (player != null)
-              Text(
-                '${player.name}  Lv.${player.level}   气血 ${player.hp}/${player.maxHp}',
-                maxLines: 1,
-                style: const TextStyle(color: _paper, fontSize: 12),
+              Flexible(
+                flex: 3,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    '${player.name}  Lv.${player.level}   气血 ${player.hp}/${player.maxHp}',
+                    maxLines: 1,
+                    style: const TextStyle(color: _paper, fontSize: 12),
+                  ),
+                ),
               ),
           ],
         ),

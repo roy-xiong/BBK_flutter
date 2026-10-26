@@ -28,9 +28,11 @@ void main() {
     game.npcs.clear();
     game.player?.x = 13;
     game.player?.y = 17;
-    return GameViewModel()
+    final vm = GameViewModel()
       ..engine = game
       ..loading = false;
+    await vm.prepareModernArt();
+    return vm;
   }
 
   testWidgets('一至四倍速，键盘短按280ms只走一格，系统重复事件不额外走路', (tester) async {

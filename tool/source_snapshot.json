@@ -160,7 +160,7 @@
       "source": "lib/ui/modern_game_view.dart",
       "destination": "lib/games/fmj/ui/modern_game_view.dart",
       "sourceSha256": "7fead2e2d569c14ca9d2d9c012124c82b450b5e1e0c75310b0bc47eb495d45c0",
-      "importedSha256": "85734a1a94bf324a4d9f82bdd2a1a1946fdb7dff5bc624b82a3a7a2a53cf0ab0"
+      "importedSha256": "17cbc0bdf2b597499123eb2b2945ffbc35ed4b7df4842aadca37c9dd1b35b7bb"
     },
     {
       "game": "fmj",
