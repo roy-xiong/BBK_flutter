@@ -1,0 +1,1640 @@
+[
+  {
+    "id": 1,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 184,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 2
+      }
+    ],
+    "monsters": [
+      {
+        "index": 1,
+        "hp": 37,
+        "mp": 40,
+        "level": 2,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 2,
+    "round": 0,
+    "phase": "Win",
+    "players": [
+      {
+        "index": 1,
+        "hp": 190,
+        "mp": 140,
+        "level": 5,
+        "exp": 2,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 2,
+        "hp": -5,
+        "mp": 0,
+        "level": 1,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5002
+  },
+  {
+    "id": 3,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 184,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 3,
+        "hp": 18,
+        "mp": 56,
+        "level": 1,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 4,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 184,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 4,
+        "hp": 42,
+        "mp": 40,
+        "level": 2,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 5,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 20,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 8
+      }
+    ],
+    "monsters": [
+      {
+        "index": 5,
+        "hp": 993,
+        "mp": 999,
+        "level": 10,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 6,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 184,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 6,
+        "hp": 45,
+        "mp": 10,
+        "level": 3,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 7,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 182,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 2
+      }
+    ],
+    "monsters": [
+      {
+        "index": 7,
+        "hp": 44,
+        "mp": 0,
+        "level": 3,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 8,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 184,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 8,
+        "hp": 82,
+        "mp": 40,
+        "level": 3,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 9,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 67,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 1
+      }
+    ],
+    "monsters": [
+      {
+        "index": 9,
+        "hp": 999,
+        "mp": 999,
+        "level": 7,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 10,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 171,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 2
+      }
+    ],
+    "monsters": [
+      {
+        "index": 10,
+        "hp": 402,
+        "mp": 360,
+        "level": 3,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 11,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 72,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 8
+      }
+    ],
+    "monsters": [
+      {
+        "index": 11,
+        "hp": 993,
+        "mp": 784,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 12,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 184,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 1
+      }
+    ],
+    "monsters": [
+      {
+        "index": 12,
+        "hp": 320,
+        "mp": 240,
+        "level": 7,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 13,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 167,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 13,
+        "hp": 450,
+        "mp": 360,
+        "level": 7,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 14,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 168,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 4
+      }
+    ],
+    "monsters": [
+      {
+        "index": 14,
+        "hp": 800,
+        "mp": 640,
+        "level": 10,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 15,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 184,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 8
+      }
+    ],
+    "monsters": [
+      {
+        "index": 15,
+        "hp": 172,
+        "mp": 30,
+        "level": 6,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 16,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 184,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 8
+      }
+    ],
+    "monsters": [
+      {
+        "index": 16,
+        "hp": 216,
+        "mp": 50,
+        "level": 6,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 17,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 184,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 4
+      }
+    ],
+    "monsters": [
+      {
+        "index": 17,
+        "hp": 150,
+        "mp": 50,
+        "level": 6,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 18,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 25,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 2
+      }
+    ],
+    "monsters": [
+      {
+        "index": 18,
+        "hp": 993,
+        "mp": 963,
+        "level": 24,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 19,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 87,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 19,
+        "hp": 993,
+        "mp": 960,
+        "level": 7,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 20,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 87,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 20,
+        "hp": 993,
+        "mp": 960,
+        "level": 7,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 21,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 51,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 4
+      }
+    ],
+    "monsters": [
+      {
+        "index": 21,
+        "hp": 600,
+        "mp": 420,
+        "level": 10,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 22,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 119,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 8
+      }
+    ],
+    "monsters": [
+      {
+        "index": 22,
+        "hp": 282,
+        "mp": 210,
+        "level": 8,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 23,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 125,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 8
+      }
+    ],
+    "monsters": [
+      {
+        "index": 23,
+        "hp": 400,
+        "mp": 300,
+        "level": 8,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 24,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 190,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 1
+      }
+    ],
+    "monsters": [
+      {
+        "index": 24,
+        "hp": 560,
+        "mp": 430,
+        "level": 12,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 25,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 161,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 25,
+        "hp": 346,
+        "mp": 266,
+        "level": 10,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 26,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 118,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 26,
+        "hp": 993,
+        "mp": 991,
+        "level": 7,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 27,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 83,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 27,
+        "hp": 993,
+        "mp": 991,
+        "level": 18,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 28,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 114,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 28,
+        "hp": 993,
+        "mp": 991,
+        "level": 14,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 29,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 115,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 29,
+        "hp": 993,
+        "mp": 991,
+        "level": 16,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 30,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 190,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 1
+      }
+    ],
+    "monsters": [
+      {
+        "index": 30,
+        "hp": 999,
+        "mp": 979,
+        "level": 15,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 31,
+    "round": 0,
+    "phase": "Loss",
+    "players": [
+      {
+        "index": 1,
+        "hp": -20,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 31,
+        "hp": 999,
+        "mp": 991,
+        "level": 18,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 32,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 67,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 8
+      }
+    ],
+    "monsters": [
+      {
+        "index": 32,
+        "hp": 993,
+        "mp": 983,
+        "level": 17,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 33,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 118,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 33,
+        "hp": 993,
+        "mp": 991,
+        "level": 16,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 34,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 142,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 8
+      }
+    ],
+    "monsters": [
+      {
+        "index": 34,
+        "hp": 993,
+        "mp": 987,
+        "level": 18,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 35,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 25,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 2
+      }
+    ],
+    "monsters": [
+      {
+        "index": 35,
+        "hp": 993,
+        "mp": 963,
+        "level": 20,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 36,
+    "round": 0,
+    "phase": "Loss",
+    "players": [
+      {
+        "index": 1,
+        "hp": -146,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 8
+      }
+    ],
+    "monsters": [
+      {
+        "index": 36,
+        "hp": 999,
+        "mp": 963,
+        "level": 22,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 37,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 3,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 37,
+        "hp": 993,
+        "mp": 967,
+        "level": 20,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 38,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 142,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 8
+      }
+    ],
+    "monsters": [
+      {
+        "index": 38,
+        "hp": 993,
+        "mp": 987,
+        "level": 24,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 39,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 8,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 2
+      }
+    ],
+    "monsters": [
+      {
+        "index": 39,
+        "hp": 993,
+        "mp": 963,
+        "level": 32,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 40,
+    "round": 0,
+    "phase": "Loss",
+    "players": [
+      {
+        "index": 1,
+        "hp": -68,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 40,
+        "hp": 999,
+        "mp": 991,
+        "level": 28,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 41,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 62,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 41,
+        "hp": 993,
+        "mp": 991,
+        "level": 30,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 42,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 98,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 42,
+        "hp": 993,
+        "mp": 991,
+        "level": 33,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 43,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 89,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 43,
+        "hp": 993,
+        "mp": 991,
+        "level": 34,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 44,
+    "round": 0,
+    "phase": "Loss",
+    "players": [
+      {
+        "index": 1,
+        "hp": -215,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 4
+      }
+    ],
+    "monsters": [
+      {
+        "index": 44,
+        "hp": 999,
+        "mp": 959,
+        "level": 33,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 45,
+    "round": 0,
+    "phase": "Loss",
+    "players": [
+      {
+        "index": 1,
+        "hp": -245,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 45,
+        "hp": 999,
+        "mp": 963,
+        "level": 32,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 46,
+    "round": 0,
+    "phase": "Loss",
+    "players": [
+      {
+        "index": 1,
+        "hp": -241,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 46,
+        "hp": 999,
+        "mp": 962,
+        "level": 38,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 47,
+    "round": 0,
+    "phase": "Loss",
+    "players": [
+      {
+        "index": 1,
+        "hp": -347,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 47,
+        "hp": 999,
+        "mp": 963,
+        "level": 44,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 48,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 127,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 1
+      }
+    ],
+    "monsters": [
+      {
+        "index": 48,
+        "hp": 800,
+        "mp": 480,
+        "level": 14,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 49,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 105,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 8
+      }
+    ],
+    "monsters": [
+      {
+        "index": 49,
+        "hp": 714,
+        "mp": 460,
+        "level": 15,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 50,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 155,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 50,
+        "hp": 734,
+        "mp": 475,
+        "level": 16,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 51,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 151,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 51,
+        "hp": 756,
+        "mp": 480,
+        "level": 15,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 52,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 149,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 52,
+        "hp": 706,
+        "mp": 424,
+        "level": 18,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 53,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 147,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 53,
+        "hp": 728,
+        "mp": 435,
+        "level": 14,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 54,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 145,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 54,
+        "hp": 716,
+        "mp": 465,
+        "level": 16,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 55,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 127,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 55,
+        "hp": 993,
+        "mp": 520,
+        "level": 20,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 56,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 83,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 56,
+        "hp": 993,
+        "mp": 852,
+        "level": 24,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 57,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 67,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 8
+      }
+    ],
+    "monsters": [
+      {
+        "index": 57,
+        "hp": 874,
+        "mp": 884,
+        "level": 17,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 58,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 91,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 4
+      }
+    ],
+    "monsters": [
+      {
+        "index": 58,
+        "hp": 900,
+        "mp": 120,
+        "level": 18,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 59,
+    "round": 0,
+    "phase": "Loss",
+    "players": [
+      {
+        "index": 1,
+        "hp": -73,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 59,
+        "hp": 999,
+        "mp": 0,
+        "level": 20,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 60,
+    "round": 0,
+    "phase": "Loss",
+    "players": [
+      {
+        "index": 1,
+        "hp": -123,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "monsters": [
+      {
+        "index": 60,
+        "hp": 999,
+        "mp": 0,
+        "level": 20,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 61,
+    "round": 1,
+    "phase": "SelectAction",
+    "players": [
+      {
+        "index": 1,
+        "hp": 190,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 1
+      }
+    ],
+    "monsters": [
+      {
+        "index": 61,
+        "hp": 999,
+        "mp": 780,
+        "level": 20,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 62,
+    "round": 0,
+    "phase": "Loss",
+    "players": [
+      {
+        "index": 1,
+        "hp": -193,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 2
+      }
+    ],
+    "monsters": [
+      {
+        "index": 62,
+        "hp": 999,
+        "mp": 0,
+        "level": 20,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  },
+  {
+    "id": 63,
+    "round": 0,
+    "phase": "Loss",
+    "players": [
+      {
+        "index": 1,
+        "hp": -553,
+        "mp": 140,
+        "level": 5,
+        "exp": 0,
+        "status": 4
+      }
+    ],
+    "monsters": [
+      {
+        "index": 63,
+        "hp": 999,
+        "mp": 919,
+        "level": 60,
+        "exp": 0,
+        "status": 0
+      }
+    ],
+    "money": 5000
+  }
+]

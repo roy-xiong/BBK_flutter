@@ -1,0 +1,1998 @@
+{
+  "style": "hand-painted Chinese 2.5D",
+  "selection": {
+    "masters": {
+      "0": "unit-0-corrected",
+      "1": "unit-1-corrected",
+      "2": "unit-2-base",
+      "3": "unit-3-base",
+      "4": "unit-4-halberd",
+      "5": "unit-5-corrected"
+    },
+    "cities": {
+      "capital": "city-capital-final",
+      "fort": "city-fort-final",
+      "harbor": "city-harbor"
+    },
+    "icons": {
+      "supplies": "icon-supplies-final",
+      "sun": "icon-sun-final",
+      "cloud": "icon-cloud-final",
+      "wind": "icon-wind-final",
+      "rain": "icon-rain-final",
+      "hail": "icon-hail-final"
+    },
+    "terrains": {
+      "mountain": "terrain-mountain",
+      "tree": "terrain-tree",
+      "village": "terrain-village-final",
+      "camp": "terrain-camp-final"
+    },
+    "grounds": {
+      "grass": "ground-grass",
+      "dirt": "ground-dirt",
+      "water": "ground-water-final"
+    },
+    "singleActions": {
+      "0": {
+        "idle": "unit-0-corrected",
+        "stride": "unit-0-corrected",
+        "windup": "unit-0-windup-single",
+        "attack": "unit-0-attack-single",
+        "hit": "unit-0-hit-single",
+        "down": "unit-0-ground-composite"
+      },
+      "1": {
+        "idle": "unit-1-corrected",
+        "stride": "unit-1-corrected",
+        "windup": "unit-1-windup-single",
+        "attack": "unit-1-attack-single",
+        "hit": "unit-1-hit-single",
+        "down": "unit-1-ground-single"
+      },
+      "2": {
+        "idle": "unit-2-base",
+        "stride": "unit-2-base",
+        "windup": "unit-2-windup-single",
+        "attack": "unit-2-attack-release",
+        "hit": "unit-2-hit-single",
+        "down": "unit-2-ground-single"
+      },
+      "3": {
+        "idle": "unit-3-base",
+        "stride": "unit-3-base",
+        "windup": "unit-3-windup-layered",
+        "attack": "unit-3-attack-layered",
+        "hit": "unit-3-list-3",
+        "down": "unit-3-list-12"
+      },
+      "4": {
+        "idle": "unit-4-halberd",
+        "stride": "unit-4-halberd",
+        "windup": "unit-4-windup-single",
+        "attack": "unit-4-attack-single",
+        "hit": "unit-4-hit-single",
+        "down": "unit-4-ground-single"
+      },
+      "5": {
+        "idle": "unit-5-corrected",
+        "stride": "unit-5-corrected",
+        "windup": "unit-5-windup-cloth",
+        "attack": "unit-5-attack-cloth",
+        "hit": "unit-5-hit-cloth",
+        "down": "unit-5-ground-cloth"
+      }
+    },
+    "singleDefeat": {
+      "0": [
+        "unit-0-hit-single",
+        "unit-0-hit-single",
+        "unit-0-kneel-single",
+        "unit-0-fall-composite",
+        "unit-0-ground-composite",
+        "unit-0-ground-composite"
+      ],
+      "1": [
+        "unit-1-hit-single",
+        "unit-1-hit-single",
+        "unit-1-kneel-single",
+        "unit-1-fall-single",
+        "unit-1-ground-single",
+        "unit-1-ground-single"
+      ],
+      "2": [
+        "unit-2-hit-single",
+        "unit-2-hit-single",
+        "unit-2-kneel-single",
+        "unit-2-fall-single",
+        "unit-2-ground-single",
+        "unit-2-ground-single"
+      ],
+      "3": [
+        "unit-3-list-0",
+        "unit-3-list-0",
+        "unit-3-list-3",
+        "unit-3-list-7",
+        "unit-3-list-12",
+        "unit-3-list-12"
+      ],
+      "4": [
+        "unit-4-hit-single",
+        "unit-4-hit-single",
+        "unit-4-kneel-single",
+        "unit-4-fall-single",
+        "unit-4-ground-single",
+        "unit-4-ground-single"
+      ],
+      "5": [
+        "unit-5-hit-cloth",
+        "unit-5-hit-cloth",
+        "unit-5-kneel-cloth",
+        "unit-5-fall-cloth",
+        "unit-5-ground-cloth",
+        "unit-5-ground-cloth"
+      ]
+    },
+    "skillEffects": {
+      "log": "effect-log",
+      "rock": "effect-rock",
+      "trap": "effect-trap"
+    },
+    "battleUnits": {
+      "1": "field-infantry-v2",
+      "2": "field-archer-v2"
+    },
+    "battleCity": "battle-city-gate-v2",
+    "facingCorrections": {
+      "normal": {
+        "4": [
+          "idle",
+          "stride",
+          "windup",
+          "hit",
+          "down"
+        ]
+      },
+      "defeat": [
+        "4"
+      ]
+    }
+  },
+  "referenceFiles": {
+    "reference/style-building.png": "6583d703c0aad089c00a045b71bf92e04e6b9161a5dd982e1ebbf592d7d4f360",
+    "reference/style-soldier.png": "bf5ae84489d643b5390bb5a5277df7efd4bff703537ded6dc4951d06aa5fa3b4",
+    "reference/style-tree.png": "0bbe441f3bcfe1af844358a102de73f8322e5e97c8150cb501d292f84899aab7"
+  },
+  "sources": [
+    {
+      "id": "battle-city-gate-v2",
+      "prompt": "Create a CLOSE VIEW game icon of ONLY the FRONT FORTIFIED GATE of this exact Chinese walled town. A large central gray-brick arched gate tower, a single prominent blue-gray tiled roof with upturned eaves, red timber supports, two short flanking crenellated stone walls, and a broad light-gray paved stone foundation. The large DARK OPEN ARCH starts at ground level and is very clearly visible from outside. Complete compact icon, same elevated three-quarter camera, detailed fine hand-painted stone, tiles and wood with soft dimensional shading. Main gate fills most of the icon, no courtyard buildings and no sprawling city complex. No people, no flags, no letters, no symbols. Entire gate, walls and foundation fit inside the canvas with generous margin. Perfectly uniform flat bright green #00ff00 background, no surrounding terrain, no scenery.",
+      "refs": [
+        "generated/city-fort-final.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 512,
+      "seed": 257394,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 42.03,
+      "sha256": "f1b7d78f5ab58e86720c1c0b9985812d731ff77e06dfd635cf3361495ab50197",
+      "file": "battle-city-gate-v2.png"
+    },
+    {
+      "id": "city-fort-final",
+      "prompt": "Edit this exact fortified city illustration. Cut a LARGE OPEN ARCHED GATE through the center of the FRONT OUTER WALL that is closest to the viewer. The arch starts at ground level and visibly leads into the courtyard. Add fitted gray arch stones and two open dark wooden gate leaves on its sides. The main gate must face OUT toward the viewer; it must not be hidden behind another wall. Keep the complete outer wall perimeter around the gate, towers, blue-gray tiled roofs, exact camera, compact layout, hand-painted details and uniform green background. No text, no symbols, no people, no floating door.",
+      "refs": [
+        "generated/city-fort.png"
+      ],
+      "kind": "sprite",
+      "width": 768,
+      "height": 768,
+      "seed": 245832,
+      "city": "fort",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 61.54,
+      "sha256": "0dd2d985625b5879674af00697fb2311b3df38b10a06dc5fff889182a3a51a44",
+      "file": "city-fort-final.png"
+    },
+    {
+      "id": "city-fort",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. a compact ancient Chinese fortified walled town, complete low gray brick wall perimeter, one clearly visible central gate tower with blue-gray tiled roof and red timber posts, two smaller corner towers. Distinct from a palace capital, compact and easy to recognize as one city icon, elevated orthographic three-quarter view. Exactly ONE isolated complete subject, centered with wide empty margin around the whole subject including weapons and feet. Completely flat uniform bright green background #00ff00; no ground, no shadow on the background, no scenery, no text, no labels, no watermark, no border, no UI. ",
+      "refs": [
+        "reference/style-building.png"
+      ],
+      "kind": "sprite",
+      "width": 768,
+      "height": 768,
+      "seed": 241299,
+      "city": "fort",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 53.36,
+      "sha256": "e79cf01bc91e42ec544904c998f3db24d4129ccd2fe9b145be8a106b0a7dbfa7",
+      "file": "city-fort.png"
+    },
+    {
+      "id": "city-capital-final",
+      "prompt": "Edit this exact fortified city illustration. Cut a LARGE OPEN ARCHED GATE through the center of the FRONT OUTER WALL that is closest to the viewer. The arch starts at ground level and visibly leads into the courtyard. Add fitted gray arch stones and two open dark wooden gate leaves on its sides. The main gate must face OUT toward the viewer; it must not be hidden behind another wall. Keep the complete outer wall perimeter around the gate, towers, blue-gray tiled roofs, exact camera, compact layout, hand-painted details and uniform green background. No text, no symbols, no people, no floating door.",
+      "refs": [
+        "generated/city-capital.png"
+      ],
+      "kind": "sprite",
+      "width": 768,
+      "height": 768,
+      "seed": 245795,
+      "city": "capital",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 60.57,
+      "sha256": "8c5bf6ddfd4d6ea1bcbb7f534dd7e913ecd93132b23cbedd7ed6c6b5213d540f",
+      "file": "city-capital-final.png"
+    },
+    {
+      "id": "city-capital",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. a fortified ancient Chinese capital city, enclosing gray brick walls, complete closed wall perimeter with a gate facing the viewer, several corner towers, a large central timber palace with layered blue-gray tile roofs, muted red timber posts, fine roof tile detail. Elevated orthographic three-quarter view. A single compact city complex, no terrain, no mountains, no streets outside the wall. Exactly ONE isolated complete subject, centered with wide empty margin around the whole subject including weapons and feet. Completely flat uniform bright green background #00ff00; no ground, no shadow on the background, no scenery, no text, no labels, no watermark, no border, no UI. ",
+      "refs": [
+        "reference/style-building.png"
+      ],
+      "kind": "sprite",
+      "width": 768,
+      "height": 768,
+      "seed": 241262,
+      "city": "capital",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 53.3,
+      "sha256": "49825c1b5ba30b50d8182fec983f59c918264d8b68c89d41ec6e6d8b4e21dd9f",
+      "file": "city-capital.png"
+    },
+    {
+      "id": "city-harbor",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. a compact ancient Chinese river port fort, gray stone walls and gate tower with blue-gray tiled roofs, a short timber pier and a small moored wooden boat beside the wall, muted red timber pillars. Entire fort and pier visible, elevated orthographic three-quarter view, no water outside the subject. Exactly ONE isolated complete subject, centered with wide empty margin around the whole subject including weapons and feet. Completely flat uniform bright green background #00ff00; no ground, no shadow on the background, no scenery, no text, no labels, no watermark, no border, no UI. ",
+      "refs": [
+        "reference/style-building.png"
+      ],
+      "kind": "sprite",
+      "width": 768,
+      "height": 768,
+      "seed": 241336,
+      "city": "harbor",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 53.27,
+      "sha256": "6753e3cb59d9a1379b3ae79f43ed86e7b008a23cf4f1a34d24f750b261fe25c1",
+      "file": "city-harbor.png"
+    },
+    {
+      "id": "effect-log",
+      "prompt": "Fine hand-painted ancient Chinese strategy game prop, clean ink contour, natural painted materials, soft dimensional shading: one large heavy cut timber log lying horizontally, dark brown rough bark, a clearly visible round sawn end with natural wood growth rings, a few splintered branches, complete single log. Exactly one isolated complete prop centered with generous empty margin. Flat uniform bright green #00ff00 background. No people, no human body, no creature, no faces, no writing, no symbols, no floor outside the object, no scenery, no border.",
+      "refs": [],
+      "kind": "sprite",
+      "width": 512,
+      "height": 512,
+      "seed": 255800,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 18.32,
+      "sha256": "5746daa8b36d644f4be61a5956404e2a31b9c9e4d4f8b3455091b4392260cfe7",
+      "file": "effect-log.png"
+    },
+    {
+      "id": "effect-rock",
+      "prompt": "Fine hand-painted ancient Chinese strategy game prop, clean ink contour, natural painted materials, soft dimensional shading: a compact cluster of one large irregular blue-gray boulder and two smaller rocks, complete weathered stone facets, moss in small cracks, naturally rounded angular edges, clearly readable falling rocks. Exactly one isolated complete prop centered with generous empty margin. Flat uniform bright green #00ff00 background. No people, no human body, no creature, no faces, no writing, no symbols, no floor outside the object, no scenery, no border.",
+      "refs": [],
+      "kind": "sprite",
+      "width": 512,
+      "height": 512,
+      "seed": 255847,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 17.39,
+      "sha256": "8d7b01968d46c02e1c083f5d776628de1c396e6d629c363c6c6142eedf277f5f",
+      "file": "effect-rock.png"
+    },
+    {
+      "id": "effect-trap",
+      "prompt": "Fine hand-painted ancient Chinese strategy game prop, clean ink contour, natural painted materials, soft dimensional shading: a small ancient Chinese wooden pitfall trap, a shallow dark earth pit framed by rough timber and several short wooden stakes, one rope loop, compact low object viewed from an elevated three-quarter angle, whole trap complete. Exactly one isolated complete prop centered with generous empty margin. Flat uniform bright green #00ff00 background. No people, no human body, no creature, no faces, no writing, no symbols, no floor outside the object, no scenery, no border.",
+      "refs": [],
+      "kind": "sprite",
+      "width": 512,
+      "height": 512,
+      "seed": 255894,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 17.44,
+      "sha256": "6feef85f430fcc955c7cf4190fa1d66e734b442180d9c66b7c9ea327648d1c86",
+      "file": "effect-trap.png"
+    },
+    {
+      "id": "effects-sheet",
+      "prompt": "Fine hand-painted ancient Chinese strategy game special-effect sprites, soft luminous illustrated brushwork with dimensional light, matching the reference painting. A sheet of SIX separated effects, EXACTLY THREE columns and TWO rows, generous empty gaps. In reading order: one curved bright silver-gold sword slash sweep with several fine trailing brush strokes; a small warm amber burst of impact sparks, fine bright center and short irregular sparks; a compact swirling orange and golden fire plume; a compact blue-white splash and curling water spray; a compact soft violet-blue mist swirl; a small warm gold luminous ring and several tiny upward glowing motes. Each effect fully contained in its own equal cell. Completely flat bright green #00ff00 backdrop, no people, no weapons, no text, no labels, no grid, no scenery, no borders, no symbols.",
+      "refs": [],
+      "kind": "sheet",
+      "width": 1536,
+      "height": 1024,
+      "seed": 246313,
+      "columns": 3,
+      "rows": 2,
+      "effects": [
+        "slash",
+        "impact",
+        "fire",
+        "water",
+        "mist",
+        "level"
+      ],
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 148.61,
+      "sha256": "07af3f63a12aa5531e461642f2b7f7f683ed13bbb35d4276bc4a970cac6c75d8",
+      "file": "effects-sheet.png"
+    },
+    {
+      "id": "field-archer-v2",
+      "prompt": "Edit this EXACT same archer for readability as a SMALL tactical-map sprite. Keep his exact face, red helmet, red light clothing, body proportions and complete standing ready pose. Make his recurved BOW much larger and visually stronger, a clearly open curved C silhouette with thick golden-brown polished wooden limbs in front of his left side. Enlarge the arrow QUIVER on his back, with FIVE distinct WHITE feather arrow tails clearly projecting above his shoulder. His ready bow is lowered and not drawn, one correct hand grips it. No shield, no spear, no extra weapon, no extra hands. Preserve the fine hand-painted lines, carved wood details, red cloth folds and soft dimensional shading, same three-quarter view toward screen RIGHT. Complete body, boots, bow tips and arrows fit with wide margin on perfectly uniform bright green #00ff00 backdrop. No floor, no text, no additional people.",
+      "refs": [
+        "generated/unit-2-base.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 257347,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 33.18,
+      "sha256": "becc893bc043b2b39e1b2eb63e720aaaa1c3f53a68c1659a5c4b99f4e6eca1db",
+      "file": "field-archer-v2.png"
+    },
+    {
+      "id": "unit-2-base",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. a Chinese archer with dark red light lamellar armor, red helmet and red layered tunic, a clearly visible large recurved wooden bow in the left hand and a quiver of arrows on the back, holding a single arrow in the right hand, ready upright stance, no spear or shield. Turned slightly three quarters toward the viewer, facing screen RIGHT. Large red surfaces on armor and clothing must occupy at least half the visible character. Exactly ONE isolated complete subject, centered with wide empty margin around the whole subject including weapons and feet. Completely flat uniform bright green background #00ff00; no ground, no shadow on the background, no scenery, no text, no labels, no watermark, no border, no UI. ",
+      "refs": [
+        "reference/style-soldier.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 241114,
+      "type": 2,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 21.77,
+      "sha256": "6785588673f04e37a68c857b77aac1c75ccfcd33b0f1b4de11555ce69f343b5d",
+      "file": "unit-2-base.png"
+    },
+    {
+      "id": "field-infantry-v2",
+      "prompt": "Edit this EXACT same infantryman for readability as a SMALL tactical-map sprite. Keep his exact face, red helmet, red clothing, body proportions and whole standing ready pose. Make his oval shield MUCH LARGER, a broad oval reaching from chest to shin, with a clearly visible thick BRONZE RIM and dark RED lacquered wooden center. The shield occupies nearly half the body silhouette on his shield arm. The other hand holds ONE long straight spear with ONE silver point and a plain wooden butt. No bow, no arrows, no additional weapon. Fine hand-painted outlines, metal highlights and detailed wood, soft dimensional shading, same three-quarter camera and face toward screen RIGHT. Whole complete person, feet and spear fit with large margin on perfectly uniform bright green #00ff00 backdrop. No floor, no text, no extra people.",
+      "refs": [
+        "generated/unit-1-corrected.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 257300,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 33.65,
+      "sha256": "43a382cab025bc513c84c78118d2ad196513fc6f17d5b07d07b283bc9239ce64",
+      "file": "field-infantry-v2.png"
+    },
+    {
+      "id": "unit-1-corrected",
+      "prompt": "Edit this exact infantry illustration only: REMOVE the extra diagonal short sword completely. The soldier carries EXACTLY TWO things: ONE long upright spear with silver tip, firmly grasped in his RIGHT hand, and ONE large oval wooden shield strapped to his LEFT arm. No sword anywhere. Keep his face, dark red lamellar armor, red cape, boots, same stance, same painterly line art and uniform green background.",
+      "refs": [
+        "generated/unit-1-base.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 242937,
+      "type": 1,
+      "corrects": "unit-1-base",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 32.38,
+      "sha256": "9549ec1f6f2f8f6fe084ce596656b56c092451fa35eba850baf983447930096e",
+      "file": "unit-1-corrected.png"
+    },
+    {
+      "id": "unit-1-base",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. a Chinese infantry spearman, wearing dark red lacquered lamellar armor and helmet, red layered tunic and red cape, dark boots, holding a clearly separate large oval wooden shield in the LEFT hand and a long straight spear with silver spearhead in the RIGHT hand. An upright grounded ready stance. Turned slightly three quarters toward the viewer, facing screen RIGHT. Large red surfaces on armor and clothing must occupy at least half the visible character. Exactly ONE isolated complete subject, centered with wide empty margin around the whole subject including weapons and feet. Completely flat uniform bright green background #00ff00; no ground, no shadow on the background, no scenery, no text, no labels, no watermark, no border, no UI. ",
+      "refs": [
+        "reference/style-soldier.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 241077,
+      "type": 1,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 21.86,
+      "sha256": "28d7d3149bcb7887c57d5406097da0d7a1764ef91c9ddda4014baa1f1a40244c",
+      "file": "unit-1-base.png"
+    },
+    {
+      "id": "ground-dirt",
+      "prompt": "A seamless top down orthographic hand-painted ancient Chinese strategy game ground texture. warm beige-brown packed earth with subtle natural irregular pebbles and fine dry soil. Soft detailed painted materials. Uniform neutral illumination, continuous natural surface filling the entire canvas edge to edge. No repeated square tiles, no grid, no border, no frame, no horizon, no cast shadow, no objects, no text, no people.",
+      "refs": [],
+      "kind": "surface",
+      "width": 768,
+      "height": 768,
+      "seed": 242075,
+      "ground": "dirt",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 32.62,
+      "sha256": "ad73fb209a941efe32e0083d25005d7aa9e1601f0cf7f1f81a1a718df4472e79",
+      "file": "ground-dirt.png"
+    },
+    {
+      "id": "ground-grass",
+      "prompt": "A seamless top down orthographic hand-painted ancient Chinese strategy game ground texture. muted olive grassland with small painted grass tufts and gentle mottled earth. Soft detailed painted materials. Uniform neutral illumination, continuous natural surface filling the entire canvas edge to edge. No repeated square tiles, no grid, no border, no frame, no horizon, no cast shadow, no objects, no text, no people.",
+      "refs": [],
+      "kind": "surface",
+      "width": 768,
+      "height": 768,
+      "seed": 242038,
+      "ground": "grass",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 33.34,
+      "sha256": "801e13b9c28665146614be917d6afb54f2687eae3b1dcdc25d0533aad460e098",
+      "file": "ground-grass.png"
+    },
+    {
+      "id": "ground-water-final",
+      "prompt": "A seamless game texture containing ONLY deep blue teal WATER SURFACE. The ENTIRE canvas from edge to edge is uniform deep blue water, with fine hand-painted gentle ripples and soft reflected pale highlights. Strict top-down overhead orthographic view, restrained colors and subtle volume. No pond, no island, no river bank, NO LAND, no grass, no weeds, no plants, no reeds, no rocks, no animals, no buildings, no objects, no text, no borders, no UI. Pure uninterrupted open WATER in every corner and at every edge.",
+      "refs": [],
+      "kind": "surface",
+      "width": 512,
+      "height": 512,
+      "seed": 247901,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 45.9,
+      "sha256": "abc22e1a8a216110721df8bc8d6aeeeaa3d2500d3191b6bb6bd505c259232dc7",
+      "file": "ground-water-final.png"
+    },
+    {
+      "id": "icon-cloud-final",
+      "prompt": "Exactly one isolated game UI icon: one soft layered pale blue-gray cloud. Detailed hand-painted natural fine outlines and soft volume shading, restrained colors, complete centered icon filling about seventy percent of the canvas. Uniform bright green #00ff00 background. NO PEOPLE, no characters, no human silhouette, no human faces, no body, no creatures, no buildings, no scenery, no text, no border, no UI panel, no extra objects, no watermark.",
+      "refs": [],
+      "kind": "sprite",
+      "width": 512,
+      "height": 512,
+      "seed": 246424,
+      "icon": "cloud",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 38.37,
+      "sha256": "da8fecaf9587c4df4dca22b9aa27f056107c786deebbb8b679abfa749829c5bc",
+      "file": "icon-cloud-final.png"
+    },
+    {
+      "id": "icon-hail-final",
+      "prompt": "Exactly one isolated weather icon: a soft layered blue-gray cloud with SEVEN small ROUND WHITE HAILSTONES falling underneath. The hailstones are round icy white pellets with pale blue shaded facets, clearly ROUND BALLS, not teardrops and not snowflakes. Fine hand-painted Chinese game icon, dark delicate contours and soft dimensional shading, readable compact silhouette. Entire cloud and all hail pellets fit with generous margin. Uniform bright green #00ff00 background. No people, no creatures, no text, no border, no scenery.",
+      "refs": [],
+      "kind": "sprite",
+      "width": 512,
+      "height": 512,
+      "seed": 256073,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 17.25,
+      "sha256": "879c91aa563b8096c7b277d8912a50e0ca96d0fdd52fa3d844f39cf9fae95e59",
+      "file": "icon-hail-final.png"
+    },
+    {
+      "id": "icon-rain-final",
+      "prompt": "Exactly one isolated game UI icon: one blue-gray rain cloud with several falling blue drops. Detailed hand-painted natural fine outlines and soft volume shading, restrained colors, complete centered icon filling about seventy percent of the canvas. Uniform bright green #00ff00 background. NO PEOPLE, no characters, no human silhouette, no human faces, no body, no creatures, no buildings, no scenery, no text, no border, no UI panel, no extra objects, no watermark.",
+      "refs": [],
+      "kind": "sprite",
+      "width": 512,
+      "height": 512,
+      "seed": 246498,
+      "icon": "rain",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 38.37,
+      "sha256": "d002d2d9941efb14967b41bbc26d33185dc77596241e6cb2231542cf8f9d5114",
+      "file": "icon-rain-final.png"
+    },
+    {
+      "id": "icon-sun-final",
+      "prompt": "Exactly one isolated game UI icon: one warm golden sun disk with short rays. Detailed hand-painted natural fine outlines and soft volume shading, restrained colors, complete centered icon filling about seventy percent of the canvas. Uniform bright green #00ff00 background. NO PEOPLE, no characters, no human silhouette, no human faces, no body, no creatures, no buildings, no scenery, no text, no border, no UI panel, no extra objects, no watermark.",
+      "refs": [],
+      "kind": "sprite",
+      "width": 512,
+      "height": 512,
+      "seed": 246387,
+      "icon": "sun",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 34.9,
+      "sha256": "04348f2ac76a46f63dfc8af09824b2da35310a9b2c809649366cda96a3fa1022",
+      "file": "icon-sun-final.png"
+    },
+    {
+      "id": "icon-supplies-final",
+      "prompt": "Exactly one isolated game UI icon: a tied tan cloth grain sack with golden rice ears and a small wooden supply box. Detailed hand-painted natural fine outlines and soft volume shading, restrained colors, complete centered icon filling about seventy percent of the canvas. Uniform bright green #00ff00 background. NO PEOPLE, no characters, no human silhouette, no human faces, no body, no creatures, no buildings, no scenery, no text, no border, no UI panel, no extra objects, no watermark.",
+      "refs": [],
+      "kind": "sprite",
+      "width": 512,
+      "height": 512,
+      "seed": 246350,
+      "icon": "supplies",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 41.95,
+      "sha256": "88dfa473078ffce270bb8ef9e216e093c51223ddf7e113135d93d3333cd72cb7",
+      "file": "icon-supplies-final.png"
+    },
+    {
+      "id": "icon-wind-final",
+      "prompt": "Exactly one isolated game UI icon: three elegant curved pale wisps of wind. Detailed hand-painted natural fine outlines and soft volume shading, restrained colors, complete centered icon filling about seventy percent of the canvas. Uniform bright green #00ff00 background. NO PEOPLE, no characters, no human silhouette, no human faces, no body, no creatures, no buildings, no scenery, no text, no border, no UI panel, no extra objects, no watermark.",
+      "refs": [],
+      "kind": "sprite",
+      "width": 512,
+      "height": 512,
+      "seed": 246461,
+      "icon": "wind",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 36.58,
+      "sha256": "a7f59d317f1e36f24c9e32c5f47d7497fbc3edb9d252d141302fc5e0331516fb",
+      "file": "icon-wind-final.png"
+    },
+    {
+      "id": "scene-defeat",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. an empty ancient Chinese military encampment after a lost battle, muted blue-gray evening sky, a lowered tattered red pennant at the far edge, several abandoned supplies at the extreme side edge, quiet broad empty foreground, no gore. Painterly elevated camera about 25 degrees. The LOWER SEVENTY percent is open unobstructed ground for game units, all large buildings, trees and decorations stay at the far edges. No people, no creatures, no characters, no writing, no UI, no border, fill the entire canvas.",
+      "refs": [
+        "reference/style-building.png"
+      ],
+      "kind": "scene",
+      "width": 1280,
+      "height": 768,
+      "seed": 241928,
+      "scene": "defeat",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 78.2,
+      "sha256": "989a27f8dca35bdf3f73138967cced239d3de7d6d79b95bd18f8b7a6c57f865f",
+      "file": "scene-defeat.png"
+    },
+    {
+      "id": "scene-field",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. a broad empty natural grassland battlefield in ancient China, distant low olive hills and a sparse line of trees along the TOP edge, irregular earth and small grass clumps. Painterly elevated camera about 25 degrees. The LOWER SEVENTY percent is open unobstructed ground for game units, all large buildings, trees and decorations stay at the far edges. No people, no creatures, no characters, no writing, no UI, no border, fill the entire canvas.",
+      "refs": [
+        "reference/style-building.png"
+      ],
+      "kind": "scene",
+      "width": 1280,
+      "height": 768,
+      "seed": 241743,
+      "scene": "field",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 76.88,
+      "sha256": "9a9719a1305de70099a92d45eae184608b0e1dca07da90726a36a28a8b7e2703",
+      "file": "scene-field.png"
+    },
+    {
+      "id": "scene-forest",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. an empty forest clearing battlefield in ancient China, mature pine and broadleaf trees framing the far TOP and side edges, distant mountains, broad empty earthy clearing. Painterly elevated camera about 25 degrees. The LOWER SEVENTY percent is open unobstructed ground for game units, all large buildings, trees and decorations stay at the far edges. No people, no creatures, no characters, no writing, no UI, no border, fill the entire canvas.",
+      "refs": [
+        "reference/style-building.png"
+      ],
+      "kind": "scene",
+      "width": 1280,
+      "height": 768,
+      "seed": 241817,
+      "scene": "forest",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 76.88,
+      "sha256": "62f75ced1999f49ddbc411794b4afcc8fffc6db1f32ee8fe77d3a38f0a3efb40",
+      "file": "scene-forest.png"
+    },
+    {
+      "id": "scene-river",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. a broad empty riverbank battlefield in ancient China, soft curving blue-green river along the FAR UPPER edge, reeds and a small distant timber jetty, open packed earth foreground. Painterly elevated camera about 25 degrees. The LOWER SEVENTY percent is open unobstructed ground for game units, all large buildings, trees and decorations stay at the far edges. No people, no creatures, no characters, no writing, no UI, no border, fill the entire canvas.",
+      "refs": [
+        "reference/style-building.png"
+      ],
+      "kind": "scene",
+      "width": 1280,
+      "height": 768,
+      "seed": 241780,
+      "scene": "river",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 81.15,
+      "sha256": "d04bf5322978696884a52d66e6972457a3d5dc02a1e23371275307d15223e2c3",
+      "file": "scene-river.png"
+    },
+    {
+      "id": "scene-siege",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. an empty ancient Chinese fortress approach, a complete gray stone wall with a timber gate tower in the FAR TOP background, red timber beams and blue-gray tile roof, broad open packed earth foreground. Painterly elevated camera about 25 degrees. The LOWER SEVENTY percent is open unobstructed ground for game units, all large buildings, trees and decorations stay at the far edges. No people, no creatures, no characters, no writing, no UI, no border, fill the entire canvas.",
+      "refs": [
+        "reference/style-building.png"
+      ],
+      "kind": "scene",
+      "width": 1280,
+      "height": 768,
+      "seed": 241854,
+      "scene": "siege",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 78.61,
+      "sha256": "f2bc7151251942b4369406d91e064eb8881f375852eacaad9012eaf1c7a44f3b",
+      "file": "scene-siege.png"
+    },
+    {
+      "id": "scene-victory",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. an empty peaceful ancient Chinese fortified city after a victorious defense, warm restrained golden afternoon light, red military banners on a distant gray stone gate tower, broad empty foreground with intact wooden shields and a lowered spear at the extreme side edge. Painterly elevated camera about 25 degrees. The LOWER SEVENTY percent is open unobstructed ground for game units, all large buildings, trees and decorations stay at the far edges. No people, no creatures, no characters, no writing, no UI, no border, fill the entire canvas.",
+      "refs": [
+        "reference/style-building.png"
+      ],
+      "kind": "scene",
+      "width": 1280,
+      "height": 768,
+      "seed": 241891,
+      "scene": "victory",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 76.79,
+      "sha256": "7cb35abdff556de467edc519315a2cfc3462ca06ab74e4e932ac56d3df089e6c",
+      "file": "scene-victory.png"
+    },
+    {
+      "id": "strategy-land",
+      "prompt": "Detailed hand-painted ancient Chinese strategy map terrain, strictly top-down orthographic view. A continuous broad muted olive and beige land surface with soft painted mountain ranges concentrated on the FAR LEFT and UPPER LEFT, low irregular hills, sparse very small forest patches near the edges, expansive calm flat open plains across the central and eastern area. Fine natural ink contours and soft dimensional painterly shading matching the reference. No ocean, no water, no islands, no rivers, no buildings, no cities, no roads, no text, no writing, no border, no grid, no UI. Entire rectangular canvas is connected LAND terrain, all edges filled with land.",
+      "refs": [
+        "reference/style-building.png"
+      ],
+      "kind": "map",
+      "width": 1280,
+      "height": 960,
+      "seed": 243713,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 93.95,
+      "sha256": "0fff392a6769809087f29c3f84522ba0b5f04f6e01638b260034022df6889d7f",
+      "file": "strategy-land.png"
+    },
+    {
+      "id": "terrain-camp-final",
+      "prompt": "Edit this exact military encampment illustration: REMOVE THE HUMAN WARRIOR completely and restore the plain beige tent cloth behind him. Keep only the THREE canvas tents, wooden stakes, supply boxes and red pennant. Empty camp, absolutely NO PEOPLE, no faces, no arms, no legs, no armor. Keep the original complete tents, wooden details, fine painted shading, camera and pure flat bright green background. No lettering or symbols.",
+      "refs": [
+        "generated/terrain-camp.png"
+      ],
+      "kind": "sprite",
+      "width": 768,
+      "height": 768,
+      "seed": 246572,
+      "terrain": "camp",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 129.88,
+      "sha256": "9fe1281a6ba0898f5cdffe582111612a0214d6fd8b6e4ba1be585d0ba427d996",
+      "file": "terrain-camp-final.png"
+    },
+    {
+      "id": "terrain-camp",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. a compact ancient Chinese military encampment, three beige canvas tents with triangular silhouettes, low wooden palisade stakes, stacked supply boxes and one dark red military pennant with NO writing. Elevated three-quarter view, all poles and tents complete. Exactly ONE isolated complete subject, centered with wide empty margin around the whole subject including weapons and feet. Completely flat uniform bright green background #00ff00; no ground, no shadow on the background, no scenery, no text, no labels, no watermark, no border, no UI. ",
+      "refs": [
+        "reference/style-building.png"
+      ],
+      "kind": "sprite",
+      "width": 768,
+      "height": 768,
+      "seed": 241484,
+      "terrain": "camp",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 53.2,
+      "sha256": "97263545cc01a9cad059d34aa18c4222b84a567991b0fe70355e4f651f67ec0e",
+      "file": "terrain-camp.png"
+    },
+    {
+      "id": "terrain-mountain",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. a single compact cluster of weathered blue-gray rocky mountain peaks and pale exposed stone ledges, mossy olive slopes, several cracks and painted rock strata. Elevated three-quarter view, soft subtle shading, clear irregular natural silhouette, not sharp geometric polygons. Exactly ONE isolated complete subject, centered with wide empty margin around the whole subject including weapons and feet. Completely flat uniform bright green background #00ff00; no ground, no shadow on the background, no scenery, no text, no labels, no watermark, no border, no UI. ",
+      "refs": [
+        "reference/style-building.png"
+      ],
+      "kind": "sprite",
+      "width": 768,
+      "height": 768,
+      "seed": 241373,
+      "terrain": "mountain",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 53.43,
+      "sha256": "ad80c53d3cce8064a434713b9024d0953097b5076a8a230e58142e101b216477",
+      "file": "terrain-mountain.png"
+    },
+    {
+      "id": "terrain-tree",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. a single compact grove of THREE mature ancient Chinese evergreen and deciduous trees with clearly visible gnarled trunks, dense olive green foliage clusters, fine painted leaves, soft layered light, elevated three-quarter view, complete canopy and trunks. Exactly ONE isolated complete subject, centered with wide empty margin around the whole subject including weapons and feet. Completely flat uniform bright green background #00ff00; no ground, no shadow on the background, no scenery, no text, no labels, no watermark, no border, no UI. ",
+      "refs": [
+        "reference/style-tree.png"
+      ],
+      "kind": "sprite",
+      "width": 768,
+      "height": 768,
+      "seed": 241410,
+      "terrain": "tree",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 38.77,
+      "sha256": "e40855347afccc0c727598d8be346fdd4cdac26b73a825ade7c23c8736b0b082",
+      "file": "terrain-tree.png"
+    },
+    {
+      "id": "terrain-village-final",
+      "prompt": "Edit this exact village illustration: REMOVE all loose SPEARS, pole weapons and detached tools lying in front of the three houses. The foreground outside the houses is completely empty flat bright green background. Keep only the three complete houses, their tiled roofs, timber beams, plaster walls, doors, windows, stairs and the one wooden ladder leaning against the right house. No people, no warriors, no weapons, no text. Preserve the same camera and detailed hand-painted style.",
+      "refs": [
+        "generated/terrain-village.png"
+      ],
+      "kind": "sprite",
+      "width": 768,
+      "height": 768,
+      "seed": 246609,
+      "terrain": "village",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 120.67,
+      "sha256": "37b95fb4fb9960a2ba4bc88adee81469d8c1bd4e1903dd21bafa3167e03aa300",
+      "file": "terrain-village-final.png"
+    },
+    {
+      "id": "terrain-village",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. a small compact ancient Chinese village of THREE timber and plaster houses with blue-gray tiled roofs, red-brown beams, wooden doors and tiny windows, irregular grouping, all houses complete, elevated three-quarter view, no surrounding scenery. Exactly ONE isolated complete subject, centered with wide empty margin around the whole subject including weapons and feet. Completely flat uniform bright green background #00ff00; no ground, no shadow on the background, no scenery, no text, no labels, no watermark, no border, no UI. ",
+      "refs": [
+        "reference/style-building.png"
+      ],
+      "kind": "sprite",
+      "width": 768,
+      "height": 768,
+      "seed": 241447,
+      "terrain": "village",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 53.24,
+      "sha256": "840cd3647f9e216a5385a3252c75b6015419c751903e59571753822ca530077c",
+      "file": "terrain-village.png"
+    },
+    {
+      "id": "ui-paper",
+      "prompt": "A seamless warm ivory handmade paper surface for an ancient Chinese strategy game panel. Extremely subtle fine soft fibers, very low contrast, uniform warm light neutral beige ivory. Flat top down, smooth and highly readable. No calligraphy, no symbols, no text, no border, no folds, no frame, no creases, no objects, no stains.",
+      "refs": [],
+      "kind": "surface",
+      "width": 512,
+      "height": 512,
+      "seed": 243750,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 19.3,
+      "sha256": "acd75d2066444fc083760497ce04a046ceb09fe7a7b27ebadcd184f2ffe8b87b",
+      "file": "ui-paper.png"
+    },
+    {
+      "id": "unit-0-attack-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Edit the EXACT SAME subject in the reference to show ONLY THIS ONE POSE: the rider thrusts his ONE long spear horizontally toward screen RIGHT while mounted on the single brown horse. ONE silver spearhead at the far right, a plain wooden butt at the other end. Left hand on reins. Exactly ONE SINGLE complete subject, NOT a sprite sheet, NOT a collage, no panels, no duplicated bodies. Keep the exact same identity, headwear, deep RED clothing and RED armor or sail, materials, body proportions and camera. Keep natural anatomy. All feet, weapon tips and the entire subject must fit within the frame with wide green margin. Uniform bright green #00ff00 background, no ground, no cast shadow, no text, no labels, no UI. No extra people, no extra horses, no dismemberment, no gore.",
+      "refs": [
+        "generated/unit-0-corrected.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 250357,
+      "type": 0,
+      "pose": "attack",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 74.41,
+      "sha256": "3e72fdef231916e2642db0c15d5c526694357e9ac4f61ef1f5ce8ab1a9d8513a",
+      "file": "unit-0-attack-single.png"
+    },
+    {
+      "id": "unit-0-corrected",
+      "prompt": "Edit this exact cavalry illustration only: add a VERY LARGE dark red fabric horse caparison draped from the saddle over BOTH sides of the horses main torso, with layered folds and a bronze embroidered edge, covering most of its flank. Keep its brown head, four brown legs, saddle, rider, red armor, long spear, natural anatomy and the same hand-painted style. The red rider and red horse cloth together dominate the visible silhouette. Exactly the same camera and uniform green background.",
+      "refs": [
+        "generated/unit-0-base.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 242900,
+      "type": 0,
+      "corrects": "unit-0-base",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 32.3,
+      "sha256": "897dab644eca323255bcf20846ee5c8ac69352a8608451abba2fb40339eb842b",
+      "file": "unit-0-corrected.png"
+    },
+    {
+      "id": "unit-0-base",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. a Chinese cavalry soldier mounted on a complete brown war horse with four correct legs and visible saddle, a long straight cavalry spear held diagonally to the right, dark red lacquered armor and helmet, a large deep red cape and red horse caparison, dark leather boots. Both the complete horse and rider must fit inside the image. Turned slightly three quarters toward the viewer, facing screen RIGHT. Large red surfaces on armor and clothing must occupy at least half the visible character. Exactly ONE isolated complete subject, centered with wide empty margin around the whole subject including weapons and feet. Completely flat uniform bright green background #00ff00; no ground, no shadow on the background, no scenery, no text, no labels, no watermark, no border, no UI. ",
+      "refs": [
+        "reference/style-soldier.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 241040,
+      "type": 0,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 22.23,
+      "sha256": "f21dc6bc1d7d8c285aac6a9329a2493bec14858be93fe3455086152ac0110076",
+      "file": "unit-0-base.png"
+    },
+    {
+      "id": "unit-0-fall-composite",
+      "model": "composition of separately verified MFLUX horse and rider",
+      "refs": [
+        "generated/cavalry-horse-falling-red.png",
+        "generated/cavalry-rider-falling.png",
+        "generated/cavalry-dropped-spear.png"
+      ],
+      "transform": "remove floating spear with narrow inpaint mask excluding hand and face; scale full human body to horse; horse behind rider; spear on ground; transparent PNG",
+      "weaponMask": {
+        "start": [
+          454,
+          110
+        ],
+        "end": [
+          189,
+          500
+        ],
+        "width": 24,
+        "protectedHand": [
+          311,
+          333
+        ]
+      },
+      "inputs": [
+        {
+          "id": "cavalry-horse-falling-red",
+          "refs": [
+            "generated/cavalry-horse-falling.png"
+          ],
+          "prompt": "Add a LARGE DEEP RED EMBROIDERED HORSE BLANKET under the saddle, draping over this lying horse back and upper side. The blanket has a thin gold embroidered edge like traditional Chinese cavalry caparison. Keep the exact complete brown horse, all its four tucked legs, lowered head, tail, saddle and collapsed pose unchanged. No humans, no rider, no face except the horse head. Fine hand-painted game style, same uniform green background, no ground or text.",
+          "kind": "sprite",
+          "width": 512,
+          "height": 640,
+          "seed": 252218,
+          "model": "mlx-community/flux2-klein-4b-4bit",
+          "mflux": "0.23.0",
+          "steps": 4,
+          "seconds": 32.13,
+          "sha256": "f36b752b02ccacbb5dd8d1dea83c4051b792bc2b48a094a1da7c90565d7ce5ff"
+        },
+        {
+          "id": "cavalry-rider-falling",
+          "refs": [
+            "generated/cavalry-rider-alone.png"
+          ],
+          "prompt": "This SAME ONE cavalryman has fallen LOW onto his RIGHT SIDE, his left hand braced on the ground, his upper body near the floor, two complete bent legs together to the side, exactly two arms. He is NOT standing. Same red helmet, red armor, cape, dark trousers and boots. Keep whole human anatomy connected, no horse and no animal parts. His one spear is beside him, never through his body. Same fine hand-painted style and identity. Entire figure fits with wide margin on a bright green background, no ground, no text, no blood.",
+          "kind": "sprite",
+          "width": 512,
+          "height": 640,
+          "seed": 252112,
+          "model": "mlx-community/flux2-klein-4b-4bit",
+          "mflux": "0.23.0",
+          "steps": 4,
+          "seconds": 70.64,
+          "sha256": "d679f2c6ef56208ba23b1240c65d60deff16869f36493707f176a797e4b283eb"
+        },
+        {
+          "id": "cavalry-dropped-spear",
+          "refs": [],
+          "prompt": "ONE isolated complete ancient Chinese long cavalry spear lying horizontally. A straight long slender brown wooden shaft, a single small silver triangular spearhead at the RIGHT tip, a plain rounded wooden butt at the LEFT end. Fine hand-painted Chinese game art, dark clean contour, visible wood grain, silver painted highlights, soft dimensional shading. ONLY THE SPEAR, no human, no hand, no horse, no creature, no holder, no decoration, no second weapon, no shadow, no floor, no writing. Plain uniform bright green background. Full spear fits inside with generous empty margin.",
+          "kind": "sprite",
+          "width": 512,
+          "height": 256,
+          "seed": 252324,
+          "model": "mlx-community/flux2-klein-4b-4bit",
+          "mflux": "0.23.0",
+          "steps": 4,
+          "seconds": 27.73,
+          "sha256": "7d63cb3f1ce039dd9c748708c90de0dcf1a07c64a062eb2dac05ee8b6ea6079d"
+        }
+      ],
+      "sha256": "ea58b2c188a3cc7e65bbf77fccea71f7b168cc874d85d0c523a5daab18e1e07f",
+      "file": "unit-0-fall-composite.png"
+    },
+    {
+      "id": "cavalry-horse-falling-red",
+      "refs": [
+        "generated/cavalry-horse-falling.png"
+      ],
+      "prompt": "Add a LARGE DEEP RED EMBROIDERED HORSE BLANKET under the saddle, draping over this lying horse back and upper side. The blanket has a thin gold embroidered edge like traditional Chinese cavalry caparison. Keep the exact complete brown horse, all its four tucked legs, lowered head, tail, saddle and collapsed pose unchanged. No humans, no rider, no face except the horse head. Fine hand-painted game style, same uniform green background, no ground or text.",
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 252218,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 32.13,
+      "sha256": "f36b752b02ccacbb5dd8d1dea83c4051b792bc2b48a094a1da7c90565d7ce5ff",
+      "file": "cavalry-horse-falling-red.png"
+    },
+    {
+      "id": "cavalry-horse-falling",
+      "refs": [
+        "generated/cavalry-horse-alone.png"
+      ],
+      "prompt": "The ONE horse has COLLAPSED ONTO ITS RIGHT SIDE, with its WHOLE BODY LOW ON THE GROUND. Show a real complete horse body lying down, FOUR horse legs tucked naturally beside its belly, head near the ground, red caparison and saddle on the back. The horse is NOT standing and NOT sitting upright. No rider, no people, no human parts. Same hand-painted horse identity, proportions and camera. Entire animal fits with green margin. Flat bright green backdrop, no floor, no text.",
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 251953,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 36.59,
+      "sha256": "3983317686d61ef35453ae4d2a0716ae67a28d5fdfb8c58083b147eb96c2e602",
+      "file": "cavalry-horse-falling.png"
+    },
+    {
+      "id": "cavalry-horse-alone",
+      "refs": [
+        "generated/unit-0-corrected.png"
+      ],
+      "prompt": "REMOVE the human rider completely. Show ONLY the ONE complete brown horse from this picture, with its same red caparison, saddle and reins, standing alone. No human being and no human body parts. Keep all FOUR horse legs, whole animal body, horse head and tail, same exact fine hand-painted Chinese game style and soft volume. Uniform bright green background. No ground or text.",
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 251900,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 51.47,
+      "sha256": "53b5c4a457ec481ad32d4659ccd8b008ea6b485708eea719dff345aac6b4f347",
+      "file": "cavalry-horse-alone.png"
+    },
+    {
+      "id": "cavalry-rider-falling",
+      "refs": [
+        "generated/cavalry-rider-alone.png"
+      ],
+      "prompt": "This SAME ONE cavalryman has fallen LOW onto his RIGHT SIDE, his left hand braced on the ground, his upper body near the floor, two complete bent legs together to the side, exactly two arms. He is NOT standing. Same red helmet, red armor, cape, dark trousers and boots. Keep whole human anatomy connected, no horse and no animal parts. His one spear is beside him, never through his body. Same fine hand-painted style and identity. Entire figure fits with wide margin on a bright green background, no ground, no text, no blood.",
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 252112,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 70.64,
+      "sha256": "d679f2c6ef56208ba23b1240c65d60deff16869f36493707f176a797e4b283eb",
+      "file": "cavalry-rider-falling.png"
+    },
+    {
+      "id": "cavalry-rider-alone",
+      "refs": [
+        "generated/unit-0-corrected.png"
+      ],
+      "prompt": "REMOVE the horse entirely. Show ONLY the SAME red-armored cavalryman DISMOUNTED and standing ON FOOT. ONE complete human man with a red helmet, same face, dark red lamellar armor and cape, red skirt over dark trousers, two hands, two legs and dark boots. He holds one long spear. Same slightly stylized three-and-a-half head proportions, fine Chinese hand-painted lines and soft volume. No horse, no animal parts, no other person. Whole body and spear fit with generous green margin. Uniform bright green background, no floor, no text.",
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 252059,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 39.84,
+      "sha256": "fa0ee8d937e76575e99fb4b6abd931be17d67b49aca0372f1bd8dc6e9ff29358",
+      "file": "cavalry-rider-alone.png"
+    },
+    {
+      "id": "cavalry-dropped-spear",
+      "refs": [],
+      "prompt": "ONE isolated complete ancient Chinese long cavalry spear lying horizontally. A straight long slender brown wooden shaft, a single small silver triangular spearhead at the RIGHT tip, a plain rounded wooden butt at the LEFT end. Fine hand-painted Chinese game art, dark clean contour, visible wood grain, silver painted highlights, soft dimensional shading. ONLY THE SPEAR, no human, no hand, no horse, no creature, no holder, no decoration, no second weapon, no shadow, no floor, no writing. Plain uniform bright green background. Full spear fits inside with generous empty margin.",
+      "kind": "sprite",
+      "width": 512,
+      "height": 256,
+      "seed": 252324,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 27.73,
+      "sha256": "7d63cb3f1ce039dd9c748708c90de0dcf1a07c64a062eb2dac05ee8b6ea6079d",
+      "file": "cavalry-dropped-spear.png"
+    },
+    {
+      "id": "unit-0-ground-composite",
+      "model": "composition of separately verified MFLUX horse and rider",
+      "refs": [
+        "generated/cavalry-horse-settled-red.png",
+        "generated/cavalry-rider-settled.png",
+        "generated/cavalry-dropped-spear.png"
+      ],
+      "transform": "remove floating spear with narrow inpaint mask excluding hand and face; scale full human body to horse; horse behind rider; spear on ground; transparent PNG",
+      "weaponMask": {
+        "start": [
+          44,
+          20
+        ],
+        "end": [
+          495,
+          546
+        ],
+        "width": 24,
+        "protectedHand": [
+          319,
+          333
+        ]
+      },
+      "inputs": [
+        {
+          "id": "cavalry-horse-settled-red",
+          "refs": [
+            "generated/cavalry-horse-settled.png"
+          ],
+          "prompt": "Add a LARGE DEEP RED EMBROIDERED HORSE BLANKET under the saddle, draping over this lying horse back and upper side. The blanket has a thin gold embroidered edge like traditional Chinese cavalry caparison. Keep the exact complete brown horse, all its four tucked legs, lowered head, tail, saddle and settled pose unchanged. No humans, no rider, no face except the horse head. Fine hand-painted game style, same uniform green background, no ground or text.",
+          "kind": "sprite",
+          "width": 512,
+          "height": 640,
+          "seed": 252271,
+          "model": "mlx-community/flux2-klein-4b-4bit",
+          "mflux": "0.23.0",
+          "steps": 4,
+          "seconds": 34.21,
+          "sha256": "771a1008650926df4fab52288002a74c22738b1fae9da0fcceee646baf8991da"
+        },
+        {
+          "id": "cavalry-rider-settled",
+          "refs": [
+            "generated/cavalry-rider-alone.png"
+          ],
+          "prompt": "This SAME ONE complete cavalryman lies SETTLED ON HIS RIGHT SIDE with his helmeted head low and eyes closed. The red armored torso, two arms and two clothed legs connect naturally. Both legs lie to one side; no crouching, no standing. Keep the same red helmet, red armor and cape, dark trousers and boots, one spear lying BESIDE the body. No horse, no animal parts, no second body. Same fine hand-painted identity. Entire body and spear fit with wide green margin. Bright green backdrop, no floor, no text, no blood.",
+          "kind": "sprite",
+          "width": 512,
+          "height": 640,
+          "seed": 252165,
+          "model": "mlx-community/flux2-klein-4b-4bit",
+          "mflux": "0.23.0",
+          "steps": 4,
+          "seconds": 36.07,
+          "sha256": "e3efc38e47f3aa9c6618fb4761d2ae439414077629507fd53bd039d392f24322"
+        },
+        {
+          "id": "cavalry-dropped-spear",
+          "refs": [],
+          "prompt": "ONE isolated complete ancient Chinese long cavalry spear lying horizontally. A straight long slender brown wooden shaft, a single small silver triangular spearhead at the RIGHT tip, a plain rounded wooden butt at the LEFT end. Fine hand-painted Chinese game art, dark clean contour, visible wood grain, silver painted highlights, soft dimensional shading. ONLY THE SPEAR, no human, no hand, no horse, no creature, no holder, no decoration, no second weapon, no shadow, no floor, no writing. Plain uniform bright green background. Full spear fits inside with generous empty margin.",
+          "kind": "sprite",
+          "width": 512,
+          "height": 256,
+          "seed": 252324,
+          "model": "mlx-community/flux2-klein-4b-4bit",
+          "mflux": "0.23.0",
+          "steps": 4,
+          "seconds": 27.73,
+          "sha256": "7d63cb3f1ce039dd9c748708c90de0dcf1a07c64a062eb2dac05ee8b6ea6079d"
+        }
+      ],
+      "sha256": "5b2a634b0567fa4cd9307c6e4814428a6eee5e12ce05ecf29d6460abe2542e23",
+      "file": "unit-0-ground-composite.png"
+    },
+    {
+      "id": "cavalry-horse-settled-red",
+      "refs": [
+        "generated/cavalry-horse-settled.png"
+      ],
+      "prompt": "Add a LARGE DEEP RED EMBROIDERED HORSE BLANKET under the saddle, draping over this lying horse back and upper side. The blanket has a thin gold embroidered edge like traditional Chinese cavalry caparison. Keep the exact complete brown horse, all its four tucked legs, lowered head, tail, saddle and settled pose unchanged. No humans, no rider, no face except the horse head. Fine hand-painted game style, same uniform green background, no ground or text.",
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 252271,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 34.21,
+      "sha256": "771a1008650926df4fab52288002a74c22738b1fae9da0fcceee646baf8991da",
+      "file": "cavalry-horse-settled-red.png"
+    },
+    {
+      "id": "cavalry-horse-settled",
+      "refs": [
+        "generated/cavalry-horse-falling.png"
+      ],
+      "prompt": "Keep ONLY this one complete horse lying on its SIDE. Lower its muzzle to rest on the ground and relax its tucked four legs. Its whole belly stays low; preserve the same brown body, red caparison, saddle, tail and the exact same hand-painted outline. No humans, no rider, no blood. Entire animal fits inside a plain bright green background with generous margin. No ground, no text.",
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 252006,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 35.57,
+      "sha256": "0067581d6aa9eb6ca68ca4b9c2b9e0b7eb924574433a74334665725d920aa1bd",
+      "file": "cavalry-horse-settled.png"
+    },
+    {
+      "id": "cavalry-rider-settled",
+      "refs": [
+        "generated/cavalry-rider-alone.png"
+      ],
+      "prompt": "This SAME ONE complete cavalryman lies SETTLED ON HIS RIGHT SIDE with his helmeted head low and eyes closed. The red armored torso, two arms and two clothed legs connect naturally. Both legs lie to one side; no crouching, no standing. Keep the same red helmet, red armor and cape, dark trousers and boots, one spear lying BESIDE the body. No horse, no animal parts, no second body. Same fine hand-painted identity. Entire body and spear fit with wide green margin. Bright green backdrop, no floor, no text, no blood.",
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 252165,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 36.07,
+      "sha256": "e3efc38e47f3aa9c6618fb4761d2ae439414077629507fd53bd039d392f24322",
+      "file": "cavalry-rider-settled.png"
+    },
+    {
+      "id": "unit-0-hit-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Edit the EXACT SAME subject in the reference to show ONLY THIS ONE POSE: horse and rider recoil slightly from an impact, the rider leans backward, both stay together with intact correct anatomy. Exactly ONE SINGLE complete subject, NOT a sprite sheet, NOT a collage, no panels, no duplicated bodies. Keep the exact same identity, headwear, deep RED clothing and RED armor or sail, materials, body proportions and camera. Keep natural anatomy. All feet, weapon tips and the entire subject must fit within the frame with wide green margin. Uniform bright green #00ff00 background, no ground, no cast shadow, no text, no labels, no UI. No extra people, no extra horses, no dismemberment, no gore.",
+      "refs": [
+        "generated/unit-0-corrected.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 250394,
+      "type": 0,
+      "pose": "hit",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 70.92,
+      "sha256": "68e7f0edd6cb88301d4b822c48e9003187f03332ed7a198714f617abd3f1f75a",
+      "file": "unit-0-hit-single.png"
+    },
+    {
+      "id": "unit-0-kneel-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Create ONLY ONE SINGLE defeat pose of the EXACT SAME subject in the reference: the ONE horse is lowering onto its bent knees while its ONE red armored rider loses balance but remains fully visible beside the saddle, all horse and rider anatomy intact. Preserve the exact face, weapon identity, red outfit, original proportions and materials, the same camera, fine hand-painted outlines and soft volume. ONE complete single subject, NOT a sheet, NOT a collage, no panels. Keep the whole subject including weapon within the image, generous margin. Completely flat bright green #00ff00 backdrop, no floor or background objects, no text or labels. No smiles, no nudity, no gore, no blood, no extra figures.",
+      "refs": [
+        "generated/unit-0-corrected.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 250431,
+      "type": 0,
+      "stage": "kneel",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 70.26,
+      "sha256": "2bf1d9585e2fb0141d0e24f36e94b1ffdc8db0436da03625ce643b94a59074b7",
+      "file": "unit-0-kneel-single.png"
+    },
+    {
+      "id": "unit-0-windup-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Edit the EXACT SAME subject in the reference to show ONLY THIS ONE POSE: the rider draws his long spear back in his RIGHT HAND, preparing a thrust, his left hand holding the reins of the single complete horse. Exactly ONE SINGLE complete subject, NOT a sprite sheet, NOT a collage, no panels, no duplicated bodies. Keep the exact same identity, headwear, deep RED clothing and RED armor or sail, materials, body proportions and camera. Keep natural anatomy. All feet, weapon tips and the entire subject must fit within the frame with wide green margin. Uniform bright green #00ff00 background, no ground, no cast shadow, no text, no labels, no UI. No extra people, no extra horses, no dismemberment, no gore.",
+      "refs": [
+        "generated/unit-0-corrected.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 250320,
+      "type": 0,
+      "pose": "windup",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 78.54,
+      "sha256": "6d575d42172fc6af82a6836f8570719ad8bdac2a982840ac1b2d9622fd1ce1ad",
+      "file": "unit-0-windup-single.png"
+    },
+    {
+      "id": "unit-1-attack-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Edit the EXACT SAME subject in the reference to show ONLY THIS ONE POSE: he thrusts his ONE spear toward screen RIGHT. Exactly ONE SILVER SPEARHEAD at the rightmost tip, a plain wood butt at the other end. Shield remains strapped to his left forearm. Two correct hands, no second spear, no sword. Exactly ONE SINGLE complete subject, NOT a sprite sheet, NOT a collage, no panels, no duplicated bodies. Keep the exact same identity, headwear, deep RED clothing and RED armor or sail, materials, body proportions and camera. Keep natural anatomy. All feet, weapon tips and the entire subject must fit within the frame with wide green margin. Uniform bright green #00ff00 background, no ground, no cast shadow, no text, no labels, no UI. No extra people, no extra horses, no dismemberment, no gore.",
+      "refs": [
+        "generated/unit-1-corrected.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 250579,
+      "type": 1,
+      "pose": "attack",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 80.76,
+      "sha256": "a545d3f53bd22bbe8646c24d8b283f91f6132757e7e7776e6f29153e1f13514f",
+      "file": "unit-1-attack-single.png"
+    },
+    {
+      "id": "unit-1-fall-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Create ONLY ONE SINGLE defeat pose of the EXACT SAME subject in the reference: the ONE clothed character is falling toward his SIDE, one hand braced on the ground and upper body low, with the same complete outfit, headwear and weapon. Exactly two arms and two legs, no extra joints, no exposed knees. Preserve the exact face, weapon identity, red outfit, original proportions and materials, the same camera, fine hand-painted outlines and soft volume. ONE complete single subject, NOT a sheet, NOT a collage, no panels. Keep the whole subject including weapon within the image, generous margin. Completely flat bright green #00ff00 backdrop, no floor or background objects, no text or labels. No smiles, no nudity, no gore, no blood, no extra figures.",
+      "refs": [
+        "generated/unit-1-corrected.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 250690,
+      "type": 1,
+      "stage": "fall",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 34.41,
+      "sha256": "ea7cef7831290a072db806f863b4f71b172257cd6574381edb0ed059552d4015",
+      "file": "unit-1-fall-single.png"
+    },
+    {
+      "id": "unit-1-ground-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Create ONLY ONE SINGLE defeat pose of the EXACT SAME subject in the reference: the ONE complete clothed character lies settled on his SIDE at ground level with his head, torso, two arms and two legs connected naturally. His headwear and full red outfit are retained; his ONE original weapon lies beside him. No second body, no extra limbs, no floating objects, no exposed knees. Preserve the exact face, weapon identity, red outfit, original proportions and materials, the same camera, fine hand-painted outlines and soft volume. ONE complete single subject, NOT a sheet, NOT a collage, no panels. Keep the whole subject including weapon within the image, generous margin. Completely flat bright green #00ff00 backdrop, no floor or background objects, no text or labels. No smiles, no nudity, no gore, no blood, no extra figures.",
+      "refs": [
+        "generated/unit-1-corrected.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 250727,
+      "type": 1,
+      "stage": "ground",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 34.42,
+      "sha256": "e9d677eadade20e45d4c1806eb2c606be9b7a2bcd17936fadcf629eb69f1736e",
+      "file": "unit-1-ground-single.png"
+    },
+    {
+      "id": "unit-1-hit-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Edit the EXACT SAME subject in the reference to show ONLY THIS ONE POSE: he recoils from impact, knees bent, shield lowered, still holding his one spear. Exactly ONE SINGLE complete subject, NOT a sprite sheet, NOT a collage, no panels, no duplicated bodies. Keep the exact same identity, headwear, deep RED clothing and RED armor or sail, materials, body proportions and camera. Keep natural anatomy. All feet, weapon tips and the entire subject must fit within the frame with wide green margin. Uniform bright green #00ff00 background, no ground, no cast shadow, no text, no labels, no UI. No extra people, no extra horses, no dismemberment, no gore.",
+      "refs": [
+        "generated/unit-1-corrected.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 250616,
+      "type": 1,
+      "pose": "hit",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 61.13,
+      "sha256": "ebc0d3ac17d0360812c322c977d5eaa98dbb78c0956f4aa8739f9a5df38ded55",
+      "file": "unit-1-hit-single.png"
+    },
+    {
+      "id": "unit-1-kneel-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Create ONLY ONE SINGLE defeat pose of the EXACT SAME subject in the reference: the ONE clothed character has buckled onto ONE KNEE with the other knee bent, his upper body leaning forward and his weapon lowered, exactly two arms and two legs, no exposed skin except face and hands. Preserve the exact face, weapon identity, red outfit, original proportions and materials, the same camera, fine hand-painted outlines and soft volume. ONE complete single subject, NOT a sheet, NOT a collage, no panels. Keep the whole subject including weapon within the image, generous margin. Completely flat bright green #00ff00 backdrop, no floor or background objects, no text or labels. No smiles, no nudity, no gore, no blood, no extra figures.",
+      "refs": [
+        "generated/unit-1-corrected.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 250653,
+      "type": 1,
+      "stage": "kneel",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 653.44,
+      "sha256": "d46bfecb28e09a3f973fa564c0bf685da9fefdc8aabfebde1a87a875ca04ef8b",
+      "file": "unit-1-kneel-single.png"
+    },
+    {
+      "id": "unit-1-windup-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Edit the EXACT SAME subject in the reference to show ONLY THIS ONE POSE: he draws his ONE spear back with the shield raised on his other forearm, preparing to thrust. Exactly ONE SINGLE complete subject, NOT a sprite sheet, NOT a collage, no panels, no duplicated bodies. Keep the exact same identity, headwear, deep RED clothing and RED armor or sail, materials, body proportions and camera. Keep natural anatomy. All feet, weapon tips and the entire subject must fit within the frame with wide green margin. Uniform bright green #00ff00 background, no ground, no cast shadow, no text, no labels, no UI. No extra people, no extra horses, no dismemberment, no gore.",
+      "refs": [
+        "generated/unit-1-corrected.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 250542,
+      "type": 1,
+      "pose": "windup",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 69.83,
+      "sha256": "397c8f33826b0ab753b5f11aa848f79b65078d3066a90e91b53eccd9501eaaea",
+      "file": "unit-1-windup-single.png"
+    },
+    {
+      "id": "unit-2-attack-release",
+      "refs": [
+        "generated/unit-2-windup-single.png"
+      ],
+      "prompt": "The EXACT SAME archer a moment AFTER firing the arrow. His bow hand stays extended toward screen RIGHT, his drawing hand opens its fingers beside his cheek after releasing the string. The bowstring is now STRAIGHT and relaxed between the two bow tips, not drawn back. A single arrow has LEFT THE BOW and flies horizontally to the RIGHT in front of it: the SILVER POINT IS AT THE FAR RIGHT end, the feather fletching is at the LEFT tail. No arrow touching his face or left on the string. Correct two arms and two hands, complete bow, same exact red armor, helmet, quiver, face, body proportions and fine hand-painted shading. Entire figure and whole flying arrow fit inside with wide margin. Plain uniform bright green backdrop, no floor, no labels, no other person.",
+      "width": 512,
+      "height": 640,
+      "seed": 252737,
+      "kind": "sprite",
+      "type": 2,
+      "pose": "attack",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 113.28,
+      "sha256": "649790796af3f371bd97e3a3bde258903f25402dddf11a6b7969391e4fd03a32",
+      "file": "unit-2-attack-release.png"
+    },
+    {
+      "id": "unit-2-windup-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Edit the EXACT SAME subject in the reference to show ONLY THIS ONE POSE: he draws ONE arrow to his cheek on the taut bowstring with correct two hands and a visible arrow nock, bow aimed screen RIGHT. Exactly ONE SINGLE complete subject, NOT a sprite sheet, NOT a collage, no panels, no duplicated bodies. Keep the exact same identity, headwear, deep RED clothing and RED armor or sail, materials, body proportions and camera. Keep natural anatomy. All feet, weapon tips and the entire subject must fit within the frame with wide green margin. Uniform bright green #00ff00 background, no ground, no cast shadow, no text, no labels, no UI. No extra people, no extra horses, no dismemberment, no gore.",
+      "refs": [
+        "generated/unit-2-base.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 250764,
+      "type": 2,
+      "pose": "windup",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 34.68,
+      "sha256": "f4c55db31a4e3f41ef517e6be7653605e29ddbc7b9126705bb1db94a328a30e3",
+      "file": "unit-2-windup-single.png"
+    },
+    {
+      "id": "unit-2-fall-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Create ONLY ONE SINGLE defeat pose of the EXACT SAME subject in the reference: the ONE clothed character is falling toward his SIDE, one hand braced on the ground and upper body low, with the same complete outfit, headwear and weapon. Exactly two arms and two legs, no extra joints, no exposed knees. Preserve the exact face, weapon identity, red outfit, original proportions and materials, the same camera, fine hand-painted outlines and soft volume. ONE complete single subject, NOT a sheet, NOT a collage, no panels. Keep the whole subject including weapon within the image, generous margin. Completely flat bright green #00ff00 backdrop, no floor or background objects, no text or labels. No smiles, no nudity, no gore, no blood, no extra figures.",
+      "refs": [
+        "generated/unit-2-base.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 250912,
+      "type": 2,
+      "stage": "fall",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 66.13,
+      "sha256": "204f481c17f2081672fee8d401bdfafbe67a386c6c824d6d30ce811dc43d96fc",
+      "file": "unit-2-fall-single.png"
+    },
+    {
+      "id": "unit-2-ground-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Create ONLY ONE SINGLE defeat pose of the EXACT SAME subject in the reference: the ONE complete clothed character lies settled on his SIDE at ground level with his head, torso, two arms and two legs connected naturally. His headwear and full red outfit are retained; his ONE original weapon lies beside him. No second body, no extra limbs, no floating objects, no exposed knees. Preserve the exact face, weapon identity, red outfit, original proportions and materials, the same camera, fine hand-painted outlines and soft volume. ONE complete single subject, NOT a sheet, NOT a collage, no panels. Keep the whole subject including weapon within the image, generous margin. Completely flat bright green #00ff00 backdrop, no floor or background objects, no text or labels. No smiles, no nudity, no gore, no blood, no extra figures.",
+      "refs": [
+        "generated/unit-2-base.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 250949,
+      "type": 2,
+      "stage": "ground",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 70.5,
+      "sha256": "9cdbc430ef85194e72191c7bde75c8d5a7c02f263a715b63f58c827762d61e2e",
+      "file": "unit-2-ground-single.png"
+    },
+    {
+      "id": "unit-2-hit-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Edit the EXACT SAME subject in the reference to show ONLY THIS ONE POSE: he recoils slightly, knees bent and bow lowered, complete clothed body and intact bow. Exactly ONE SINGLE complete subject, NOT a sprite sheet, NOT a collage, no panels, no duplicated bodies. Keep the exact same identity, headwear, deep RED clothing and RED armor or sail, materials, body proportions and camera. Keep natural anatomy. All feet, weapon tips and the entire subject must fit within the frame with wide green margin. Uniform bright green #00ff00 background, no ground, no cast shadow, no text, no labels, no UI. No extra people, no extra horses, no dismemberment, no gore.",
+      "refs": [
+        "generated/unit-2-base.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 250838,
+      "type": 2,
+      "pose": "hit",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 35.36,
+      "sha256": "a78ca39691f2fc9123a825d8ff4a7e9235b6542d577711ad277132012397345d",
+      "file": "unit-2-hit-single.png"
+    },
+    {
+      "id": "unit-2-kneel-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Create ONLY ONE SINGLE defeat pose of the EXACT SAME subject in the reference: the ONE clothed character has buckled onto ONE KNEE with the other knee bent, his upper body leaning forward and his weapon lowered, exactly two arms and two legs, no exposed skin except face and hands. Preserve the exact face, weapon identity, red outfit, original proportions and materials, the same camera, fine hand-painted outlines and soft volume. ONE complete single subject, NOT a sheet, NOT a collage, no panels. Keep the whole subject including weapon within the image, generous margin. Completely flat bright green #00ff00 backdrop, no floor or background objects, no text or labels. No smiles, no nudity, no gore, no blood, no extra figures.",
+      "refs": [
+        "generated/unit-2-base.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 250875,
+      "type": 2,
+      "stage": "kneel",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 56.07,
+      "sha256": "c28d52ba26c95ed0a4e5efa6aa03b397d58be267fb281cfe0c4a03cc135c0d68",
+      "file": "unit-2-kneel-single.png"
+    },
+    {
+      "id": "unit-3-attack-layered",
+      "model": "derived composition of verified local MFLUX artwork",
+      "refs": [
+        "generated/unit-3-base.png",
+        "generated/unit-2-attack-release.png"
+      ],
+      "transform": "remove original tiny crew within polygon; one archer at 100px maximum body/bow height; original near gunwale occludes legs",
+      "sha256": "fa5cf9a7b99ea5e698e24eb09a0f90dc3b22dfdc52f1e5743341e38e3fd91df8",
+      "file": "unit-3-attack-layered.png"
+    },
+    {
+      "id": "unit-3-base",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. a single complete small ancient Chinese river warship viewed from an elevated three-quarter angle, curved wooden hull with dark red gunwales and red trim, one large dark red rectangular canvas sail on a wooden mast, oars and a tiny sailor in red lamellar armor. This subject is a BOAT with a red sail, no human legs, no sea or water background. Turned slightly three quarters toward the viewer, facing screen RIGHT. Large red surfaces on armor and clothing must occupy at least half the visible character. Exactly ONE isolated complete subject, centered with wide empty margin around the whole subject including weapons and feet. Completely flat uniform bright green background #00ff00; no ground, no shadow on the background, no scenery, no text, no labels, no watermark, no border, no UI. ",
+      "refs": [
+        "reference/style-soldier.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 241151,
+      "type": 3,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 21.79,
+      "sha256": "9bd397eaec5acd94fc29bae92f8187ae2805853109a6762603bc21c5f2263e71",
+      "file": "unit-3-base.png"
+    },
+    {
+      "id": "unit-3-list-0",
+      "model": "derived composition of verified local MFLUX artwork",
+      "refs": [
+        "generated/unit-3-base.png"
+      ],
+      "transform": "rigid complete boat lists 0 degrees; exact same mast, sail, hull, oars and tiny crew; runtime waterline controls sinking",
+      "sha256": "895c7522e6938b02c76ec4721842d6564798ab9dfa9603f7ff21da6f64ee2315",
+      "file": "unit-3-list-0.png"
+    },
+    {
+      "id": "unit-3-list-12",
+      "model": "derived composition of verified local MFLUX artwork",
+      "refs": [
+        "generated/unit-3-base.png"
+      ],
+      "transform": "rigid complete boat lists 12 degrees; exact same mast, sail, hull, oars and tiny crew; runtime waterline controls sinking",
+      "sha256": "172ad978221aa3905f39e047f051ce5d32dfa1992975b82ca17b7657e45b5b61",
+      "file": "unit-3-list-12.png"
+    },
+    {
+      "id": "unit-3-list-3",
+      "model": "derived composition of verified local MFLUX artwork",
+      "refs": [
+        "generated/unit-3-base.png"
+      ],
+      "transform": "rigid complete boat lists 3 degrees; exact same mast, sail, hull, oars and tiny crew; runtime waterline controls sinking",
+      "sha256": "8a073c7a4f6ec12005a8a63eb9f63b4ed23588030da7d79926bdd20c93551bdb",
+      "file": "unit-3-list-3.png"
+    },
+    {
+      "id": "unit-3-list-7",
+      "model": "derived composition of verified local MFLUX artwork",
+      "refs": [
+        "generated/unit-3-base.png"
+      ],
+      "transform": "rigid complete boat lists 7 degrees; exact same mast, sail, hull, oars and tiny crew; runtime waterline controls sinking",
+      "sha256": "a6821c89829e4691ff463c0839a109fb7f8b84f569d718476e9cff1535cf6b7b",
+      "file": "unit-3-list-7.png"
+    },
+    {
+      "id": "unit-3-windup-layered",
+      "model": "derived composition of verified local MFLUX artwork",
+      "refs": [
+        "generated/unit-3-base.png",
+        "generated/unit-2-windup-single.png"
+      ],
+      "transform": "remove original tiny crew within polygon; one archer at 100px maximum body/bow height; original near gunwale occludes legs",
+      "sha256": "98f372709c76db1f327846073439e471bac04de96fe07ce55d96268dcc5b47d4",
+      "file": "unit-3-windup-layered.png"
+    },
+    {
+      "id": "unit-4-attack-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Edit the EXACT SAME subject in the reference to show ONLY THIS ONE POSE: he swings or thrusts his ONE long halberd toward screen RIGHT from a stable wide stance. ONE point and crescent side blade at its front, plain wood butt at the other end, correct two hands and complete shoulders. Exactly ONE SINGLE complete subject, NOT a sprite sheet, NOT a collage, no panels, no duplicated bodies. Keep the exact same identity, headwear, deep RED clothing and RED armor or sail, materials, body proportions and camera. Keep natural anatomy. All feet, weapon tips and the entire subject must fit within the frame with wide green margin. Uniform bright green #00ff00 background, no ground, no cast shadow, no text, no labels, no UI. No extra people, no extra horses, no dismemberment, no gore.",
+      "refs": [
+        "generated/unit-4-halberd.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 251245,
+      "type": 4,
+      "pose": "attack",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 36.72,
+      "sha256": "ee10f6659aba8f0547d493651518d2fe03bc999f53d9c3f16d924d8d51c17ffb",
+      "file": "unit-4-attack-single.png"
+    },
+    {
+      "id": "unit-4-halberd",
+      "prompt": "Edit this exact heavy soldier. ADD ONE SMALL CURVED CRESCENT SILVER SIDE BLADE attached to the TOP spear head immediately below the existing straight silver point. The result is a traditional Chinese ji HALBERD with one straight point and one curved side blade. Keep the plain rounded WOODEN lower shaft with absolutely no lower metal blade. Keep the face, broad bronze shoulder guards, deep red armor, correct hands, boots, camera and uniform green background exactly. No axe at the bottom, no second weapon.",
+      "refs": [
+        "generated/unit-4-final.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 250283,
+      "type": 4,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 72.69,
+      "sha256": "f975e1b15d8e6c1d10e6b24188fe693ec4517dd0fc455faf228a7fc95290513c",
+      "file": "unit-4-halberd.png"
+    },
+    {
+      "id": "unit-4-final",
+      "prompt": "Edit this exact heavy halberd infantry illustration only. Remove the silver AXE BLADE at the BOTTOM end of the wooden shaft completely. The lower end is a plain rounded WOODEN shaft below the gripping hand, with no metal blade or spike. Keep ONE silver spear and side blade at the UPPER end above his helmet, broad bronze shoulders, older stern face and dark red heavy armor. Keep all other pixels, hand-painted linework, camera, green background and complete feet. No extra weapons.",
+      "refs": [
+        "generated/unit-4-corrected.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 245758,
+      "type": 4,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 33.54,
+      "sha256": "da448b21e16918b451802b569fc2e19c7bdb2b696ccc82a6cbdc6448ea204270",
+      "file": "unit-4-final.png"
+    },
+    {
+      "id": "unit-4-corrected",
+      "prompt": "Edit this exact heavy soldier illustration: REPLACE the short sword in his hand with ONE very long heavy Chinese HALBERD. He grips its straight wooden shaft firmly; the shaft extends below his hand and rises well above his helmet, ending in a silver straight spear point plus a LARGE silver crescent-shaped SIDE BLADE. Add broad thick bronze-edged shoulder guards, making the shoulders much wider than the waist. Keep the stern older face, red thick armor, legs, camera, complete silhouette and flat green background. No short sword, no bow, no shield.",
+      "refs": [
+        "generated/unit-4-base.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 243048,
+      "type": 4,
+      "corrects": "unit-4-base",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 33.4,
+      "sha256": "148ed7b30aee5bbd2d039c25ce890888cad5d6f6e9c20b6dcadeb6ecdf555aa9",
+      "file": "unit-4-corrected.png"
+    },
+    {
+      "id": "unit-4-base",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. an imposing Chinese elite heavy halberd infantryman with a wide sturdy silhouette, dark red thick overlapping lamellar armor, red iron helmet with a modest plume, reinforced broad bronze-edged shoulder guards, red armored skirt, a single large halberd with a clearly visible silver crescent side blade. No shield, no bow, broad heavy stance. Turned slightly three quarters toward the viewer, facing screen RIGHT. Large red surfaces on armor and clothing must occupy at least half the visible character. Exactly ONE isolated complete subject, centered with wide empty margin around the whole subject including weapons and feet. Completely flat uniform bright green background #00ff00; no ground, no shadow on the background, no scenery, no text, no labels, no watermark, no border, no UI. ",
+      "refs": [
+        "reference/style-soldier.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 241188,
+      "type": 4,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 22.41,
+      "sha256": "6f9dca1c7d49a9a1d77199dbf2f2c2f34d56c716cd43748d156ad701726da4aa",
+      "file": "unit-4-base.png"
+    },
+    {
+      "id": "unit-4-fall-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Create ONLY ONE SINGLE defeat pose of the EXACT SAME subject in the reference: the ONE clothed character is falling toward his SIDE, one hand braced on the ground and upper body low, with the same complete outfit, headwear and weapon. Exactly two arms and two legs, no extra joints, no exposed knees. Preserve the exact face, weapon identity, red outfit, original proportions and materials, the same camera, fine hand-painted outlines and soft volume. ONE complete single subject, NOT a sheet, NOT a collage, no panels. Keep the whole subject including weapon within the image, generous margin. Completely flat bright green #00ff00 backdrop, no floor or background objects, no text or labels. No smiles, no nudity, no gore, no blood, no extra figures.",
+      "refs": [
+        "generated/unit-4-halberd.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 251356,
+      "type": 4,
+      "stage": "fall",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 35.86,
+      "sha256": "7279cf5ed2415d9a5d3c247422dad2cab20ffa42826783685a0b3eb2a49bd54f",
+      "file": "unit-4-fall-single.png"
+    },
+    {
+      "id": "unit-4-ground-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Create ONLY ONE SINGLE defeat pose of the EXACT SAME subject in the reference: the ONE complete clothed character lies settled on his SIDE at ground level with his head, torso, two arms and two legs connected naturally. His headwear and full red outfit are retained; his ONE original weapon lies beside him. No second body, no extra limbs, no floating objects, no exposed knees. Preserve the exact face, weapon identity, red outfit, original proportions and materials, the same camera, fine hand-painted outlines and soft volume. ONE complete single subject, NOT a sheet, NOT a collage, no panels. Keep the whole subject including weapon within the image, generous margin. Completely flat bright green #00ff00 backdrop, no floor or background objects, no text or labels. No smiles, no nudity, no gore, no blood, no extra figures.",
+      "refs": [
+        "generated/unit-4-halberd.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 251393,
+      "type": 4,
+      "stage": "ground",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 35.87,
+      "sha256": "c70fa31bb08fb37265c736836c7d187d009cf2738a7f9656e75fe780a205cd41",
+      "file": "unit-4-ground-single.png"
+    },
+    {
+      "id": "unit-4-hit-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Edit the EXACT SAME subject in the reference to show ONLY THIS ONE POSE: he recoils, knees bent, broad heavy armor and the ONE correct halberd retained. Exactly ONE SINGLE complete subject, NOT a sprite sheet, NOT a collage, no panels, no duplicated bodies. Keep the exact same identity, headwear, deep RED clothing and RED armor or sail, materials, body proportions and camera. Keep natural anatomy. All feet, weapon tips and the entire subject must fit within the frame with wide green margin. Uniform bright green #00ff00 background, no ground, no cast shadow, no text, no labels, no UI. No extra people, no extra horses, no dismemberment, no gore.",
+      "refs": [
+        "generated/unit-4-halberd.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 251282,
+      "type": 4,
+      "pose": "hit",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 35.25,
+      "sha256": "0eeb590665c57f69e6f142370d52236f9ce8056a455c9d71a99e4a80f506066d",
+      "file": "unit-4-hit-single.png"
+    },
+    {
+      "id": "unit-4-kneel-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Create ONLY ONE SINGLE defeat pose of the EXACT SAME subject in the reference: the ONE clothed character has buckled onto ONE KNEE with the other knee bent, his upper body leaning forward and his weapon lowered, exactly two arms and two legs, no exposed skin except face and hands. Preserve the exact face, weapon identity, red outfit, original proportions and materials, the same camera, fine hand-painted outlines and soft volume. ONE complete single subject, NOT a sheet, NOT a collage, no panels. Keep the whole subject including weapon within the image, generous margin. Completely flat bright green #00ff00 backdrop, no floor or background objects, no text or labels. No smiles, no nudity, no gore, no blood, no extra figures.",
+      "refs": [
+        "generated/unit-4-halberd.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 251319,
+      "type": 4,
+      "stage": "kneel",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 36.17,
+      "sha256": "0b687668434f0393ac2a3da51b14d5a15aa4602d50dbb70d18bcc356db89eb61",
+      "file": "unit-4-kneel-single.png"
+    },
+    {
+      "id": "unit-4-windup-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Edit the EXACT SAME subject in the reference to show ONLY THIS ONE POSE: he braces his wide heavily armored stance and draws his ONE halberd back, keeping the silver point plus curved side blade at its TOP and the plain wooden butt below his hands. Exactly ONE SINGLE complete subject, NOT a sprite sheet, NOT a collage, no panels, no duplicated bodies. Keep the exact same identity, headwear, deep RED clothing and RED armor or sail, materials, body proportions and camera. Keep natural anatomy. All feet, weapon tips and the entire subject must fit within the frame with wide green margin. Uniform bright green #00ff00 background, no ground, no cast shadow, no text, no labels, no UI. No extra people, no extra horses, no dismemberment, no gore.",
+      "refs": [
+        "generated/unit-4-halberd.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 251208,
+      "type": 4,
+      "pose": "windup",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 37.02,
+      "sha256": "aaff77516e16fe6be7992e1437b6d298be19a0ceb9067a859f49663c2f551fdf",
+      "file": "unit-4-windup-single.png"
+    },
+    {
+      "id": "unit-5-attack-cloth",
+      "refs": [
+        "generated/unit-5-attack-single.png"
+      ],
+      "prompt": "Keep the EXACT CURRENT BODY POSE, camera, face and hand positions. Edit ONLY the outfit and the handheld object of this exact man: REMOVE ALL METAL ARMOR, shoulder plates, scales, helmets, wrist guards and cuirass. Replace them with soft dark red layered SCHOLAR ROBES, deep red cloth cloak, ivory under-collar and a wide plain fabric sash. Add the same tall rectangular BLACK SCHOLAR CAP, worn on his head even in a falling or lying pose. Keep the mature narrow black beard, modest facial features and cloth shoes. He holds ONLY a WHITE FEATHER FAN; replace any sword, spear, staff or other weapon entirely with a white feather fan. Whole outfit is flowing FABRIC, not armor, with long loose sleeves and soft continuous cloth folds. Same fine hand-painted line art and exact current pose: gesturing his feather fan forward. Do not turn the pose back into standing. Keep the whole man and fan complete inside the image with generous margin. Uniform flat bright green background, no text, no floor, no additional people.",
+      "kind": "sprite",
+      "type": 5,
+      "pose": "attack",
+      "width": 512,
+      "height": 640,
+      "seed": 254441,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 34.6,
+      "sha256": "0332e7f091b17f86942ab975ecf5b3947ab4e032ec9b5217c66e636624c2b4e0",
+      "file": "unit-5-attack-cloth.png"
+    },
+    {
+      "id": "unit-5-attack-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Edit the EXACT SAME subject in the reference to show ONLY THIS ONE POSE: he gestures his broad WHITE FEATHER FAN toward screen RIGHT, robe sleeves and cloth folds following the arm, calm commanding pose, no weapons and no armor. Exactly ONE SINGLE complete subject, NOT a sprite sheet, NOT a collage, no panels, no duplicated bodies. Keep the exact same identity, headwear, deep RED clothing and RED armor or sail, materials, body proportions and camera. Keep natural anatomy. All feet, weapon tips and the entire subject must fit within the frame with wide green margin. Uniform bright green #00ff00 background, no ground, no cast shadow, no text, no labels, no UI. No extra people, no extra horses, no dismemberment, no gore.",
+      "refs": [
+        "generated/unit-5-corrected.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 251467,
+      "type": 5,
+      "pose": "attack",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 35.68,
+      "sha256": "f832c3b9cc96e5a8e0d02b756ca61e08783f83482644654b9475e2befa8a4197",
+      "file": "unit-5-attack-single.png"
+    },
+    {
+      "id": "unit-5-corrected",
+      "prompt": "Edit this exact strategist illustration: REMOVE ALL METAL ARMOR, shoulder plates, scales, helmets, wrist guards and cuirass. Replace them with soft dark red layered SCHOLAR ROBES, deep red cloth cloak, ivory under-collar and a wide plain fabric sash. Add a tall rectangular BLACK SCHOLAR CAP. Keep the mature narrow black beard, modest facial features, white feather fan in his hand, cloth shoes and calm posture. Whole outfit is fabric, not armor. Natural flowing cloth folds, the same fine hand-painted line art. Flat bright green background, complete subject, no sword or spear.",
+      "refs": [
+        "generated/unit-5-base.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 243085,
+      "type": 5,
+      "corrects": "unit-5-base",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 34.02,
+      "sha256": "56c9fc2eea3e3a7e3351bdfea1660af03aaa6cd8b5ee59b3c74bc21f9fb0554d",
+      "file": "unit-5-corrected.png"
+    },
+    {
+      "id": "unit-5-base",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. a mature Chinese military strategist with black scholar cap, neat moustache and short beard, a long layered deep red robe, deep red cloak, cloth belt and dark cloth shoes, holding a white feather fan at chest height. Slim calm silhouette, no metal helmet, no spear, no sword, no glowing magic orb. Turned slightly three quarters toward the viewer, facing screen RIGHT. Large red surfaces on armor and clothing must occupy at least half the visible character. Exactly ONE isolated complete subject, centered with wide empty margin around the whole subject including weapons and feet. Completely flat uniform bright green background #00ff00; no ground, no shadow on the background, no scenery, no text, no labels, no watermark, no border, no UI. ",
+      "refs": [
+        "reference/style-soldier.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 241225,
+      "type": 5,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 22.6,
+      "sha256": "9e6fbb66251140295dba362c66c50c3cb04d4d3931cb443b91a94aafee1fdd7e",
+      "file": "unit-5-base.png"
+    },
+    {
+      "id": "unit-5-fall-cloth",
+      "refs": [
+        "generated/unit-5-fall-single.png"
+      ],
+      "prompt": "Keep the EXACT CURRENT BODY POSE, camera, face and hand positions. Edit ONLY the outfit and the handheld object of this exact man: REMOVE ALL METAL ARMOR, shoulder plates, scales, helmets, wrist guards and cuirass. Replace them with soft dark red layered SCHOLAR ROBES, deep red cloth cloak, ivory under-collar and a wide plain fabric sash. Add the same tall rectangular BLACK SCHOLAR CAP, worn on his head even in a falling or lying pose. Keep the mature narrow black beard, modest facial features and cloth shoes. He holds ONLY a WHITE FEATHER FAN; replace any sword, spear, staff or other weapon entirely with a white feather fan. Whole outfit is flowing FABRIC, not armor, with long loose sleeves and soft continuous cloth folds. Same fine hand-painted line art and exact current pose: collapsed low onto his side with one hand braced on the floor. Do not turn the pose back into standing. Keep the whole man and fan complete inside the image with generous margin. Uniform flat bright green background, no text, no floor, no additional people.",
+      "kind": "sprite",
+      "type": 5,
+      "pose": "fall",
+      "width": 512,
+      "height": 640,
+      "seed": 254564,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 35.96,
+      "sha256": "24737ffaf899795d12ab617d5bb6c31fafcdd398a29e67d63f6520a8dcb8a428",
+      "file": "unit-5-fall-cloth.png"
+    },
+    {
+      "id": "unit-5-fall-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Create ONLY ONE SINGLE defeat pose of the EXACT SAME subject in the reference: the ONE clothed character is falling toward his SIDE, one hand braced on the ground and upper body low, with the same complete outfit, headwear and weapon. Exactly two arms and two legs, no extra joints, no exposed knees. Preserve the exact face, weapon identity, red outfit, original proportions and materials, the same camera, fine hand-painted outlines and soft volume. ONE complete single subject, NOT a sheet, NOT a collage, no panels. Keep the whole subject including weapon within the image, generous margin. Completely flat bright green #00ff00 backdrop, no floor or background objects, no text or labels. No smiles, no nudity, no gore, no blood, no extra figures.",
+      "refs": [
+        "generated/unit-5-corrected.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 251578,
+      "type": 5,
+      "stage": "fall",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 35.73,
+      "sha256": "49d34c75150c3705f84a4c2a7a2631ea2112c26952ccb7b9e7511edc63807459",
+      "file": "unit-5-fall-single.png"
+    },
+    {
+      "id": "unit-5-ground-cloth",
+      "refs": [
+        "generated/unit-5-ground-single.png"
+      ],
+      "prompt": "Keep the EXACT CURRENT BODY POSE, camera, face and hand positions. Edit ONLY the outfit and the handheld object of this exact man: REMOVE ALL METAL ARMOR, shoulder plates, scales, helmets, wrist guards and cuirass. Replace them with soft dark red layered SCHOLAR ROBES, deep red cloth cloak, ivory under-collar and a wide plain fabric sash. Add the same tall rectangular BLACK SCHOLAR CAP, worn on his head even in a falling or lying pose. Keep the mature narrow black beard, modest facial features and cloth shoes. He holds ONLY a WHITE FEATHER FAN; replace any sword, spear, staff or other weapon entirely with a white feather fan. Whole outfit is flowing FABRIC, not armor, with long loose sleeves and soft continuous cloth folds. Same fine hand-painted line art and exact current pose: lying settled on his side, fully clothed with connected natural anatomy. Do not turn the pose back into standing. Keep the whole man and fan complete inside the image with generous margin. Uniform flat bright green background, no text, no floor, no additional people.",
+      "kind": "sprite",
+      "type": 5,
+      "pose": "ground",
+      "width": 512,
+      "height": 640,
+      "seed": 254605,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 35.74,
+      "sha256": "413855dd5dd1cb99701492a200972f346b46a886939a902a3313609754766f26",
+      "file": "unit-5-ground-cloth.png"
+    },
+    {
+      "id": "unit-5-ground-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Create ONLY ONE SINGLE defeat pose of the EXACT SAME subject in the reference: the ONE complete clothed character lies settled on his SIDE at ground level with his head, torso, two arms and two legs connected naturally. His headwear and full red outfit are retained; his ONE original weapon lies beside him. No second body, no extra limbs, no floating objects, no exposed knees. Preserve the exact face, weapon identity, red outfit, original proportions and materials, the same camera, fine hand-painted outlines and soft volume. ONE complete single subject, NOT a sheet, NOT a collage, no panels. Keep the whole subject including weapon within the image, generous margin. Completely flat bright green #00ff00 backdrop, no floor or background objects, no text or labels. No smiles, no nudity, no gore, no blood, no extra figures.",
+      "refs": [
+        "generated/unit-5-corrected.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 251615,
+      "type": 5,
+      "stage": "ground",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 35.61,
+      "sha256": "7bbf0207b4ffd47308c259d3d34abfcb087650d8e0118805b4db034c5beba2b6",
+      "file": "unit-5-ground-single.png"
+    },
+    {
+      "id": "unit-5-hit-cloth",
+      "refs": [
+        "generated/unit-5-hit-single.png"
+      ],
+      "prompt": "Keep the EXACT CURRENT BODY POSE, camera, face and hand positions. Edit ONLY the outfit and the handheld object of this exact man: REMOVE ALL METAL ARMOR, shoulder plates, scales, helmets, wrist guards and cuirass. Replace them with soft dark red layered SCHOLAR ROBES, deep red cloth cloak, ivory under-collar and a wide plain fabric sash. Add the same tall rectangular BLACK SCHOLAR CAP, worn on his head even in a falling or lying pose. Keep the mature narrow black beard, modest facial features and cloth shoes. He holds ONLY a WHITE FEATHER FAN; replace any sword, spear, staff or other weapon entirely with a white feather fan. Whole outfit is flowing FABRIC, not armor, with long loose sleeves and soft continuous cloth folds. Same fine hand-painted line art and exact current pose: recoiling with knees bent. Do not turn the pose back into standing. Keep the whole man and fan complete inside the image with generous margin. Uniform flat bright green background, no text, no floor, no additional people.",
+      "kind": "sprite",
+      "type": 5,
+      "pose": "hit",
+      "width": 512,
+      "height": 640,
+      "seed": 254482,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 35.15,
+      "sha256": "5787e98861f9426def6276fe3797201ed99b7744e4c2f9d834dc780d06de9ce1",
+      "file": "unit-5-hit-cloth.png"
+    },
+    {
+      "id": "unit-5-hit-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Edit the EXACT SAME subject in the reference to show ONLY THIS ONE POSE: he recoils slightly with knees bent, fan held near his clothed chest, tall black scholar cap and soft red robes retained, no armor. Exactly ONE SINGLE complete subject, NOT a sprite sheet, NOT a collage, no panels, no duplicated bodies. Keep the exact same identity, headwear, deep RED clothing and RED armor or sail, materials, body proportions and camera. Keep natural anatomy. All feet, weapon tips and the entire subject must fit within the frame with wide green margin. Uniform bright green #00ff00 background, no ground, no cast shadow, no text, no labels, no UI. No extra people, no extra horses, no dismemberment, no gore.",
+      "refs": [
+        "generated/unit-5-corrected.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 251504,
+      "type": 5,
+      "pose": "hit",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 35.94,
+      "sha256": "e2453edb89e57acb3aa9cad9dbc81ffdb405e285bb6cc4669bcd5399c053acc1",
+      "file": "unit-5-hit-single.png"
+    },
+    {
+      "id": "unit-5-kneel-cloth",
+      "refs": [
+        "generated/unit-5-kneel-single.png"
+      ],
+      "prompt": "Keep the EXACT CURRENT BODY POSE, camera, face and hand positions. Edit ONLY the outfit and the handheld object of this exact man: REMOVE ALL METAL ARMOR, shoulder plates, scales, helmets, wrist guards and cuirass. Replace them with soft dark red layered SCHOLAR ROBES, deep red cloth cloak, ivory under-collar and a wide plain fabric sash. Add the same tall rectangular BLACK SCHOLAR CAP, worn on his head even in a falling or lying pose. Keep the mature narrow black beard, modest facial features and cloth shoes. He holds ONLY a WHITE FEATHER FAN; replace any sword, spear, staff or other weapon entirely with a white feather fan. Whole outfit is flowing FABRIC, not armor, with long loose sleeves and soft continuous cloth folds. Same fine hand-painted line art and exact current pose: lowered onto one knee with the other knee bent. Do not turn the pose back into standing. Keep the whole man and fan complete inside the image with generous margin. Uniform flat bright green background, no text, no floor, no additional people.",
+      "kind": "sprite",
+      "type": 5,
+      "pose": "kneel",
+      "width": 512,
+      "height": 640,
+      "seed": 254523,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 36.85,
+      "sha256": "e7fec3689be59c7474a35fbb24ab8d3a572607fd98df237052b5ac7869960a30",
+      "file": "unit-5-kneel-cloth.png"
+    },
+    {
+      "id": "unit-5-kneel-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Create ONLY ONE SINGLE defeat pose of the EXACT SAME subject in the reference: the ONE clothed character has buckled onto ONE KNEE with the other knee bent, his upper body leaning forward and his weapon lowered, exactly two arms and two legs, no exposed skin except face and hands. Preserve the exact face, weapon identity, red outfit, original proportions and materials, the same camera, fine hand-painted outlines and soft volume. ONE complete single subject, NOT a sheet, NOT a collage, no panels. Keep the whole subject including weapon within the image, generous margin. Completely flat bright green #00ff00 backdrop, no floor or background objects, no text or labels. No smiles, no nudity, no gore, no blood, no extra figures.",
+      "refs": [
+        "generated/unit-5-corrected.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 251541,
+      "type": 5,
+      "stage": "kneel",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 36.83,
+      "sha256": "0b9ed4d65e6b61a625e7ba2bfc3a3dd22679710b0bee7f87fa58a0e6604d8daa",
+      "file": "unit-5-kneel-single.png"
+    },
+    {
+      "id": "unit-5-windup-cloth",
+      "refs": [
+        "generated/unit-5-windup-single.png"
+      ],
+      "prompt": "Keep the EXACT CURRENT BODY POSE, camera, face and hand positions. Edit ONLY the outfit and the handheld object of this exact man: REMOVE ALL METAL ARMOR, shoulder plates, scales, helmets, wrist guards and cuirass. Replace them with soft dark red layered SCHOLAR ROBES, deep red cloth cloak, ivory under-collar and a wide plain fabric sash. Add the same tall rectangular BLACK SCHOLAR CAP, worn on his head even in a falling or lying pose. Keep the mature narrow black beard, modest facial features and cloth shoes. He holds ONLY a WHITE FEATHER FAN; replace any sword, spear, staff or other weapon entirely with a white feather fan. Whole outfit is flowing FABRIC, not armor, with long loose sleeves and soft continuous cloth folds. Same fine hand-painted line art and exact current pose: raising his feather fan. Do not turn the pose back into standing. Keep the whole man and fan complete inside the image with generous margin. Uniform flat bright green background, no text, no floor, no additional people.",
+      "kind": "sprite",
+      "type": 5,
+      "pose": "windup",
+      "width": 512,
+      "height": 640,
+      "seed": 254400,
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 33.15,
+      "sha256": "3e1854f99c86fc02ebd67223315a6bfaa243a4f3183322b409d17f549bd4825b",
+      "file": "unit-5-windup-cloth.png"
+    },
+    {
+      "id": "unit-5-windup-single",
+      "prompt": "Detailed hand-painted ancient Chinese Three Kingdoms strategy game illustration. Match the fine ink contours, fabric folds, layered lamellar armor, painted materials and soft dimensional shading of the reference. Natural modest facial features, slightly stylized three-and-a-half head proportions, readable silhouette, polished high resolution, harmonious restrained colors. Edit the EXACT SAME subject in the reference to show ONLY THIS ONE POSE: he raises a BROAD WHITE FEATHER FAN with at least six separate white feather tips, preparing a command, soft red robes and tall black scholar cap retained. Exactly ONE SINGLE complete subject, NOT a sprite sheet, NOT a collage, no panels, no duplicated bodies. Keep the exact same identity, headwear, deep RED clothing and RED armor or sail, materials, body proportions and camera. Keep natural anatomy. All feet, weapon tips and the entire subject must fit within the frame with wide green margin. Uniform bright green #00ff00 background, no ground, no cast shadow, no text, no labels, no UI. No extra people, no extra horses, no dismemberment, no gore.",
+      "refs": [
+        "generated/unit-5-corrected.png"
+      ],
+      "kind": "sprite",
+      "width": 512,
+      "height": 640,
+      "seed": 251430,
+      "type": 5,
+      "pose": "windup",
+      "model": "mlx-community/flux2-klein-4b-4bit",
+      "mflux": "0.23.0",
+      "steps": 4,
+      "seconds": 35.77,
+      "sha256": "7b861928d3d96c0a14a38e37caa8cdbc121a0479479f2f2dc55680814a6b09d5",
+      "file": "unit-5-windup-single.png"
+    }
+  ]
+}

@@ -1,0 +1,2140 @@
+{
+  "schema": 1,
+  "games": {
+    "fmj": {
+      "repository": "https://github.com/roy-xiong/fmj_flutter",
+      "head": "9b7de8d60f0026de3ff8f5f0f0ff05ddb430dfb9",
+      "version": "1.0.334+1334",
+      "includesWorkingTree": true
+    },
+    "sgby": {
+      "repository": "https://github.com/roy-xiong/sgby_flutter",
+      "head": "4ac9432118dacd1f41822fd6676fce787e3fe6ef",
+      "version": "1.0.0+1",
+      "includesWorkingTree": true
+    }
+  },
+  "files": [
+    {
+      "game": "fmj",
+      "source": "lib/data/game_data.dart",
+      "destination": "lib/games/fmj/data/game_data.dart",
+      "sourceSha256": "db001d4b81c04f764d3d6f14c9ca197ba8e9e1a4ebb44da9bccc9cac41c57a21",
+      "importedSha256": "db001d4b81c04f764d3d6f14c9ca197ba8e9e1a4ebb44da9bccc9cac41c57a21"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/data/save_repository.dart",
+      "destination": "lib/games/fmj/data/save_repository.dart",
+      "sourceSha256": "5e4428f6160cd5effa20cc14cc4d92280cd7975465952b96292c59f30fc12e7a",
+      "importedSha256": "4ed599765727f6a85c67a7b5b7110a233a24ac1fd95052d51ed23013fe0ee4ef"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/engine/game_actor.dart",
+      "destination": "lib/games/fmj/engine/game_actor.dart",
+      "sourceSha256": "2f3e72f2b9e05732d839ddef70b1d53ce148766cee242b55db8f613223e12270",
+      "importedSha256": "2f3e72f2b9e05732d839ddef70b1d53ce148766cee242b55db8f613223e12270"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/engine/game_battle.dart",
+      "destination": "lib/games/fmj/engine/game_battle.dart",
+      "sourceSha256": "5375ae6aa517e1fc8de0296091ad7c2f8acf48eb93368643e773cb8f9167b071",
+      "importedSha256": "5375ae6aa517e1fc8de0296091ad7c2f8acf48eb93368643e773cb8f9167b071"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/engine/game_engine.dart",
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
+      "importedSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/engine/game_menus.dart",
+      "destination": "lib/games/fmj/engine/game_menus.dart",
+      "sourceSha256": "0d4fe2395bc3664887210d11914603f951d6e6ab37113b7ef9c2a241c5dc1c3a",
+      "importedSha256": "0d4fe2395bc3664887210d11914603f951d6e6ab37113b7ef9c2a241c5dc1c3a"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/engine/game_navigation.dart",
+      "destination": "lib/games/fmj/engine/game_navigation.dart",
+      "sourceSha256": "90d7de90e1fe0fcd50707ae9d9076690682f754a6bb6671b6883cd0580dee2dc",
+      "importedSha256": "90d7de90e1fe0fcd50707ae9d9076690682f754a6bb6671b6883cd0580dee2dc"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/engine/game_render.dart",
+      "destination": "lib/games/fmj/engine/game_render.dart",
+      "sourceSha256": "b796a60d7f619e67d0a02e354df7d7d05e59c6495abc6984a052a0b5fcae7365",
+      "importedSha256": "b796a60d7f619e67d0a02e354df7d7d05e59c6495abc6984a052a0b5fcae7365"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/engine/pixel_surface.dart",
+      "destination": "lib/games/fmj/engine/pixel_surface.dart",
+      "sourceSha256": "bfe51deb2469fcc3a65fa6c063c3db17de521c3d750ca78fa0c1196acaf009f3",
+      "importedSha256": "bfe51deb2469fcc3a65fa6c063c3db17de521c3d750ca78fa0c1196acaf009f3"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/main.dart",
+      "destination": "lib/games/fmj/main.dart",
+      "sourceSha256": "32e9562d72053bdd9776e085f511efce4470cbdf9d3d8b8a5c5e89d3ae5da0c4",
+      "importedSha256": "32e9562d72053bdd9776e085f511efce4470cbdf9d3d8b8a5c5e89d3ae5da0c4"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/ui/dialogue_presentation.dart",
+      "destination": "lib/games/fmj/ui/dialogue_presentation.dart",
+      "sourceSha256": "ac6f16a7830b9cdceb213411a5da1794e859358546dc8d67231ca6eaf4419c6e",
+      "importedSha256": "ac6f16a7830b9cdceb213411a5da1794e859358546dc8d67231ca6eaf4419c6e"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/ui/game_cheat_panel.dart",
+      "destination": "lib/games/fmj/ui/game_cheat_panel.dart",
+      "sourceSha256": "0699e303a640209e28415727608ed1ae7d73aa9448c6770c7930f79151029e1c",
+      "importedSha256": "0699e303a640209e28415727608ed1ae7d73aa9448c6770c7930f79151029e1c"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/ui/game_controls.dart",
+      "destination": "lib/games/fmj/ui/game_controls.dart",
+      "sourceSha256": "f1003f2779a30e5e6f5cbd05b1220a837b1fe47d6144d6423fd0e935395a7b68",
+      "importedSha256": "f1003f2779a30e5e6f5cbd05b1220a837b1fe47d6144d6423fd0e935395a7b68"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/ui/game_keyboard_bindings.dart",
+      "destination": "lib/games/fmj/ui/game_keyboard_bindings.dart",
+      "sourceSha256": "7055aa69d68c102014618f39bdef35bfe6caca04aefee8737df87583580c38e1",
+      "importedSha256": "7055aa69d68c102014618f39bdef35bfe6caca04aefee8737df87583580c38e1"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/ui/game_keyboard_mapping_sheet.dart",
+      "destination": "lib/games/fmj/ui/game_keyboard_mapping_sheet.dart",
+      "sourceSha256": "4cf01f01e5360b980c1722d805011d2bf00197bf4e9d38c3ca3c34940b35e71a",
+      "importedSha256": "4cf01f01e5360b980c1722d805011d2bf00197bf4e9d38c3ca3c34940b35e71a"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/ui/game_page.dart",
+      "destination": "lib/games/fmj/ui/game_page.dart",
+      "sourceSha256": "63257197b764f9b0a967dd0105050b443fb5c5b8b1a356ac8cc39fd9077b02ee",
+      "importedSha256": "30af5a365e36864a070c1635c491431fba96791a173026f94600993f298800e9"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/ui/game_view_model.dart",
+      "destination": "lib/games/fmj/ui/game_view_model.dart",
+      "sourceSha256": "786dff4519fccfd2727406d85205e84ad72394a542c0ece02ca086e142e1a202",
+      "importedSha256": "e40d52a2ebbf134a643cbb385fc282f42267477e359f06773f323165c6278dae"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/ui/modern_art.dart",
+      "destination": "lib/games/fmj/ui/modern_art.dart",
+      "sourceSha256": "7aaabd5830dd20ecab38ff42b95a9205e8d1cc33b86e8924849ab00ea4428f85",
+      "importedSha256": "70b6d644314ee9c201558d1a62dc59d6aed8e626a0ed0fad991989a1e8ec0949"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/ui/modern_battle_hud.dart",
+      "destination": "lib/games/fmj/ui/modern_battle_hud.dart",
+      "sourceSha256": "699cd18d0ac6950cfa8a218ff5dc028e1f2a08915546c6c0c0b84c46dd0ec02e",
+      "importedSha256": "699cd18d0ac6950cfa8a218ff5dc028e1f2a08915546c6c0c0b84c46dd0ec02e"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/ui/modern_battle_layout.dart",
+      "destination": "lib/games/fmj/ui/modern_battle_layout.dart",
+      "sourceSha256": "9a51a5461fbb703a11499b522a48b21efdf86c18e6e4ab4254ebe895cbcedfc8",
+      "importedSha256": "9a51a5461fbb703a11499b522a48b21efdf86c18e6e4ab4254ebe895cbcedfc8"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/ui/modern_game_view.dart",
+      "destination": "lib/games/fmj/ui/modern_game_view.dart",
+      "sourceSha256": "7fead2e2d569c14ca9d2d9c012124c82b450b5e1e0c75310b0bc47eb495d45c0",
+      "importedSha256": "7fead2e2d569c14ca9d2d9c012124c82b450b5e1e0c75310b0bc47eb495d45c0"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/ui/modern_map_camera.dart",
+      "destination": "lib/games/fmj/ui/modern_map_camera.dart",
+      "sourceSha256": "7c09171039675462d6490bbbd728e3a9f916df605ad5bab87820b1f29a151e55",
+      "importedSha256": "7c09171039675462d6490bbbd728e3a9f916df605ad5bab87820b1f29a151e55"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/ui/modern_scene.dart",
+      "destination": "lib/games/fmj/ui/modern_scene.dart",
+      "sourceSha256": "0ca7e7194f78502f1fc560c83b6a82701c4082b531bfc9e57d50dd480af0ba15",
+      "importedSha256": "0ca7e7194f78502f1fc560c83b6a82701c4082b531bfc9e57d50dd480af0ba15"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/ui/modern_terrain.dart",
+      "destination": "lib/games/fmj/ui/modern_terrain.dart",
+      "sourceSha256": "46f8535c036dd2c86586634a28e0f178d2411e63a62f37cb0cee927d0365c4f4",
+      "importedSha256": "46f8535c036dd2c86586634a28e0f178d2411e63a62f37cb0cee927d0365c4f4"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/ui/modern_world_objects.dart",
+      "destination": "lib/games/fmj/ui/modern_world_objects.dart",
+      "sourceSha256": "85eaba354c8b9d6094bf0540b7cf52a9094a88f1051e35c7414fd139a7342613",
+      "importedSha256": "85eaba354c8b9d6094bf0540b7cf52a9094a88f1051e35c7414fd139a7342613"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/ui/original_tile_catalog.dart",
+      "destination": "lib/games/fmj/ui/original_tile_catalog.dart",
+      "sourceSha256": "fb68d5b4a2432681e46a6fe1318c47c2096c4039ec735e448940997c82bbfdd9",
+      "importedSha256": "fb68d5b4a2432681e46a6fe1318c47c2096c4039ec735e448940997c82bbfdd9"
+    },
+    {
+      "game": "fmj",
+      "source": "lib/ui/system_font_layout.dart",
+      "destination": "lib/games/fmj/ui/system_font_layout.dart",
+      "sourceSha256": "442b07134193baa639878c27261214891d2a94d14472807f145bfa6c5750cc0c",
+      "importedSha256": "442b07134193baa639878c27261214891d2a94d14472807f145bfa6c5750cc0c"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/branding/fmj-logo.png",
+      "destination": "assets/fmj/branding/fmj-logo.png",
+      "sourceSha256": "e63db24c9f882a8673fc8b04ec5c800b75c450a6736a93afe382535a88c47f36",
+      "importedSha256": "e63db24c9f882a8673fc8b04ec5c800b75c450a6736a93afe382535a88c47f36"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/game/DAT.LIB",
+      "destination": "assets/fmj/game/DAT.LIB",
+      "sourceSha256": "a71a98c72af5d1122cc4adbad861c5fa4c2454850cbc6d2b70903b818c0dfd93",
+      "importedSha256": "a71a98c72af5d1122cc4adbad861c5fa4c2454850cbc6d2b70903b818c0dfd93"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/game/FmjGuideData.json",
+      "destination": "assets/fmj/game/FmjGuideData.json",
+      "sourceSha256": "4b1897d5196756b168e4b88f9265a7ec349ff1aaf349ecc245fe4fbdd11140ac",
+      "importedSha256": "4b1897d5196756b168e4b88f9265a7ec349ff1aaf349ecc245fe4fbdd11140ac"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/game/FmjStageData.json",
+      "destination": "assets/fmj/game/FmjStageData.json",
+      "sourceSha256": "d73a1f2103a657598e7021bcedf00a97ae76905d882bb880d45e4a0b6531d87a",
+      "importedSha256": "d73a1f2103a657598e7021bcedf00a97ae76905d882bb880d45e4a0b6531d87a"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/game/gbk.json",
+      "destination": "assets/fmj/game/gbk.json",
+      "sourceSha256": "a141067f3d41466f7e2a1421727b83f5d0ed2d3b853264313716f7dec6e25b69",
+      "importedSha256": "a141067f3d41466f7e2a1421727b83f5d0ed2d3b853264313716f7dec6e25b69"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/game/manifest.json",
+      "destination": "assets/fmj/game/manifest.json",
+      "sourceSha256": "229d9b60639a4136e265e097117b65aa860a281d6d1ea82f6c3ce1da2966766f",
+      "importedSha256": "229d9b60639a4136e265e097117b65aa860a281d6d1ea82f6c3ce1da2966766f"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/battle-cave.png",
+      "destination": "assets/fmj/modern/battle-cave.png",
+      "sourceSha256": "12985b2d466c70ade57f62385387fdc76a74a951e9a13f7285fd5accb6785803",
+      "importedSha256": "12985b2d466c70ade57f62385387fdc76a74a951e9a13f7285fd5accb6785803"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/battle-courtyard.png",
+      "destination": "assets/fmj/modern/battle-courtyard.png",
+      "sourceSha256": "20c47b8ffab1b376022bca265e3cccfe43b9b1040bc8ccb73713c1a33bfa2684",
+      "importedSha256": "20c47b8ffab1b376022bca265e3cccfe43b9b1040bc8ccb73713c1a33bfa2684"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/battle-forest.png",
+      "destination": "assets/fmj/modern/battle-forest.png",
+      "sourceSha256": "a4e7ac6fc78a011b97ea761324f4b4d17a06c277f135070e955d8f54a1f9ec4c",
+      "importedSha256": "a4e7ac6fc78a011b97ea761324f4b4d17a06c277f135070e955d8f54a1f9ec4c"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/battle-landscape.png",
+      "destination": "assets/fmj/modern/battle-landscape.png",
+      "sourceSha256": "2865d446228592e96c7c9a06fc55e43cb09e430f36bf14d85da2a007544cae80",
+      "importedSha256": "2865d446228592e96c7c9a06fc55e43cb09e430f36bf14d85da2a007544cae80"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/battle-village.png",
+      "destination": "assets/fmj/modern/battle-village.png",
+      "sourceSha256": "915e6afd229be6303c83cc88aa246084b03219232981c9b02988cb6f0091c2b0",
+      "importedSha256": "915e6afd229be6303c83cc88aa246084b03219232981c9b02988cb6f0091c2b0"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/character-review.json",
+      "destination": "assets/fmj/modern/character-review.json",
+      "sourceSha256": "99adddcba46f094d9578c1850718a776ba8697c3536d8e13c02c92a8988e09d9",
+      "importedSha256": "99adddcba46f094d9578c1850718a776ba8697c3536d8e13c02c92a8988e09d9"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/enhanced-00.png",
+      "destination": "assets/fmj/modern/enhanced-00.png",
+      "sourceSha256": "a23454a3f68d1fcd3083e623107dddb3b232db9fc622cee82bc8f81de294240b",
+      "importedSha256": "a23454a3f68d1fcd3083e623107dddb3b232db9fc622cee82bc8f81de294240b"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/enhanced-01.png",
+      "destination": "assets/fmj/modern/enhanced-01.png",
+      "sourceSha256": "858ff7001a89094388d608450f6b103e6a41e20de456d882dc3e9f5e10909b1a",
+      "importedSha256": "858ff7001a89094388d608450f6b103e6a41e20de456d882dc3e9f5e10909b1a"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/enhanced-02.png",
+      "destination": "assets/fmj/modern/enhanced-02.png",
+      "sourceSha256": "7c773e85c7558577489ec290c1784475a322489f40cfffe5a120528c5a15906a",
+      "importedSha256": "7c773e85c7558577489ec290c1784475a322489f40cfffe5a120528c5a15906a"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/enhanced-03.png",
+      "destination": "assets/fmj/modern/enhanced-03.png",
+      "sourceSha256": "7cd41907a10ec92b398d9e5a46dff8c1a33942771d3656021085865594a26d4c",
+      "importedSha256": "7cd41907a10ec92b398d9e5a46dff8c1a33942771d3656021085865594a26d4c"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/enhanced-04.png",
+      "destination": "assets/fmj/modern/enhanced-04.png",
+      "sourceSha256": "1c29ad7b1e297216c27b2be2dc9d42ec290cc0829ad120dcf87a6e0bc96ad641",
+      "importedSha256": "1c29ad7b1e297216c27b2be2dc9d42ec290cc0829ad120dcf87a6e0bc96ad641"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/enhanced-05.png",
+      "destination": "assets/fmj/modern/enhanced-05.png",
+      "sourceSha256": "f6b3135d409b967f1bc45af71e40d201ca444e0df647d0e29eeb7284ff8b92ba",
+      "importedSha256": "f6b3135d409b967f1bc45af71e40d201ca444e0df647d0e29eeb7284ff8b92ba"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/enhanced-06.png",
+      "destination": "assets/fmj/modern/enhanced-06.png",
+      "sourceSha256": "6f8ec480887060d00418f11181a7a22fa85f3fded4dda1c45bafc01869b4528d",
+      "importedSha256": "6f8ec480887060d00418f11181a7a22fa85f3fded4dda1c45bafc01869b4528d"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/enhanced-07.png",
+      "destination": "assets/fmj/modern/enhanced-07.png",
+      "sourceSha256": "eca46747531bb706e1ab5dccf4317e2e0ac69a47b26f22478e537157c7ee48e5",
+      "importedSha256": "eca46747531bb706e1ab5dccf4317e2e0ac69a47b26f22478e537157c7ee48e5"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/enhanced-08.png",
+      "destination": "assets/fmj/modern/enhanced-08.png",
+      "sourceSha256": "ef7cc8f00cbd4fe4258f6786ee37a321eb19931f4f7a58f56d597b23b987e1a8",
+      "importedSha256": "ef7cc8f00cbd4fe4258f6786ee37a321eb19931f4f7a58f56d597b23b987e1a8"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/enhanced-09.png",
+      "destination": "assets/fmj/modern/enhanced-09.png",
+      "sourceSha256": "1ce89330d66574640f0b490270faea4dce643b25819aaa8f498eafce7d72f21a",
+      "importedSha256": "1ce89330d66574640f0b490270faea4dce643b25819aaa8f498eafce7d72f21a"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/enhanced-10.png",
+      "destination": "assets/fmj/modern/enhanced-10.png",
+      "sourceSha256": "446ad1ac681ee0de6965ad4790df6c22572760e629fb8b5a20d5df7ec573b2b9",
+      "importedSha256": "446ad1ac681ee0de6965ad4790df6c22572760e629fb8b5a20d5df7ec573b2b9"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/enhanced-11.png",
+      "destination": "assets/fmj/modern/enhanced-11.png",
+      "sourceSha256": "f048f9fa743c0eaccc80794b7f1e9f84dc2665a194c518ffa79148faf35ceb84",
+      "importedSha256": "f048f9fa743c0eaccc80794b7f1e9f84dc2665a194c518ffa79148faf35ceb84"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/enhanced-12.png",
+      "destination": "assets/fmj/modern/enhanced-12.png",
+      "sourceSha256": "a38e00e3b00f3dd808cd96831fa7346c6312a7ba8f2a6fea4f8eb37e2200ba61",
+      "importedSha256": "a38e00e3b00f3dd808cd96831fa7346c6312a7ba8f2a6fea4f8eb37e2200ba61"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/enhanced-art-sources.json",
+      "destination": "assets/fmj/modern/enhanced-art-sources.json",
+      "sourceSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e",
+      "importedSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/enhanced-art.json",
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
+      "importedSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/scene-landmarks.json",
+      "destination": "assets/fmj/modern/scene-landmarks.json",
+      "sourceSha256": "77bfe388a88b0e56241d237f0ac02bbb75b9207e8c14c3c8980eb52e1e969acf",
+      "importedSha256": "77bfe388a88b0e56241d237f0ac02bbb75b9207e8c14c3c8980eb52e1e969acf"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/surface-abyss.png",
+      "destination": "assets/fmj/modern/surface-abyss.png",
+      "sourceSha256": "a65eefbb7ef02a1f4df5db6cd81154e07047bdc5518af47f9924aa56656d473e",
+      "importedSha256": "a65eefbb7ef02a1f4df5db6cd81154e07047bdc5518af47f9924aa56656d473e"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/surface-brick-road.png",
+      "destination": "assets/fmj/modern/surface-brick-road.png",
+      "sourceSha256": "464a814b702011d237c6b7f1faa6ce8bdb42f61102126063739681b3cc30a941",
+      "importedSha256": "464a814b702011d237c6b7f1faa6ce8bdb42f61102126063739681b3cc30a941"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/surface-cave-wall.png",
+      "destination": "assets/fmj/modern/surface-cave-wall.png",
+      "sourceSha256": "e59704704f9b4cdbab3f9bf28e5f0e1df86c7d1612620bc7b1c241ff3ab30308",
+      "importedSha256": "e59704704f9b4cdbab3f9bf28e5f0e1df86c7d1612620bc7b1c241ff3ab30308"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/surface-cave.png",
+      "destination": "assets/fmj/modern/surface-cave.png",
+      "sourceSha256": "c5afefc457b69fa35c61d8b5c9eba62f81ffcdf755a6dd57032326f8eb161aff",
+      "importedSha256": "c5afefc457b69fa35c61d8b5c9eba62f81ffcdf755a6dd57032326f8eb161aff"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/surface-earth.png",
+      "destination": "assets/fmj/modern/surface-earth.png",
+      "sourceSha256": "5dc351d3d303f7df3079175e2932f8fd0f3ac88cd1d1f05c0e145ad1dae9f36c",
+      "importedSha256": "5dc351d3d303f7df3079175e2932f8fd0f3ac88cd1d1f05c0e145ad1dae9f36c"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/surface-grass.png",
+      "destination": "assets/fmj/modern/surface-grass.png",
+      "sourceSha256": "c9fa65e3013623504fd94ba9e498faa3b1127743f0a3be63203c4f65328b7111",
+      "importedSha256": "c9fa65e3013623504fd94ba9e498faa3b1127743f0a3be63203c4f65328b7111"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/surface-rock-ground.png",
+      "destination": "assets/fmj/modern/surface-rock-ground.png",
+      "sourceSha256": "8c8be517d09f0190a18ac9492d4d3b2b6c500a52e8629e7df17cd5863ed02d90",
+      "importedSha256": "8c8be517d09f0190a18ac9492d4d3b2b6c500a52e8629e7df17cd5863ed02d90"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/surface-stone.png",
+      "destination": "assets/fmj/modern/surface-stone.png",
+      "sourceSha256": "70b1e3df1b95135e547a1680d5c0b7a87f8f6bd16823eaab53ebe497bc1f3c67",
+      "importedSha256": "70b1e3df1b95135e547a1680d5c0b7a87f8f6bd16823eaab53ebe497bc1f3c67"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/surface-wall-plaster.png",
+      "destination": "assets/fmj/modern/surface-wall-plaster.png",
+      "sourceSha256": "c8121a3b79d7fdac0a840f36e666d135bbf7d4647d18cf1404377b045f8a1c3f",
+      "importedSha256": "c8121a3b79d7fdac0a840f36e666d135bbf7d4647d18cf1404377b045f8a1c3f"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/surface-water.png",
+      "destination": "assets/fmj/modern/surface-water.png",
+      "sourceSha256": "8341b82cdb2509e4c834169c7f0e5be9f08be7054c3460a55b0b92b9f5b0d2bf",
+      "importedSha256": "8341b82cdb2509e4c834169c7f0e5be9f08be7054c3460a55b0b92b9f5b0d2bf"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/surface-wood-cross.png",
+      "destination": "assets/fmj/modern/surface-wood-cross.png",
+      "sourceSha256": "d83792864f45b9cfe03a8d18d223ce395a35f8afebbe1d4011e20f5e8519a7c1",
+      "importedSha256": "d83792864f45b9cfe03a8d18d223ce395a35f8afebbe1d4011e20f5e8519a7c1"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/surface-wood-post.png",
+      "destination": "assets/fmj/modern/surface-wood-post.png",
+      "sourceSha256": "04e1b28f62440a7b19457fe68c0c1685d803b5a987b92bbe689456544b42aa79",
+      "importedSha256": "04e1b28f62440a7b19457fe68c0c1685d803b5a987b92bbe689456544b42aa79"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/surface-wood.png",
+      "destination": "assets/fmj/modern/surface-wood.png",
+      "sourceSha256": "d9cec312dd8c2d4e36984ed0b1febc417d6a17fdce81b1885df5eec967145c2b",
+      "importedSha256": "d9cec312dd8c2d4e36984ed0b1febc417d6a17fdce81b1885df5eec967145c2b"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/world-atlas.json",
+      "destination": "assets/fmj/modern/world-atlas.json",
+      "sourceSha256": "fc84fbf7579613c54460f1af3794819feaf468794fbaf0e6775fd0ce537f6644",
+      "importedSha256": "fc84fbf7579613c54460f1af3794819feaf468794fbaf0e6775fd0ce537f6644"
+    },
+    {
+      "game": "fmj",
+      "source": "assets/modern/world-atlas.png",
+      "destination": "assets/fmj/modern/world-atlas.png",
+      "sourceSha256": "c6bdf94693981cf2b516fbe76951d0582bfc9bbde384d7c3f1b0ee0706ebe7b2",
+      "importedSha256": "c6bdf94693981cf2b516fbe76951d0582bfc9bbde384d7c3f1b0ee0706ebe7b2"
+    },
+    {
+      "game": "fmj",
+      "source": "test/art_review_export_test.dart",
+      "destination": "test/games/fmj/art_review_export_test.dart",
+      "sourceSha256": "b183cf8291dfdbae7b53e7ade85c188ad43908d6aae9950f2e48a01e7363a665",
+      "importedSha256": "2ee80e0bdc8a9bd1e409aaf53f1c901a8a55539b3ac884482375f68c814dc563"
+    },
+    {
+      "game": "fmj",
+      "source": "test/enhanced_release_test.dart",
+      "destination": "test/games/fmj/enhanced_release_test.dart",
+      "sourceSha256": "e69f058f52b467827b657fec0bcea25a4607aac7b329709da1231db5de435b1a",
+      "importedSha256": "771521f053f5caa1caa440004bb51fa093d3f822ff1539324efcb398e4db3dac"
+    },
+    {
+      "game": "fmj",
+      "source": "test/fixtures/battle_select.rgba",
+      "destination": "test/games/fmj/fixtures/battle_select.rgba",
+      "sourceSha256": "e0671acc7d18ac9cb2c6210d7f57c72cf094741b1c636c25845ac308f8fd9450",
+      "importedSha256": "e0671acc7d18ac9cb2c6210d7f57c72cf094741b1c636c25845ac308f8fd9450"
+    },
+    {
+      "game": "fmj",
+      "source": "test/fixtures/battle_states.json",
+      "destination": "test/games/fmj/fixtures/battle_states.json",
+      "sourceSha256": "ad39f61ae7d33bd1ea2d7707b40ce6ed4eb519062b65b56ff283a0122b51d903",
+      "importedSha256": "ad39f61ae7d33bd1ea2d7707b40ce6ed4eb519062b65b56ff283a0122b51d903"
+    },
+    {
+      "game": "fmj",
+      "source": "test/fixtures/battle_win.rgba",
+      "destination": "test/games/fmj/fixtures/battle_win.rgba",
+      "sourceSha256": "9a97285101c3c5f02f2a34bf2c508e2435f07af2365b329b2067fa378492de59",
+      "importedSha256": "9a97285101c3c5f02f2a34bf2c508e2435f07af2365b329b2067fa378492de59"
+    },
+    {
+      "game": "fmj",
+      "source": "test/fixtures/equipment.rgba",
+      "destination": "test/games/fmj/fixtures/equipment.rgba",
+      "sourceSha256": "da92c6ff5de06daa3b77afd3240b4f0e9bc5eea82732602f8fb283d948f3e21e",
+      "importedSha256": "da92c6ff5de06daa3b77afd3240b4f0e9bc5eea82732602f8fb283d948f3e21e"
+    },
+    {
+      "game": "fmj",
+      "source": "test/fixtures/frames.json",
+      "destination": "test/games/fmj/fixtures/frames.json",
+      "sourceSha256": "48aa7ff3eef2eddd43fb014427ba0b5979a0c6b4260bc142cfb2e5bfbdd1c30d",
+      "importedSha256": "48aa7ff3eef2eddd43fb014427ba0b5979a0c6b4260bc142cfb2e5bfbdd1c30d"
+    },
+    {
+      "game": "fmj",
+      "source": "test/fixtures/interior.rgba",
+      "destination": "test/games/fmj/fixtures/interior.rgba",
+      "sourceSha256": "d0f72f138697dc2897e393c07abfe7f66a54ea384a8a0d599a13a3c632bb30cc",
+      "importedSha256": "d0f72f138697dc2897e393c07abfe7f66a54ea384a8a0d599a13a3c632bb30cc"
+    },
+    {
+      "game": "fmj",
+      "source": "test/fixtures/main_menu.rgba",
+      "destination": "test/games/fmj/fixtures/main_menu.rgba",
+      "sourceSha256": "b78e29250c8be5b3908862867eb56180e898af7d0d7a578177a3273ee6ee78f0",
+      "importedSha256": "b78e29250c8be5b3908862867eb56180e898af7d0d7a578177a3273ee6ee78f0"
+    },
+    {
+      "game": "fmj",
+      "source": "test/fixtures/navigation_start.json",
+      "destination": "test/games/fmj/fixtures/navigation_start.json",
+      "sourceSha256": "e5d09f78454b1542680dc51886335c78f80fe42942636ddf2bb4377427be42ee",
+      "importedSha256": "e5d09f78454b1542680dc51886335c78f80fe42942636ddf2bb4377427be42ee"
+    },
+    {
+      "game": "fmj",
+      "source": "test/fixtures/outdoor-hd.rgba",
+      "destination": "test/games/fmj/fixtures/outdoor-hd.rgba",
+      "sourceSha256": "456c1af010f250c2a859101ab1cd30b607ad54369053c44eedc3d4ea67d25cb3",
+      "importedSha256": "456c1af010f250c2a859101ab1cd30b607ad54369053c44eedc3d4ea67d25cb3"
+    },
+    {
+      "game": "fmj",
+      "source": "test/fixtures/outdoor.rgba",
+      "destination": "test/games/fmj/fixtures/outdoor.rgba",
+      "sourceSha256": "818693bbe6c9b04c1109f41b18b3b69b214277f4038680d3f594452668c09247",
+      "importedSha256": "818693bbe6c9b04c1109f41b18b3b69b214277f4038680d3f594452668c09247"
+    },
+    {
+      "game": "fmj",
+      "source": "test/fixtures/properties.rgba",
+      "destination": "test/games/fmj/fixtures/properties.rgba",
+      "sourceSha256": "ee37b4c30a0f8d7e2e5fbb6ea7ef629f5e7bc59b0ea6b3f3ed48a2d45833b317",
+      "importedSha256": "ee37b4c30a0f8d7e2e5fbb6ea7ef629f5e7bc59b0ea6b3f3ed48a2d45833b317"
+    },
+    {
+      "game": "fmj",
+      "source": "test/fixtures/save_empty.rgba",
+      "destination": "test/games/fmj/fixtures/save_empty.rgba",
+      "sourceSha256": "63b7f061eb5f93490ef7eb857a8cb1e0f09664d43d741616eaba45f6b5296562",
+      "importedSha256": "63b7f061eb5f93490ef7eb857a8cb1e0f09664d43d741616eaba45f6b5296562"
+    },
+    {
+      "game": "fmj",
+      "source": "test/fixtures/stage_states.json",
+      "destination": "test/games/fmj/fixtures/stage_states.json",
+      "sourceSha256": "d1350c4f3c8c6535ee71dfbfd14dd4cb7e9dee222457878aadd4fd9aafb1c4ed",
+      "importedSha256": "d1350c4f3c8c6535ee71dfbfd14dd4cb7e9dee222457878aadd4fd9aafb1c4ed"
+    },
+    {
+      "game": "fmj",
+      "source": "test/fixtures/state.rgba",
+      "destination": "test/games/fmj/fixtures/state.rgba",
+      "sourceSha256": "4318f0b61f0876ed831b5da3ec7f5ba113a9a85d8b7b162800a2990896397792",
+      "importedSha256": "4318f0b61f0876ed831b5da3ec7f5ba113a9a85d8b7b162800a2990896397792"
+    },
+    {
+      "game": "fmj",
+      "source": "test/fixtures/system.rgba",
+      "destination": "test/games/fmj/fixtures/system.rgba",
+      "sourceSha256": "0b3f30b3264eead635ba225dc7daf83bbcc561dc7c25cebace386480b4b1553a",
+      "importedSha256": "0b3f30b3264eead635ba225dc7daf83bbcc561dc7c25cebace386480b4b1553a"
+    },
+    {
+      "game": "fmj",
+      "source": "test/game_engine_test.dart",
+      "destination": "test/games/fmj/game_engine_test.dart",
+      "sourceSha256": "7c28e24097f3dd37fa255ea6713415d2fd0d73b6d4a42c1f97ba1e57df51d063",
+      "importedSha256": "6567603a04b5c7f6e442057bcbc60b095615870553f5dab2a71cb9f250928b02"
+    },
+    {
+      "game": "fmj",
+      "source": "test/game_navigation_test.dart",
+      "destination": "test/games/fmj/game_navigation_test.dart",
+      "sourceSha256": "32591be6aece73c910fc3c07e451274eec2c397ac58b9fe8944c7e4806c310bb",
+      "importedSha256": "cc1634ac8048c6ad5aa03980b0ba5b32f7f663eaa74ae15ec733e28b827d9e51"
+    },
+    {
+      "game": "fmj",
+      "source": "test/map_structure_export_test.dart",
+      "destination": "test/games/fmj/map_structure_export_test.dart",
+      "sourceSha256": "ad48c1bdb9416ae16a22b3691d5d270cdc95a1dfd13d47232a53cc81407fa562",
+      "importedSha256": "6c6f08241ee3060edd14e487971d027ecfb601679461928ca0275c662c2e665b"
+    },
+    {
+      "game": "fmj",
+      "source": "test/map_structure_fidelity_test.dart",
+      "destination": "test/games/fmj/map_structure_fidelity_test.dart",
+      "sourceSha256": "d976cde68cba9c3abd52e692eef2017d73005325f4f82bd31766429ff188f758",
+      "importedSha256": "75044a452ce6f65f322104d8db68300b6af97deb4090a735f258dafd5eed48a0"
+    },
+    {
+      "game": "fmj",
+      "source": "test/presentation_regression_test.dart",
+      "destination": "test/games/fmj/presentation_regression_test.dart",
+      "sourceSha256": "8d78f337ec42b13f56ab59c078efd741846de18b4a6e94d11af04584366e4ec2",
+      "importedSha256": "3fa5794bb1522cab807b661c6b54cf3d3808e6ee56b224eabebe563c2b838764"
+    },
+    {
+      "game": "fmj",
+      "source": "licenses/Casper-Nilsson-architecture.txt",
+      "destination": "licenses/fmj/Casper-Nilsson-architecture.txt",
+      "sourceSha256": "52b2139f80e944328916ef50f69de3926037eeb983f319364fc99a83fac77157",
+      "importedSha256": "52b2139f80e944328916ef50f69de3926037eeb983f319364fc99a83fac77157"
+    },
+    {
+      "game": "fmj",
+      "source": "licenses/Enhanced-art-sources.txt",
+      "destination": "licenses/fmj/Enhanced-art-sources.txt",
+      "sourceSha256": "59f45a9da9f5df25b2cc9f8bff3b4f1a7d152dac298e7ceb606e1108301658d7",
+      "importedSha256": "59f45a9da9f5df25b2cc9f8bff3b4f1a7d152dac298e7ceb606e1108301658d7"
+    },
+    {
+      "game": "fmj",
+      "source": "licenses/fmj-GPL-2.0.txt",
+      "destination": "licenses/fmj/fmj-GPL-2.0.txt",
+      "sourceSha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643",
+      "importedSha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/data/repositories/game_asset_repository.dart",
+      "destination": "lib/games/sgby/data/repositories/game_asset_repository.dart",
+      "sourceSha256": "4d377687cc8f3f6c43be324ed6fb2747c7a979b88996aebadd68a8f253957f19",
+      "importedSha256": "00acfa02fcc9fd3a5c3ea458c7d83eaee89c57440587ae693cd66f8cf479e616"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/data/repositories/game_save_repository.dart",
+      "destination": "lib/games/sgby/data/repositories/game_save_repository.dart",
+      "sourceSha256": "c5cbdd1ddb1b0fb599a804c2d4b392bddfd305f1b81d2c3eed6b0655915e0e5b",
+      "importedSha256": "d9a25bdb9eeedd0151a5f3f0d4dac1904ee761c19f91bdf29b1f5c600882b7af"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/data/services/game_platform_service.dart",
+      "destination": "lib/games/sgby/data/services/game_platform_service.dart",
+      "sourceSha256": "78a415c9247fc43ff05083c98c9c1ec2abaf3ec74732c3f730b6e341b38aec83",
+      "importedSha256": "78a415c9247fc43ff05083c98c9c1ec2abaf3ec74732c3f730b6e341b38aec83"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/data/services/game_save_codec.dart",
+      "destination": "lib/games/sgby/data/services/game_save_codec.dart",
+      "sourceSha256": "c083770097af93718d183b08360144858b46bd3a42d0a71337d5c34ff1c3cce9",
+      "importedSha256": "c083770097af93718d183b08360144858b46bd3a42d0a71337d5c34ff1c3cce9"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/models/battle_record.dart",
+      "destination": "lib/games/sgby/domain/models/battle_record.dart",
+      "sourceSha256": "85ba7fb52714d38e1d9af6be4274af7815404e5f2754516e6cfcb51c4304c5aa",
+      "importedSha256": "85ba7fb52714d38e1d9af6be4274af7815404e5f2754516e6cfcb51c4304c5aa"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/models/enemy_city.dart",
+      "destination": "lib/games/sgby/domain/models/enemy_city.dart",
+      "sourceSha256": "48fdfd8cb11877c663cc5b672946262ac0368ae9ab2051b94b2f90153ec52944",
+      "importedSha256": "48fdfd8cb11877c663cc5b672946262ac0368ae9ab2051b94b2f90153ec52944"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/models/game_battle.dart",
+      "destination": "lib/games/sgby/domain/models/game_battle.dart",
+      "sourceSha256": "cc6c9653a59eb3ffa1ae945f0180fcb05d17dccea1349972849d5e9216ddd46d",
+      "importedSha256": "cc6c9653a59eb3ffa1ae945f0180fcb05d17dccea1349972849d5e9216ddd46d"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/models/game_city.dart",
+      "destination": "lib/games/sgby/domain/models/game_city.dart",
+      "sourceSha256": "731fe1eac62863f783053ccfe560d63ec976d7dc9b514e8d71bc87d4fb6816b8",
+      "importedSha256": "731fe1eac62863f783053ccfe560d63ec976d7dc9b514e8d71bc87d4fb6816b8"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/models/game_definition.dart",
+      "destination": "lib/games/sgby/domain/models/game_definition.dart",
+      "sourceSha256": "988330bf41f4502b9d22faabd797baadf0671cd990929b89b451bc29f17462bf",
+      "importedSha256": "988330bf41f4502b9d22faabd797baadf0671cd990929b89b451bc29f17462bf"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/models/game_options.dart",
+      "destination": "lib/games/sgby/domain/models/game_options.dart",
+      "sourceSha256": "320e1d5b4cf212842055d5b743715082b2db1bd74a19823346e4b8df81d2b512",
+      "importedSha256": "320e1d5b4cf212842055d5b743715082b2db1bd74a19823346e4b8df81d2b512"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/models/game_order.dart",
+      "destination": "lib/games/sgby/domain/models/game_order.dart",
+      "sourceSha256": "2db16f12858b973208fd496bef8f8c0732c202d19d8addf9881c65208e991ab9",
+      "importedSha256": "2db16f12858b973208fd496bef8f8c0732c202d19d8addf9881c65208e991ab9"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/models/game_person.dart",
+      "destination": "lib/games/sgby/domain/models/game_person.dart",
+      "sourceSha256": "ce321c8ab88e4ea765df084da50b6f5035a8619096200285486b239f6518df8e",
+      "importedSha256": "ce321c8ab88e4ea765df084da50b6f5035a8619096200285486b239f6518df8e"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/models/game_report.dart",
+      "destination": "lib/games/sgby/domain/models/game_report.dart",
+      "sourceSha256": "5986054ddbb298e8b0e1ef62690a0b0c5b8ad61b2b0cd0a064182fc476d20336",
+      "importedSha256": "5986054ddbb298e8b0e1ef62690a0b0c5b8ad61b2b0cd0a064182fc476d20336"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/models/game_tool.dart",
+      "destination": "lib/games/sgby/domain/models/game_tool.dart",
+      "sourceSha256": "4e42469fd3f6a6c1d0f10aa2d31c4f94be40f736e94fe36a84e93d7095dc4148",
+      "importedSha256": "4e42469fd3f6a6c1d0f10aa2d31c4f94be40f736e94fe36a84e93d7095dc4148"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/models/game_world.dart",
+      "destination": "lib/games/sgby/domain/models/game_world.dart",
+      "sourceSha256": "60a1c796cbfff716525bd428f21ab375b4e22c124e99382eb78fe665c5c55910",
+      "importedSha256": "60a1c796cbfff716525bd428f21ab375b4e22c124e99382eb78fe665c5c55910"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/models/general_roster.dart",
+      "destination": "lib/games/sgby/domain/models/general_roster.dart",
+      "sourceSha256": "0e4934d6329d7ee2fe90d573989b6c22bc3021ab89483df129b26047587e9082",
+      "importedSha256": "0e4934d6329d7ee2fe90d573989b6c22bc3021ab89483df129b26047587e9082"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/models/hidden_general_backup.dart",
+      "destination": "lib/games/sgby/domain/models/hidden_general_backup.dart",
+      "sourceSha256": "8aa2a3cf13b2b71f9486aa9b287603589608f787e50a0377d40133615bf0d303",
+      "importedSha256": "8aa2a3cf13b2b71f9486aa9b287603589608f787e50a0377d40133615bf0d303"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/models/keyboard_bindings.dart",
+      "destination": "lib/games/sgby/domain/models/keyboard_bindings.dart",
+      "sourceSha256": "0f77dffd8b4ccba85a9c0aa3ae40b9cf719e741e4742c6ae761b56d8e9aef6a6",
+      "importedSha256": "0f77dffd8b4ccba85a9c0aa3ae40b9cf719e741e4742c6ae761b56d8e9aef6a6"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/models/search_history.dart",
+      "destination": "lib/games/sgby/domain/models/search_history.dart",
+      "sourceSha256": "177b699d66c4e525ea725a6601bc957eb40a0f4515ce7abf6353eff988be352b",
+      "importedSha256": "177b699d66c4e525ea725a6601bc957eb40a0f4515ce7abf6353eff988be352b"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/models/sgby_battle_statistics.dart",
+      "destination": "lib/games/sgby/domain/models/sgby_battle_statistics.dart",
+      "sourceSha256": "3cd52cf0be9d52de8aa4961b001302e8875330cf58d034e49b0eb8c99ef1c2e2",
+      "importedSha256": "3cd52cf0be9d52de8aa4961b001302e8875330cf58d034e49b0eb8c99ef1c2e2"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/use_cases/advance_calendar.dart",
+      "destination": "lib/games/sgby/domain/use_cases/advance_calendar.dart",
+      "sourceSha256": "9eec009bbed723c4e1883b93ffcd736ae2cc479845fa9ce7d6d5646fd344cc85",
+      "importedSha256": "9eec009bbed723c4e1883b93ffcd736ae2cc479845fa9ce7d6d5646fd344cc85"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/use_cases/battle_ai.dart",
+      "destination": "lib/games/sgby/domain/use_cases/battle_ai.dart",
+      "sourceSha256": "8baba21773a303c538188c5aa7c9c90b6bfa7b15caacafebeb7be010131a13b3",
+      "importedSha256": "8baba21773a303c538188c5aa7c9c90b6bfa7b15caacafebeb7be010131a13b3"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/use_cases/battle_engine.dart",
+      "destination": "lib/games/sgby/domain/use_cases/battle_engine.dart",
+      "sourceSha256": "fb293fabfe613c4dff18cc4c50f975b76d541dd20dfe240aeb934a2c5bab6042",
+      "importedSha256": "fb293fabfe613c4dff18cc4c50f975b76d541dd20dfe240aeb934a2c5bab6042"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/use_cases/build_general_roster.dart",
+      "destination": "lib/games/sgby/domain/use_cases/build_general_roster.dart",
+      "sourceSha256": "6cd15e0f71d3f79de2533251eb76256320ea1c46e310dda294c2e8ffa3ad2ad6",
+      "importedSha256": "6cd15e0f71d3f79de2533251eb76256320ea1c46e310dda294c2e8ffa3ad2ad6"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/use_cases/computer_strategy.dart",
+      "destination": "lib/games/sgby/domain/use_cases/computer_strategy.dart",
+      "sourceSha256": "b1f598dee73777c70ab0ccbb50ca3a925c0bf8899a09aaee6966dcbc182fef6d",
+      "importedSha256": "b1f598dee73777c70ab0ccbb50ca3a925c0bf8899a09aaee6966dcbc182fef6d"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/use_cases/execute_strategy_order.dart",
+      "destination": "lib/games/sgby/domain/use_cases/execute_strategy_order.dart",
+      "sourceSha256": "045dc9a19274194be1a69796cc2f618c3d7206264de8a4a1ddfb75237c08b608",
+      "importedSha256": "045dc9a19274194be1a69796cc2f618c3d7206264de8a4a1ddfb75237c08b608"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/use_cases/game_enhancements.dart",
+      "destination": "lib/games/sgby/domain/use_cases/game_enhancements.dart",
+      "sourceSha256": "928682a108a5983f745204f9d33b9c3965fbbaa1f888a23d26ca0849979d1aa4",
+      "importedSha256": "928682a108a5983f745204f9d33b9c3965fbbaa1f888a23d26ca0849979d1aa4"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/use_cases/resolve_battle.dart",
+      "destination": "lib/games/sgby/domain/use_cases/resolve_battle.dart",
+      "sourceSha256": "f8902a46de769acef6ff0cdc6594c83ea7c1305803a88ead3e609c8241e12018",
+      "importedSha256": "f8902a46de769acef6ff0cdc6594c83ea7c1305803a88ead3e609c8241e12018"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/use_cases/special_generals.dart",
+      "destination": "lib/games/sgby/domain/use_cases/special_generals.dart",
+      "sourceSha256": "3234854f6ad247835768dbc6657266e6b680fce89c423bc4e5b4aa5ecc39fbd9",
+      "importedSha256": "3234854f6ad247835768dbc6657266e6b680fce89c423bc4e5b4aa5ecc39fbd9"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/domain/use_cases/strategy_commands.dart",
+      "destination": "lib/games/sgby/domain/use_cases/strategy_commands.dart",
+      "sourceSha256": "bb1a0477ec0355fa2179e709af83233b62734e42411ba872bf3290710966f856",
+      "importedSha256": "bb1a0477ec0355fa2179e709af83233b62734e42411ba872bf3290710966f856"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/core/battle_flow.dart",
+      "destination": "lib/games/sgby/engine/core/battle_flow.dart",
+      "sourceSha256": "49fc5b7deeee33e209c3a7765f6eb370edb08faedd494d1bcc79dbd5a2933d55",
+      "importedSha256": "49fc5b7deeee33e209c3a7765f6eb370edb08faedd494d1bcc79dbd5a2933d55"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/core/baye_movie_player.dart",
+      "destination": "lib/games/sgby/engine/core/baye_movie_player.dart",
+      "sourceSha256": "269e30a04e5d6e8f4b2d859a36e6a2e9131d0d3935f8f9f9147769a991235141",
+      "importedSha256": "269e30a04e5d6e8f4b2d859a36e6a2e9131d0d3935f8f9f9147769a991235141"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/core/native_game_session.dart",
+      "destination": "lib/games/sgby/engine/core/native_game_session.dart",
+      "sourceSha256": "9c5a50cb2d9799d0c084e9599e9986a4e762d2de91481654d53147a0bf8eadba",
+      "importedSha256": "9c5a50cb2d9799d0c084e9599e9986a4e762d2de91481654d53147a0bf8eadba"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/core/original_random.dart",
+      "destination": "lib/games/sgby/engine/core/original_random.dart",
+      "sourceSha256": "f97ed2f56d7c605b06fef177eedd9cf95a218369c9bc7040128decac9431653c",
+      "importedSha256": "f97ed2f56d7c605b06fef177eedd9cf95a218369c9bc7040128decac9431653c"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/core/refined_help_flow.dart",
+      "destination": "lib/games/sgby/engine/core/refined_help_flow.dart",
+      "sourceSha256": "8c2faf499497a0d97e8284f1d8cb8cc71056fd6fb3b4f95394d81b4ddeca0d68",
+      "importedSha256": "8c2faf499497a0d97e8284f1d8cb8cc71056fd6fb3b4f95394d81b4ddeca0d68"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/core/strategy_command_flow.dart",
+      "destination": "lib/games/sgby/engine/core/strategy_command_flow.dart",
+      "sourceSha256": "f900747190eaf42cc70c186b24677bc6305b75eab54298520dc13b08e3bcadda",
+      "importedSha256": "f900747190eaf42cc70c186b24677bc6305b75eab54298520dc13b08e3bcadda"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/core/strategy_turn_flow.dart",
+      "destination": "lib/games/sgby/engine/core/strategy_turn_flow.dart",
+      "sourceSha256": "194ea492f53e33b20db9cc703696c3445e13826b224e18f4a7271ebf3eae84a7",
+      "importedSha256": "194ea492f53e33b20db9cc703696c3445e13826b224e18f4a7271ebf3eae84a7"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/rendering/battle_scene_renderer.dart",
+      "destination": "lib/games/sgby/engine/rendering/battle_scene_renderer.dart",
+      "sourceSha256": "b9800a05d1353f039a31c67660dec1ae5e5b7065dc71b90b9effa5cf758e6d46",
+      "importedSha256": "b9800a05d1353f039a31c67660dec1ae5e5b7065dc71b90b9effa5cf758e6d46"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/rendering/baye_canvas.dart",
+      "destination": "lib/games/sgby/engine/rendering/baye_canvas.dart",
+      "sourceSha256": "9acf6f23dac445b518faf1d9384d65e69a7b8b9054dd98748df9480da42ce553",
+      "importedSha256": "9acf6f23dac445b518faf1d9384d65e69a7b8b9054dd98748df9480da42ce553"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/rendering/baye_draw_command.dart",
+      "destination": "lib/games/sgby/engine/rendering/baye_draw_command.dart",
+      "sourceSha256": "248a634f2d7d15cab5328dff71c49016daa6eb2a49a454f5eb14dbab622d5b51",
+      "importedSha256": "248a634f2d7d15cab5328dff71c49016daa6eb2a49a454f5eb14dbab622d5b51"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/rendering/cartoon_assets.dart",
+      "destination": "lib/games/sgby/engine/rendering/cartoon_assets.dart",
+      "sourceSha256": "81ec01878178dd2d13ecbde9ab34ccaaa3a5d7d309808c1abed12f9439c89b95",
+      "importedSha256": "7715623bf0a8f555ed7a10c23ce65df58f053b7bff6eb556eef2b1d32bd5e66d"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/rendering/cartoon_map_layout.dart",
+      "destination": "lib/games/sgby/engine/rendering/cartoon_map_layout.dart",
+      "sourceSha256": "6aab308725e6ac743d484c2da64f8d4fac206733511ade11337087b5beaed8bd",
+      "importedSha256": "6aab308725e6ac743d484c2da64f8d4fac206733511ade11337087b5beaed8bd"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/rendering/cartoon_scene_art.dart",
+      "destination": "lib/games/sgby/engine/rendering/cartoon_scene_art.dart",
+      "sourceSha256": "7561e0cf262d4a4d88a6a54372e736c54d9089ace61c44ed741a81da46348a08",
+      "importedSha256": "7561e0cf262d4a4d88a6a54372e736c54d9089ace61c44ed741a81da46348a08"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/rendering/defeat_art.dart",
+      "destination": "lib/games/sgby/engine/rendering/defeat_art.dart",
+      "sourceSha256": "0a2233a179ca284b1f160741655a93376a19ea4fff5e093cb72d55e093312d5a",
+      "importedSha256": "0a2233a179ca284b1f160741655a93376a19ea4fff5e093cb72d55e093312d5a"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/rendering/game_art.dart",
+      "destination": "lib/games/sgby/engine/rendering/game_art.dart",
+      "sourceSha256": "e89606b3abafcf7b941b6f4c8f223faa6e15612fea0fe25f2f76d70c971e315d",
+      "importedSha256": "e89606b3abafcf7b941b6f4c8f223faa6e15612fea0fe25f2f76d70c971e315d"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/rendering/game_display_enhancements.dart",
+      "destination": "lib/games/sgby/engine/rendering/game_display_enhancements.dart",
+      "sourceSha256": "72d968b7fcabc165d069bcfa21d97da97333544a7ae026b372a7a08f19e4c85d",
+      "importedSha256": "72d968b7fcabc165d069bcfa21d97da97333544a7ae026b372a7a08f19e4c85d"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/rendering/game_scene_renderer.dart",
+      "destination": "lib/games/sgby/engine/rendering/game_scene_renderer.dart",
+      "sourceSha256": "bacab4e45174d8f6b8965e929a4466e1e2542f722b4d494dd8f29245f1af26b7",
+      "importedSha256": "bacab4e45174d8f6b8965e929a4466e1e2542f722b4d494dd8f29245f1af26b7"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/rendering/modern_game_painter.dart",
+      "destination": "lib/games/sgby/engine/rendering/modern_game_painter.dart",
+      "sourceSha256": "db719151eccc5bbdd8707c066244acaab60d59fbf8aeda413579020e253f3336",
+      "importedSha256": "db719151eccc5bbdd8707c066244acaab60d59fbf8aeda413579020e253f3336"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/rendering/pixel_surface.dart",
+      "destination": "lib/games/sgby/engine/rendering/pixel_surface.dart",
+      "sourceSha256": "b4b810c97d87ca627e58226b77ac725a0467a4582689aabe0599b486bacb975c",
+      "importedSha256": "b4b810c97d87ca627e58226b77ac725a0467a4582689aabe0599b486bacb975c"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/rendering/realistic_game_painter.dart",
+      "destination": "lib/games/sgby/engine/rendering/realistic_game_painter.dart",
+      "sourceSha256": "c232236a8bc5297a34fc588cd17a39364b528f80d556110d1d91104434d7c76d",
+      "importedSha256": "c232236a8bc5297a34fc588cd17a39364b528f80d556110d1d91104434d7c76d"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/rendering/selection_art.dart",
+      "destination": "lib/games/sgby/engine/rendering/selection_art.dart",
+      "sourceSha256": "5309ef21c15bbcd822d46f2a72041abed523f94dd509fa2d1afdbd9330ae2a22",
+      "importedSha256": "5309ef21c15bbcd822d46f2a72041abed523f94dd509fa2d1afdbd9330ae2a22"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/rendering/war_report_art.dart",
+      "destination": "lib/games/sgby/engine/rendering/war_report_art.dart",
+      "sourceSha256": "6f99c120d743185d693927a645698c91751b4e110469e60b2a02c63b841bf0ff",
+      "importedSha256": "6f99c120d743185d693927a645698c91751b4e110469e60b2a02c63b841bf0ff"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/resources/baye_archive.dart",
+      "destination": "lib/games/sgby/engine/resources/baye_archive.dart",
+      "sourceSha256": "fd7afbc3f8f6b66b23f040da63f84d238545ad781b4371cbb7918d02788cac68",
+      "importedSha256": "fd7afbc3f8f6b66b23f040da63f84d238545ad781b4371cbb7918d02788cac68"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/resources/baye_database.dart",
+      "destination": "lib/games/sgby/engine/resources/baye_database.dart",
+      "sourceSha256": "2e8c53f4a40e0240e8aa793a5128d8d6322f929ff97418c948f0e90a5edd10b2",
+      "importedSha256": "2e8c53f4a40e0240e8aa793a5128d8d6322f929ff97418c948f0e90a5edd10b2"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/resources/baye_picture.dart",
+      "destination": "lib/games/sgby/engine/resources/baye_picture.dart",
+      "sourceSha256": "1932413369e02dad3f4ff52e95dba248b00b4390dcb5d0973f50d5639cd30771",
+      "importedSha256": "1932413369e02dad3f4ff52e95dba248b00b4390dcb5d0973f50d5639cd30771"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/resources/bitmap_font.dart",
+      "destination": "lib/games/sgby/engine/resources/bitmap_font.dart",
+      "sourceSha256": "551a34ceb7acca2008cf615af2eb324ce42ff90f6ccf5eb2c3bfb340ed478060",
+      "importedSha256": "551a34ceb7acca2008cf615af2eb324ce42ff90f6ccf5eb2c3bfb340ed478060"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/resources/gbk_codec.dart",
+      "destination": "lib/games/sgby/engine/resources/gbk_codec.dart",
+      "sourceSha256": "5f324cb5e6633885507fc0ddefd7aa4ae4d0ae2956a843ae22f5b5eb563d9cd3",
+      "importedSha256": "5f324cb5e6633885507fc0ddefd7aa4ae4d0ae2956a843ae22f5b5eb563d9cd3"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/engine/resources/person_names.dart",
+      "destination": "lib/games/sgby/engine/resources/person_names.dart",
+      "sourceSha256": "c5ed55341357c689a7e106d1b0ab8876b5242a29abf4515725351cab4200d3e5",
+      "importedSha256": "c5ed55341357c689a7e106d1b0ab8876b5242a29abf4515725351cab4200d3e5"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/main.dart",
+      "destination": "lib/games/sgby/main.dart",
+      "sourceSha256": "3616d3ae458e99442f159250a65aee5ceb48aac63da190cdfc0ed2bc8b04358c",
+      "importedSha256": "3616d3ae458e99442f159250a65aee5ceb48aac63da190cdfc0ed2bc8b04358c"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/ui/core/app_theme.dart",
+      "destination": "lib/games/sgby/ui/core/app_theme.dart",
+      "sourceSha256": "f69dab2315c3b6695372fcb721b45fba734ce5839c40ae5b596ca05f5908c1ac",
+      "importedSha256": "f69dab2315c3b6695372fcb721b45fba734ce5839c40ae5b596ca05f5908c1ac"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/ui/core/background_game_clock.dart",
+      "destination": "lib/games/sgby/ui/core/background_game_clock.dart",
+      "sourceSha256": "6ed59a4bbdde01baddca0c6cc1a4356bb5f34c10d7f36a860be343b04806c61c",
+      "importedSha256": "6ed59a4bbdde01baddca0c6cc1a4356bb5f34c10d7f36a860be343b04806c61c"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/ui/core/game_keyboard.dart",
+      "destination": "lib/games/sgby/ui/core/game_keyboard.dart",
+      "sourceSha256": "b32269602419d42683b5ba73192cf6bfe7f02af397e25a02f519d5d5e7716c00",
+      "importedSha256": "b32269602419d42683b5ba73192cf6bfe7f02af397e25a02f519d5d5e7716c00"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/ui/features/game/view_models/game_frame_presenter.dart",
+      "destination": "lib/games/sgby/ui/features/game/view_models/game_frame_presenter.dart",
+      "sourceSha256": "c23f56ddadb82b125b215d60aa6526a023e245dff851cf5c01ac092754b081a9",
+      "importedSha256": "c23f56ddadb82b125b215d60aa6526a023e245dff851cf5c01ac092754b081a9"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/ui/features/game/view_models/game_view_model.dart",
+      "destination": "lib/games/sgby/ui/features/game/view_models/game_view_model.dart",
+      "sourceSha256": "84d5fd993d62c8446d0a129f364f66f136905c9b1039c904805b8042b2a6d270",
+      "importedSha256": "1b02696a53f581f1c38ad15aae6190e32a415205fc6086036877ab707a209b81"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/ui/features/game/views/cartoon_status_panel.dart",
+      "destination": "lib/games/sgby/ui/features/game/views/cartoon_status_panel.dart",
+      "sourceSha256": "8eba6f3f77d77e9c3ec55b7588ca533bf3e8f989d531b90bd067155cb76ef024",
+      "importedSha256": "8eba6f3f77d77e9c3ec55b7588ca533bf3e8f989d531b90bd067155cb76ef024"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/ui/features/game/views/game_cheat_sheet.dart",
+      "destination": "lib/games/sgby/ui/features/game/views/game_cheat_sheet.dart",
+      "sourceSha256": "012b29b39ee49f6078db0471ea4da1ba9dcae755e46bc1231ba86694259d96c7",
+      "importedSha256": "012b29b39ee49f6078db0471ea4da1ba9dcae755e46bc1231ba86694259d96c7"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/ui/features/game/views/game_controls_overlay.dart",
+      "destination": "lib/games/sgby/ui/features/game/views/game_controls_overlay.dart",
+      "sourceSha256": "e02ea18f33fc8a6e45d4d05e431a97a79c68a2220df3cfa150bc334b479d5b9a",
+      "importedSha256": "e02ea18f33fc8a6e45d4d05e431a97a79c68a2220df3cfa150bc334b479d5b9a"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/ui/features/game/views/game_enemy_city_sheet.dart",
+      "destination": "lib/games/sgby/ui/features/game/views/game_enemy_city_sheet.dart",
+      "sourceSha256": "1b561d9772b0c154a7680fbcdaad20b212c69d8679a1335af5235fab8aad1047",
+      "importedSha256": "1b561d9772b0c154a7680fbcdaad20b212c69d8679a1335af5235fab8aad1047"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/ui/features/game/views/game_general_roster_sheet.dart",
+      "destination": "lib/games/sgby/ui/features/game/views/game_general_roster_sheet.dart",
+      "sourceSha256": "b3a5d7439b7bc44dd9f533c497f6e417b7401ba5714b05ad80b182b456a7cc93",
+      "importedSha256": "b3a5d7439b7bc44dd9f533c497f6e417b7401ba5714b05ad80b182b456a7cc93"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/ui/features/game/views/game_keyboard_sheet.dart",
+      "destination": "lib/games/sgby/ui/features/game/views/game_keyboard_sheet.dart",
+      "sourceSha256": "884af6a98a5ac50246e6bb5590f4000c3e7361dc73f8a4c5cc5c160e96f5b8d0",
+      "importedSha256": "884af6a98a5ac50246e6bb5590f4000c3e7361dc73f8a4c5cc5c160e96f5b8d0"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/ui/features/game/views/game_page.dart",
+      "destination": "lib/games/sgby/ui/features/game/views/game_page.dart",
+      "sourceSha256": "b9fa4d3c62037d986974041d2092a65b40418fe1a29e2cd606850f0ad33e2a30",
+      "importedSha256": "c03c020bda6f2828c23be0b69842152d32756afd9110c3719fcdec24ea08b320"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/ui/features/game/views/game_search_history_sheet.dart",
+      "destination": "lib/games/sgby/ui/features/game/views/game_search_history_sheet.dart",
+      "sourceSha256": "9aede68d31e486f0f3a4296e036ef1d9a513585b53fa76c7f49511843900eecd",
+      "importedSha256": "9aede68d31e486f0f3a4296e036ef1d9a513585b53fa76c7f49511843900eecd"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/ui/features/game/views/sgby_battle_statistics_text.dart",
+      "destination": "lib/games/sgby/ui/features/game/views/sgby_battle_statistics_text.dart",
+      "sourceSha256": "a41c8a4e08bb0893f90a942017c2f3f544ff3533ae48be54e52ad1317e92f3c2",
+      "importedSha256": "a41c8a4e08bb0893f90a942017c2f3f544ff3533ae48be54e52ad1317e92f3c2"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/ui/features/game/views/sgby_enemy_arms_limit_slider.dart",
+      "destination": "lib/games/sgby/ui/features/game/views/sgby_enemy_arms_limit_slider.dart",
+      "sourceSha256": "92e3da469503373a920d9dd44f34d96042d56bb74f0826931ef297b900238635",
+      "importedSha256": "92e3da469503373a920d9dd44f34d96042d56bb74f0826931ef297b900238635"
+    },
+    {
+      "game": "sgby",
+      "source": "lib/ui/features/game/views/sgby_general_portrait.dart",
+      "destination": "lib/games/sgby/ui/features/game/views/sgby_general_portrait.dart",
+      "sourceSha256": "60b8f498c8f5e5f0c31214a54c403d53d1736f31ae2182c57a7ddcb09d5ada4d",
+      "importedSha256": "60b8f498c8f5e5f0c31214a54c403d53d1736f31ae2182c57a7ddcb09d5ada4d"
+    },
+    {
+      "game": "sgby",
+      "source": "assets/art/atlas.png",
+      "destination": "assets/sgby/art/atlas.png",
+      "sourceSha256": "d7f9e42c1ca199e1901547e0136c28cee6e6e6637c2a63a635b05c231dcc9864",
+      "importedSha256": "d7f9e42c1ca199e1901547e0136c28cee6e6e6637c2a63a635b05c231dcc9864"
+    },
+    {
+      "game": "sgby",
+      "source": "assets/art/battle_texture.png",
+      "destination": "assets/sgby/art/battle_texture.png",
+      "sourceSha256": "1851500c368a9375aeb421bfde38e62710f5e24b101ce52e79f2f08091070cbd",
+      "importedSha256": "1851500c368a9375aeb421bfde38e62710f5e24b101ce52e79f2f08091070cbd"
+    },
+    {
+      "game": "sgby",
+      "source": "assets/art/manifest.json",
+      "destination": "assets/sgby/art/manifest.json",
+      "sourceSha256": "471078cbde4dff22d6a269800d62d24ebf0e7c64633a47e75049d90201f59be4",
+      "importedSha256": "471078cbde4dff22d6a269800d62d24ebf0e7c64633a47e75049d90201f59be4"
+    },
+    {
+      "game": "sgby",
+      "source": "assets/art/strategy_map.png",
+      "destination": "assets/sgby/art/strategy_map.png",
+      "sourceSha256": "171a7bdc7d9d4356b218eb6000602aa3761c1df7851304d43ad2c0d9f79b31bd",
+      "importedSha256": "171a7bdc7d9d4356b218eb6000602aa3761c1df7851304d43ad2c0d9f79b31bd"
+    },
+    {
+      "game": "sgby",
+      "source": "assets/branding/app_icon.png",
+      "destination": "assets/sgby/branding/app_icon.png",
+      "sourceSha256": "2c76fa0e21303bdc4968d0fb2e0150ddbe87b3ca477b8be0d28aa0a7786aa8bf",
+      "importedSha256": "2c76fa0e21303bdc4968d0fb2e0150ddbe87b3ca477b8be0d28aa0a7786aa8bf"
+    },
+    {
+      "game": "sgby",
+      "source": "assets/game/SGBY-Reset-4X.lib",
+      "destination": "assets/sgby/game/SGBY-Reset-4X.lib",
+      "sourceSha256": "a60cdf33e697bf39e26dce82e2390dbc8c0683dce06b8fee6de791ba569a7c8d",
+      "importedSha256": "a60cdf33e697bf39e26dce82e2390dbc8c0683dce06b8fee6de791ba569a7c8d"
+    },
+    {
+      "game": "sgby",
+      "source": "assets/game/android_font48.bin",
+      "destination": "assets/sgby/game/android_font48.bin",
+      "sourceSha256": "400b5178b6fb4ed48a99c0a865ead4a32851c2d701ad25d9032e8a5c9d95caa0",
+      "importedSha256": "400b5178b6fb4ed48a99c0a865ead4a32851c2d701ad25d9032e8a5c9d95caa0"
+    },
+    {
+      "game": "sgby",
+      "source": "assets/game/fallback_font12.bin",
+      "destination": "assets/sgby/game/fallback_font12.bin",
+      "sourceSha256": "31197c48c77e82bc244b17f44e405a3a055df8162af06fadd7271cc1990cc6b8",
+      "importedSha256": "31197c48c77e82bc244b17f44e405a3a055df8162af06fadd7271cc1990cc6b8"
+    },
+    {
+      "game": "sgby",
+      "source": "assets/game/gbk_unicode.bin",
+      "destination": "assets/sgby/game/gbk_unicode.bin",
+      "sourceSha256": "39151e95da3d78f4944e9f9ba91037c3fa6ae549539cd9d46524c3db8584865d",
+      "importedSha256": "39151e95da3d78f4944e9f9ba91037c3fa6ae549539cd9d46524c3db8584865d"
+    },
+    {
+      "game": "sgby",
+      "source": "assets/game/refined_rules.json",
+      "destination": "assets/sgby/game/refined_rules.json",
+      "sourceSha256": "4d6bbfe9e42b3474cf6991a44a66f6924e5c32474019c561627a924ff941e121",
+      "importedSha256": "4d6bbfe9e42b3474cf6991a44a66f6924e5c32474019c561627a924ff941e121"
+    },
+    {
+      "game": "sgby",
+      "source": "assets/game/strategy_dialogs.json",
+      "destination": "assets/sgby/game/strategy_dialogs.json",
+      "sourceSha256": "f8adcbbf901d387a4c3bae0239c95b2aafc36fd52a748c7bceae1bfad70c8c03",
+      "importedSha256": "f8adcbbf901d387a4c3bae0239c95b2aafc36fd52a748c7bceae1bfad70c8c03"
+    },
+    {
+      "game": "sgby",
+      "source": "test/cheat_widgets_test.dart",
+      "destination": "test/games/sgby/cheat_widgets_test.dart",
+      "sourceSha256": "f4b32716f9b77882ae6e27e5ef188f9fe9099c770e50357413fea2ddb291ad84",
+      "importedSha256": "54a796807a169a54030d6cde11195a48ec4e10add6b567819a7e941f98a6fdef"
+    },
+    {
+      "game": "sgby",
+      "source": "test/data/asset_repository_test.dart",
+      "destination": "test/games/sgby/data/asset_repository_test.dart",
+      "sourceSha256": "ce03b82d27c0e3f1621d81e922dae317795ecaf6f840166a781ab96589ad55a8",
+      "importedSha256": "04af65c0da9cd5bbcc86382f63525ac45fcc52c32a90848565285797cfe4ec2f"
+    },
+    {
+      "game": "sgby",
+      "source": "test/data/autosave_view_model_test.dart",
+      "destination": "test/games/sgby/data/autosave_view_model_test.dart",
+      "sourceSha256": "488bcd300a767380c0dc94a9438bbf7134089ac888a32521561cf5ac41ab7711",
+      "importedSha256": "bcb0161b167fccf432c83a3ca6932a7618b8f5de2f2aaa0dd75d35cbac4137a6"
+    },
+    {
+      "game": "sgby",
+      "source": "test/data/save_repository_test.dart",
+      "destination": "test/games/sgby/data/save_repository_test.dart",
+      "sourceSha256": "a457c46a0e58ab812eadd1f2a7d39c0200d60fbdd21b22e5f2b60c67c26a97b7",
+      "importedSha256": "dd68a1c2ae7e2f77db63ecef4a59ab766cedcec776c377404a4543bce475e7c9"
+    },
+    {
+      "game": "sgby",
+      "source": "test/desktop_visual_controls_test.dart",
+      "destination": "test/games/sgby/desktop_visual_controls_test.dart",
+      "sourceSha256": "c2636114cee66ccea63e29b2fd2b1d4da22d58e88ff589f90efce6e9de3be135",
+      "importedSha256": "7c3e79407df9f1f70b0c1080003e7bf757b90bb66431f4b1b9548ac01c7eac22"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/attack_parity_test.dart",
+      "destination": "test/games/sgby/engine/attack_parity_test.dart",
+      "sourceSha256": "827355c31439be614beeacb65cf45ed1046d286f6125157d5f269f9ee5c07326",
+      "importedSha256": "dd5923785c80aff70987076b00610bcb72080102687e1ca196f07fcda61db18a"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/auto_battle_steps_test.dart",
+      "destination": "test/games/sgby/engine/auto_battle_steps_test.dart",
+      "sourceSha256": "d9687187fc0efb4c2aeca67b1881a6bf37a41a2819931a2275fcbde3ee3e2385",
+      "importedSha256": "4e073cb532f7294087961ecc6e6c8c9396f14ccf17f0acf64d972f3066851cce"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/battle_legibility_test.dart",
+      "destination": "test/games/sgby/engine/battle_legibility_test.dart",
+      "sourceSha256": "b3eada597433b39703d6482ffb5ed64a6343900287760cd9f24da888a3d950d1",
+      "importedSha256": "38fb3c352a9109f137817563b5e11254fedac9932080a9f752fb19088bb4a9a2"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/battle_parity_test.dart",
+      "destination": "test/games/sgby/engine/battle_parity_test.dart",
+      "sourceSha256": "8687cd4d118347bd1a036bc9ce67f696faef44e05eb4b6027116486311266871",
+      "importedSha256": "524434670a3a3fb69729f82047f7663b96e3fc777877492f2e203287155fe896"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/battle_pixel_parity_test.dart",
+      "destination": "test/games/sgby/engine/battle_pixel_parity_test.dart",
+      "sourceSha256": "0d441c029be6f8b06a7fa7be567e5c5d3a46514ac99220d3628f326392ba85c6",
+      "importedSha256": "be3d7b0ab955f6714a95559ba0c48ce5d8d3b1cb216766446f67bdd649fd6a2e"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/battle_resolution_parity_test.dart",
+      "destination": "test/games/sgby/engine/battle_resolution_parity_test.dart",
+      "sourceSha256": "6ae348b36e336037424fe3da62193bac1f05e052d02829d6816a6862a0f8a701",
+      "importedSha256": "ab0d048c48168563ababb0dc46e32723f92f9bc45485051eafbca512eff15da4"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/calendar_parity_test.dart",
+      "destination": "test/games/sgby/engine/calendar_parity_test.dart",
+      "sourceSha256": "ae9f27b6790eb174f4b63df23965c9fdc19cd1ccd87bd737b5e0be7f35b17455",
+      "importedSha256": "7c88ab5ca6dcaa7af5d59a97ace65d53ab239f9855b62d3058c63eb61b97f6a9"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/cartoon_rendering_test.dart",
+      "destination": "test/games/sgby/engine/cartoon_rendering_test.dart",
+      "sourceSha256": "7b8d8a4be3b8f063fea94b1885c890adc8eaa910f73987c8a6ad423735291af9",
+      "importedSha256": "6151b49d13225c3d78e7d4143523fc6ba2912115d71e42ab727dbd8d11b05194"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/cheat_completion_test.dart",
+      "destination": "test/games/sgby/engine/cheat_completion_test.dart",
+      "sourceSha256": "9c4f00030d146b5c34fe414b379de8372b47d2ec16f326fc55304915b3dfc234",
+      "importedSha256": "7e585bf6a8e712a9feb8ef10bdcfa36f6e436db15deaebac43c310b0bad69d06"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/computer_strategy_parity_test.dart",
+      "destination": "test/games/sgby/engine/computer_strategy_parity_test.dart",
+      "sourceSha256": "f9ec3b7c9bcfe9bc3ce7e20e714afa5b938db8bc5867c55de296bfafdfd5b548",
+      "importedSha256": "d9786b1951e3b47ecf3dd6db2bfb7b4cdba5c95dfdd3b6f025b5300ff70dde4a"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/defeat_animation_test.dart",
+      "destination": "test/games/sgby/engine/defeat_animation_test.dart",
+      "sourceSha256": "28c3d2c9cd70b1d68a58fee76c221ab9e469b2dba7c8f7e5d80d88fa4f716a12",
+      "importedSha256": "4cfbe2745b99357cec5334c208545aeb3880136b2cccc683ecd1c7f8efac5df0"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/diplomacy_parity_test.dart",
+      "destination": "test/games/sgby/engine/diplomacy_parity_test.dart",
+      "sourceSha256": "067ae3eaf550fa313de1ec835bc9ebb7f315be2339a3931d08e1111201f02333",
+      "importedSha256": "860405126140b67f28cc25dd4bdff500bbe4e43b7b43ea12d4d98db577c33897"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/enhancement_parity_test.dart",
+      "destination": "test/games/sgby/engine/enhancement_parity_test.dart",
+      "sourceSha256": "4315ff986feb55ec9dd75dacf7cbda62781e5e13d16ad371b459fa020a7e272a",
+      "importedSha256": "b2ae093cc37ef984123014398fc10a7e8e69e0bc6d7f272d857eadb9a11af245"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/expedition_setup_test.dart",
+      "destination": "test/games/sgby/engine/expedition_setup_test.dart",
+      "sourceSha256": "4a40090cf7933bdf789fac5bff81ee0710df0cee84867de0754bbe8868e7eb63",
+      "importedSha256": "3206b347e77ef99e12d136a3f1982db7fca4ba028bc7fd8f563bdc66cd6ae2a9"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/extended_pixel_parity_test.dart",
+      "destination": "test/games/sgby/engine/extended_pixel_parity_test.dart",
+      "sourceSha256": "103012ec4edd0c32171f68b8b56cc2da7f529656f28feaa28fe5069a775f8f7c",
+      "importedSha256": "5a6d3fa4a7548b29696513374b3f450c074911edb8693cd936a29376d2c326df"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/group_defeat_visibility_test.dart",
+      "destination": "test/games/sgby/engine/group_defeat_visibility_test.dart",
+      "sourceSha256": "053e00b229e80605730071d16c95517cb813268417bea9533b5246916bfca183",
+      "importedSha256": "4411a969737e4d6afa1e714fffeeeff39ba845fd442402c48a83f49cf5c50cc3"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/handpainted_art_test.dart",
+      "destination": "test/games/sgby/engine/handpainted_art_test.dart",
+      "sourceSha256": "33668a79553545d2038843f1f87ccbf92048e9b2980e8b694f651d60e982f8ef",
+      "importedSha256": "1913bd362481b669acd385cdc2f76b2f9d36bc359ce19cf0dfeb430793e47bb7"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/large_army_parity_test.dart",
+      "destination": "test/games/sgby/engine/large_army_parity_test.dart",
+      "sourceSha256": "20e3b9ee6fe2167ee4909ab6dead9ec1909468e3f32da3fff1c94914d1494ab1",
+      "importedSha256": "a7057cd8ea8e7e115683b6f3fa3dba8c2b3e60028eb20f59759b4279c17495d4"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/missing_cheat_parity_test.dart",
+      "destination": "test/games/sgby/engine/missing_cheat_parity_test.dart",
+      "sourceSha256": "6493c60096e05d9af860ccfdd56ef654c32f02d11b56fc9e09152387afb28d9d",
+      "importedSha256": "c60bba6154a7f7f338c166684f23884e9ec42c7b5228ec9c265a2c80557ebebd"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/native_flow_test.dart",
+      "destination": "test/games/sgby/engine/native_flow_test.dart",
+      "sourceSha256": "3665e85c443c0d0c83f9d29a812980cf3385f198862e6c5aae6d7ce675d8251f",
+      "importedSha256": "9e22c5e464bcc1d9c51c997c915ce26dd1bc89dfd72265107c156f9f845db9ef"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/person_names_test.dart",
+      "destination": "test/games/sgby/engine/person_names_test.dart",
+      "sourceSha256": "ec555e44d60257d03919875bf8826ad03862291394c48ab4a45d229263a43a21",
+      "importedSha256": "8df73b1be7f4fe083d263d62d104db9cea756d2b20c331aed0e0f8f8af89f974"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/pixel_parity_test.dart",
+      "destination": "test/games/sgby/engine/pixel_parity_test.dart",
+      "sourceSha256": "1f1677949a34825c76c82ebbfa2c4ab4f0cc132ecb9cbe79caf67e5c8644939a",
+      "importedSha256": "805be6ef07ba0fc73298a1217bf99f4bd9d87c61f2241ff81716030e4e07b453"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/portrait_sources_test.dart",
+      "destination": "test/games/sgby/engine/portrait_sources_test.dart",
+      "sourceSha256": "03edaf809c0911e2be3041c15c6f0d1c20dcff3160a81aae9116bc1205734808",
+      "importedSha256": "7c55384194e7c482aa400e05c1858dce96bd1d08d8c204370633cf9cbcce8676"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/realistic_art_test.dart",
+      "destination": "test/games/sgby/engine/realistic_art_test.dart",
+      "sourceSha256": "820944ce3bf3bcec64a955e7af1d5b00fd475cbaa826e4b13ee13f4ac60b4a9e",
+      "importedSha256": "e290311a656d649ffab0af07727e82980036701f5a6d6026350eba376f638dcb"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/resource_test.dart",
+      "destination": "test/games/sgby/engine/resource_test.dart",
+      "sourceSha256": "e49ec11ba44128b8ec166d5b0b740a75d7c8e2ca050c046b4b69aff039b0caa2",
+      "importedSha256": "1eedfe328d0df770799dad46890b5a43b341ad9603eb775794259aef08de7e87"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/skill_art_semantics_test.dart",
+      "destination": "test/games/sgby/engine/skill_art_semantics_test.dart",
+      "sourceSha256": "fa483d9a77317d86812029897cb8b2c1babbc8b763719d7370e74f5c2d2b72c8",
+      "importedSha256": "a9e52384f94f03d248fd49a6f26d5ae134892d19321585ec7ff81dd82aebc775"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/skill_parity_test.dart",
+      "destination": "test/games/sgby/engine/skill_parity_test.dart",
+      "sourceSha256": "6e82418a4550a955df0d7dae85e27aacea54c1be01137370abba9b47d7630faf",
+      "importedSha256": "bc88e2b6461586c13b6e3ccc03bcbccc5495d3382e3edda94628c54e39f29d85"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/strategy_note_test.dart",
+      "destination": "test/games/sgby/engine/strategy_note_test.dart",
+      "sourceSha256": "2a36cbd5b43303efa6030e588bd1d2510e247ec1f5ba0fe5de4550ecb775daf3",
+      "importedSha256": "bb4279a2085752ffc531da24f6677f9ce17b7d3d75608d8057eaf219b10e91e2"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/strategy_order_parity_test.dart",
+      "destination": "test/games/sgby/engine/strategy_order_parity_test.dart",
+      "sourceSha256": "817be4f92a29b851d8a7ec8e26be08b8277f9fca7fffede075ee40e6f7fa8b2a",
+      "importedSha256": "cc17d57f0d29cd8398dfb3dfd08c5a10631bfdf724c4a9a743726b7d0e98cc23"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/troop_icons_rendering_test.dart",
+      "destination": "test/games/sgby/engine/troop_icons_rendering_test.dart",
+      "sourceSha256": "26292e1fe97a31124a16ead9493c7afa73ecf49bf561b0385482ba2fc289ee18",
+      "importedSha256": "5282fc6e5e7059c54f9a8261f153c1948af8b287d2974f319f1c25024bd0722d"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/war_report_timing_test.dart",
+      "destination": "test/games/sgby/engine/war_report_timing_test.dart",
+      "sourceSha256": "ae18d5140c6a67c9f284f9acd483df4ac078cabcd3b9f1a4f1103a17b0b7848d",
+      "importedSha256": "37d2d7645f82c2a74cc1089ba298dd40c36c918e9903035b05c6036feef497ad"
+    },
+    {
+      "game": "sgby",
+      "source": "test/engine/world_migration_test.dart",
+      "destination": "test/games/sgby/engine/world_migration_test.dart",
+      "sourceSha256": "9a7d52cba8c490349bee6f1c961978b8706122fad4f7ceef9305e66c33c92eb9",
+      "importedSha256": "04a704a9680ce643d82479529948657750e0da9964679f375b3ec964b6fd6198"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_battle_animation_menu.png",
+      "destination": "test/games/sgby/fixtures/pixels_battle_animation_menu.png",
+      "sourceSha256": "0e0e2e71234cbfa9ec97517d6130decede070a65a0ad05770c257ff2f61c56dc",
+      "importedSha256": "0e0e2e71234cbfa9ec97517d6130decede070a65a0ad05770c257ff2f61c56dc"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_battle_animation_menu.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_battle_animation_menu.rgba.gz",
+      "sourceSha256": "f3442f332c054e937156b3598bad73283eb6b381d783f3b175b62648c010fa35",
+      "importedSha256": "f3442f332c054e937156b3598bad73283eb6b381d783f3b175b62648c010fa35"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_battle_information.png",
+      "destination": "test/games/sgby/fixtures/pixels_battle_information.png",
+      "sourceSha256": "9681b8a120adc416c129fa9e843be8c84048ed6c8c4d1d1940c5f8d5d46635ae",
+      "importedSha256": "9681b8a120adc416c129fa9e843be8c84048ed6c8c4d1d1940c5f8d5d46635ae"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_battle_information.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_battle_information.rgba.gz",
+      "sourceSha256": "c8306453b00e09503e122a808901b4f64c803afcaede2d7804ae9ce0669b8276",
+      "importedSha256": "c8306453b00e09503e122a808901b4f64c803afcaede2d7804ae9ce0669b8276"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_battle_main_menu.png",
+      "destination": "test/games/sgby/fixtures/pixels_battle_main_menu.png",
+      "sourceSha256": "246ac500662053f6bdb929620f58dc3d0bc868905ad56613f2aed81bcd26914d",
+      "importedSha256": "246ac500662053f6bdb929620f58dc3d0bc868905ad56613f2aed81bcd26914d"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_battle_main_menu.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_battle_main_menu.rgba.gz",
+      "sourceSha256": "23985a0b51bfb0a58144dc2b830a66ae2f0737fbdd90ccb6afbd58bd1d1a9f49",
+      "importedSha256": "23985a0b51bfb0a58144dc2b830a66ae2f0737fbdd90ccb6afbd58bd1d1a9f49"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_battle_map.png",
+      "destination": "test/games/sgby/fixtures/pixels_battle_map.png",
+      "sourceSha256": "6c49b33eb72dec7652d8c5e7c5dbbcad173fb1eb5e37656685b850cce95d74bb",
+      "importedSha256": "6c49b33eb72dec7652d8c5e7c5dbbcad173fb1eb5e37656685b850cce95d74bb"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_battle_map.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_battle_map.rgba.gz",
+      "sourceSha256": "0eaa5574c27afa654b3309dd091840471623fd6b3eaad814a6c7400b180b5767",
+      "importedSha256": "0eaa5574c27afa654b3309dd091840471623fd6b3eaad814a6c7400b180b5767"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_battle_situation_enemy.png",
+      "destination": "test/games/sgby/fixtures/pixels_battle_situation_enemy.png",
+      "sourceSha256": "8611a7e0619f67bbcef8e27325f6d7d59c2fc41dc843edefa770db6f26f374e3",
+      "importedSha256": "8611a7e0619f67bbcef8e27325f6d7d59c2fc41dc843edefa770db6f26f374e3"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_battle_situation_enemy.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_battle_situation_enemy.rgba.gz",
+      "sourceSha256": "a66faf27f2e3f37dba082f8ccff72cf018fb8a6294586fc221be96471e3a66a0",
+      "importedSha256": "a66faf27f2e3f37dba082f8ccff72cf018fb8a6294586fc221be96471e3a66a0"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_battle_situation_player.png",
+      "destination": "test/games/sgby/fixtures/pixels_battle_situation_player.png",
+      "sourceSha256": "270fd33bf65880338b81091fc40224f66d6a3777a4eee08512f4eb3b99836dd7",
+      "importedSha256": "270fd33bf65880338b81091fc40224f66d6a3777a4eee08512f4eb3b99836dd7"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_battle_situation_player.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_battle_situation_player.rgba.gz",
+      "sourceSha256": "54a6415718326d4eb72a781d1c9c22069475929c178633088c845c91693ae635",
+      "importedSha256": "54a6415718326d4eb72a781d1c9c22069475929c178633088c845c91693ae635"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_city_details.png",
+      "destination": "test/games/sgby/fixtures/pixels_city_details.png",
+      "sourceSha256": "9635e2e82c6a6656f9a37862a29b68e7aee30fc6a86caee4c7dd2c480e13cee7",
+      "importedSha256": "9635e2e82c6a6656f9a37862a29b68e7aee30fc6a86caee4c7dd2c480e13cee7"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_city_details.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_city_details.rgba.gz",
+      "sourceSha256": "1e2f2d31793bd5214275ffba56417e47102c80e7c37aa8960572acc419badf97",
+      "importedSha256": "1e2f2d31793bd5214275ffba56417e47102c80e7c37aa8960572acc419badf97"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_city_menu.png",
+      "destination": "test/games/sgby/fixtures/pixels_city_menu.png",
+      "sourceSha256": "08811442439b0b6970b841e156ca416c5f294a7baf7d936afc0a733a7561a967",
+      "importedSha256": "08811442439b0b6970b841e156ca416c5f294a7baf7d936afc0a733a7561a967"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_city_menu.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_city_menu.rgba.gz",
+      "sourceSha256": "66c32974d8708866e6ffebc5862d177aaef8e5d938e004192b31bc34445d50c2",
+      "importedSha256": "66c32974d8708866e6ffebc5862d177aaef8e5d938e004192b31bc34445d50c2"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_city_details.png",
+      "destination": "test/games/sgby/fixtures/pixels_ext_city_details.png",
+      "sourceSha256": "9635e2e82c6a6656f9a37862a29b68e7aee30fc6a86caee4c7dd2c480e13cee7",
+      "importedSha256": "9635e2e82c6a6656f9a37862a29b68e7aee30fc6a86caee4c7dd2c480e13cee7"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_city_details.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_ext_city_details.rgba.gz",
+      "sourceSha256": "1e2f2d31793bd5214275ffba56417e47102c80e7c37aa8960572acc419badf97",
+      "importedSha256": "1e2f2d31793bd5214275ffba56417e47102c80e7c37aa8960572acc419badf97"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_city_menu.png",
+      "destination": "test/games/sgby/fixtures/pixels_ext_city_menu.png",
+      "sourceSha256": "08811442439b0b6970b841e156ca416c5f294a7baf7d936afc0a733a7561a967",
+      "importedSha256": "08811442439b0b6970b841e156ca416c5f294a7baf7d936afc0a733a7561a967"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_city_menu.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_ext_city_menu.rgba.gz",
+      "sourceSha256": "66c32974d8708866e6ffebc5862d177aaef8e5d938e004192b31bc34445d50c2",
+      "importedSha256": "66c32974d8708866e6ffebc5862d177aaef8e5d938e004192b31bc34445d50c2"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_general_report.png",
+      "destination": "test/games/sgby/fixtures/pixels_ext_general_report.png",
+      "sourceSha256": "167ffc5a610c547d204fd507f490a9b03d608c561ed72863f0c3ca4ecca05f6a",
+      "importedSha256": "167ffc5a610c547d204fd507f490a9b03d608c561ed72863f0c3ca4ecca05f6a"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_general_report.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_ext_general_report.rgba.gz",
+      "sourceSha256": "44eda85682d41a532dded23288c4504922e6417145e9378c0a813f8fde444f81",
+      "importedSha256": "44eda85682d41a532dded23288c4504922e6417145e9378c0a813f8fde444f81"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_goods_selection.png",
+      "destination": "test/games/sgby/fixtures/pixels_ext_goods_selection.png",
+      "sourceSha256": "ab28c54f5f11b81c64733e0b6eb68ecfe888a0b11e2361f7ce7d7c49e9a49c4d",
+      "importedSha256": "ab28c54f5f11b81c64733e0b6eb68ecfe888a0b11e2361f7ce7d7c49e9a49c4d"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_goods_selection.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_ext_goods_selection.rgba.gz",
+      "sourceSha256": "d9fef85a3669a18a08350679a52d8e796aa0944b60b101b175d8785198c44351",
+      "importedSha256": "d9fef85a3669a18a08350679a52d8e796aa0944b60b101b175d8785198c44351"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_help_cities.png",
+      "destination": "test/games/sgby/fixtures/pixels_ext_help_cities.png",
+      "sourceSha256": "335b9fe251b42a2cdd353ca34f21647ea8f61dac65a046a1bae050906d1c8400",
+      "importedSha256": "335b9fe251b42a2cdd353ca34f21647ea8f61dac65a046a1bae050906d1c8400"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_help_cities.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_ext_help_cities.rgba.gz",
+      "sourceSha256": "e8fa625a2630b80e63361855af2494aa8d88b189de5f72fbb5b9127140d2384c",
+      "importedSha256": "e8fa625a2630b80e63361855af2494aa8d88b189de5f72fbb5b9127140d2384c"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_help_city_hidden.png",
+      "destination": "test/games/sgby/fixtures/pixels_ext_help_city_hidden.png",
+      "sourceSha256": "e5846a4916eca832990a69be8fd2036edeedd059099ec882663e1880ee4d6da9",
+      "importedSha256": "e5846a4916eca832990a69be8fd2036edeedd059099ec882663e1880ee4d6da9"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_help_city_hidden.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_ext_help_city_hidden.rgba.gz",
+      "sourceSha256": "1528e778f7459ba302fb4c296e5442dfa00293aa000feb6b3cf72ed71877d65b",
+      "importedSha256": "1528e778f7459ba302fb4c296e5442dfa00293aa000feb6b3cf72ed71877d65b"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_help_heroes.png",
+      "destination": "test/games/sgby/fixtures/pixels_ext_help_heroes.png",
+      "sourceSha256": "9a3b40c077def63c02c08f1b94a36ce148821f348992d987d22fcc6268fdccde",
+      "importedSha256": "9a3b40c077def63c02c08f1b94a36ce148821f348992d987d22fcc6268fdccde"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_help_heroes.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_ext_help_heroes.rgba.gz",
+      "sourceSha256": "10c12526edccd8f69c8c4fd8650f76496f23ca2431ce2fa9415726139da1d11a",
+      "importedSha256": "10c12526edccd8f69c8c4fd8650f76496f23ca2431ce2fa9415726139da1d11a"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_help_heroes_1.png",
+      "destination": "test/games/sgby/fixtures/pixels_ext_help_heroes_1.png",
+      "sourceSha256": "895af92c4488867aee6a0067385b964446d00776f8c171f5acea6cb322f5c8eb",
+      "importedSha256": "895af92c4488867aee6a0067385b964446d00776f8c171f5acea6cb322f5c8eb"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_help_heroes_1.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_ext_help_heroes_1.rgba.gz",
+      "sourceSha256": "fc577ca66b2f6bb366d268f912a3a9251b1806b5329bd36099190eaf40c62b10",
+      "importedSha256": "fc577ca66b2f6bb366d268f912a3a9251b1806b5329bd36099190eaf40c62b10"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_help_menu.png",
+      "destination": "test/games/sgby/fixtures/pixels_ext_help_menu.png",
+      "sourceSha256": "df08f345037a8e9fd3bc6bf2197af22b55363a4589baeec6fcecddaee889b288",
+      "importedSha256": "df08f345037a8e9fd3bc6bf2197af22b55363a4589baeec6fcecddaee889b288"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_help_menu.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_ext_help_menu.rgba.gz",
+      "sourceSha256": "ea9332de3077778fed702546976443899b8288a3fccd5c942ccb5f73458bf985",
+      "importedSha256": "ea9332de3077778fed702546976443899b8288a3fccd5c942ccb5f73458bf985"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_help_tools.png",
+      "destination": "test/games/sgby/fixtures/pixels_ext_help_tools.png",
+      "sourceSha256": "af6ca34a8d0a81e962d248df7467ddb261140e109df30fa6acfcff2e666c8072",
+      "importedSha256": "af6ca34a8d0a81e962d248df7467ddb261140e109df30fa6acfcff2e666c8072"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_help_tools.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_ext_help_tools.rgba.gz",
+      "sourceSha256": "6be182259cc21ad91e4c586b6c7c2c7ba1d4fbafed638a97fa7ab3dc1e46eaf1",
+      "importedSha256": "6be182259cc21ad91e4c586b6c7c2c7ba1d4fbafed638a97fa7ab3dc1e46eaf1"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_main_menu.png",
+      "destination": "test/games/sgby/fixtures/pixels_ext_main_menu.png",
+      "sourceSha256": "99dce909537fed339c667c4503b444a25e5f5a993fd3841eb9b592b2f9dc4440",
+      "importedSha256": "99dce909537fed339c667c4503b444a25e5f5a993fd3841eb9b592b2f9dc4440"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_main_menu.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_ext_main_menu.rgba.gz",
+      "sourceSha256": "da5fb8468cdd47e630d2bc192f38d131f604c4bc7dfb658b1be9c7ccf9a7ab61",
+      "importedSha256": "da5fb8468cdd47e630d2bc192f38d131f604c4bc7dfb658b1be9c7ccf9a7ab61"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_no_goods_report.png",
+      "destination": "test/games/sgby/fixtures/pixels_ext_no_goods_report.png",
+      "sourceSha256": "e42299c614fa42b4aeb771bca0c1dc3de2733dfa0e150bf726ca4e22340f1ff9",
+      "importedSha256": "e42299c614fa42b4aeb771bca0c1dc3de2733dfa0e150bf726ca4e22340f1ff9"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_no_goods_report.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_ext_no_goods_report.rgba.gz",
+      "sourceSha256": "aac1a9608953968e15e5bba3fa1f7b2294457678102467ac05970b85350a2480",
+      "importedSha256": "aac1a9608953968e15e5bba3fa1f7b2294457678102467ac05970b85350a2480"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_people_selection.png",
+      "destination": "test/games/sgby/fixtures/pixels_ext_people_selection.png",
+      "sourceSha256": "8257a7aa0bf3000c1398d34b5c8b5054b8655b55d1bd4a7f972a3f25bc0b2d20",
+      "importedSha256": "8257a7aa0bf3000c1398d34b5c8b5054b8655b55d1bd4a7f972a3f25bc0b2d20"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_people_selection.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_ext_people_selection.rgba.gz",
+      "sourceSha256": "07022bed96d8d4836730307c44c59c2f78d5d5d059f19e2d4f8a129f0cd80a4c",
+      "importedSha256": "07022bed96d8d4836730307c44c59c2f78d5d5d059f19e2d4f8a129f0cd80a4c"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_period_menu.png",
+      "destination": "test/games/sgby/fixtures/pixels_ext_period_menu.png",
+      "sourceSha256": "488ed3c599264076cc0943eb04b9184fe959c3d28ca8febfac5b7433f85af3d1",
+      "importedSha256": "488ed3c599264076cc0943eb04b9184fe959c3d28ca8febfac5b7433f85af3d1"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_period_menu.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_ext_period_menu.rgba.gz",
+      "sourceSha256": "4f4bcf03f37039e020aef01a8cbc5172b5efa5c2d206e5601aa36c027befb6c0",
+      "importedSha256": "4f4bcf03f37039e020aef01a8cbc5172b5efa5c2d206e5601aa36c027befb6c0"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_rulers.png",
+      "destination": "test/games/sgby/fixtures/pixels_ext_rulers.png",
+      "sourceSha256": "f0b846f37f88bee73b130b9b57d2de8e9750bd1bed01eaa88708a99b35c1e1c8",
+      "importedSha256": "f0b846f37f88bee73b130b9b57d2de8e9750bd1bed01eaa88708a99b35c1e1c8"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_rulers.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_ext_rulers.rgba.gz",
+      "sourceSha256": "9a08d9e5da213e0952a4a4acc357132f1964cbbe92bcf98ea1cd02cbc3c3b877",
+      "importedSha256": "9a08d9e5da213e0952a4a4acc357132f1964cbbe92bcf98ea1cd02cbc3c3b877"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_save_menu.png",
+      "destination": "test/games/sgby/fixtures/pixels_ext_save_menu.png",
+      "sourceSha256": "5e2a741990aa4d6870f3bd273773df098d3b503e3e206428bdeb47855b0665ea",
+      "importedSha256": "5e2a741990aa4d6870f3bd273773df098d3b503e3e206428bdeb47855b0665ea"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_save_menu.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_ext_save_menu.rgba.gz",
+      "sourceSha256": "04c60579dc3f9b91fe7a6dc056087c4b96226ec3cae7c42c30888befad2d9c3e",
+      "importedSha256": "04c60579dc3f9b91fe7a6dc056087c4b96226ec3cae7c42c30888befad2d9c3e"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_strategy.png",
+      "destination": "test/games/sgby/fixtures/pixels_ext_strategy.png",
+      "sourceSha256": "d95bf3da7ede3a0b3a1ae8ae570bf026fb8aa7f5be0a9d5cce35c6a10c4fb3c5",
+      "importedSha256": "d95bf3da7ede3a0b3a1ae8ae570bf026fb8aa7f5be0a9d5cce35c6a10c4fb3c5"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_ext_strategy.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_ext_strategy.rgba.gz",
+      "sourceSha256": "18c7e0d7b69fac92886f4e608589a40fe7648003d3f3437af5f4504ae2ecc5f6",
+      "importedSha256": "18c7e0d7b69fac92886f4e608589a40fe7648003d3f3437af5f4504ae2ecc5f6"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_main_menu.png",
+      "destination": "test/games/sgby/fixtures/pixels_main_menu.png",
+      "sourceSha256": "99dce909537fed339c667c4503b444a25e5f5a993fd3841eb9b592b2f9dc4440",
+      "importedSha256": "99dce909537fed339c667c4503b444a25e5f5a993fd3841eb9b592b2f9dc4440"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_main_menu.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_main_menu.rgba.gz",
+      "sourceSha256": "da5fb8468cdd47e630d2bc192f38d131f604c4bc7dfb658b1be9c7ccf9a7ab61",
+      "importedSha256": "da5fb8468cdd47e630d2bc192f38d131f604c4bc7dfb658b1be9c7ccf9a7ab61"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_period_menu.png",
+      "destination": "test/games/sgby/fixtures/pixels_period_menu.png",
+      "sourceSha256": "488ed3c599264076cc0943eb04b9184fe959c3d28ca8febfac5b7433f85af3d1",
+      "importedSha256": "488ed3c599264076cc0943eb04b9184fe959c3d28ca8febfac5b7433f85af3d1"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_period_menu.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_period_menu.rgba.gz",
+      "sourceSha256": "4f4bcf03f37039e020aef01a8cbc5172b5efa5c2d206e5601aa36c027befb6c0",
+      "importedSha256": "4f4bcf03f37039e020aef01a8cbc5172b5efa5c2d206e5601aa36c027befb6c0"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_rulers.png",
+      "destination": "test/games/sgby/fixtures/pixels_rulers.png",
+      "sourceSha256": "243f2ccb3a2e8065fcdfb07b3392ab4d8669d6ce919706637b17d506b8066a15",
+      "importedSha256": "243f2ccb3a2e8065fcdfb07b3392ab4d8669d6ce919706637b17d506b8066a15"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_rulers.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_rulers.rgba.gz",
+      "sourceSha256": "70de45cba206c1a22250e10118cbd8758d82165df3d1dcb6ec744a1eb4596cfe",
+      "importedSha256": "70de45cba206c1a22250e10118cbd8758d82165df3d1dcb6ec744a1eb4596cfe"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_strategy.png",
+      "destination": "test/games/sgby/fixtures/pixels_strategy.png",
+      "sourceSha256": "d95bf3da7ede3a0b3a1ae8ae570bf026fb8aa7f5be0a9d5cce35c6a10c4fb3c5",
+      "importedSha256": "d95bf3da7ede3a0b3a1ae8ae570bf026fb8aa7f5be0a9d5cce35c6a10c4fb3c5"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/pixels_strategy.rgba.gz",
+      "destination": "test/games/sgby/fixtures/pixels_strategy.rgba.gz",
+      "sourceSha256": "18c7e0d7b69fac92886f4e608589a40fe7648003d3f3437af5f4504ae2ecc5f6",
+      "importedSha256": "18c7e0d7b69fac92886f4e608589a40fe7648003d3f3437af5f4504ae2ecc5f6"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/reference_ai.json",
+      "destination": "test/games/sgby/fixtures/reference_ai.json",
+      "sourceSha256": "fb95de3cfeedb7fef3ffe63684b376576c9b9e7cb4aa8d98432374dfa270ca56",
+      "importedSha256": "fb95de3cfeedb7fef3ffe63684b376576c9b9e7cb4aa8d98432374dfa270ca56"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/reference_attack.json",
+      "destination": "test/games/sgby/fixtures/reference_attack.json",
+      "sourceSha256": "5e8963f21787f62dd56cc6ddd69e991292d5dfcd0830d8a299134e79cb3155d9",
+      "importedSha256": "5e8963f21787f62dd56cc6ddd69e991292d5dfcd0830d8a299134e79cb3155d9"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/reference_battle_enemy.json",
+      "destination": "test/games/sgby/fixtures/reference_battle_enemy.json",
+      "sourceSha256": "ad51c19fb0a101a1464fe40a3cd1eeaf5a863af60d14a4e4fd6133c4370a1de5",
+      "importedSha256": "ad51c19fb0a101a1464fe40a3cd1eeaf5a863af60d14a4e4fd6133c4370a1de5"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/reference_battle_init.json",
+      "destination": "test/games/sgby/fixtures/reference_battle_init.json",
+      "sourceSha256": "c6fa4e8b9d6dca35a01b5bbf1f250e789e446bf7c6bbd2b468cbd23a006146f5",
+      "importedSha256": "c6fa4e8b9d6dca35a01b5bbf1f250e789e446bf7c6bbd2b468cbd23a006146f5"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/reference_battle_resolution.json",
+      "destination": "test/games/sgby/fixtures/reference_battle_resolution.json",
+      "sourceSha256": "03859e57ea1157a674b8f1e0eb0a6ec58d077d1d0c7742fc567a8ce857530c2c",
+      "importedSha256": "03859e57ea1157a674b8f1e0eb0a6ec58d077d1d0c7742fc567a8ce857530c2c"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/reference_calendar.json",
+      "destination": "test/games/sgby/fixtures/reference_calendar.json",
+      "sourceSha256": "8a5693c201e994df9433025c5b0b49392318860c4633d925181a0b9e86f7e675",
+      "importedSha256": "8a5693c201e994df9433025c5b0b49392318860c4633d925181a0b9e86f7e675"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/reference_cheats.json",
+      "destination": "test/games/sgby/fixtures/reference_cheats.json",
+      "sourceSha256": "8985f4628c610f7374039dffa1792bb2b9bb206763d71c76f455d8f8459b5da4",
+      "importedSha256": "8985f4628c610f7374039dffa1792bb2b9bb206763d71c76f455d8f8459b5da4"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/reference_config.json",
+      "destination": "test/games/sgby/fixtures/reference_config.json",
+      "sourceSha256": "f31833756a1de1b8cbc3188dc69b8398fef18f35e2d4253a30026b2dede9d090",
+      "importedSha256": "f31833756a1de1b8cbc3188dc69b8398fef18f35e2d4253a30026b2dede9d090"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/reference_diplomacy_protection.json",
+      "destination": "test/games/sgby/fixtures/reference_diplomacy_protection.json",
+      "sourceSha256": "6616ee2c2d6e7e3c5cb972198104b6c2f0e3e21c5947c90503fc4e813f3ebb7a",
+      "importedSha256": "6616ee2c2d6e7e3c5cb972198104b6c2f0e3e21c5947c90503fc4e813f3ebb7a"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/reference_errors.json",
+      "destination": "test/games/sgby/fixtures/reference_errors.json",
+      "sourceSha256": "632acbbce5e6c01ac0bba295bf49a98da28de62883b01a229e8347050ea113f2",
+      "importedSha256": "632acbbce5e6c01ac0bba295bf49a98da28de62883b01a229e8347050ea113f2"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/reference_large_attack.json",
+      "destination": "test/games/sgby/fixtures/reference_large_attack.json",
+      "sourceSha256": "bd9abbd02fd529c68a45062329327706ce1f5bc1e6e8d76c6b567076b54374fd",
+      "importedSha256": "bd9abbd02fd529c68a45062329327706ce1f5bc1e6e8d76c6b567076b54374fd"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/reference_missing_cheats.json",
+      "destination": "test/games/sgby/fixtures/reference_missing_cheats.json",
+      "sourceSha256": "598a0f0a5db51387996e45dbf614605a3ad845b92030e7f3ef4bfcdb9eecf401",
+      "importedSha256": "598a0f0a5db51387996e45dbf614605a3ad845b92030e7f3ef4bfcdb9eecf401"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/reference_orders.json",
+      "destination": "test/games/sgby/fixtures/reference_orders.json",
+      "sourceSha256": "0f45b1860f5d14ba258568c2c457c694b4d923b510aa57a42376064655b4c10b",
+      "importedSha256": "0f45b1860f5d14ba258568c2c457c694b4d923b510aa57a42376064655b4c10b"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/reference_periods.json",
+      "destination": "test/games/sgby/fixtures/reference_periods.json",
+      "sourceSha256": "f3aa1d99fe81f2dbcf5bac95a1875559f3c4669b16858ce17b6d627dcc5cc389",
+      "importedSha256": "f3aa1d99fe81f2dbcf5bac95a1875559f3c4669b16858ce17b6d627dcc5cc389"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/reference_pixels.json",
+      "destination": "test/games/sgby/fixtures/reference_pixels.json",
+      "sourceSha256": "85219148942401a221d61892481274a7a71fb7b92b1acd7f331359a3f44e7081",
+      "importedSha256": "85219148942401a221d61892481274a7a71fb7b92b1acd7f331359a3f44e7081"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/reference_pixels_battle.json",
+      "destination": "test/games/sgby/fixtures/reference_pixels_battle.json",
+      "sourceSha256": "b2f63fb49af4b7d4fe7108c861254c103c5f47f1ee3270cdcad1b9e5e938d66e",
+      "importedSha256": "b2f63fb49af4b7d4fe7108c861254c103c5f47f1ee3270cdcad1b9e5e938d66e"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/reference_pixels_extended.json",
+      "destination": "test/games/sgby/fixtures/reference_pixels_extended.json",
+      "sourceSha256": "6d032a5e38ae03fc1407847143dfa121b0f163eeb07c13b0c2e7d2633fe095dd",
+      "importedSha256": "6d032a5e38ae03fc1407847143dfa121b0f163eeb07c13b0c2e7d2633fe095dd"
+    },
+    {
+      "game": "sgby",
+      "source": "test/fixtures/reference_skills.json",
+      "destination": "test/games/sgby/fixtures/reference_skills.json",
+      "sourceSha256": "59df40ca6bd6e9c5fa96e77e7255ec896106387f1c79aa93573258bd92605114",
+      "importedSha256": "59df40ca6bd6e9c5fa96e77e7255ec896106387f1c79aa93573258bd92605114"
+    },
+    {
+      "game": "sgby",
+      "source": "test/game_feedback_regressions_test.dart",
+      "destination": "test/games/sgby/game_feedback_regressions_test.dart",
+      "sourceSha256": "47834d62e050d7673a19b06b1a09e773a3555669e08d7201f42ca7bd02d9541a",
+      "importedSha256": "137cbd23f8d57d4b5d59653ceffc91891ea26fcfe2a9602c9ef14e6c0794e68c"
+    },
+    {
+      "game": "sgby",
+      "source": "test/game_general_roster_filter_test.dart",
+      "destination": "test/games/sgby/game_general_roster_filter_test.dart",
+      "sourceSha256": "0d464f4e078696e24b7686e4af0d56335031c9cbcc1d0cec6687f74d82104ccf",
+      "importedSha256": "be77503c51fad1eac55b4958d16584b9214322e8679b9e79abd200b396be0e95"
+    },
+    {
+      "game": "sgby",
+      "source": "test/general_roster_portrait_test.dart",
+      "destination": "test/games/sgby/general_roster_portrait_test.dart",
+      "sourceSha256": "4df143f9ab84cee71740e210d69ac97fe2c1f59e5dcb86c06035d15b0c71357b",
+      "importedSha256": "548cf43ac87df083db4d6de72eef2f8119f24e1c741c7a0d0a01b8d03e659c7a"
+    },
+    {
+      "game": "sgby",
+      "source": "test/keyboard_mapping_test.dart",
+      "destination": "test/games/sgby/keyboard_mapping_test.dart",
+      "sourceSha256": "e0e713292a53a148c57d8cd8cb6d4e511890bb4c88a36629b69a66325f367904",
+      "importedSha256": "9825cee7826b23185f25341bb6432a7b2e39471131550bc4f760c038628486c8"
+    },
+    {
+      "game": "sgby",
+      "source": "test/realistic_ui_test.dart",
+      "destination": "test/games/sgby/realistic_ui_test.dart",
+      "sourceSha256": "f0b43fbd0ce94d5358f6351c4d3cd7609d27c6e3111c2297e8d9d0f382c2ed29",
+      "importedSha256": "3e571187cf8b6ee98ba212831ba74696c8d01951af351b251f7cbb68203be12b"
+    },
+    {
+      "game": "sgby",
+      "source": "test/support/game_database.dart",
+      "destination": "test/games/sgby/support/game_database.dart",
+      "sourceSha256": "f48f9a076569ff6187ce37ab978f6b68b10b1114f3570ef1d4e7b6fe7451fbf0",
+      "importedSha256": "c3f926c648a6063a3781ece0df6c5cfec1656bd664e16601d6784fe419fb0300"
+    },
+    {
+      "game": "sgby",
+      "source": "test/support/pixel_artifact.dart",
+      "destination": "test/games/sgby/support/pixel_artifact.dart",
+      "sourceSha256": "1d74e07e1c6c68bb3874070eb749133c731766caddb927abc47ec737f488237a",
+      "importedSha256": "1d74e07e1c6c68bb3874070eb749133c731766caddb927abc47ec737f488237a"
+    },
+    {
+      "game": "sgby",
+      "source": "test/visual_mode_persistence_test.dart",
+      "destination": "test/games/sgby/visual_mode_persistence_test.dart",
+      "sourceSha256": "bcfca1a2c3ede0d9ce5cbbf9114644aea923f9070c5553ada2b429d098ee812d",
+      "importedSha256": "5d52f3a62d940628acae78e0f57542c637b44ff908056cf6367c50b32e8144e7"
+    },
+    {
+      "game": "sgby",
+      "source": "licenses/ibaye-MIT.txt",
+      "destination": "licenses/sgby/ibaye-MIT.txt",
+      "sourceSha256": "e19d16207f2b8b86f409c20a181d9afacb96048b78c3fe666194404d8f45bfe1",
+      "importedSha256": "e19d16207f2b8b86f409c20a181d9afacb96048b78c3fe666194404d8f45bfe1"
+    }
+  ]
+}

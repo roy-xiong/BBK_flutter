@@ -1,0 +1,6 @@
+Casper Nilsson — LPC C.Nilsson (shrine.png)
+Source: https://opengameart.org/content/lpc-cnilsson
+License selected: Creative Commons Attribution-ShareAlike 3.0 Unported
+https://creativecommons.org/licenses/by-sa/3.0/
+Changes: crop, tint, roof/wall composition and atlas packing for enhanced buildings.
+Modified building art remains CC-BY-SA 3.0.

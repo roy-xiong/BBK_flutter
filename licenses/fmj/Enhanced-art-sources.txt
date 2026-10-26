@@ -1,0 +1,15 @@
+高清美术来源及使用边界
+
+Chinese.Dragon - Oriental Warrior Modular Character Asset Pack
+https://chinesedragoncn.itch.io/oriental-warrior-modular-character-asset-pack
+许可：可用于商业/非商业游戏并修改；不能作为独立素材包转售或再分发。原 PSD 不随应用分发。
+
+Black Forest Labs - FLUX.2-klein-4B，Apache-2.0
+https://huggingface.co/black-forest-labs/FLUX.2-klein-4B
+本地工具 MFLUX 0.23.0，MIT；模型和工具运行时不随应用分发。
+
+Nidhoggn - Backgrounds 3，CC0
+https://opengameart.org/content/backgrounds-3
+作为四类战斗背景的构图参考。
+
+详细转换与生成来源见 assets/modern/enhanced-art-sources.json 和 THIRD_PARTY_NOTICES.md。

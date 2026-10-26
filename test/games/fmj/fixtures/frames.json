@@ -1,0 +1,52 @@
+[
+  {
+    "name": "outdoor",
+    "map": [
+      1,
+      2
+    ],
+    "camera": [
+      15,
+      0
+    ],
+    "actor": [
+      1,
+      4,
+      3
+    ],
+    "npc": [
+      1,
+      2,
+      17,
+      6
+    ],
+    "file": "outdoor.rgba",
+    "width": 320,
+    "height": 192
+  },
+  {
+    "name": "interior",
+    "map": [
+      2,
+      7
+    ],
+    "camera": [
+      7,
+      6
+    ],
+    "actor": [
+      1,
+      4,
+      3
+    ],
+    "npc": [
+      1,
+      1,
+      10,
+      8
+    ],
+    "file": "interior.rgba",
+    "width": 320,
+    "height": 192
+  }
+]

@@ -1,0 +1,196 @@
+name: BBK Flutter 手动打包
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: 打包平台（当前先验收 macOS，其他平台验收后手动选择）
+        type: choice
+        default: macos
+        options: [macos, android, ios, windows, all]
+permissions:
+  contents: read
+concurrency:
+  group: bbk-flutter-packages-main
+  cancel-in-progress: false
+env:
+  PUB_HOSTED_URL: https://pub.dev
+jobs:
+  version:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      build: ${{ steps.version.outputs.build }}
+      revision: ${{ steps.commit.outputs.revision }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - id: version
+        run: python3 tool/bump_version.py
+      - id: commit
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add pubspec.yaml
+          git commit -m 'chore: package ${{ steps.version.outputs.version }}+${{ steps.version.outputs.build }} [skip ci]'
+          git push origin HEAD:main
+          echo "revision=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+  validate:
+    needs: version
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.version.outputs.revision }}
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.4'
+          cache: true
+      - run: flutter pub get --enforce-lockfile
+      - run: dart format --output=none --set-exit-if-changed lib test
+      - run: flutter analyze --no-pub
+      - run: python3 tool/verify_source_snapshot.py
+      - name: 原有两款游戏及合集入口回归
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p build/validation
+          flutter test --no-pub --reporter expanded 2>&1 | tee build/validation/tests.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bbk-validation
+          path: build/validation/
+          if-no-files-found: ignore
+          retention-days: 14
+  macos:
+    needs: [version, validate]
+    if: ${{ inputs.platform == 'macos' || inputs.platform == 'all' }}
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.version.outputs.revision }}
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.4'
+          cache: true
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+      - run: flutter pub get --enforce-lockfile
+      - name: 构建 macOS 通用包
+        run: flutter build macos --release --no-pub --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}
+      - run: bash tool/package_macos.sh '${{ needs.version.outputs.version }}' '${{ needs.version.outputs.build }}'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bbk-macos-${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}
+          path: dist/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 30
+  android:
+    needs: [version, validate]
+    if: ${{ inputs.platform == 'android' || inputs.platform == 'all' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.version.outputs.revision }}
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.4'
+          cache: true
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: 固定 Android SDK 和 NDK
+        run: '"$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0" "ndk;27.2.12479018"'
+      - name: 恢复项目专属固定签名
+        env:
+          BBK_ANDROID_SIGNING: ${{ secrets.BBK_ANDROID_SIGNING }}
+        run: python3 tool/restore_android_signing.py
+      - run: flutter pub get --enforce-lockfile
+      - run: flutter build apk --release --no-pub --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}
+      - run: python3 tool/verify_android_signature.py build/app/outputs/flutter-apk/app-release.apk
+      - name: 分发 APK
+        run: |
+          mkdir -p dist
+          cp build/app/outputs/flutter-apk/app-release.apk 'dist/BBK-Flutter-Android-${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}.apk'
+          python3 tool/checksums.py dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bbk-android-${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}
+          path: dist/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 30
+  ios:
+    needs: [version, validate]
+    if: ${{ inputs.platform == 'ios' || inputs.platform == 'all' }}
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.version.outputs.revision }}
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.4'
+          cache: true
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+      - run: flutter pub get --enforce-lockfile
+      - run: flutter build ios --release --no-codesign --no-pub --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}
+      - name: 打包未签名 IPA
+        run: |
+          mkdir -p dist build/ipa/Payload
+          ditto build/ios/iphoneos/Runner.app build/ipa/Payload/Runner.app
+          ditto -c -k --keepParent build/ipa/Payload 'dist/BBK-Flutter-iOS-unsigned-${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}.ipa'
+          unzip -tq dist/*.ipa
+          python3 tool/checksums.py dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bbk-ios-${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}
+          path: dist/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 30
+  windows:
+    needs: [version, validate]
+    if: ${{ inputs.platform == 'windows' || inputs.platform == 'all' }}
+    runs-on: windows-2022
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.version.outputs.revision }}
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.4'
+          cache: true
+      - run: flutter pub get --enforce-lockfile
+      - run: flutter build windows --release --no-pub --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}
+      - name: 打包 Windows 便携版
+        shell: pwsh
+        run: |
+          $bundle = 'build/windows/x64/runner/Release'
+          Get-ChildItem "$env:WINDIR/System32/vcruntime140*.dll" | Copy-Item -Destination $bundle
+          Copy-Item "$env:WINDIR/System32/msvcp140.dll" $bundle
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Compress-Archive -Path "$bundle/*" -DestinationPath 'dist/BBK-Flutter-Windows-portable-${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}.zip'
+          python tool/checksums.py dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bbk-windows-${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}
+          path: dist/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 30

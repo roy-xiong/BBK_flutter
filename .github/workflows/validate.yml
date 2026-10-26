@@ -1,0 +1,34 @@
+name: BBK Flutter 校验
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.4'
+          cache: true
+      - run: flutter pub get --enforce-lockfile
+      - run: dart format --output=none --set-exit-if-changed lib test
+      - run: flutter analyze --no-pub
+      - run: python3 tool/verify_source_snapshot.py
+      - name: 原有两款游戏及合集入口回归
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p build/validation
+          flutter test --no-pub --reporter expanded 2>&1 | tee build/validation/tests.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bbk-validation
+          path: build/validation/
+          if-no-files-found: ignore
+          retention-days: 14

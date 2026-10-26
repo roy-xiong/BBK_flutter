@@ -1,0 +1,5 @@
+# 私钥和实际 key.properties 禁止提交。
+storeFile=../.signing/android-release.jks
+keyAlias=bbk-flutter
+storePassword=由本机安全配置提供
+keyPassword=由本机安全配置提供

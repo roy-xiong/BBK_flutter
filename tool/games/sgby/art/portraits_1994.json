@@ -1,0 +1,1811 @@
+{
+  "version": 1,
+  "series": "1994年央视《三国演义》",
+  "fallback": "按时期和人物编号保留原资源黑白头像，不生成、染色或借脸",
+  "portraits": [
+    {
+      "name": "严颜",
+      "series": 1994,
+      "actors": [
+        "林中华",
+        "王文有"
+      ],
+      "caption": "《三国演义》饰严颜",
+      "sourcePage": "https://bkso.baidu.com/item/%E7%8E%8B%E6%96%87%E6%9C%89",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/b3119313b07eca80653888635b7f80dda144ac3425b8-bkimg-process,v_1,rw_1146,rh_1146,maxl_284?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/535b426f6026a72697fd.jpg",
+      "sha256": "535b426f6026a72697fd32ac5eb6bc7a44da8c0b7c62dd56f52bb1246a7d301c",
+      "crop": [
+        0.1729577,
+        0.1165223,
+        0.8502091,
+        0.7937737
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "乐进",
+      "series": 1994,
+      "actors": [
+        "沈龙"
+      ],
+      "caption": "沈龙饰演的乐进",
+      "sourcePage": "https://bkso.baidu.com/item/%E4%B9%90%E8%BF%9B",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/023b5bb5c9ea15cec488b1b5b4003af33a87b22c-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/7dbe16bd9a0c55cbe18c.jpg",
+      "sha256": "7dbe16bd9a0c55cbe18caf1377b956d26fbf781954d2151b18e378197c35a6a2",
+      "crop": [
+        0.1514646,
+        0.0494514,
+        0.8726649,
+        0.9509518
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "于禁",
+      "series": 1994,
+      "actors": [
+        "斯琴毕力格",
+        "毕力格",
+        "薛勇",
+        "齐克建"
+      ],
+      "caption": "央视《三国演义》于禁",
+      "sourcePage": "https://bkso.baidu.com/item/%E4%BA%8E%E7%A6%81",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/80cb39dbb6fd526699189ae9ab18972bd407361f-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/d92c4731188db1b020f4.jpg",
+      "sha256": "d92c4731188db1b020f472c553e0e98635dbc34f62fa1546d54626c7567a8e65",
+      "crop": [
+        0.2658782,
+        0.1661339,
+        0.6453148,
+        0.6404297
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "公孙瓒",
+      "series": 1994,
+      "actors": [
+        "杨凡"
+      ],
+      "caption": "公孙瓒影视形象",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%85%AC%E5%AD%99%E7%93%92",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/0b46f21fbe096b6346e5fe860d338744eaf8ac6c-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/bc14f2f8d5ff0d96e4e2.jpg",
+      "sha256": "bc14f2f8d5ff0d96e4e28da88bb063023e8cd26167aefd77510d8d22cb2c7ef7",
+      "crop": [
+        0.2395474,
+        0.1495591,
+        0.5755415,
+        0.5695517
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "关羽",
+      "series": 1994,
+      "actors": [
+        "陆树铭"
+      ],
+      "caption": "关羽（陆树铭饰演）",
+      "sourcePage": "https://www.tvmao.com/drama/LWMuMB0%3D/actors",
+      "imageUrl": "https://pix2.tvzhe.com/thumb/character/147/310/260x346.jpg",
+      "file": "tool/art/sources/portraits_1994/86a1e368ce990fcbcc3a.jpg",
+      "sha256": "86a1e368ce990fcbcc3a4d7c08e8e5f69462d43a7058ada150ff6bdc69679056",
+      "crop": [
+        0.1137774,
+        0.0111858,
+        0.9142586,
+        0.6127034
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "典韦",
+      "series": 1994,
+      "actors": [
+        "张甲田"
+      ],
+      "caption": "1994三国演义 张甲田饰典韦",
+      "sourcePage": "https://k.sina.cn/article_6246007107_1744a814300100yxss.html",
+      "imageUrl": "https://k.sinaimg.cn/n/sinakd20123/796/w878h718/20201119/d5ed-kefmpha7681190.jpg/w700d1q75cms.jpg",
+      "file": "tool/art/sources/portraits_1994/b689aa022b421b0cbe87.jpg",
+      "sha256": "b689aa022b421b0cbe87a39a0dddbdc7e3abdcc7ad22a8828ecfc181048db3da",
+      "crop": [
+        0.0,
+        0.0,
+        0.8185714,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "凌统",
+      "series": 1994,
+      "actors": [
+        "王刚",
+        "韩增祥"
+      ],
+      "caption": "央视《三国演义》凌统",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%87%8C%E7%BB%9F",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/203fb80e7bec54e7304f55fab9389b504ec26ab6-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/29f1e2e48c4c75a205ea.jpg",
+      "sha256": "29f1e2e48c4c75a205ead265414bf3a46a249450b6e784d7c4353159efcd986d",
+      "crop": [
+        0.2137285,
+        0.0603706,
+        0.6630789,
+        0.6220585
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "刘备",
+      "series": 1994,
+      "actors": [
+        "孙彦军"
+      ],
+      "caption": "刘备（孙彦军饰演）",
+      "sourcePage": "https://www.tvmao.com/drama/LWMuMB0%3D/actors",
+      "imageUrl": "https://pix2.tvzhe.com/thumb/character/147/290/260x346.jpg",
+      "file": "tool/art/sources/portraits_1994/e98bbf7864900690cf5c.jpg",
+      "sha256": "e98bbf7864900690cf5cf8a356e114bad06b0077439c2f91df0568beacb61cac",
+      "crop": [
+        0.0,
+        0.149,
+        1.0,
+        0.900445
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "刘璋",
+      "series": 1994,
+      "actors": [
+        "梁振亚"
+      ],
+      "caption": "央视《三国演义》刘璋",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%88%98%E7%92%8B",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/bd315c6034a85edff856edba4b540923dc547554-bkimg-process,v_1,rw_480,rh_360,maxl_378?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/9a6e7c40334a639cb14c.jpg",
+      "sha256": "9a6e7c40334a639cb14ce5b7396ccd2a96da30184b1831d7ad946727c2a7a8c3",
+      "crop": [
+        0.0659143,
+        0.0,
+        0.817237,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "刘禅",
+      "series": 1994,
+      "actors": [
+        "李华彤",
+        "李铁",
+        "陈婧",
+        "鲁继先"
+      ],
+      "caption": "鲁继先《三国演义》饰演的刘禅",
+      "sourcePage": "https://bkso.baidu.com/item/%E9%B2%81%E7%BB%A7%E5%85%88",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/574e9258d109b3de9c82b37be7e57b81800a19d8e6d4-bkimg-process,v_1,rw_1440,rh_1152,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/8f0a212dcc2e3d29b19a.jpg",
+      "sha256": "8f0a212dcc2e3d29b19a61bc5708cd990e41171457cac1e3fda1c6032d8bada7",
+      "crop": [
+        0.2089782,
+        0.1008939,
+        0.6396753,
+        0.6392652
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "司马师",
+      "series": 1994,
+      "actors": [
+        "潘引来",
+        "雷铁流"
+      ],
+      "caption": "电视剧《三国演义》雷铁流饰中年司马师",
+      "sourcePage": "https://bkso.baidu.com/item/%E9%9B%B7%E9%93%81%E6%B5%81",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/ca1349540923dd5406ecdd59d209b3de9c824867-bkimg-process,v_1,rw_640,rh_480,maxl_378?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/df927ce9b7678a85b803.jpg",
+      "sha256": "df927ce9b7678a85b803bc43af2c023e9b25ff3515f023139a81ad7d8a33956b",
+      "crop": [
+        0.0195144,
+        0.0912063,
+        0.6342282,
+        0.9093818
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "司马懿",
+      "series": 1994,
+      "actors": [
+        "唐振环",
+        "魏宗万"
+      ],
+      "caption": "司马懿（中，魏宗万 饰）父子",
+      "sourcePage": "https://bkso.baidu.com/item/%E3%80%8A%E4%B8%89%E5%9B%BD%E6%BC%94%E4%B9%89%E3%80%8B/7088688?fromModule=lemma_inlink",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/5bafa40f4bfbfbed5f29fba77ff0f736aec31ff2-bkimg-process,v_1,rw_16,rh_9,maxl_504?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/ba5253f3e4416562cb74.jpg",
+      "sha256": "ba5253f3e4416562cb7470afe197a192608d238f4f61b2d744250ca86da46119",
+      "crop": [
+        0.296067,
+        0.2648424,
+        0.5511788,
+        0.7191757
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "司马昭",
+      "series": 1994,
+      "actors": [
+        "李赤尤",
+        "高兰村"
+      ],
+      "caption": "《三国演义》饰演司马昭",
+      "sourcePage": "https://bkso.baidu.com/item/%E9%AB%98%E5%85%B0%E6%9D%91",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/9f2f070828381f30e924d2283e585b086e061c955aa2-bkimg-process,v_1,rw_1080,rh_800,maxl_383?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/318ade9f5127807aa915.jpg",
+      "sha256": "318ade9f5127807aa91515a78515e1284d154861393f128ae23faa0a8457bd62",
+      "crop": [
+        0.1047951,
+        0.0,
+        0.8463095,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "吕布",
+      "series": 1994,
+      "actors": [
+        "张光北"
+      ],
+      "caption": "吕布（张光北 饰）",
+      "sourcePage": "https://bkso.baidu.com/item/%E3%80%8A%E4%B8%89%E5%9B%BD%E6%BC%94%E4%B9%89%E3%80%8B/7088688?fromModule=lemma_inlink",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/9a504fc2d5628535608e1cf997ef76c6a6ef63f8-bkimg-process,v_1,rw_1058,rh_720,maxl_417?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/2aaa5112e5de3d1f7d40.jpg",
+      "sha256": "2aaa5112e5de3d1f7d40ebbd0bd7ad2762a13c6c8eafec4efbed205ad3eec8cf",
+      "crop": [
+        0.2492981,
+        0.2495736,
+        0.5159851,
+        0.6411528
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "吕范",
+      "series": 1994,
+      "actors": [
+        "啜二勇"
+      ],
+      "caption": "《三国演义》饰吕范",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%95%9C%E4%BA%8C%E5%8B%87",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/55e736d12f2eb9389b50583f863a9235e5dde611c1fc-bkimg-process,v_1,rw_798,rh_531,maxl_426?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/660aea4b22846e1f9068.jpg",
+      "sha256": "660aea4b22846e1f906842f4b84b7bc5b8fb7a1f0b46a239823c1fb9c286fb55",
+      "crop": [
+        0.256509,
+        0.0,
+        0.9208283,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "吕蒙",
+      "series": 1994,
+      "actors": [
+        "初国良",
+        "张京海",
+        "郭沫浪"
+      ],
+      "caption": "央视三国演义的吕蒙",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%90%95%E8%92%99",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/0ff41bd5ad6eddc41f82081839dbb6fd536633ef-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/3e3f95a7c34c2f9744fa.jpg",
+      "sha256": "3e3f95a7c34c2f9744fa4a5110c43f43967cdcfbb6922ba23bf44e2c15f04242",
+      "crop": [
+        0.1639494,
+        0.0790708,
+        0.8772007,
+        0.970635
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "周仓",
+      "series": 1994,
+      "actors": [
+        "刘润成",
+        "迟重根"
+      ],
+      "caption": "经典的周仓形象",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%88%98%E6%B6%A6%E6%88%90",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/30adcbef76094b36acaf50967d966bd98d1001e9370f-bkimg-process,v_1,rw_1722,rh_1412,maxl_346?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/2f64fb2496f0f71ec389.jpg",
+      "sha256": "2f64fb2496f0f71ec389eecda8d444af0e888479899181b06c6ad1d9eba20468",
+      "crop": [
+        0.0639732,
+        0.0240156,
+        0.8650702,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "周瑜",
+      "series": 1994,
+      "actors": [
+        "洪宇宙"
+      ],
+      "caption": "周瑜（洪宇宙 饰）",
+      "sourcePage": "https://bkso.baidu.com/item/%E3%80%8A%E4%B8%89%E5%9B%BD%E6%BC%94%E4%B9%89%E3%80%8B/7088688?fromModule=lemma_inlink",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/7acb0a46f21fbe092e810fcc6c600c338644ad0f-bkimg-process,v_1,rw_3,rh_4,maxl_284?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/051dae0493cf54a1d648.jpg",
+      "sha256": "051dae0493cf54a1d648c8ec7ce3ebcdcfe234ba8cac912fd0f94dc1a8135dea",
+      "crop": [
+        0.2637253,
+        0.1331346,
+        0.7839233,
+        0.5232832
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "夏侯惇",
+      "series": 1994,
+      "actors": [
+        "巴拉珠尔",
+        "段泽生",
+        "鲁建国"
+      ],
+      "caption": "央视《三国演义》夏侯惇",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%A4%8F%E4%BE%AF%E6%83%87",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/b17eca8065380cd700b94f0fa144ad34588281a9-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/e62b1f3b63f8b901e183.jpg",
+      "sha256": "e62b1f3b63f8b901e1835160c79c007ce19bf62b7e44911245fb50c3ce55883e",
+      "crop": [
+        0.2727479,
+        0.2081423,
+        0.9062341,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "夏侯渊",
+      "series": 1994,
+      "actors": [
+        "钱玉林"
+      ],
+      "caption": "94版《三国演义》夏侯渊影视形象",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%A4%8F%E4%BE%AF%E6%B8%8A",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/5243fbf2b21193139921f64f65380cd790238dea-bkimg-process,v_1,rw_480,rh_360,maxl_378?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/b1c8c9b33a291fb0bd8f.jpg",
+      "sha256": "b1c8c9b33a291fb0bd8f3916b3ce50c658090639a522cf840af7c7335109a933",
+      "crop": [
+        0.1043448,
+        0.0,
+        0.8556675,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "夏侯霸",
+      "series": 1994,
+      "actors": [
+        "沈双存",
+        "石天生"
+      ],
+      "caption": "央视《三国演义》石天生版夏侯霸",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%A4%8F%E4%BE%AF%E9%9C%B8",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/810a19d8bc3eb1357925e655a61ea8d3fc1f4479-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/19936e84705d4ec2896c.jpg",
+      "sha256": "19936e84705d4ec2896c8392cb54f75079c6581870d27301b718d24caee26e49",
+      "crop": [
+        0.3868122,
+        0.0330095,
+        0.8030768,
+        0.5533402
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "太史慈",
+      "series": 1994,
+      "actors": [
+        "李洪涛",
+        "陈之辉"
+      ],
+      "caption": "央视三国演义的太史慈",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%A4%AA%E5%8F%B2%E6%85%88",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/0b55b319ebc4b745273b1bfccffc1e178b8215a8-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/d7c25032c028061bde71.jpg",
+      "sha256": "d7c25032c028061bde71cfe305b7e20a98117a993edb9b38a61dc2421c53cb00",
+      "crop": [
+        0.0417572,
+        0.170444,
+        0.705402,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "姜维",
+      "series": 1994,
+      "actors": [
+        "张天舒",
+        "樊志起"
+      ],
+      "caption": "姜维（樊志起 饰）",
+      "sourcePage": "https://bkso.baidu.com/item/%E3%80%8A%E4%B8%89%E5%9B%BD%E6%BC%94%E4%B9%89%E3%80%8B/7088688?fromModule=lemma_inlink",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/08f790529822720e4c6e2f227ccb0a46f31fab42-bkimg-process,v_1,rw_604,rh_388,maxl_442?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/5b165b6e946bbdcb9bf1.jpg",
+      "sha256": "5b165b6e946bbdcb9bf1fac9af1a9386f6c9feeb790f8953ee39216b26a14ca5",
+      "crop": [
+        0.27776,
+        0.1033525,
+        0.7737734,
+        0.8753171
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "孔融",
+      "series": 1994,
+      "actors": [
+        "郑榕"
+      ],
+      "caption": "孔融影视形象",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%AD%94%E8%9E%8D",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/10dfa9ec8a136327f5a063d9918fa0ec09fac78f-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/45e2c794dafb514b6a82.jpg",
+      "sha256": "45e2c794dafb514b6a82ed8adee6d968628101ffcc0747bc019c37c8a801e676",
+      "crop": [
+        0.2434615,
+        0.1299945,
+        0.8559256,
+        0.8955747
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "孙尚香",
+      "series": 1994,
+      "actors": [
+        "赵越"
+      ],
+      "caption": "孙夫人（赵越 饰）",
+      "sourcePage": "https://bkso.baidu.com/item/%E3%80%8A%E4%B8%89%E5%9B%BD%E6%BC%94%E4%B9%89%E3%80%8B/7088688?fromModule=lemma_inlink",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/9c16fdfaaf51f3de278b7bbc93eef01f3a297929-bkimg-process,v_1,rw_598,rh_794,maxl_284?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/8c5a2fb79646567fc00c.jpg",
+      "sha256": "8c5a2fb79646567fc00ca9e09a2c1c77da4b28bb5c17e22ca9702003d3193c2a",
+      "crop": [
+        0.1345291,
+        0.2350425,
+        0.7762417,
+        0.7185864
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "孙权",
+      "series": 1994,
+      "actors": [
+        "吴晓东",
+        "恽桨峥"
+      ],
+      "caption": "孙权（吴晓东饰演）",
+      "sourcePage": "https://www.tvmao.com/drama/LWMuMB0%3D/actors",
+      "imageUrl": "https://pix2.tvzhe.com/thumb/character/147/300/260x346.jpg",
+      "file": "tool/art/sources/portraits_1994/74888bc77eb8c3dd4777.jpg",
+      "sha256": "74888bc77eb8c3dd4777d5ec97fee484c4324c38ccdff150d05673d541c2f8b7",
+      "crop": [
+        0.0,
+        0.2355011,
+        1.0,
+        0.9869462
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "孙策",
+      "series": 1994,
+      "actors": [
+        "濮存昕"
+      ],
+      "caption": "孙策（濮存昕 饰）",
+      "sourcePage": "https://bkso.baidu.com/item/%E3%80%8A%E4%B8%89%E5%9B%BD%E6%BC%94%E4%B9%89%E3%80%8B/7088688?fromModule=lemma_inlink",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/eac4b74543a98226cc44ebff8d82b9014b90eb65-bkimg-process,v_1,rw_801,rh_580,maxl_392?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/b4b9a77ddb1a0d58194d.jpg",
+      "sha256": "b4b9a77ddb1a0d58194d6bee12e97a9fab2d8727566ef15bee627576c6512ed5",
+      "crop": [
+        0.5084442,
+        0.2105462,
+        0.8113914,
+        0.6286987
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "孟优",
+      "series": 1994,
+      "actors": [
+        "李冬果"
+      ],
+      "caption": "李冬果饰演的孟优",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%AD%9F%E4%BC%98",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/bd3eb13533fa828bd2d3941ffd1f4134960a5a5d-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/98c67e4110ccdabe6268.jpg",
+      "sha256": "98c67e4110ccdabe62686b534a1c4bcfb88d97e0f6f9082c6601ac6ea3b5877b",
+      "crop": [
+        0.262175,
+        0.1092208,
+        0.8514168,
+        0.8457731
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "孟获",
+      "series": 1994,
+      "actors": [
+        "胡战利"
+      ],
+      "caption": "诸葛亮（唐国强 饰）与孟获（胡战利 饰）",
+      "sourcePage": "https://bkso.baidu.com/item/%E3%80%8A%E4%B8%89%E5%9B%BD%E6%BC%94%E4%B9%89%E3%80%8B/7088688?fromModule=lemma_inlink",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/8cb1cb13495409234239ada69558d109b2de4992-bkimg-process,v_1,rw_972,rh_673,maxl_410?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/f903528c4ae0788ba7bf.jpg",
+      "sha256": "f903528c4ae0788ba7bf0592e4cf1d6855152a21d7053532e6633fe6c7e140be",
+      "crop": [
+        0.331658,
+        0.2044971,
+        0.595385,
+        0.5852297
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "庞统",
+      "series": 1994,
+      "actors": [
+        "祝士彬",
+        "金书贵"
+      ],
+      "caption": "《三国演义》庞统剧照",
+      "sourcePage": "https://bkso.baidu.com/item/%E9%87%91%E4%B9%A6%E8%B4%B5",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/4e4a20a4462309f79e97bf9c750e0cf3d6cad647-bkimg-process,v_1,rw_576,rh_432,maxl_378?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/523489d2c2f22cf4d1da.jpg",
+      "sha256": "523489d2c2f22cf4d1da3e57ad6847c8eee97db95975af92f88ef4a72f2cf4a0",
+      "crop": [
+        0.0859053,
+        0.099868,
+        0.756038,
+        0.9918051
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "廖化",
+      "series": 1994,
+      "actors": [
+        "杜文禄",
+        "芒莱",
+        "陈之辉"
+      ],
+      "caption": "电视剧《三国演义》廖化",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%BB%96%E5%8C%96",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/8718367adab44aedab8e0107b31c8701a08bfb15-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/732df9dba504cbc43086.jpg",
+      "sha256": "732df9dba504cbc43086ee462348d5cbc2302a4c6cb023806a0d2405d1789202",
+      "crop": [
+        0.2031276,
+        0.149327,
+        0.7775244,
+        0.867323
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "张允",
+      "series": 1994,
+      "actors": [],
+      "caption": "央视《三国演义》张允",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%BC%A0%E5%85%81",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/3bf33a87e950352a0e1f87aa5343fbf2b2118b12-bkimg-process,v_1,rw_16,rh_9,maxl_504?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/cc18ef98b6a31678d2f1.jpg",
+      "sha256": "cc18ef98b6a31678d2f1145aad5b290b8bf5a2d1040d563d794eccf38baa4cc8",
+      "crop": [
+        0.0256921,
+        0.2180062,
+        0.3082657,
+        0.7194749
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "张昭",
+      "series": 1994,
+      "actors": [
+        "周继纬"
+      ],
+      "caption": "《三国演义》张昭",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%91%A8%E7%BB%A7%E7%BA%AC",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/caef76094b36acaf0008e6147fd98d1000e99c69-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/665cebe7e089e8929790.jpg",
+      "sha256": "665cebe7e089e8929790a68e8d028e947d1e49648b6d5fbec94e3efc91819f4b",
+      "crop": [
+        0.2887858,
+        0.2045676,
+        0.5516964,
+        0.5332059
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "张松",
+      "series": 1994,
+      "actors": [
+        "张炬"
+      ],
+      "caption": "电视剧《三国演义》中的张松(张炬饰)",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%BC%A0%E6%9D%BE",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/622762d0f703918fff94c73f513d269758eec4fa-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/bfa29e3d18dc10531b15.jpg",
+      "sha256": "bfa29e3d18dc10531b1583a51b755cc8e404c2f91e8bb7814ca0455ec9e9df2f",
+      "crop": [
+        0.3940251,
+        0.1353037,
+        0.8844823,
+        0.7483753
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "张绣",
+      "series": 1994,
+      "actors": [
+        "韩善续"
+      ],
+      "caption": "1994年《三国演义》中的张绣》",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%BC%A0%E7%BB%A3",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/79f0f736afc3793127eb7fc4ebc4b74542a9115f-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/b5a989ece8cd481cd754.jpg",
+      "sha256": "b5a989ece8cd481cd75467c8099f34dd328ba04661d3ce5ead3ddfb7f483ed45",
+      "crop": [
+        0.2701507,
+        0.1453397,
+        0.6352914,
+        0.6017656
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "张辽",
+      "series": 1994,
+      "actors": [
+        "张亚坤",
+        "徐少华",
+        "王卫国"
+      ],
+      "caption": "徐少华版张辽",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%BC%A0%E8%BE%BD",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/908fa0ec08fa513d675ca92b3d6d55fbb3fbd955-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/c57da8c26c61de74dec2.jpg",
+      "sha256": "c57da8c26c61de74dec25ffbf491d9e66dae970d70f4fb574a24661568558dc4",
+      "crop": [
+        0.1803982,
+        0.1566615,
+        0.7715741,
+        0.8956314
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "张飞",
+      "series": 1994,
+      "actors": [
+        "李靖飞"
+      ],
+      "caption": "张飞（李靖飞饰演）",
+      "sourcePage": "https://www.tvmao.com/drama/LWMuMB0%3D/actors",
+      "imageUrl": "https://pix2.tvzhe.com/thumb/character/147/315/260x346.jpg",
+      "file": "tool/art/sources/portraits_1994/918d99049d448cd990bd.jpg",
+      "sha256": "918d99049d448cd990bd45c6d27d7db2681904f77f190bffe9fbec10629728fc",
+      "crop": [
+        0.0,
+        0.239476,
+        1.0,
+        0.9909211
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "张鲁",
+      "series": 1994,
+      "actors": [
+        "马玉良"
+      ],
+      "caption": "马玉良饰演的张鲁",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%BC%A0%E9%B2%81",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/5bafa40f4bfbfbed29a672d178f0f736aec31fa4-bkimg-process,v_1,rw_480,rh_360,maxl_378?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/d774d2bbe379ee8d8af3.jpg",
+      "sha256": "d774d2bbe379ee8d8af304033ef5395efaec366009f8c964ef4e99e44382a9c2",
+      "crop": [
+        0.0943158,
+        0.0,
+        0.8456385,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "徐庶",
+      "series": 1994,
+      "actors": [
+        "翟万臣"
+      ],
+      "caption": "94版《三国演义》徐庶形象",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%BE%90%E5%BA%B6",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/f9198618367adab433e2bbb48bd4b31c8701e413-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/e5f124a0cddb8e5418fa.jpg",
+      "sha256": "e5f124a0cddb8e5418fa1bc116224a652fac7f4c710aad0c751c4b72f706dd25",
+      "crop": [
+        0.2905585,
+        0.0332823,
+        0.9665918,
+        0.8783239
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "徐晃",
+      "series": 1994,
+      "actors": [
+        "刘洪林",
+        "尼格木图",
+        "崔向荣",
+        "谢东",
+        "霍尔查"
+      ],
+      "caption": "央版《三国演义》徐晃",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%BE%90%E6%99%83",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/4610b912c8fcc3ce1ba70ec69245d688d53f20e4-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/71a2a789512d11a210e4.jpg",
+      "sha256": "71a2a789512d11a210e4ed8753eb130c25af5b9d00da7403453e8b288062c585",
+      "crop": [
+        0.27428,
+        0.1458169,
+        0.7113078,
+        0.6921016
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "文丑",
+      "series": 1994,
+      "actors": [],
+      "caption": "央视《三国演义》的文丑",
+      "sourcePage": "https://bkso.baidu.com/item/%E6%96%87%E4%B8%91",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/f636afc379310a55a0cb0e44b54543a983261096-bkimg-process,v_1,rw_639,rh_480,maxl_378?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/4132ddfa0ebfa5ac96a9.jpg",
+      "sha256": "4132ddfa0ebfa5ac96a98cece1627d4af533134ff8090d57a374ea172469bf72",
+      "crop": [
+        0.393377,
+        0.2618915,
+        0.757572,
+        0.7466299
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "曹仁",
+      "series": 1994,
+      "actors": [
+        "许德山",
+        "邰祖辉"
+      ],
+      "caption": "央版《三国演义》中的曹仁",
+      "sourcePage": "https://bkso.baidu.com/item/%E6%9B%B9%E4%BB%81",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/0e2442a7d933c89570bde5d2d01373f083020053-bkimg-process,v_1,rw_448,rh_336,maxl_378?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/d62cbf49e96f0c15d40e.jpg",
+      "sha256": "d62cbf49e96f0c15d40e27f6cc16e5d5e70dc1343298e5d73a9d0a6c7518329f",
+      "crop": [
+        0.1700754,
+        0.142797,
+        0.8141115,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "曹休",
+      "series": 1994,
+      "actors": [
+        "郝宗谦"
+      ],
+      "caption": "《三国演义》电视剧中的曹休（合肥之战）",
+      "sourcePage": "https://bkso.baidu.com/item/%E6%9B%B9%E4%BC%91",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/203fb80e7bec54e76b350dcbb8389b504ec26a0d-bkimg-process,v_1,rw_480,rh_360,maxl_378?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/9db7d40bb073c2308bf0.jpg",
+      "sha256": "9db7d40bb073c2308bf0b32b86fc070e6667bd87c0fe7d39acb9bf6df4948708",
+      "crop": [
+        0.0388112,
+        0.0450322,
+        0.679089,
+        0.897233
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "曹彰",
+      "series": 1994,
+      "actors": [
+        "沈龙"
+      ],
+      "caption": "老版三国演义曹彰",
+      "sourcePage": "https://bkso.baidu.com/item/%E6%9B%B9%E5%BD%B0",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/ca5257541273ac10564e00b1-bkimg-process,v_1,rw_480,rh_360,maxl_378?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/cc78edb374b4734dda59.jpg",
+      "sha256": "cc78edb374b4734dda591558d6b6d74f8e7886dd62af26e166ce96c3cf87d08d",
+      "crop": [
+        0.0641962,
+        0.0200381,
+        0.8004638,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "曹操",
+      "series": 1994,
+      "actors": [
+        "鲍国安"
+      ],
+      "caption": "曹操（鲍国安饰演）",
+      "sourcePage": "https://www.tvmao.com/drama/LWMuMB0%3D/actors",
+      "imageUrl": "https://pix2.tvzhe.com/thumb/character/147/295/260x346.jpg",
+      "file": "tool/art/sources/portraits_1994/bec7389c65fdd90ffcc3.jpg",
+      "sha256": "bec7389c65fdd90ffcc32838511ee36ae1c19a949e4dc0e27bb24a840ebb9c87",
+      "crop": [
+        0.0311139,
+        0.0715193,
+        0.654236,
+        0.5397614
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "曹植",
+      "series": 1994,
+      "actors": [
+        "王良波"
+      ],
+      "caption": "央视《三国演义》王良波版曹植",
+      "sourcePage": "https://bkso.baidu.com/item/%E6%9B%B9%E6%A4%8D",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/c8177f3e6709c93dadcbda5c9f3df8dcd1005464-bkimg-process,v_1,rw_480,rh_360,maxl_378?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/5682cdec52d5af60f982.jpg",
+      "sha256": "5682cdec52d5af60f982de1e5d4ae4bdae3977021266323114833e737d9ba090",
+      "crop": [
+        0.2027344,
+        0.0,
+        0.9540572,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "曹洪",
+      "series": 1994,
+      "actors": [
+        "全力平",
+        "巴拉珠尔",
+        "王捷",
+        "霍尔查",
+        "马奉年"
+      ],
+      "caption": "94版《三国演义》曹洪",
+      "sourcePage": "https://bkso.baidu.com/item/%E6%9B%B9%E6%B4%AA",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/83025aafa40f4bfbbc5c0183024f78f0f636185c-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/4073836f5f13aad0466c.jpg",
+      "sha256": "4073836f5f13aad0466ceba7c49b6a962d9fca0c00ea4821bc9d982488646e03",
+      "crop": [
+        0.1218715,
+        0.0,
+        0.9218715,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "曹豹",
+      "series": 1994,
+      "actors": [
+        "王英杰"
+      ],
+      "caption": "央视《三国演义》中的曹豹",
+      "sourcePage": "https://bkso.baidu.com/item/%E6%9B%B9%E8%B1%B9",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/11385343fbf2b21193136da6a4cb72380cd79023208d-bkimg-process,v_1,rw_448,rh_336,maxl_378?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/0831fd39c7ef20227ce6.jpg",
+      "sha256": "0831fd39c7ef20227ce6ee8143ef3e2aeb955d6149fe43b0870002309905595f",
+      "crop": [
+        0.1308323,
+        0.1211298,
+        0.6429144,
+        0.8027038
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "李典",
+      "series": 1994,
+      "actors": [
+        "张英武",
+        "桑宝"
+      ],
+      "caption": "94版《三国演义》李典",
+      "sourcePage": "https://bkso.baidu.com/item/%E6%9D%8E%E5%85%B8",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/9c16fdfaaf51f3deb48fe4f484b7e71f3a292df5d350-bkimg-process,v_1,rw_624,rh_541,maxl_327?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/be09982fe8f1165bdc3e.jpg",
+      "sha256": "be09982fe8f1165bdc3e276c2b00f949935ae4dbda67dca6c2ccc6a90c8b103a",
+      "crop": [
+        0.4374792,
+        0.0,
+        0.9246618,
+        0.5609462
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "杨仪",
+      "series": 1994,
+      "actors": [
+        "孟宪礼"
+      ],
+      "caption": "央视《三国演义》的杨仪",
+      "sourcePage": "https://bkso.baidu.com/item/%E6%9D%A8%E4%BB%AA",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/241f95cad1c8a7862eb9acec6709c93d71cf5045-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/fd67aad0a5846ba6440e.jpg",
+      "sha256": "fd67aad0a5846ba6440e861f7111120df31b091833767e4498c374fade1c2a43",
+      "crop": [
+        0.216901,
+        0.0648023,
+        0.8338303,
+        0.835964
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "杨修",
+      "series": 1994,
+      "actors": [
+        "毕彦君"
+      ],
+      "caption": "央视《三国演义》杨修",
+      "sourcePage": "https://bkso.baidu.com/item/%E6%9D%A8%E4%BF%AE",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/0824ab18972bd407ebece5087b899e510fb3091f-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/24baff985b3a34779510.jpg",
+      "sha256": "24baff985b3a34779510980aee8f117b1ca12fc5e95d84ac9b8e88fbc254dd48",
+      "crop": [
+        0.0549651,
+        0.0550447,
+        0.8011509,
+        0.987777
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "沮授",
+      "series": 1994,
+      "actors": [
+        "王志强"
+      ],
+      "caption": "电视剧《三国演义》沮授",
+      "sourcePage": "https://bkso.baidu.com/item/%E6%B2%AE%E6%8E%88",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/d0c8a786c9177f3ef69be2ec70cf3bc79e3d56a7-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/9e515a76f6e0cefff289.jpg",
+      "sha256": "9e515a76f6e0cefff2896345ec90f041fd36659988ae708c6b9acaddb5f22720",
+      "crop": [
+        0.2902365,
+        0.1512178,
+        0.7992671,
+        0.787506
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "法正",
+      "series": 1994,
+      "actors": [
+        "张民甫",
+        "时来群"
+      ],
+      "caption": "央视《三国演义》法正形象",
+      "sourcePage": "https://bkso.baidu.com/item/%E6%B3%95%E6%AD%A3",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/f7246b600c338744f79f3484510fd9f9d62aa0eb-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/2b3c04321f30bdf0482c.jpg",
+      "sha256": "2b3c04321f30bdf0482cdeb61f6da7ea63bfd8737710266012e52fd685c903fc",
+      "crop": [
+        0.2517893,
+        0.1273228,
+        0.9470401,
+        0.9963863
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "王允",
+      "series": 1994,
+      "actors": [
+        "谭宗尧"
+      ],
+      "caption": "94版《三国演义》王允",
+      "sourcePage": "https://bkso.baidu.com/item/%E7%8E%8B%E5%85%81",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/eac4b74543a982265cbd72d48a82b9014b90ebc1-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/02088c8c75f4daf38ff8.jpg",
+      "sha256": "02088c8c75f4daf38ff8adce3c954342f0169610a54356173d30d06cbfc9c01e",
+      "crop": [
+        0.1000579,
+        0.2047279,
+        0.7221286,
+        0.9823162
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "王朗",
+      "series": 1994,
+      "actors": [
+        "王光昶",
+        "董骥"
+      ],
+      "caption": "电视剧《三国演义》中的王朗(董骥饰)",
+      "sourcePage": "https://bkso.baidu.com/item/%E7%8E%8B%E6%9C%97",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/f603918fa0ec08fae12da65e59ee3d6d55fbda1e-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/d891ae01c0dd8f7bd36d.jpg",
+      "sha256": "d891ae01c0dd8f7bd36d374e26efee116e81c09981140ca4a4679da769bb87df",
+      "crop": [
+        0.3986001,
+        0.1211655,
+        0.7006004,
+        0.4986659
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "甘宁",
+      "series": 1994,
+      "actors": [
+        "张玉海",
+        "韩东"
+      ],
+      "caption": "张玉海版甘宁",
+      "sourcePage": "https://bkso.baidu.com/item/%E7%94%98%E5%AE%81",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/94cad1c8a786c9176337f8c4c93d70cf3bc75712-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/6394c2a625e0d6787a10.jpg",
+      "sha256": "6394c2a625e0d6787a106fa237a785f4e67c96e81180931acb75bcec59dd81ca",
+      "crop": [
+        0.2337033,
+        0.0975371,
+        0.9121445,
+        0.9455887
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "祝融夫人",
+      "series": 1994,
+      "actors": [
+        "李云娟",
+        "李云鹃"
+      ],
+      "caption": "祝融夫人（李云娟 饰）",
+      "sourcePage": "https://bkso.baidu.com/item/%E3%80%8A%E4%B8%89%E5%9B%BD%E6%BC%94%E4%B9%89%E3%80%8B/7088688?fromModule=lemma_inlink",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/5fdf8db1cb134954aa4b2bbc514e9258d0094a95-bkimg-process,v_1,rw_1029,rh_695,maxl_420?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/10c2ef436050e7048078.jpg",
+      "sha256": "10c2ef436050e70480781e06087fe4b2ff10313a4767b419c226ad10c44081a1",
+      "crop": [
+        0.1918821,
+        0.2364892,
+        0.5042795,
+        0.6984852
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "程普",
+      "series": 1994,
+      "actors": [
+        "闫怀礼",
+        "陈惠良"
+      ],
+      "caption": "1994三国演义 程普",
+      "sourcePage": "https://k.sina.com.cn/article_5331489279_13dc811ff001002r5c.html",
+      "imageUrl": "http://k.sinaimg.cn/n/sinacn/w212h148/20171221/b7e7-fypvuqe7625041.jpg/w700d1q75cms.jpg?by=cms_fixed_width",
+      "file": "tool/art/sources/portraits_1994/d477b7670ccf93ee4424.jpg",
+      "sha256": "d477b7670ccf93ee4424c16ac14c4906dcf9214442718f8ed9f2be4411ef5226",
+      "crop": [
+        0.3773898,
+        0.0748508,
+        0.9807385,
+        0.939107
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "纪灵",
+      "series": 1994,
+      "actors": [
+        "王洪涛"
+      ],
+      "caption": "央视版《三国演义》纪灵",
+      "sourcePage": "https://bkso.baidu.com/item/%E7%BA%AA%E7%81%B5",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/203fb80e7bec54e776346fe2b9389b504ec26a75-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/b33844cae078f8458b2f.jpg",
+      "sha256": "b33844cae078f8458b2f021a30e1faf3e029e678762da8014ccf518f682d8691",
+      "crop": [
+        0.1522624,
+        0.0526462,
+        0.7483542,
+        0.7977609
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "荀彧",
+      "series": 1994,
+      "actors": [
+        "顾岚"
+      ],
+      "caption": "电视剧《三国演义》荀彧",
+      "sourcePage": "https://bkso.baidu.com/item/%E8%8D%80%E5%BD%A7",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/0eb30f2442a7d9330cf0f497ad4bd11372f001fd-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/87fa613621861c8e4bf6.jpg",
+      "sha256": "87fa613621861c8e4bf61e7039222d84f97ba75ec90548b08cd06a907db962ad",
+      "crop": [
+        0.3430819,
+        0.1460695,
+        0.8503172,
+        0.7801135
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "董卓",
+      "series": 1994,
+      "actors": [
+        "里坡"
+      ],
+      "caption": "董卓（里坡 饰）",
+      "sourcePage": "https://bkso.baidu.com/item/%E3%80%8A%E4%B8%89%E5%9B%BD%E6%BC%94%E4%B9%89%E3%80%8B/7088688?fromModule=lemma_inlink",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/c2fdfc039245d6880652727ca3c27d1ed31b2492-bkimg-process,v_1,rw_16,rh_9,maxl_504?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/7ef13728f58784e6d750.jpg",
+      "sha256": "7ef13728f58784e6d7506f2db0713e748010934f7821121641a444506ec6851d",
+      "crop": [
+        0.5091568,
+        0.171701,
+        0.7536618,
+        0.6056113
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "蒋干",
+      "series": 1994,
+      "actors": [
+        "周舟"
+      ],
+      "caption": "央视《三国演义》蒋干",
+      "sourcePage": "https://bkso.baidu.com/item/%E8%92%8B%E5%B9%B2",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/1c950a7b02087bf4df222c1ef2d3572c10dfcf7f-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/5e42a4ac2344c7adcec8.jpg",
+      "sha256": "5e42a4ac2344c7adcec8593246ad2637e5fe05909cd14b839bdd4dbfb128f586",
+      "crop": [
+        0.1656231,
+        0.1279635,
+        0.8632523,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "蔡和",
+      "series": 1994,
+      "actors": [
+        "李化"
+      ],
+      "caption": "电视剧《三国演义》李化饰演蔡和",
+      "sourcePage": "https://bkso.baidu.com/item/%E8%94%A1%E5%92%8C",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/7787b9ef5bec7e37fcfa3c3e-bkimg-process,v_1,rw_16,rh_9,maxl_504?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/3ea544775550d449a98e.jpg",
+      "sha256": "3ea544775550d449a98e40e8e23a8c066b24545b015ae23615f6db1a7a80cd7c",
+      "crop": [
+        0.4365079,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "蔡瑁",
+      "series": 1994,
+      "actors": [
+        "么岳",
+        "幺岳"
+      ],
+      "caption": "电视剧《三国演义》中的蔡瑁",
+      "sourcePage": "https://bkso.baidu.com/item/%E8%94%A1%E7%91%81",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/a9d3fd1f4134970a2f95b3d895cad1c8a6865d66-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/3783eebce36ca6a3d659.jpg",
+      "sha256": "3783eebce36ca6a3d6591b83051ecfff02a1863bf78ebf3160cedd14e55d2a2e",
+      "crop": [
+        0.0,
+        0.0,
+        0.8,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "袁术",
+      "series": 1994,
+      "actors": [
+        "王复生",
+        "陈友旺"
+      ],
+      "caption": "央视版《三国演义》袁术",
+      "sourcePage": "https://bkso.baidu.com/item/%E8%A2%81%E6%9C%AF",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/83025aafa40f4bfbda407aa0034f78f0f63618b5-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/0f978b96a7b3b1e09451.jpg",
+      "sha256": "0f978b96a7b3b1e094513743b21eccdc596dcd17c7979a9c4e61e7798298ea1e",
+      "crop": [
+        0.2874814,
+        0.0058052,
+        0.8418103,
+        0.6987164
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "袁绍",
+      "series": 1994,
+      "actors": [
+        "李庆祥",
+        "洪宇宙"
+      ],
+      "caption": "袁绍（李庆祥 饰）",
+      "sourcePage": "https://bkso.baidu.com/item/%E3%80%8A%E4%B8%89%E5%9B%BD%E6%BC%94%E4%B9%89%E3%80%8B/7088688?fromModule=lemma_inlink",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/9e3df8dcd100baa107a881634010b912c9fc2e66-bkimg-process,v_1,rw_529,rh_576,maxl_284?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/a7037285a772d6cb692d.jpg",
+      "sha256": "a7037285a772d6cb692dc23c565423c71ab97ff4ef9c9da3c199b409373a452f",
+      "crop": [
+        0.3466538,
+        0.2141714,
+        0.6674901,
+        0.5090244
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "袁谭",
+      "series": 1994,
+      "actors": [
+        "邓晓光"
+      ],
+      "caption": "央视《三国演义》袁谭",
+      "sourcePage": "https://bkso.baidu.com/item/%E8%A2%81%E8%B0%AD",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/c8ea15ce36d3d539010699273a87e950352ab01f-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/92ac2e3b81c49e8d981e.jpg",
+      "sha256": "92ac2e3b81c49e8d981e1323b14e1d7a9466187a6711cde22a2c4e5b72508d4c",
+      "crop": [
+        0.3398722,
+        0.1068898,
+        0.9077569,
+        0.8167457
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "许攸",
+      "series": 1994,
+      "actors": [
+        "石小满"
+      ],
+      "caption": "石小满饰演的许攸",
+      "sourcePage": "https://bkso.baidu.com/item/%E7%9F%B3%E5%B0%8F%E6%BB%A1",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/a5c27d1ed21b0ef4001614beddc451da80cb3e57-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/709f39b2749197bf1fce.jpg",
+      "sha256": "709f39b2749197bf1fce5416203c3f87d1e78620a18bd11e90c5bf9535b407d2",
+      "crop": [
+        0.2281409,
+        0.045264,
+        0.8886882,
+        0.8709482
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "诸葛亮",
+      "series": 1994,
+      "actors": [
+        "唐国强"
+      ],
+      "caption": "诸葛亮（唐国强饰演）",
+      "sourcePage": "https://www.tvmao.com/drama/LWMuMB0%3D/actors",
+      "imageUrl": "https://pix2.tvzhe.com/thumb/character/147/305/260x346.jpg",
+      "file": "tool/art/sources/portraits_1994/d806859c6144019d1e51.jpg",
+      "sha256": "d806859c6144019d1e513300473e988a3be6a8a530de2ab051662abc475273d6",
+      "crop": [
+        0.1370478,
+        0.0445209,
+        0.8405774,
+        0.5731847
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "诸葛恪",
+      "series": 1994,
+      "actors": [
+        "何冰"
+      ],
+      "caption": "电视剧《三国演义》中的诸葛恪（何冰饰）",
+      "sourcePage": "https://bkso.baidu.com/item/%E8%AF%B8%E8%91%9B%E6%81%AA",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/4afbfbedab64034f82930dcdaec379310b551d9b-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/4e724819d451c7113b55.jpg",
+      "sha256": "4e724819d451c7113b55bc76c64366676ede428b331a1d24984297657c12978b",
+      "crop": [
+        0.2163804,
+        0.055008,
+        0.972374,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "诸葛瑾",
+      "series": 1994,
+      "actors": [
+        "汪兆桂",
+        "种玉杰"
+      ],
+      "caption": "央视《三国演义》诸葛瑾",
+      "sourcePage": "https://bkso.baidu.com/item/%E8%AF%B8%E8%91%9B%E7%91%BE",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/5366d0160924ab18d49948ca35fae6cd7a890bbb-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/c74e703e6b3422455362.jpg",
+      "sha256": "c74e703e6b342245536254ba9fa0ba49562eb804a33164c537b26c93845dbac7",
+      "crop": [
+        0.1830456,
+        0.1303175,
+        0.7241875,
+        0.8067449
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "赵云",
+      "series": 1994,
+      "actors": [
+        "侯永生",
+        "张山",
+        "杨凡"
+      ],
+      "caption": "张山版赵云",
+      "sourcePage": "https://bkso.baidu.com/item/%E8%B5%B5%E4%BA%91",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/b7fd5266d0160924ab18daffac5e22fae6cd7a899e84-bkimg-process,v_1,rw_2000,rh_1645,maxl_345?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/d6c2966324103c1707e8.jpg",
+      "sha256": "d6c2966324103c1707e8751c9cc8ed372601b9a569b36325864dc85554abe20e",
+      "crop": [
+        0.3027656,
+        0.1397395,
+        0.6831883,
+        0.6018728
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "辛毗",
+      "series": 1994,
+      "actors": [
+        "秦宝林",
+        "马兴跃",
+        "马星耀"
+      ],
+      "caption": "马兴跃饰演的辛毗",
+      "sourcePage": "https://bkso.baidu.com/item/%E8%BE%9B%E6%AF%97",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/adaf2edda3cc7cd92f5fd4e33b01213fb80e919e-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/0186a636650e5c6dcb09.jpg",
+      "sha256": "0186a636650e5c6dcb09e2d61e63946a598571cda9f8833afff9db532a91810a",
+      "crop": [
+        0.0691596,
+        0.0496165,
+        0.7013859,
+        0.8398993
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "郝昭",
+      "series": 1994,
+      "actors": [
+        "李世才"
+      ],
+      "caption": "央视《三国演义》的郝昭",
+      "sourcePage": "https://bkso.baidu.com/item/%E9%83%9D%E6%98%AD",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/80cb39dbb6fd52660e5df7e8ab18972bd50736dc-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/3f6825322891a1de4f00.jpg",
+      "sha256": "3f6825322891a1de4f0041a7539ba1ff5a222afc1ba2de458c521bf7f68464df",
+      "crop": [
+        0.3951609,
+        0.2266834,
+        0.8453525,
+        0.7894229
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "郭嘉",
+      "series": 1994,
+      "actors": [
+        "蒋恺"
+      ],
+      "caption": "蒋恺版郭嘉",
+      "sourcePage": "https://bkso.baidu.com/item/%E9%83%AD%E5%98%89",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/0d338744ebf81a4ce314433ed72a6059252da627-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/245f4b8b47649e862e46.jpg",
+      "sha256": "245f4b8b47649e862e465d57e6dd75fee58087fd45207d302ab9d6c4348fe83a",
+      "crop": [
+        0.2,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "钟会",
+      "series": 1994,
+      "actors": [
+        "管越"
+      ],
+      "caption": "钟会",
+      "sourcePage": "https://bkso.baidu.com/item/%E9%92%9F%E4%BC%9A",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/78310a55b319ebc4a4bbaa6d8226cffc1f171606-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/62f35f80ee6a2e7ef5cd.jpg",
+      "sha256": "62f35f80ee6a2e7ef5cd5ff134369672464fe1b49764d7a9a859ae2fcbe3618c",
+      "crop": [
+        0.2739948,
+        0.1109363,
+        0.9500909,
+        0.9560565
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "陈宫",
+      "series": 1994,
+      "actors": [
+        "修宗迪",
+        "李建义"
+      ],
+      "caption": "1994三国演义 陈宫",
+      "sourcePage": "https://k.sina.com.cn/article_5331489279_13dc811ff001002r5c.html",
+      "imageUrl": "http://k.sinaimg.cn/n/sinacn/w268h214/20171221/a91e-fypvuqe7625383.jpg/w700d1q75cms.jpg?by=cms_fixed_width",
+      "file": "tool/art/sources/portraits_1994/d00fa3d7ef4fc5bfc160.jpg",
+      "sha256": "d00fa3d7ef4fc5bfc1604a5f878cc88be509b45bc09469d52d235d167719cb93",
+      "crop": [
+        0.2279764,
+        0.0525009,
+        0.8023245,
+        0.771778
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "陈珪",
+      "series": 1994,
+      "actors": [
+        "钮荣亮",
+        "钮荼亮"
+      ],
+      "caption": "央视版《三国演义》陈珪",
+      "sourcePage": "https://bkso.baidu.com/item/%E9%99%88%E7%8F%AA",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/00e93901213fb80e48951cd535d12f2eb938946f-bkimg-process,v_1,rw_580,rh_453,maxl_363?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/696d681a16ff2b7f1317.jpg",
+      "sha256": "696d681a16ff2b7f1317f301ce86b742ea33fe0269c47f3e2d5a323cdcee5139",
+      "crop": [
+        0.1737686,
+        0.0848655,
+        0.7150215,
+        0.7766782
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "陈登",
+      "series": 1994,
+      "actors": [
+        "王长立"
+      ],
+      "caption": "电视剧《三国演义》王长立饰演陈登",
+      "sourcePage": "https://bkso.baidu.com/item/%E7%8E%8B%E9%95%BF%E7%AB%8B",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/c995d143ad4bd113248014d35aafa40f4afb0585-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/2e293a468b1e9b49b75a.jpg",
+      "sha256": "2e293a468b1e9b49b75a00e651ec41551c874de66a67eb3b12ce6e36094d7e74",
+      "crop": [
+        0.2980504,
+        0.0192439,
+        0.9423484,
+        0.8246164
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "陈群",
+      "series": 1994,
+      "actors": [
+        "张世军"
+      ],
+      "caption": "张世军饰演陈群",
+      "sourcePage": "https://bkso.baidu.com/item/%E9%99%88%E7%BE%A4",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/ac345982b2b7d0a2d320a14bcaef76094a369a7f-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/ce74411864881fa575e8.jpg",
+      "sha256": "ce74411864881fa575e839618c52943108d7d900a13f9d750d364b2032c6f05c",
+      "crop": [
+        0.2867351,
+        0.1250288,
+        0.7734536,
+        0.7334268
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "陶谦",
+      "series": 1994,
+      "actors": [
+        "张瞳"
+      ],
+      "caption": "央视三国演义的陶谦",
+      "sourcePage": "https://bkso.baidu.com/item/%E9%99%B6%E8%B0%A6",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/500fd9f9d72a6059f31eaee32834349b033bba39-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/3cf89b0af389f82d8be6.jpg",
+      "sha256": "3cf89b0af389f82d8be6f85c1fa0e9e38e21c693490b3eca10234b862c32582a",
+      "crop": [
+        0.3524952,
+        0.2000202,
+        0.7310547,
+        0.6732196
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "韩当",
+      "series": 1994,
+      "actors": [
+        "朱军"
+      ],
+      "caption": "94版《三国演义》韩当",
+      "sourcePage": "https://bkso.baidu.com/item/%E9%9F%A9%E5%BD%93",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/2f738bd4b31c87018e8a6557257f9e2f0708ff47-bkimg-process,v_1,rw_639,rh_480,maxl_378?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/af97a5a4d69a87d72341.jpg",
+      "sha256": "af97a5a4d69a87d72341ef0b8d360aedf5deaeca64931052d6d210d873b98179",
+      "crop": [
+        0.3426496,
+        0.0542404,
+        0.9422718,
+        0.8523291
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "韩遂",
+      "series": 1994,
+      "actors": [
+        "王奕"
+      ],
+      "caption": "央视《三国演义》韩遂",
+      "sourcePage": "https://bkso.baidu.com/item/%E9%9F%A9%E9%81%82",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/78310a55b319ebc49b23936c8226cffc1f1716ef-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/c3b2ce92bb0997c7dc43.jpg",
+      "sha256": "c3b2ce92bb0997c7dc43b2d2e8e1a3d892f089c8645a1e08443e77252033907d",
+      "crop": [
+        0.3089805,
+        0.1922545,
+        0.9118739,
+        0.9458713
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "颜良",
+      "series": 1994,
+      "actors": [
+        "谢加起"
+      ],
+      "caption": "谢加起饰演的颜良",
+      "sourcePage": "https://bkso.baidu.com/item/%E9%A2%9C%E8%89%AF",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/0b55b319ebc4b7454d6c6fa6cdfc1e178b821581-bkimg-process,v_1,rw_550,rh_417,maxl_374?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/53575233490c419ad644.jpg",
+      "sha256": "53575233490c419ad64434ffaa595f590604ecac62644478b973cfbeb78e3743",
+      "crop": [
+        0.5213655,
+        0.1640486,
+        0.8267708,
+        0.5662373
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "马忠",
+      "series": 1994,
+      "actors": [
+        "张浩"
+      ],
+      "caption": "电视剧《三国演义》马忠",
+      "sourcePage": "https://bkso.baidu.com/item/%E9%A9%AC%E5%BF%A0",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/0df431adcbef7609ddea70e02cdda3cc7dd99ee8-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/2c96f68d6ab9a2af5535.jpg",
+      "sha256": "2c96f68d6ab9a2af55356a253b96669997256f15d1a7716d10d348fefea7feec",
+      "crop": [
+        0.4139887,
+        0.1352688,
+        0.721812,
+        0.5200479
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "马良",
+      "series": 1994,
+      "actors": [
+        "万海丰",
+        "万海峰",
+        "李雨泽",
+        "王显和"
+      ],
+      "caption": "94年《三国演义》中的马良",
+      "sourcePage": "https://bkso.baidu.com/item/%E9%A9%AC%E8%89%AF",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/c75c10385343fbf27e7104deb07eca8064388fea-bkimg-process,v_1,rw_720,rh_576,maxl_355?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/4aacca7f725339d11f5c.jpg",
+      "sha256": "4aacca7f725339d11f5c1e684b2683738bba031c5cfaae431ea3cac38268252c",
+      "crop": [
+        0.0699736,
+        0.0,
+        0.8699736,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "马超",
+      "series": 1994,
+      "actors": [
+        "安亚平"
+      ],
+      "caption": "安亚平饰演的马超",
+      "sourcePage": "https://bkso.baidu.com/item/%E9%A9%AC%E8%B6%85",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/37d3d539b6003af33a873e0b5977d15c103853431810-bkimg-process,v_1,rw_480,rh_360,maxl_378?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/f15db6df108afedfa292.jpg",
+      "sha256": "f15db6df108afedfa292b98609400dce41db1175de658b73b15408191b060d8f",
+      "crop": [
+        0.5045518,
+        0.2022815,
+        0.8682521,
+        0.6863614
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "魏延",
+      "series": 1994,
+      "actors": [
+        "刘威",
+        "王小颖",
+        "王心海",
+        "王晓颖",
+        "王绍文"
+      ],
+      "caption": "电视剧《三国演义》中王心海饰演‌魏延（右一）",
+      "sourcePage": "https://bkso.baidu.com/item/%E7%8E%8B%E5%BF%83%E6%B5%B7",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/8718367adab44aed2e7382075e479001a18b86d64d86-bkimg-process,v_1,rw_1638,rh_1024,maxl_454?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/e05f99241c3d5566a49f.jpg",
+      "sha256": "e05f99241c3d5566a49febb8da4291137179c492cf280f59efa820b5e589fb2b",
+      "crop": [
+        0.332706,
+        0.0,
+        0.9582567,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "魏续",
+      "series": 1994,
+      "actors": [
+        "姜超"
+      ],
+      "caption": "《三国演义》中饰演魏续",
+      "sourcePage": "https://bkso.baidu.com/item/%E5%A7%9C%E8%B6%85",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/5fdf8db1cb13495409234c43a0178558d109b3dedcd8-bkimg-process,v_1,rw_1329,rh_879,maxl_429?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/0cd5201fef82964235d2.jpg",
+      "sha256": "0cd5201fef82964235d20d668a642a3ccc1e82a3bbd1fe610d1ce5d18db965aa",
+      "crop": [
+        0.0,
+        0.0701423,
+        0.6155702,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "鲁肃",
+      "series": 1994,
+      "actors": [
+        "宋邦贵",
+        "曹力",
+        "马玉良"
+      ],
+      "caption": "1994三国演义 鲁肃",
+      "sourcePage": "https://k.sina.com.cn/article_5331489279_13dc811ff001002r5c.html",
+      "imageUrl": "http://k.sinaimg.cn/n/sinacn/w500h326/20171221/6229-fypvuqe7625266.jpg/w700d1q75cms.jpg?by=cms_fixed_width",
+      "file": "tool/art/sources/portraits_1994/f4aabc096f419c53e5fb.jpg",
+      "sha256": "f4aabc096f419c53e5fb1048e79169a7843d358f9d180da4b417663a233c402c",
+      "crop": [
+        0.2044013,
+        0.0,
+        0.8564013,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "黄忠",
+      "series": 1994,
+      "actors": [
+        "叶钧",
+        "王洪涛"
+      ],
+      "caption": "黄忠（王洪涛 饰）",
+      "sourcePage": "https://bkso.baidu.com/item/%E3%80%8A%E4%B8%89%E5%9B%BD%E6%BC%94%E4%B9%89%E3%80%8B/7088688?fromModule=lemma_inlink",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/5ab5c9ea15ce36d38f374ee83df33a87e950b133-bkimg-process,v_1,rw_691,rh_486,maxl_403?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/cc8924e8d9f1fc3440ac.jpg",
+      "sha256": "cc8924e8d9f1fc3440acdd3bdb491150f90c7cf453e6343ee98179ea33a44616",
+      "crop": [
+        0.3718362,
+        0.0593158,
+        0.6744238,
+        0.490209
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    },
+    {
+      "name": "黄权",
+      "series": 1994,
+      "actors": [
+        "张于枢"
+      ],
+      "caption": "央视版《三国演义》中的黄权",
+      "sourcePage": "https://bkso.baidu.com/item/%E9%BB%84%E6%9D%83",
+      "imageUrl": "https://bkimg.cdn.bcebos.com/smart/3bc6f7503a29fd671038c21b-bkimg-process,v_1,rw_480,rh_360,maxl_378?x-bce-process=image/format,f_auto",
+      "file": "tool/art/sources/portraits_1994/95c91b6c5b0453683c5d.jpg",
+      "sha256": "95c91b6c5b0453683c5d38db01a5ab85e68e0c9e2837038a7a26866f9767d157",
+      "crop": [
+        0.1420296,
+        0.0,
+        0.8933524,
+        1.0
+      ],
+      "verified": "角色说明、1994版演员资料与剧照内容核对；仅裁剪和缩放"
+    }
+  ]
+}

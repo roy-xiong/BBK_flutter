@@ -1,0 +1,274 @@
+{
+  "source": "Natural Earth 1:50m land polygons",
+  "framing": "三国战略区域；不表示历史疆界",
+  "historical_city_locations": "示意定位，非史料级复原",
+  "land_check_passed": 38,
+  "cities": [
+    {
+      "id": 0,
+      "name": "西凉",
+      "lon": 102.64,
+      "lat": 37.93,
+      "on_land": true
+    },
+    {
+      "id": 1,
+      "name": "北平",
+      "lon": 117.96,
+      "lat": 39.68,
+      "on_land": true
+    },
+    {
+      "id": 2,
+      "name": "襄平",
+      "lon": 123.17,
+      "lat": 41.27,
+      "on_land": true
+    },
+    {
+      "id": 3,
+      "name": "安定",
+      "lon": 107.38,
+      "lat": 35.54,
+      "on_land": true
+    },
+    {
+      "id": 4,
+      "name": "晋阳",
+      "lon": 112.48,
+      "lat": 37.87,
+      "on_land": true
+    },
+    {
+      "id": 5,
+      "name": "平原",
+      "lon": 116.43,
+      "lat": 37.15,
+      "on_land": true
+    },
+    {
+      "id": 6,
+      "name": "南皮",
+      "lon": 116.7,
+      "lat": 38.04,
+      "on_land": true
+    },
+    {
+      "id": 7,
+      "name": "北海",
+      "lon": 119.1,
+      "lat": 36.7,
+      "on_land": true
+    },
+    {
+      "id": 8,
+      "name": "天水",
+      "lon": 105.72,
+      "lat": 34.58,
+      "on_land": true
+    },
+    {
+      "id": 9,
+      "name": "河内",
+      "lon": 113.44,
+      "lat": 35.08,
+      "on_land": true
+    },
+    {
+      "id": 10,
+      "name": "长安",
+      "lon": 108.94,
+      "lat": 34.26,
+      "on_land": true
+    },
+    {
+      "id": 11,
+      "name": "邺",
+      "lon": 114.48,
+      "lat": 36.33,
+      "on_land": true
+    },
+    {
+      "id": 12,
+      "name": "濮阳",
+      "lon": 115.03,
+      "lat": 35.77,
+      "on_land": true
+    },
+    {
+      "id": 13,
+      "name": "徐州",
+      "lon": 117.18,
+      "lat": 34.26,
+      "on_land": true
+    },
+    {
+      "id": 14,
+      "name": "汉中",
+      "lon": 107.03,
+      "lat": 33.07,
+      "on_land": true
+    },
+    {
+      "id": 15,
+      "name": "洛阳",
+      "lon": 112.45,
+      "lat": 34.62,
+      "on_land": true
+    },
+    {
+      "id": 16,
+      "name": "许昌",
+      "lon": 113.85,
+      "lat": 34.04,
+      "on_land": true
+    },
+    {
+      "id": 17,
+      "name": "小沛",
+      "lon": 116.93,
+      "lat": 34.72,
+      "on_land": true
+    },
+    {
+      "id": 18,
+      "name": "下邳",
+      "lon": 117.94,
+      "lat": 34.3,
+      "on_land": true
+    },
+    {
+      "id": 19,
+      "name": "梓潼",
+      "lon": 105.17,
+      "lat": 31.64,
+      "on_land": true
+    },
+    {
+      "id": 20,
+      "name": "宛城",
+      "lon": 112.53,
+      "lat": 33.0,
+      "on_land": true
+    },
+    {
+      "id": 21,
+      "name": "寿春",
+      "lon": 116.78,
+      "lat": 32.57,
+      "on_land": true
+    },
+    {
+      "id": 22,
+      "name": "建业",
+      "lon": 118.78,
+      "lat": 32.06,
+      "on_land": true
+    },
+    {
+      "id": 23,
+      "name": "吴",
+      "lon": 120.59,
+      "lat": 31.3,
+      "on_land": true
+    },
+    {
+      "id": 24,
+      "name": "成都",
+      "lon": 104.07,
+      "lat": 30.67,
+      "on_land": true
+    },
+    {
+      "id": 25,
+      "name": "棉竹",
+      "lon": 104.2,
+      "lat": 31.34,
+      "on_land": true
+    },
+    {
+      "id": 26,
+      "name": "襄阳",
+      "lon": 112.14,
+      "lat": 32.04,
+      "on_land": true
+    },
+    {
+      "id": 27,
+      "name": "江夏",
+      "lon": 114.3,
+      "lat": 30.59,
+      "on_land": true
+    },
+    {
+      "id": 28,
+      "name": "庐江",
+      "lon": 117.28,
+      "lat": 31.26,
+      "on_land": true
+    },
+    {
+      "id": 29,
+      "name": "会稽",
+      "lon": 120.58,
+      "lat": 30.0,
+      "on_land": true
+    },
+    {
+      "id": 30,
+      "name": "云南",
+      "lon": 100.57,
+      "lat": 25.48,
+      "on_land": true
+    },
+    {
+      "id": 31,
+      "name": "巴郡",
+      "lon": 106.55,
+      "lat": 29.56,
+      "on_land": true
+    },
+    {
+      "id": 32,
+      "name": "武陵",
+      "lon": 111.69,
+      "lat": 29.03,
+      "on_land": true
+    },
+    {
+      "id": 33,
+      "name": "长沙",
+      "lon": 112.98,
+      "lat": 28.2,
+      "on_land": true
+    },
+    {
+      "id": 34,
+      "name": "柴桑",
+      "lon": 115.8,
+      "lat": 29.68,
+      "on_land": true
+    },
+    {
+      "id": 35,
+      "name": "零陵",
+      "lon": 111.6,
+      "lat": 26.22,
+      "on_land": true
+    },
+    {
+      "id": 36,
+      "name": "桂阳",
+      "lon": 112.73,
+      "lat": 25.75,
+      "on_land": true
+    },
+    {
+      "id": 37,
+      "name": "建宁",
+      "lon": 103.8,
+      "lat": 25.49,
+      "on_land": true
+    }
+  ]
+}
