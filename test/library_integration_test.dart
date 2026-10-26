@@ -77,6 +77,8 @@ void main() {
             )
             .at(game.index);
         await tester.tap(ink);
+        // 先启动路由动画，再推进其时间；首帧仍可能处于 Hero 的离屏布局阶段。
+        await tester.pump();
         await tester.pump(const Duration(milliseconds: 350));
         expect(find.byType(NativeGamePage), findsOneWidget);
         expect(

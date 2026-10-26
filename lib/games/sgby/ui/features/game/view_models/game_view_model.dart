@@ -59,6 +59,7 @@ final class GameViewModel extends ChangeNotifier {
   CartoonAssets? get cartoonAssets => _cartoonAssets;
   final ListQueue<GameRequest> _requests = ListQueue<GameRequest>();
   bool _disposed = false;
+  Future<void>? _initializationTask;
   bool _foreground = true;
   bool _visible = true;
   bool _attached = true;
@@ -112,7 +113,15 @@ final class GameViewModel extends ChangeNotifier {
       _uiPauseDepth > 0 ||
       _busy;
 
-  Future<void> initialize() async {
+  /// 合集宿主提前启动加载；页面再次挂载时复用任务，避免构建中重复通知和重复会话。
+  Future<void> initialize() {
+    if (_disposed) return Future<void>.value();
+    return _initializationTask ??= _initialize().whenComplete(() {
+      _initializationTask = null;
+    });
+  }
+
+  Future<void> _initialize() async {
     final generation = ++_generation;
     isLoading = true;
     error = null;

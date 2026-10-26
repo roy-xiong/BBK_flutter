@@ -40,10 +40,13 @@ final class _NativeGamePageState extends State<NativeGamePage> {
       _fmj = model;
       unawaited(model.initialize());
     } else {
-      _sgby = sgby_vm.GameViewModel(
+      final model = sgby_vm.GameViewModel(
         saves: widget.sgbySaves,
         onExitRequested: () => _requestLeave(fromEngine: true),
       );
+      _sgby = model;
+      // 在主题监听器和子页面挂载之前启动，首个加载通知不会打断父组件构建。
+      unawaited(model.initialize());
     }
   }
 
@@ -105,7 +108,12 @@ final class _NativeGamePageState extends State<NativeGamePage> {
       }
     } finally {
       _asking = false;
-      if (mounted && !_leaving) fmjModel?.setPaused(false);
+      if (mounted && !_leaving) {
+        final lifecycle = WidgetsBinding.instance.lifecycleState;
+        fmjModel?.setPaused(
+          lifecycle != null && lifecycle != AppLifecycleState.resumed,
+        );
+      }
     }
   }
 
