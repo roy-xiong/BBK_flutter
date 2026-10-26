@@ -103,7 +103,14 @@ void main() {
         tester.view.devicePixelRatio = 1;
         vm.engine!.menus.clear();
         vm.engine!.openMainMenu();
-        await tester.pumpWidget(MaterialApp(home: ModernGameView(model: vm)));
+        await tester.pumpWidget(
+          MaterialApp(
+            home: AnimatedBuilder(
+              animation: vm,
+              builder: (context, child) => ModernGameView(model: vm),
+            ),
+          ),
+        );
         await tester.pump();
         for (final text in ['属性', '魔法', '物品', '系统']) {
           final target = find.text(text);
