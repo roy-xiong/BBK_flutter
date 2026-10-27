@@ -41,21 +41,21 @@
       "source": "lib/engine/game_battle.dart",
       "destination": "lib/games/fmj/engine/game_battle.dart",
       "sourceSha256": "5375ae6aa517e1fc8de0296091ad7c2f8acf48eb93368643e773cb8f9167b071",
-      "importedSha256": "5375ae6aa517e1fc8de0296091ad7c2f8acf48eb93368643e773cb8f9167b071"
+      "importedSha256": "107a1273912c067f81121240e4b2c7ea8d83da05587cd70861293d016c8d8888"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "9a5fa1b7a46194ac530ecdf62998aa3d267c9e61c79396376204cc0c43da62de"
+      "importedSha256": "63836cb158e9c83c2aad63a7248e02aa6f5aaee4ff6984fa8ee5809a559ac454"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_menus.dart",
       "destination": "lib/games/fmj/engine/game_menus.dart",
       "sourceSha256": "0d4fe2395bc3664887210d11914603f951d6e6ab37113b7ef9c2a241c5dc1c3a",
-      "importedSha256": "0d4fe2395bc3664887210d11914603f951d6e6ab37113b7ef9c2a241c5dc1c3a"
+      "importedSha256": "3506497d2517fc6b6f2462c14b7ccde31f04feba9a9d4c25f8a3e8ea648b7661"
     },
     {
       "game": "fmj",
@@ -69,7 +69,7 @@
       "source": "lib/engine/game_render.dart",
       "destination": "lib/games/fmj/engine/game_render.dart",
       "sourceSha256": "b796a60d7f619e67d0a02e354df7d7d05e59c6495abc6984a052a0b5fcae7365",
-      "importedSha256": "5d745bd70ae930dc1f2856b506bb69ba5a5257c8193938eee198da85e543bcc2"
+      "importedSha256": "a5cf4740728c9253cc73aa6c9e96f179479e539c991b970375de2a012fb61c42"
     },
     {
       "game": "fmj",
@@ -2565,6 +2565,30 @@
       "previousImportedSha256": "14210a30117b939de4bdad5d2c00d013dcf83538a0fb1e63475ab434a4e2d5be",
       "currentSha256": "aa2e2184bfb6336faa8879ece8220c10c0eb706d623e546f978f62786bb52aac",
       "reason": "按用户允许修改存档的最新指示，直接补齐旧档遗漏卡片与钥匙；保留NPC及钥匙调度根因修复，撤回为旧档开通后期单向路线的改动"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_battle.dart",
+      "previousImportedSha256": "5375ae6aa517e1fc8de0296091ad7c2f8acf48eb93368643e773cb8f9167b071",
+      "currentSha256": "107a1273912c067f81121240e4b2c7ea8d83da05587cd70861293d016c8d8888",
+      "reason": "修复原购买指令参数与商品顺序、装备适用角色与库存刷新、用药交易和辅助法术消耗；补充原始全商店及菜单回归"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "9a5fa1b7a46194ac530ecdf62998aa3d267c9e61c79396376204cc0c43da62de",
+      "currentSha256": "63836cb158e9c83c2aad63a7248e02aa6f5aaee4ff6984fa8ee5809a559ac454",
+      "reason": "修复原购买指令参数与商品顺序、装备适用角色与库存刷新、用药交易和辅助法术消耗；补充原始全商店及菜单回归"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_menus.dart",
+      "previousImportedSha256": "0d4fe2395bc3664887210d11914603f951d6e6ab37113b7ef9c2a241c5dc1c3a",
+      "currentSha256": "3506497d2517fc6b6f2462c14b7ccde31f04feba9a9d4c25f8a3e8ea648b7661",
+      "reason": "修复原购买指令参数与商品顺序、装备适用角色与库存刷新、用药交易和辅助法术消耗；补充原始全商店及菜单回归"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_render.dart",
+      "previousImportedSha256": "5d745bd70ae930dc1f2856b506bb69ba5a5257c8193938eee198da85e543bcc2",
+      "currentSha256": "a5cf4740728c9253cc73aa6c9e96f179479e539c991b970375de2a012fb61c42",
+      "reason": "修复原购买指令参数与商品顺序、装备适用角色与库存刷新、用药交易和辅助法术消耗；补充原始全商店及菜单回归"
     }
   ]
 }

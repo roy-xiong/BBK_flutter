@@ -114,6 +114,7 @@ final class GameEngine {
   bool get wide => preferences['wideView'] != false;
   bool get canSave =>
       screen == 'play' &&
+      cursor?.previous == null &&
       !disableSave &&
       battle == null &&
       operation == null &&
@@ -380,7 +381,7 @@ final class GameEngine {
       case 27:
         flags.remove(n(0));
       case 28:
-        _openShop(cmd.string);
+        _openShop(cmd.args);
       case 29:
         final p = n(0) == 0 ? player : npcs[n(0)],
             other = n(1) == 0 ? player : npcs[n(1)];
@@ -988,6 +989,7 @@ final class GameEngine {
   void addGoods(String id, [int count = 1]) {
     if (goods(id) != null) {
       inventory[id] = ((inventory[id] ?? 0) + count).clamp(0, 999);
+      refreshMenus();
     }
   }
 
@@ -999,6 +1001,7 @@ final class GameEngine {
     } else {
       inventory[id] = current - count;
     }
+    refreshMenus();
     return true;
   }
 

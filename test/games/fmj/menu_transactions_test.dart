@@ -1,9 +1,12 @@
 import 'dart:math' as math;
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bbk_flutter/games/fmj/data/game_data.dart';
 import 'package:bbk_flutter/games/fmj/engine/game_actor.dart';
 import 'package:bbk_flutter/games/fmj/engine/game_engine.dart';
 import 'package:bbk_flutter/games/fmj/ui/system_font_layout.dart';
+import 'package:bbk_flutter/games/fmj/ui/game_view_model.dart';
+import 'package:bbk_flutter/games/fmj/ui/modern_game_view.dart';
 import 'game_engine_test.dart' show loadData;
 
 void main() {
@@ -39,6 +42,20 @@ void main() {
 
   void chooseOwnerIfShown(GameEngine game, [int index = 0]) {
     if (game.menus.lastOrNull?.kind == 'actors') choose(game, index);
+  }
+
+  GameBattle perform(GameEngine game, BattleAction action) {
+    final battle = GameBattle(
+      game,
+      monsters: [10],
+      background: [2, 2, 2],
+      randomFight: true,
+    );
+    game.battle = battle;
+    battle.phase = 'perform';
+    battle.queue.add(action);
+    game.update();
+    return battle;
   }
 
   test('最后一件装备穿上后移出装备列表，换下的旧装备返回列表', () {
@@ -172,10 +189,12 @@ void main() {
   });
 
   test('所有原始商品清单含不点点隐藏商店均能打开非空货架', () {
+    var checked = 0;
     for (final script in data.scripts.values) {
       for (var index = 0; index < script.commands.length; index++) {
         final command = script.commands[index];
         if (command.opcode != 28) continue;
+        checked++;
         final game = engine();
         game.cursor = ScriptCursor(script)..pointer = index;
         game.update();
@@ -185,8 +204,162 @@ void main() {
           isNotEmpty,
           reason: '${script.id}@${command.address}',
         );
+        final expected = <String>[];
+        for (var i = 0; i + 1 < command.args.length; i += 2) {
+          if (command.args[i] == 0) break;
+          expected.add('${command.args[i + 1]}:${command.args[i]}');
+        }
+        expect(game.menus.last.ids, expected);
       }
     }
+    expect(checked, 20);
+  });
+
+  test('旧行点击不能作用于消耗后顶替它的新物品，购买可连续进行', () {
+    final game = engine();
+    game.addGoods('9:1');
+    game.addGoods('9:2');
+    game.openInventory(mode: 'sell');
+    final menu = game.menus.last;
+    expect(game.selectMenu(menu, 0, expectedId: '9:1'), isTrue);
+    final money = game.money;
+    expect(game.selectMenu(menu, 0, expectedId: '9:1'), isFalse);
+    expect(game.inventory['9:2'], 1);
+    expect(game.money, money);
+    game.menus.clear();
+    game.money = 5000;
+    game.openInventory(mode: 'buy', items: ['9:1']);
+    choose(game, 0);
+    choose(game, 0);
+    expect(game.inventory['9:1'], 2);
+    expect(game.money, 5000 - game.goods('9:1')!.word(18) * 2);
+    expect(game.menus.last.ids, ['9:1']);
+  });
+
+  test('回气药与永久成长药按原字段生效，且每次只扣一份', () {
+    final game = engine(), p = game.players.first;
+    p
+      ..maxMp = 200
+      ..mp = 5;
+    game.addGoods('10:1');
+    final percent = game.goods('10:1')!.byte(23);
+    expect(percent, greaterThan(0));
+    expect(game.consumeMedicine(p, '10:1'), isTrue);
+    expect(p.mp, (5 + 200 * percent ~/ 100).clamp(0, 200));
+    expect(game.inventory['10:1'] ?? 0, 0);
+    final attack = p.attack, growth = game.goods('11:1')!;
+    game.addGoods('11:1');
+    game.consumeMedicine(p, '11:1');
+    expect(p.attack, (attack + growth.signedByte(25)).clamp(0, 999));
+    expect(game.inventory['11:1'] ?? 0, 0);
+  });
+
+  test('战斗增强药提供原定幅度及回合数，不修改永久基础属性', () {
+    const effects = [
+      ('12:1', 32, 50, 3),
+      ('12:2', 64, 50, 5),
+      ('12:3', 128, 50, 4),
+      ('12:4', 32, 100, 5),
+      ('12:5', 64, 100, 7),
+      ('12:6', 128, 100, 9),
+    ];
+    for (final effect in effects) {
+      final game = engine(), p = game.players.first;
+      final base = (p.attack, p.defense, p.speed);
+      game.addGoods(effect.$1, 2);
+      perform(game, BattleAction(p, [p], 'item', resource: effect.$1));
+      expect(p.modifiers[effect.$2], (effect.$3, effect.$4));
+      expect((p.attack, p.defense, p.speed), base);
+      expect(game.inventory[effect.$1], 1);
+    }
+  });
+
+  test('辅助法术对多目标只扣一次真气，不足时不产生效果', () {
+    final id = data.offsets.keys
+        .where((id) => id.startsWith('4:3:'))
+        .firstWhere(
+          (id) => data.record(4, 3, int.parse(id.split(':').last))!.byte(4) > 0,
+        )
+        .substring(2);
+    final game = engine(), caster = game.players.first;
+    final record = game.magic(id)!, cost = record.byte(4);
+    for (final p in game.players) {
+      p
+        ..maxHp = 999
+        ..hp = 1;
+    }
+    caster.mp = cost;
+    perform(game, BattleAction(caster, game.players, 'help', resource: id));
+    expect(caster.mp, 0);
+    expect(game.players.every((p) => p.hp == 1 + record.word(18)), isTrue);
+    final other = engine(), insufficient = other.players.first;
+    insufficient
+      ..hp = 1
+      ..mp = cost - 1;
+    perform(
+      other,
+      BattleAction(insufficient, [insufficient], 'help', resource: id),
+    );
+    expect(insufficient.mp, cost - 1);
+    expect(insufficient.hp, 1);
+  });
+
+  test('复活恢复比例以生命上限计算，不误用真气上限', () {
+    final game = engine(),
+        caster = game.players.first,
+        target = game.players.last;
+    final record = game.magic('4:2')!;
+    caster.mp = 999;
+    target
+      ..maxHp = 600
+      ..maxMp = 50
+      ..hp = 0;
+    final battle = GameBattle(
+      game,
+      monsters: [10],
+      background: [2, 2, 2],
+      randomFight: true,
+    );
+    target.hp = 0; // 战斗初始化会救活初始倒地者；复现的是战斗中刚刚倒地的队友。
+    game.battle = battle;
+    battle.phase = 'perform';
+    battle.queue.add(BattleAction(caster, [target], 'help', resource: '4:2'));
+    game.update();
+    expect(target.hp, 600 * record.word(18) ~/ 100);
+    expect(caster.mp, 999 - record.byte(4));
+  });
+
+  testWidgets('触屏装备菜单筛选女装角色，穿上后立即显示空物品列表', (tester) async {
+    final game = engine();
+    game.addGoods('2:13');
+    game.openInventory(mode: 'equip');
+    final model = GameViewModel()
+      ..engine = game
+      ..loading = false;
+    await tester.runAsync(() => model.prepareModernArt());
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: ThemeData.dark(),
+        home: Scaffold(
+          body: AnimatedBuilder(
+            animation: model,
+            builder: (_, _) => ModernGameView(model: model),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.text(game.goodsName('2:13')));
+    await tester.pump();
+    expect(find.text(game.players.first.name), findsNothing);
+    expect(find.text(game.players[1].name), findsOneWidget);
+    expect(find.text(game.players[2].name), findsOneWidget);
+    await tester.tap(find.text(game.players[1].name));
+    await tester.pump();
+    expect(game.players[1].equipment[5], '2:13');
+    expect(find.text('没有物品'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+    await tester.pumpWidget(const SizedBox.shrink());
+    model.dispose();
   });
 
   test('满库存购买不扣钱，出售最后一件后刷新列表', () {

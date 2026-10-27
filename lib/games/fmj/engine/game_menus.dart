@@ -9,6 +9,7 @@ final class GameMenu {
     this.mode = '',
     this.actor = 0,
     this.onSelect,
+    this.onRefresh,
   });
   final String kind;
   final List<String> items;
@@ -16,12 +17,48 @@ final class GameMenu {
   final String mode;
   final int actor;
   final void Function(int index)? onSelect;
-  int selected = 0, page = 0;
+  final void Function(GameMenu menu)? onRefresh;
+  int selected = 0, page = 0, revision = 0;
 }
 
 extension GameMenus on GameEngine {
+  /// 库存列表必须跟随装备、卸下、购买、出售和消耗刷新。刷新只更新菜单数据，
+  /// 不触发选择回调，不捕获Widget，保留仍存在的选中物品及合法的选择位置。
+  void refreshMenus() {
+    for (final menu in menus) {
+      menu.onRefresh?.call(menu);
+      final count = menu.kind == 'state'
+          ? players.length
+          : menu.kind == 'equipment'
+          ? (players.isEmpty ? 0 : 8)
+          : menu.items.length;
+      menu.selected = count == 0 ? 0 : menu.selected.clamp(0, count - 1);
+    }
+  }
+
+  /// 触屏与键盘共用提交入口。旧界面的点击不能作用到刷新后同一索引的新物品。
+  bool selectMenu(GameMenu menu, int index, {String? expectedId}) {
+    if (!identical(menus.lastOrNull, menu)) return false;
+    refreshMenus();
+    final count = menu.kind == 'equipment'
+        ? (players.isEmpty ? 0 : 8)
+        : menu.kind == 'state'
+        ? players.length
+        : menu.items.length;
+    if (index < 0 ||
+        index >= count ||
+        (expectedId != null && menu.ids.elementAtOrNull(index) != expectedId)) {
+      return false;
+    }
+    menu.selected = index;
+    menu.onSelect?.call(index);
+    refreshMenus();
+    return true;
+  }
+
   void _menuKey(GameKey key, bool down) {
     if (menus.isEmpty) return;
+    refreshMenus();
     final menu = menus.last;
     final count = menu.kind == 'state'
         ? players.length
@@ -58,7 +95,7 @@ extension GameMenus on GameEngine {
       }
     }
     if (!down && key == GameKey.confirm && count > 0) {
-      menu.onSelect?.call(menu.selected);
+      selectMenu(menu, menu.selected);
     }
   }
 
@@ -126,6 +163,7 @@ extension GameMenus on GameEngine {
             case 2:
               menus.clear();
             case 3:
+              navigation.cancel();
               menus.clear();
               screen = 'title';
           }
@@ -140,24 +178,45 @@ extension GameMenus on GameEngine {
     }
   }
 
-  void _selectPlayer(void Function(GameActor player) callback) {
+  void _selectPlayer(
+    void Function(GameActor player) callback, {
+    bool Function(GameActor player)? allowed,
+    String emptyMessage = '当前没有可选择的人物',
+  }) {
     if (players.isEmpty) return;
-    menus.add(
-      GameMenu(
-        'actors',
-        players.map((p) => p.name).toList(),
-        onSelect: (i) {
-          menus.removeLast();
-          callback(players[i]);
-        },
-      ),
+    final candidates = players.where((p) => allowed?.call(p) ?? true).toList();
+    if (candidates.isEmpty) {
+      notice = emptyMessage;
+      return;
+    }
+    late final GameMenu menu;
+    menu = GameMenu(
+      'actors',
+      candidates.map((p) => p.name).toList(),
+      ids: candidates.map((p) => '${p.index}').toList(),
+      onSelect: (i) {
+        if (!identical(menus.lastOrNull, menu) ||
+            i < 0 ||
+            i >= candidates.length) {
+          return;
+        }
+        final player = candidates[i];
+        menus.removeLast();
+        if (!players.contains(player) || !(allowed?.call(player) ?? true)) {
+          notice = '人物状态已变化，请重新选择';
+          return;
+        }
+        callback(player);
+      },
     );
+    menus.add(menu);
   }
 
   void openSaveMenu({bool load = false, bool force = false}) {
     if (!load &&
         !force &&
         (disableSave ||
+            cursor?.previous != null ||
             players.isEmpty ||
             battle != null ||
             operation != null ||
@@ -198,24 +257,62 @@ extension GameMenus on GameEngine {
     String mode = 'use',
     void Function(String id)? select,
     List<String>? items,
+    List<String> Function()? itemsProvider,
   }) {
-    final ids =
-        items ??
-        inventory.keys.where((id) {
-          final type = int.tryParse(id.split(':').first) ?? 0;
-          return mode == 'equip'
-              ? type <= 7
-              : mode == 'use'
-              ? type >= 8
-              : true;
+    final catalog = items == null ? null : List<String>.of(items);
+    List<String> currentIds() =>
+        (itemsProvider?.call() ?? catalog ?? inventory.keys.toList()).where((
+          id,
+        ) {
+          final record = goods(id);
+          if (record == null) return false;
+          if (mode == 'buy') return true; // 商店货架不依赖玩家是否已有该物品。
+          if ((inventory[id] ?? 0) <= 0) return false;
+          final type = record.byte(0);
+          return switch (mode) {
+            'equip' => type >= 1 && type <= 7,
+            'use' => type >= 8,
+            'throw' => type == 8 || (type == 7 && allowTossArm),
+            _ => true,
+          };
         }).toList();
-    final menu = GameMenu(
+    void rebuild(GameMenu menu) {
+      final selectedId = menu.ids.elementAtOrNull(menu.selected),
+          next = currentIds();
+      if (next.length == menu.ids.length &&
+          Iterable<int>.generate(
+            next.length,
+          ).every((i) => next[i] == menu.ids[i])) {
+        return;
+      }
+      final oldIndex = menu.selected;
+      menu.ids
+        ..clear()
+        ..addAll(next);
+      menu.items
+        ..clear()
+        ..addAll(next.map(goodsName));
+      final retained = selectedId == null ? -1 : next.indexOf(selectedId);
+      menu.selected = retained >= 0
+          ? retained
+          : next.isEmpty
+          ? 0
+          : oldIndex.clamp(0, next.length - 1);
+      menu.page = 0;
+      menu.revision++;
+    }
+
+    late final GameMenu menu;
+    menu = GameMenu(
       'inventory',
-      ids.map(goodsName).toList(),
-      ids: ids,
+      <String>[],
+      ids: <String>[],
       mode: mode,
+      onRefresh: rebuild,
       onSelect: (i) {
-        final id = ids[i], r = goods(id);
+        final id = menu.ids.elementAtOrNull(i);
+        if (id == null) return;
+        final r = goods(id);
         if (r == null) return;
         if (select != null) {
           menus.removeLast();
@@ -223,6 +320,10 @@ extension GameMenus on GameEngine {
           return;
         }
         if (mode == 'buy') {
+          if ((inventory[id] ?? 0) >= 999) {
+            notice = '此物品已达到携带上限';
+            return;
+          }
           if (money < r.word(18)) {
             notice = '金钱不足';
             return;
@@ -231,18 +332,16 @@ extension GameMenus on GameEngine {
           addGoods(id);
           notice = '购入 ${goodsName(id)}';
         } else if (mode == 'sell') {
-          if (r.word(132) != 0) {
+          if (r.byte(0) == 14 || r.word(132) != 0) {
             notice = '此物不能出售';
             return;
           }
           if (useGoods(id)) {
-            money += r.word(20);
+            money = (money + r.word(20)).clamp(0, 2147483647);
             notice = '售出 ${goodsName(id)}';
           }
         } else if (mode == 'equip') {
-          _selectPlayer((p) {
-            if (equip(p, id)) notice = '已装备 ${goodsName(id)}';
-          });
+          selectEquipmentOwner(id);
         } else {
           final type = r.byte(0);
           if (type == 13) {
@@ -258,17 +357,38 @@ extension GameMenus on GameEngine {
         }
       },
     );
+    rebuild(menu);
     menus.add(menu);
   }
 
-  void _openShop(String text) {
-    final bytes = data.encoding.encode(text), ids = <String>[];
-    for (var i = 0; i + 1 < bytes.length; i += 2) {
-      final id = '${bytes[i]}:${bytes[i + 1]}';
+  /// 原购买指令使用“编号、类型”的字节对，清单位于指令参数，不能读取文本。
+  void _openShop(List<int> bytes) {
+    final ids = <String>[];
+    for (var i = 0; i + 1 < bytes.length && bytes[i] != 0; i += 2) {
+      final id = '${bytes[i + 1]}:${bytes[i]}';
       if (goods(id) != null) ids.add(id);
     }
     openInventory(mode: 'buy', items: ids);
   }
+
+  /// 原版按角色ID的适用位筛选；男女通用、角色专属装备都沿用原资源限制。
+  bool canEquip(GameActor player, String id) {
+    final record = goods(id);
+    return record != null &&
+        record.byte(0) >= 1 &&
+        record.byte(0) <= 7 &&
+        player.index >= 1 &&
+        player.index <= 4 &&
+        record.byte(3) & (1 << (player.index - 1)) != 0;
+  }
+
+  void selectEquipmentOwner(String id) => _selectPlayer(
+    (p) {
+      if (equip(p, id)) notice = '已装备 ${goodsName(id)}';
+    },
+    allowed: (p) => canEquip(p, id),
+    emptyMessage: '当前队伍无人可以装备${goodsName(id)}',
+  );
 
   void openMagic(GameActor actor, {void Function(String id)? select}) {
     final ids = actor.magics(data);
@@ -294,10 +414,16 @@ extension GameMenus on GameEngine {
             return;
           }
           _selectPlayer((target) {
-            if (actor.mp < r.byte(4)) return;
+            if (actor.mp < r.byte(4)) {
+              notice = '真气不足';
+              return;
+            }
             actor.mp -= r.byte(4);
-            target.hp = (target.hp + r.word(18)).clamp(0, target.maxHp);
-            target.clearStatus(r.byte(24));
+            final targets = r.byte(3) & 128 != 0 ? players : [target];
+            for (final p in targets) {
+              p.hp = (p.hp + r.word(18)).clamp(0, p.maxHp);
+              p.clearStatus(r.byte(24));
+            }
             notice = '已使用 ${magicName(id)}';
           });
         },
@@ -314,7 +440,8 @@ extension GameMenus on GameEngine {
         List.filled(8, ''),
         actor: actor,
         onSelect: (slot) {
-          final p = players[actor];
+          final p = players.elementAtOrNull(actor);
+          if (p == null) return;
           menus.add(
             GameMenu(
               'equipment-action',
@@ -323,12 +450,15 @@ extension GameMenus on GameEngine {
                 menus.removeLast();
                 if (action == 0) {
                   const types = [6, 6, 5, 3, 7, 2, 4, 1];
-                  final ids = inventory.keys
-                      .where((id) => id.startsWith('${types[slot]}:'))
-                      .toList();
                   openInventory(
                     mode: 'equip',
-                    items: ids,
+                    itemsProvider: () => inventory.keys
+                        .where(
+                          (id) =>
+                              id.startsWith('${types[slot]}:') &&
+                              canEquip(p, id),
+                        )
+                        .toList(),
                     select: (id) => equip(p, id, slot: slot),
                   );
                 } else if (action == 1) {
@@ -349,11 +479,16 @@ extension GameMenus on GameEngine {
 
   bool equip(GameActor p, String id, {int? slot, bool fromBag = true}) {
     final r = goods(id);
-    if (r == null || r.byte(0) > 7 || r.byte(3) & (1 << (p.index - 1)) == 0) {
+    if (r == null || !canEquip(p, id)) {
       notice = '该角色无法装备';
       return false;
     }
+    if (fromBag && p.equipment.contains(id)) {
+      notice = '已装备 ${goodsName(id)}';
+      return false;
+    }
     const types = [6, 6, 5, 3, 7, 2, 4, 1];
+    final automaticSlot = slot == null;
     slot ??= types.indexWhere((type) => type == r.byte(0));
     if (slot < 0 ||
         slot >= 8 ||
@@ -361,13 +496,20 @@ extension GameMenus on GameEngine {
         fromBag && (inventory[id] ?? 0) <= 0) {
       return false;
     }
-    if (r.byte(0) == 6 && p.equipment[slot] != null && p.equipment[1] == null) {
+    if (automaticSlot &&
+        r.byte(0) == 6 &&
+        p.equipment[slot] != null &&
+        p.equipment[1] == null) {
       slot = 1;
     }
+    final hp = p.hp, mp = p.mp;
     unequip(p, slot);
     if (fromBag && !useGoods(id)) return false;
     p.equipment[slot] = id;
     _equipmentDelta(p, r, 1);
+    p.hp = hp.clamp(0, p.maxHp);
+    p.mp = mp.clamp(0, p.maxMp);
+    refreshMenus();
     return true;
   }
 
@@ -376,8 +518,8 @@ extension GameMenus on GameEngine {
     final id = p.equipment[slot];
     if (id == null) return;
     final r = goods(id);
-    if (r != null) _equipmentDelta(p, r, -1);
     p.equipment[slot] = null;
+    if (r != null) _equipmentDelta(p, r, -1);
     addGoods(id);
   }
 
@@ -411,16 +553,37 @@ extension GameMenus on GameEngine {
       if (sign > 0) {
         flags.add(r.word(132));
       } else {
-        flags.remove(r.word(132));
+        final flag = r.word(132);
+        final stillEquipped = players.any(
+          (actor) => actor.equipment.whereType<String>().any(
+            (id) => goods(id)?.word(132) == flag,
+          ),
+        );
+        if (!stillEquipped) flags.remove(flag);
       }
     }
     p.hp = p.hp.clamp(0, p.maxHp);
     p.mp = p.mp.clamp(0, p.maxMp);
   }
 
-  void consumeMedicine(GameActor p, String id) {
+  bool consumeMedicine(GameActor p, String id) {
     final r = goods(id);
-    if (r == null || !useGoods(id)) return;
+    if (r == null || r.byte(0) < 9 || r.byte(0) > 11 || !useGoods(id)) {
+      return false;
+    }
+    final targets = r.byte(0) == 9 && r.byte(28) & 16 != 0 && players.isNotEmpty
+        ? List<GameActor>.of(players)
+        : [p];
+    for (final target in targets) {
+      _applyMedicineEffect(target, r);
+    }
+    notice = '${targets.length > 1 ? '全队' : p.name}使用了${goodsName(id)}';
+    refreshMenus();
+    return true;
+  }
+
+  /// 数值效果不负责扣库存，战斗及场外均先按一次交易扣一份，再作用于目标。
+  void _applyMedicineEffect(GameActor p, GameRecord r) {
     switch (r.byte(0)) {
       case 9:
         p.hp = (p.hp + r.word(22)).clamp(0, p.maxHp);
@@ -440,7 +603,8 @@ extension GameMenus on GameEngine {
         p.speed = (p.speed + r.signedByte(27)).clamp(0, 99);
         p.luck = (p.luck + r.signedByte(29)).clamp(0, 99);
     }
-    notice = '${p.name}使用了${goodsName(id)}';
+    p.hp = p.hp.clamp(0, p.maxHp);
+    p.mp = p.mp.clamp(0, p.maxMp);
   }
 
   /// 选关拥有独立备份；准备角色与剧情状态，不写入三个常规档位。

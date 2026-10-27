@@ -598,7 +598,7 @@ final class _NativeMenuState extends State<_NativeMenu> {
   final ScrollController _scroll = ScrollController(),
       _details = ScrollController();
   GameMenu? _observed;
-  int _selected = -1, _page = 0;
+  int _selected = -1, _page = 0, _revision = -1;
   bool get _detailed => ['inventory', 'magic'].contains(widget.menu.kind);
 
   /// 每行高度由菜单实际可用高度决定；主菜单四项完整可见，长列表继续滚动。
@@ -619,12 +619,16 @@ final class _NativeMenuState extends State<_NativeMenu> {
   /// 保持按键选中项可见；SELECT/START 只滚动物品说明，不能滚走选中物品后误用。
   void _reveal() {
     final menu = widget.menu;
-    final changed = !identical(_observed, menu) || _selected != menu.selected;
+    final changed =
+        !identical(_observed, menu) ||
+        _selected != menu.selected ||
+        _revision != menu.revision;
     final pageDelta = menu.page - _page;
     if (!changed && pageDelta == 0) return;
     _observed = menu;
     _selected = menu.selected;
     _page = menu.page;
+    _revision = menu.revision;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       if (changed &&
@@ -708,6 +712,7 @@ final class _NativeMenuState extends State<_NativeMenu> {
         'buy' => '购买物品',
         'sell' => '出售物品',
         'equip' => '选择装备',
+        'throw' => '选择投掷物',
         _ => '使用物品',
       },
       'save' => '存储进度',
@@ -725,41 +730,44 @@ final class _NativeMenuState extends State<_NativeMenu> {
         shrinkWrap: true,
         itemExtent: _extent,
         itemCount: items.length,
-        itemBuilder: (context, i) => ListTile(
-          dense: true,
-          contentPadding: EdgeInsets.symmetric(horizontal: 8 * scale),
-          minVerticalPadding: 0,
-          minTileHeight: _extent,
-          visualDensity: VisualDensity.compact,
-          selected: i == menu.selected,
-          selectedTileColor: _gold.withValues(alpha: .14),
-          leading: menu.kind == 'state' && i < game.players.length
-              ? SizedBox(
-                  width: 44 * scale,
-                  height: 56 * scale,
-                  child: CustomPaint(
-                    painter: PortraitPainter(
-                      game.players[i].index,
-                      game.players[i].name,
-                      widget.model.modernArt,
+        itemBuilder: (context, i) {
+          final expectedId = menu.ids.elementAtOrNull(i);
+          return ListTile(
+            dense: true,
+            contentPadding: EdgeInsets.symmetric(horizontal: 8 * scale),
+            minVerticalPadding: 0,
+            minTileHeight: _extent,
+            visualDensity: VisualDensity.compact,
+            selected: i == menu.selected,
+            selectedTileColor: _gold.withValues(alpha: .14),
+            leading: menu.kind == 'state' && i < game.players.length
+                ? SizedBox(
+                    width: 44 * scale,
+                    height: 56 * scale,
+                    child: CustomPaint(
+                      painter: PortraitPainter(
+                        game.players[i].index,
+                        game.players[i].name,
+                        widget.model.modernArt,
+                      ),
                     ),
-                  ),
-                )
-              : null,
-          title: Text(
-            items[i],
-            maxLines: menu.kind == 'state' ? 7 : 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: _paper, fontSize: 13 * scale, height: 1.25),
-          ),
-          onTap: () => widget.model.action((g) {
-            if (!identical(g.menus.lastOrNull, menu) || i >= items.length) {
-              return;
-            }
-            menu.selected = i;
-            menu.onSelect?.call(i);
-          }),
-        ),
+                  )
+                : null,
+            title: Text(
+              items[i],
+              maxLines: menu.kind == 'state' ? 7 : 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: _paper,
+                fontSize: 13 * scale,
+                height: 1.25,
+              ),
+            ),
+            onTap: () => widget.model.action((g) {
+              g.selectMenu(menu, i, expectedId: expectedId);
+            }),
+          );
+        },
       ),
     );
     Widget body() {

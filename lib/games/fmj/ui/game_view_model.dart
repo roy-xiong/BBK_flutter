@@ -273,7 +273,7 @@ final class GameViewModel extends ChangeNotifier {
           '$sceneKey/${game.screen}/${game.sceneName}/${game.money}/'
           '${game.notice}/${game.error}/${game.preferences}/'
           '${identityHashCode(op)}/${op?.start}/${op?.next}/${op?.selected}/'
-          '${game.menus.map((m) => '${identityHashCode(m)},${m.selected},${m.page}').join(';')}/'
+          '${game.menus.map((m) => '${identityHashCode(m)},${m.selected},${m.page},${m.revision}').join(';')}/'
           '${game.players.map((a) => '${a.hp},${a.maxHp},${a.mp},${a.maxMp},${a.level},${a.equipment}').join(';')}/'
           '${game.navigation.active?.label}/${game.navigation.planning}';
       if (!force && _presentationKey == key) return;

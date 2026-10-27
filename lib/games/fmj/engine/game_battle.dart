@@ -481,20 +481,24 @@ final class GameBattle {
                   ['装备', '投掷', '使用'],
                   onSelect: (mode) {
                     game.menus.removeLast();
-                    final ids = game.inventory.keys.where((id) {
+                    List<String> available() => game.inventory.keys.where((id) {
                       final type = int.tryParse(id.split(':').first) ?? 0;
                       return mode == 0
                           ? type <= 7
                           : mode == 1
-                          ? type == 8
+                          ? type == 8 || (type == 7 && game.allowTossArm)
                           : type >= 9 && type <= 12;
                     }).toList();
                     game.openInventory(
-                      mode: mode == 0 ? 'equip' : 'use',
-                      items: ids,
+                      mode: mode == 0
+                          ? 'equip'
+                          : mode == 1
+                          ? 'throw'
+                          : 'use',
+                      itemsProvider: available,
                       select: (id) {
                         if (mode == 0) {
-                          game.equip(p, id);
+                          game.selectEquipmentOwner(id);
                           return;
                         }
                         resource = id;
@@ -695,6 +699,8 @@ final class GameBattle {
         if (record != null) _attackMagic(actor, action.targets, record);
       case 'help':
         if (record != null) {
+          if (actor.mp < record.byte(4)) break;
+          actor.mp -= record.byte(4);
           for (final target in action.targets) {
             switch (record.byte(0)) {
               case 2:
@@ -702,18 +708,12 @@ final class GameBattle {
                 _modifier(target, 64, record.byte(22), record.byte(24) >> 4);
                 _modifier(target, 128, record.byte(25), record.byte(24) >> 4);
               case 3:
-                if (actor.mp >= record.byte(4)) {
-                  actor.mp -= record.byte(4);
-                  target.hp = math.min(
-                    target.maxHp,
-                    target.hp + record.word(18),
-                  );
-                  target.clearStatus(record.byte(24));
-                }
+                target.hp = math.min(target.maxHp, target.hp + record.word(18));
+                target.clearStatus(record.byte(24));
               case 4:
                 target.hp = math.min(
                   target.maxHp,
-                  target.hp + target.maxMp * record.word(18) ~/ 100,
+                  target.hp + target.maxHp * record.word(18) ~/ 100,
                 );
             }
           }
@@ -731,13 +731,17 @@ final class GameBattle {
           }
         }
       case 'item':
-        // 原运行时只有普通药物进入 eat，其他道具沿用其动画行为。
-        if (record != null && record.byte(0) == 9) {
+        // 库存已在_begin入口统一扣一份，不能在全体目标循环里再次扣除。
+        // 比例回气、永久成长与增强药按ROM中的数值和回合数生效。
+        if (record != null) {
           for (final target in action.targets) {
-            target.hp = math.min(target.maxHp, target.hp + record.word(22));
-            target.mp = math.min(target.maxMp, target.mp + record.word(24));
-            target.clearStatus(record.byte(28));
-            if (id != null) game.useGoods(id);
+            if (record.byte(0) >= 9 && record.byte(0) <= 11) {
+              game._applyMedicineEffect(target, record);
+            } else if (record.byte(0) == 12) {
+              _modifier(target, 32, record.byte(25), record.byte(4));
+              _modifier(target, 64, record.byte(24), record.byte(4));
+              _modifier(target, 128, record.byte(27), record.byte(4));
+            }
           }
         }
       case 'coop':
@@ -1322,6 +1326,7 @@ final class GameBattle {
 
   void _finish(bool won, {bool flee = false}) {
     for (final p in game.players) {
+      p.modifiers.clear(); // 战斗用临时加成不进入下一场战斗，永久成长保留在基础属性中。
       p.hp = math.max(1, p.hp);
       p.mp = math.max(1, p.mp);
       p.hp = (p.hp + (p.maxHp - p.hp) ~/ 10).clamp(1, p.maxHp);
