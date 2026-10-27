@@ -48,7 +48,7 @@
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "1fff82968d156f272f480d72e4930da039896bce23abef32ced16643ed0d77a0"
+      "importedSha256": "62c9df1d68fd6c94f849ae823d11c7b4e7345c6b18e5d8feac0c9a5a13c0e526"
     },
     {
       "game": "fmj",
@@ -62,7 +62,7 @@
       "source": "lib/engine/game_navigation.dart",
       "destination": "lib/games/fmj/engine/game_navigation.dart",
       "sourceSha256": "90d7de90e1fe0fcd50707ae9d9076690682f754a6bb6671b6883cd0580dee2dc",
-      "importedSha256": "fdd683bf1d8b5133859808f36cabc9293f7a5a165b7c3faa8d2f7d556f0e58c8"
+      "importedSha256": "682030a2c5471832933c829f49dac87454947b2ab8325338929cb00d16fcca8b"
     },
     {
       "game": "fmj",
@@ -2535,6 +2535,18 @@
       "previousImportedSha256": "02d50b4c3542c7298732321a7fec049d914517b4615c793ff7fe37f849131be4",
       "currentSha256": "fdd683bf1d8b5133859808f36cabc9293f7a5a165b7c3faa8d2f7d556f0e58c8",
       "reason": "天师剧情结束后支持补做山洞卡片的正常往返，重入洞口不重生已击败守卫及天道"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "1fff82968d156f272f480d72e4930da039896bce23abef32ced16643ed0d77a0",
+      "currentSha256": "62c9df1d68fd6c94f849ae823d11c7b4e7345c6b18e5d8feac0c9a5a13c0e526",
+      "reason": "同步修复洞口道路事件格的已完成战斗判断，补卡往返不重复打守卫或天道"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_navigation.dart",
+      "previousImportedSha256": "fdd683bf1d8b5133859808f36cabc9293f7a5a165b7c3faa8d2f7d556f0e58c8",
+      "currentSha256": "682030a2c5471832933c829f49dac87454947b2ab8325338929cb00d16fcca8b",
+      "reason": "同步修复洞口道路事件格的已完成战斗判断，补卡往返不重复打守卫或天道"
     }
   ]
 }

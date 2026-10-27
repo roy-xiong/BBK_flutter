@@ -51,6 +51,19 @@ List<int> _defeatedHemingActors(
   return flags.contains(251) ? const [4, 5] : const [];
 }
 
+/// 洞口横跨道路的地图事件也会触发守卫战，不能只移除NPC而仍把这排格子
+/// 当作未完成战斗。已完成的遭遇跳到原事件结束地址，不再发奖或重演剧情。
+int? _completedHemingBattle(
+  GameScript script,
+  GameCommand command,
+  Set<int> flags,
+) {
+  if (script.id != '14:8' || command.opcode != 39) return null;
+  if (command.address == 240 && flags.contains(251)) return 321;
+  if (command.address == 377 && flags.contains(252)) return 2593;
+  return null;
+}
+
 final class GameGoal {
   const GameGoal(
     this.label,
@@ -832,6 +845,15 @@ final class GameNavigation {
         return _NavOutcome(state, false, visited);
       }
       final command = script.commands[pointer];
+      final completedBattle = _completedHemingBattle(
+        script,
+        command,
+        state.flags,
+      );
+      if (completedBattle != null) {
+        pointer = script.addresses[completedBattle];
+        continue;
+      }
       int n(int i) => command.arg(i);
       int value(int i) =>
           i >= 0 && i < state.variables.length ? state.variables[i] : 0;

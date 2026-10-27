@@ -274,6 +274,28 @@ void main() {
     expect(game.money, money);
   });
 
+  test('已击败守卫后再次经过洞口道路事件格，不再重复进入战斗', () {
+    final game = postTomb();
+    game.map = data.maps['1:46'];
+    game.cursor = ScriptCursor(data.scripts['14:8']!)..running = false;
+    game.player!
+      ..x = 10
+      ..y = 9;
+    game.screenX = 6;
+    game.screenY = 6;
+    final flags = Set.of(game.flags);
+    final inventory = Map.of(game.inventory);
+    game.press(GameKey.up);
+    for (var frame = 0; frame < 8; frame++) {
+      game.update();
+    }
+    expect(game.battle, isNull);
+    expect(game.cursor?.running, isFalse);
+    expect(game.flags, flags);
+    expect(game.inventory, inventory);
+    expect((game.player!.x, game.player!.y), (10, 8));
+  });
+
   test('转折路口旧进度可经正常入口回愚人居，再到山洞取得不点卡片', () async {
     final game = postTomb();
     game.restore(game.snapshot()..remove('navigationRevision'));

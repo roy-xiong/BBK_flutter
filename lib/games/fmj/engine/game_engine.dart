@@ -452,6 +452,11 @@ final class GameEngine {
       case 37:
         fightEnabled = false;
       case 39:
+        final completedBattle = _completedHemingBattle(c.script, cmd, flags);
+        if (completedBattle != null) {
+          jump(completedBattle);
+          break;
+        }
         battle = GameBattle(
           this,
           monsters: a.skip(1).take(3).toList(),
