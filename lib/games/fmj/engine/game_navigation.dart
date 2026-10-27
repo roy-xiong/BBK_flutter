@@ -7,8 +7,8 @@ bool _allowReturnPassage(
   GameCommand command,
   Set<int> flags,
 ) =>
-    (script.id == '14:8' &&
-        command.address == 167 &&
+    (((script.id == '14:8' && command.address == 167) ||
+            (script.id == '14:1' && command.address == 206)) &&
         command.opcode == 11 &&
         flags.contains(254)) ||
     (script.id == '2:50' &&
@@ -1084,16 +1084,21 @@ final class GameNavigation {
       _hopCache.putIfAbsent((from, to), () => _computeHops(from, to));
 
   int _computeHops(String from, String to) {
-    final queue = <(String, int)>[(from, 0)], seen = <String>{};
-    for (var i = 0; i < queue.length && i < 300; i++) {
+    final queue = <(String, int)>[(from, 0)], seen = <String>{from};
+    for (var i = 0; i < queue.length; i++) {
       final (id, distance) = queue[i];
       if (id == to) return distance;
-      if (!seen.add(id)) continue;
       final script = game.data.scripts[id];
       if (script == null) continue;
+      void schedule(String target) {
+        if (seen.add(target)) queue.add((target, distance + 1));
+      }
+
+      // 后期补卡新增的正常回洞口出口也计入图距离；真实通行仍由脚本条件判断。
+      if (id == '14:9') schedule('14:8');
       for (final command in script.commands) {
         if (command.opcode == 14 || command.opcode == 66) {
-          queue.add(('${command.arg(0)}:${command.arg(1)}', distance + 1));
+          schedule('${command.arg(0)}:${command.arg(1)}');
         }
       }
     }
@@ -1107,36 +1112,24 @@ final class GameNavigation {
     bool allowBoundary = true,
     bool dynamicProbe = false,
   }) async {
-    final debugScripts = <String, int>{};
     final pending = <_NavNode>[_NavNode(initial, null, 0)],
         seen = <String>{},
         scheduled = <String>{initial.key},
         frontier = <_NavBoundary>[];
     _NavLeg? obstruction;
-    for (var budget = 0; pending.isNotEmpty && budget < 800; budget++) {
+    for (var budget = 0; pending.isNotEmpty && budget < 4096; budget++) {
       if (budget % 8 == 0) {
         await Future<void>.delayed(Duration.zero);
         if (request != generation) return null;
       }
-      pending.sort((a, b) => a.cost.compareTo(b.cost));
+      // 回头补卡要跨越原野迷宫与多个城镇。只按已走格数扩展会先遍历大量
+      // 无关房间并耗尽800状态预算；优先朝目标地区搜索，保留有界预算及取消检查。
+      pending.sort(
+        (a, b) => (a.cost + 32 * _hops(a.state.scriptId, goal.scriptId))
+            .compareTo(b.cost + 32 * _hops(b.state.scriptId, goal.scriptId)),
+      );
       final node = pending.removeAt(0), state = node.state;
       if (!seen.add(state.key)) continue;
-      assert(() {
-        if (initial.flags.contains(254) &&
-            goal.scriptId == '14:9' &&
-            allowBoundary &&
-            !dynamicProbe) {
-          debugScripts[state.scriptId] =
-              (debugScripts[state.scriptId] ?? 0) + 1;
-          if (state.scriptId == '14:8') {
-            // ignore: avoid_print
-            print(
-              '[DEBUG-yuren] cave entrance ${state.mapId}/${state.x},${state.y}; npcs=${state.npcs}; flags251=${state.flags.contains(251)},252=${state.flags.contains(252)}',
-            );
-          }
-        }
-        return true;
-      }());
       final flood = _flood(state), script = game.data.scripts[state.scriptId];
       if (flood == null || script == null) continue;
       final map = flood.map;
@@ -1370,18 +1363,6 @@ final class GameNavigation {
         }
       }
     }
-    assert(() {
-      if (initial.flags.contains(254) &&
-          goal.scriptId == '14:9' &&
-          allowBoundary &&
-          !dynamicProbe) {
-        // ignore: avoid_print
-        print(
-          '[DEBUG-yuren] failed from ${initial.scriptId}: seen=${seen.length}, pending=${pending.length}, scripts=$debugScripts; frontier=${frontier.map((b) => '${b.input.scriptId}:${b.exit.event}=>${_simulate(b.input, b.exit.event, preview: true).state.scriptId}').toSet()}',
-        );
-      }
-      return true;
-    }());
     return null;
   }
 }

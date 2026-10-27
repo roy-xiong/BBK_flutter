@@ -62,7 +62,7 @@
       "source": "lib/engine/game_navigation.dart",
       "destination": "lib/games/fmj/engine/game_navigation.dart",
       "sourceSha256": "90d7de90e1fe0fcd50707ae9d9076690682f754a6bb6671b6883cd0580dee2dc",
-      "importedSha256": "1a43db3709339d3a9e3da0f1ba755bf3eda9e6f236312448fd7a398d1e701b42"
+      "importedSha256": "7e3e32a4251fbb5fd2821f7527245118557a8e95ca190688d4674ab8e7ec0026"
     },
     {
       "game": "fmj",
@@ -2547,6 +2547,12 @@
       "previousImportedSha256": "fdd683bf1d8b5133859808f36cabc9293f7a5a165b7c3faa8d2f7d556f0e58c8",
       "currentSha256": "682030a2c5471832933c829f49dac87454947b2ab8325338929cb00d16fcca8b",
       "reason": "同步修复洞口道路事件格的已完成战斗判断，补卡往返不重复打守卫或天道"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_navigation.dart",
+      "previousImportedSha256": "1a43db3709339d3a9e3da0f1ba755bf3eda9e6f236312448fd7a398d1e701b42",
+      "currentSha256": "7e3e32a4251fbb5fd2821f7527245118557a8e95ca190688d4674ab8e7ec0026",
+      "reason": "定向诊断确认回头补卡耗尽800搜索状态，改为目标地区优先、有界4096状态，并恢复天师剧情后山脚下山通行"
     }
   ]
 }
