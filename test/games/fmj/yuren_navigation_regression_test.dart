@@ -153,6 +153,7 @@ void main() {
         game.press(GameKey.confirm);
       }
       if (game.menus.isNotEmpty) game.press(GameKey.cancel);
+      if (game.ended) return null;
       if (game.canSave &&
           game.navigation.active == null &&
           !game.navigation.planning &&
@@ -176,7 +177,6 @@ void main() {
     game.screenY = 4;
     game.flags.addAll([254, 2008]);
     game.inventory['14:5'] = 1;
-    // 原NPC的state=1、delay=5，正常游走可以踏进玩家不能进入的地图边缘。
     final npc = GameActor.load(data, 2, 32)!
       ..x = 16
       ..y = 7;
@@ -197,14 +197,14 @@ void main() {
     }
   });
 
-  test('万能钥匙必须为山洞和客栈中的任务卡片保留，不能先耗在紫瞳魔灯', () {
+  test('万能钥匙优先保留给山洞和客栈中的任务卡片', () {
     final game = engine();
     game.flags.addAll([229, 234, 264, 1077]);
     game.inventory['14:2'] = 2;
     final lamp = game.navigation.sideGoals.singleWhere(
-      (goal) => goal.label == '南北村：紫瞳魔灯',
+      (g) => g.label == '南北村：紫瞳魔灯',
     );
-    expect(lamp.ready, isFalse, reason: '剩余两把钥匙仍需取得小鬼卡片和不点卡片');
+    expect(lamp.ready, isFalse, reason: '剩余两把钥匙需取得小鬼卡片和不点卡片');
   });
 
   test('自由游走人物长时间等待后仍处于玩家可达区域', () {
@@ -222,127 +222,68 @@ void main() {
     game.npcs[30] = npc;
     for (var frame = 0; frame < 1500; frame++) {
       game.update();
-      expect(
-        game.map!.canWalk(npc.x, npc.y, player: true),
-        isTrue,
-        reason: '自由游走不能使任务人物离开玩家可达边界：${npc.x},${npc.y}',
-      );
+      expect(game.map!.canWalk(npc.x, npc.y, player: true), isTrue);
     }
   });
 
-  test('受影响旧档只补回一把钥匙，新快照消耗后不再重复补偿', () {
+  test('受影响旧档一次性补齐遗漏卡片和钥匙，保留其余进度与物品', () {
     final game = postTomb();
     final legacy = game.snapshot()..remove('navigationRevision');
-    final beforeFlags = Set.of(game.flags);
-    final beforePosition = (game.player!.x, game.player!.y);
+    final flags = Set.of(game.flags);
+    final actors = game.players.map((p) => p.toJson()).toList();
     game.restore(legacy);
     expect(game.inventory['14:2'], 1);
-    expect(game.inventory['6:13'], 1, reason: '保留已获得的紫瞳魔灯');
-    expect(game.flags, beforeFlags);
-    expect((game.player!.x, game.player!.y), beforePosition);
-    expect(game.navigation.nextGoal.scriptId, '14:9');
-    expect(game.navigation.nextGoal.label, contains('不点卡片'));
+    expect(game.inventory['14:7'], 1);
+    expect(game.inventory['6:13'], 1);
+    expect(game.flags.containsAll(flags), isTrue);
+    expect(game.flags.difference(flags), {1099, 2010});
+    expect(game.players.map((p) => p.toJson()).toList(), actors);
+    expect(game.navigation.nextGoal.scriptId, '2:52');
     expect(game.useGoods('14:2'), isTrue);
+    expect(game.useGoods('14:7'), isTrue);
     game.restore(game.snapshot());
-    expect(game.inventory['14:2'] ?? 0, 0, reason: '消耗后读档不能无限补钥匙');
+    expect(game.inventory['14:2'] ?? 0, 0);
+    expect(game.inventory['14:7'] ?? 0, 0);
   });
 
   test('新版存档自行选择用完钥匙时不触发旧版补偿', () {
     final game = postTomb();
     game.restore(game.snapshot());
     expect(game.inventory['14:2'] ?? 0, 0);
+    expect(game.inventory['14:7'] ?? 0, 0);
   });
 
-  test('重入已通关洞口不重生旧敌方角色，也不重复发放战斗奖励', () {
+  test('当前转折路口旧进度恢复后，正常完成愚人居三条支线并继续结局', () async {
     final game = postTomb();
-    game.map = data.maps['1:46'];
-    game.cursor = ScriptCursor(data.scripts['14:8']!);
-    game.player!
-      ..x = 12
-      ..y = 17;
-    game.screenX = 8;
-    game.screenY = 14;
-    final inventory = Map.of(game.inventory);
-    final money = game.money;
-    for (var frame = 0; frame < 40; frame++) {
-      game.update();
-    }
-    expect(game.cursor?.running, isFalse);
-    expect(game.npcs.keys.toSet().intersection({1, 2, 3, 4, 5}), isEmpty);
-    expect(game.battle, isNull);
-    expect(game.inventory, inventory);
-    expect(game.money, money);
-  });
-
-  test('已击败守卫后再次经过洞口道路事件格，不再重复进入战斗', () {
-    final game = postTomb();
-    game.map = data.maps['1:46'];
-    game.cursor = ScriptCursor(data.scripts['14:8']!)..running = false;
-    game.player!
-      ..x = 10
-      ..y = 9;
-    game.screenX = 6;
-    game.screenY = 6;
-    final flags = Set.of(game.flags);
-    final inventory = Map.of(game.inventory);
-    game.press(GameKey.up);
-    for (var frame = 0; frame < 8; frame++) {
-      game.update();
-    }
-    expect(game.battle, isNull);
-    expect(game.cursor?.running, isFalse);
-    expect(game.flags, flags);
-    expect(game.inventory, inventory);
-    expect((game.player!.x, game.player!.y), (10, 8));
-  });
-
-  test('转折路口旧进度可经正常入口回愚人居，再到山洞取得不点卡片', () async {
-    final game = postTomb();
+    game.player?.levelUp(data, 28);
+    game.players.add(GameActor.load(data, 1, 2)!..levelUp(data, 27));
+    game.preferences['runSpeed'] = 2;
     game.restore(game.snapshot()..remove('navigationRevision'));
     try {
-      final yuren = game.navigation.sideGoals.singleWhere(
-        (g) => g.label.startsWith('愚人居：通宵虫'),
-      );
-      await game.navigation.startGoal(yuren);
-      final returnCard = await arrive(game);
-      expect(game.cursor?.script.id, '2:52');
-      expect(returnCard?.scriptId, '2:52');
-      expect(returnCard?.options, contains('奉还'));
-      game.choose(1, expected: returnCard);
-      await arrive(game);
-      expect(game.flags.contains(2301), isTrue);
-      expect(game.inventory['14:5'] ?? 0, 0);
-      await game.navigation.startGoal();
-      final keyChoice = await arrive(game);
-      expect(
-        keyChoice?.scriptId,
-        '14:9',
-        reason:
-            '${game.notice}; scene=${game.cursor?.script.id}/${game.map?.id}; '
-            'pos=${game.player?.x},${game.player?.y}; keys=${game.inventory['14:2']}; '
-            'next=${game.navigation.nextGoal.label}; operation=${game.operation?.kind}',
-      );
-      expect(keyChoice?.options, contains('使用万能钥匙'));
-      game.choose(1, expected: keyChoice);
-      await arrive(game);
-      expect(game.flags.containsAll({1099, 2010}), isTrue);
-      expect(game.inventory['14:7'], 1);
-      expect(game.inventory['14:2'] ?? 0, 0);
-      await game.navigation.startGoal();
-      final shopChoice = await arrive(game);
-      expect(game.cursor?.script.id, '2:52', reason: '山洞取卡后必须能够正常返回愚人居');
-      expect(shopChoice?.options, contains('交出'));
-      game.choose(1, expected: shopChoice);
-      await arrive(game);
-      expect(game.flags.contains(2302), isTrue);
-      await game.navigation.startGoal();
-      final ghostChoice = await arrive(game);
-      expect(ghostChoice?.options, contains('奉还'));
-      game.choose(1, expected: ghostChoice);
-      await arrive(game);
+      for (final expected in ['奉还', '交出', '奉还']) {
+        await game.navigation.startGoal();
+        final choice = await arrive(game);
+        expect(game.cursor?.script.id, '2:52', reason: game.notice);
+        expect(choice?.options, contains(expected));
+        game.choose(choice!.options.indexOf(expected), expected: choice);
+        await arrive(game);
+      }
       expect(game.flags.containsAll({2301, 2302, 2303, 261}), isTrue);
+      for (final id in ['14:5', '14:6', '14:7']) {
+        expect(game.inventory[id] ?? 0, 0);
+      }
+      expect(game.inventory['6:13'], 1);
+      for (var goal = 0; goal < 50 && !game.ended; goal++) {
+        await game.navigation.startGoal();
+        var choice = await arrive(game);
+        while (choice != null) {
+          game.choose(choice.options.length - 1, expected: choice);
+          choice = await arrive(game);
+        }
+      }
+      expect(game.ended, isTrue, reason: '旧进度恢复后必须能继续完成结局：${game.notice}');
     } finally {
       game.navigation.cancel();
     }
-  }, timeout: const Timeout(Duration(minutes: 2)));
+  }, timeout: const Timeout(Duration(minutes: 3)));
 }

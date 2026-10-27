@@ -48,7 +48,7 @@
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "62c9df1d68fd6c94f849ae823d11c7b4e7345c6b18e5d8feac0c9a5a13c0e526"
+      "importedSha256": "9a5fa1b7a46194ac530ecdf62998aa3d267c9e61c79396376204cc0c43da62de"
     },
     {
       "game": "fmj",
@@ -62,7 +62,7 @@
       "source": "lib/engine/game_navigation.dart",
       "destination": "lib/games/fmj/engine/game_navigation.dart",
       "sourceSha256": "90d7de90e1fe0fcd50707ae9d9076690682f754a6bb6671b6883cd0580dee2dc",
-      "importedSha256": "14210a30117b939de4bdad5d2c00d013dcf83538a0fb1e63475ab434a4e2d5be"
+      "importedSha256": "aa2e2184bfb6336faa8879ece8220c10c0eb706d623e546f978f62786bb52aac"
     },
     {
       "game": "fmj",
@@ -2553,6 +2553,18 @@
       "previousImportedSha256": "1a43db3709339d3a9e3da0f1ba755bf3eda9e6f236312448fd7a398d1e701b42",
       "currentSha256": "7e3e32a4251fbb5fd2821f7527245118557a8e95ca190688d4674ab8e7ec0026",
       "reason": "定向诊断确认回头补卡耗尽800搜索状态，改为目标地区优先、有界4096状态，并恢复天师剧情后山脚下山通行"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "62c9df1d68fd6c94f849ae823d11c7b4e7345c6b18e5d8feac0c9a5a13c0e526",
+      "currentSha256": "9a5fa1b7a46194ac530ecdf62998aa3d267c9e61c79396376204cc0c43da62de",
+      "reason": "按用户允许修改存档的最新指示，直接补齐旧档遗漏卡片与钥匙；保留NPC及钥匙调度根因修复，撤回为旧档开通后期单向路线的改动"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_navigation.dart",
+      "previousImportedSha256": "14210a30117b939de4bdad5d2c00d013dcf83538a0fb1e63475ab434a4e2d5be",
+      "currentSha256": "aa2e2184bfb6336faa8879ece8220c10c0eb706d623e546f978f62786bb52aac",
+      "reason": "按用户允许修改存档的最新指示，直接补齐旧档遗漏卡片与钥匙；保留NPC及钥匙调度根因修复，撤回为旧档开通后期单向路线的改动"
     }
   ]
 }

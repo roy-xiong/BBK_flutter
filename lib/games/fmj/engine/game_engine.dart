@@ -326,17 +326,6 @@ final class GameEngine {
       case 6:
         operation = GameOperation('move', args: a);
       case 9:
-        final passage = _postTombCaveExit(c.script, cmd, flags);
-        if (passage != null) {
-          npcs.clear();
-          _loadMap(passage.$1, passage.$2, passage.$3);
-          _chapter(passage.$4);
-          operation = GameOperation('delay', args: [40]);
-          break;
-        }
-        for (final id in _defeatedHemingActors(c.script, cmd, flags)) {
-          npcs.remove(id);
-        }
         if (c.script.id == '9:13' && stageStoneProgress != null) {
           final completed = stageStoneProgress ?? 0;
           variables[1] = completed;
@@ -349,8 +338,7 @@ final class GameEngine {
       case 10:
         jump(n(0));
       case 11:
-        if (flags.contains(n(0)) &&
-            !_allowReturnPassage(c.script, cmd, flags)) {
+        if (flags.contains(n(0)) && !_allowYurenReturn(c.script, cmd, flags)) {
           jump(n(1));
         }
       case 12:
@@ -452,11 +440,6 @@ final class GameEngine {
       case 37:
         fightEnabled = false;
       case 39:
-        final completedBattle = _completedHemingBattle(c.script, cmd, flags);
-        if (completedBattle != null) {
-          jump(completedBattle);
-          break;
-        }
         battle = GameBattle(
           this,
           monsters: a.skip(1).take(3).toList(),
@@ -1188,7 +1171,8 @@ final class GameEngine {
         .where((v) => v > 0 && v <= 2400)
         .toSet();
     // 旧版完整剧情导航先用了紫瞳魔灯的钥匙，导致三把钥匙耗尽却没有不点卡片。
-    // 对这一明确状态补回一次；新快照带修订号，之后消耗、读档都不会重复补给。
+    // 对这一明确状态一次性补齐遗漏卡片和一把钥匙；后续正常流程仍会实际引导取卡。
+    // 新快照带修订号，之后消耗、读档都不会重复补给。
     final repairKey =
         (j['navigationRevision'] as int? ?? 0) < 1 &&
         preferences['storyScope'] == 'complete' &&
@@ -1198,7 +1182,11 @@ final class GameEngine {
         !nextFlags.contains(2302) &&
         (nextInventory['14:2'] ?? 0) == 0 &&
         (nextInventory['14:7'] ?? 0) == 0;
-    if (repairKey) nextInventory['14:2'] = 1;
+    if (repairKey) {
+      nextInventory['14:2'] = 1;
+      nextInventory['14:7'] = 1;
+      nextFlags.addAll({1099, 2010});
+    }
     players
       ..clear()
       ..addAll(nextPlayers);
@@ -1238,7 +1226,7 @@ final class GameEngine {
     route.clear();
     error = '';
     intro = null;
-    if (repairKey) notice = '已修复旧版导航进度：补回1把万能钥匙，可继续取得不点卡片';
+    if (repairKey) notice = '已恢复遗漏支线：补齐不点卡片及1把万能钥匙，可继续愚人居任务';
     render();
   }
 

@@ -2,67 +2,21 @@ part of 'game_engine.dart';
 
 /// 修复旧导航把玩家误送出愚人居后的入口封闭。只为未完成的卡片支线开放
 /// 返回，所有人物对白、交还卡片、奖励和原入口坐标仍走正常脚本。
-bool _allowReturnPassage(
+bool _allowYurenReturn(
   GameScript script,
   GameCommand command,
   Set<int> flags,
 ) =>
-    (((script.id == '14:8' && command.address == 167) ||
-            (script.id == '14:1' && command.address == 206)) &&
-        command.opcode == 11 &&
-        flags.contains(254)) ||
-    (script.id == '2:50' &&
-        command.address == 224 &&
-        command.opcode == 11 &&
-        command.arg(0) == 254 &&
-        flags.contains(254) &&
-        ((flags.contains(2008) &&
-                !flags.contains(2301) &&
-                !flags.contains(263)) ||
-            (flags.contains(2010) && !flags.contains(2302)) ||
-            (flags.contains(2009) &&
-                !flags.contains(2303) &&
-                !flags.contains(261))));
-
-/// 天师剧情结束后，洞内原先暂时关闭的入口恢复为回到洞口的正常出口。
-/// 传送坐标复用天道战斗结束后的洞口落点；前期剧情的封路继续保留。
-(String, int, int, String)? _postTombCaveExit(
-  GameScript script,
-  GameCommand command,
-  Set<int> flags,
-) =>
-    script.id == '14:9' &&
-        command.address == 206 &&
-        command.opcode == 9 &&
-        flags.contains(254)
-    ? ('1:46', 6, 3, '14:8')
-    : null;
-
-/// 重入场景需反映已结束的战斗，不能重新生成堵在山洞通路上的旧敌方角色。
-List<int> _defeatedHemingActors(
-  GameScript script,
-  GameCommand command,
-  Set<int> flags,
-) {
-  if (script.id != '14:8' || command.address != 166 || command.opcode != 9) {
-    return const [];
-  }
-  if (flags.contains(252)) return const [1, 2, 3, 4, 5];
-  return flags.contains(251) ? const [4, 5] : const [];
-}
-
-/// 洞口横跨道路的地图事件也会触发守卫战，不能只移除NPC而仍把这排格子
-/// 当作未完成战斗。已完成的遭遇跳到原事件结束地址，不再发奖或重演剧情。
-int? _completedHemingBattle(
-  GameScript script,
-  GameCommand command,
-  Set<int> flags,
-) {
-  if (script.id != '14:8' || command.opcode != 39) return null;
-  if (command.address == 240 && flags.contains(251)) return 321;
-  if (command.address == 377 && flags.contains(252)) return 2593;
-  return null;
-}
+    script.id == '2:50' &&
+    command.address == 224 &&
+    command.opcode == 11 &&
+    command.arg(0) == 254 &&
+    flags.contains(254) &&
+    ((flags.contains(2008) && !flags.contains(2301) && !flags.contains(263)) ||
+        (flags.contains(2010) && !flags.contains(2302)) ||
+        (flags.contains(2009) &&
+            !flags.contains(2303) &&
+            !flags.contains(261)));
 
 final class GameGoal {
   const GameGoal(
@@ -845,15 +799,6 @@ final class GameNavigation {
         return _NavOutcome(state, false, visited);
       }
       final command = script.commands[pointer];
-      final completedBattle = _completedHemingBattle(
-        script,
-        command,
-        state.flags,
-      );
-      if (completedBattle != null) {
-        pointer = script.addresses[completedBattle];
-        continue;
-      }
       int n(int i) => command.arg(i);
       int value(int i) =>
           i >= 0 && i < state.variables.length ? state.variables[i] : 0;
@@ -864,29 +809,6 @@ final class GameNavigation {
       int? jump;
       switch (command.opcode) {
         case 9:
-          final passage = _postTombCaveExit(script, command, state.flags);
-          if (passage != null) {
-            state.mapId = passage.$1;
-            state.x = passage.$2 + 4;
-            state.y = passage.$3 + 3;
-            state.scriptId = passage.$4;
-            visited.add(state.scriptId);
-            state.npcs.clear();
-            state.moving.clear();
-            state.variables.fillRange(200, 240, 0);
-            script = game.data.scripts[state.scriptId];
-            if (script == null) return _NavOutcome(state, false, visited);
-            pointer = 0;
-            continue;
-          }
-          for (final id in _defeatedHemingActors(
-            script,
-            command,
-            state.flags,
-          )) {
-            state.npcs.remove(id);
-            state.moving.remove(id);
-          }
           return _NavOutcome(state, true, visited);
         case 1:
           state.mapId = '${n(0)}:${n(1)}';
@@ -896,7 +818,7 @@ final class GameNavigation {
           jump = n(0);
         case 11:
           if (state.flags.contains(n(0)) &&
-              !_allowReturnPassage(script, command, state.flags)) {
+              !_allowYurenReturn(script, command, state.flags)) {
             jump = n(1);
           }
         case 12:
@@ -1090,15 +1012,10 @@ final class GameNavigation {
       if (id == to) return distance;
       final script = game.data.scripts[id];
       if (script == null) continue;
-      void schedule(String target) {
-        if (seen.add(target)) queue.add((target, distance + 1));
-      }
-
-      // 后期补卡新增的正常回洞口出口也计入图距离；真实通行仍由脚本条件判断。
-      if (id == '14:9') schedule('14:8');
       for (final command in script.commands) {
         if (command.opcode == 14 || command.opcode == 66) {
-          schedule('${command.arg(0)}:${command.arg(1)}');
+          final target = '${command.arg(0)}:${command.arg(1)}';
+          if (seen.add(target)) queue.add((target, distance + 1));
         }
       }
     }
@@ -1112,7 +1029,6 @@ final class GameNavigation {
     bool allowBoundary = true,
     bool dynamicProbe = false,
   }) async {
-    final debugVisited = <String>{};
     final pending = <_NavNode>[_NavNode(initial, null, 0)],
         seen = <String>{},
         scheduled = <String>{initial.key},
@@ -1123,31 +1039,15 @@ final class GameNavigation {
         await Future<void>.delayed(Duration.zero);
         if (request != generation) return null;
       }
-      // 回头补卡要跨越原野迷宫与多个城镇。只按已走格数扩展会先遍历大量
-      // 无关房间并耗尽800状态预算；优先朝目标地区搜索，保留有界预算及取消检查。
+      // 优先朝目标地区展开，避免无关迷阵消耗跨区域任务的搜索预算。
       pending.sort(
         (a, b) => (a.cost + 32 * _hops(a.state.scriptId, goal.scriptId))
             .compareTo(b.cost + 32 * _hops(b.state.scriptId, goal.scriptId)),
       );
       final node = pending.removeAt(0), state = node.state;
       if (!seen.add(state.key)) continue;
-      assert(() {
-        debugVisited.add(state.scriptId);
-        return true;
-      }());
       final flood = _flood(state), script = game.data.scripts[state.scriptId];
       if (flood == null || script == null) continue;
-      assert(() {
-        if (initial.flags.contains(254) &&
-            goal.scriptId == '14:9' &&
-            const {'14:8', '14:9'}.contains(state.scriptId)) {
-          // ignore: avoid_print
-          print(
-            '[DEBUG-yuren] ${state.scriptId}:${state.x},${state.y} npcs=${state.npcs} exits=${flood.exits.keys}',
-          );
-        }
-        return true;
-      }());
       final map = flood.map;
       if (state.scriptId == goal.scriptId) {
         if (goal.event == 0) {
@@ -1379,18 +1279,6 @@ final class GameNavigation {
         }
       }
     }
-    assert(() {
-      if (initial.flags.contains(254) &&
-          goal.scriptId == '14:9' &&
-          allowBoundary &&
-          !dynamicProbe) {
-        // ignore: avoid_print
-        print(
-          '[DEBUG-yuren] ${initial.scriptId} seen=${seen.length} pending=${pending.length} regions=$debugVisited; frontier=${frontier.map((b) => '${b.input.scriptId}:${b.exit.event}=>${_simulate(b.input, b.exit.event, preview: true).state.scriptId}').toSet()}',
-        );
-      }
-      return true;
-    }());
     return null;
   }
 }
