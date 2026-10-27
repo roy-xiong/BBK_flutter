@@ -270,7 +270,14 @@ void main() {
       expect(game.inventory['14:5'] ?? 0, 0);
       await game.navigation.startGoal();
       final keyChoice = await arrive(game);
-      expect(keyChoice?.scriptId, '14:9');
+      expect(
+        keyChoice?.scriptId,
+        '14:9',
+        reason:
+            '${game.notice}; scene=${game.cursor?.script.id}/${game.map?.id}; '
+            'pos=${game.player?.x},${game.player?.y}; keys=${game.inventory['14:2']}; '
+            'next=${game.navigation.nextGoal.label}; operation=${game.operation?.kind}',
+      );
       expect(keyChoice?.options, contains('使用万能钥匙'));
       game.choose(1, expected: keyChoice);
       await arrive(game);
