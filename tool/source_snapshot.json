@@ -62,7 +62,7 @@
       "source": "lib/engine/game_navigation.dart",
       "destination": "lib/games/fmj/engine/game_navigation.dart",
       "sourceSha256": "90d7de90e1fe0fcd50707ae9d9076690682f754a6bb6671b6883cd0580dee2dc",
-      "importedSha256": "682030a2c5471832933c829f49dac87454947b2ab8325338929cb00d16fcca8b"
+      "importedSha256": "1a43db3709339d3a9e3da0f1ba755bf3eda9e6f236312448fd7a398d1e701b42"
     },
     {
       "game": "fmj",

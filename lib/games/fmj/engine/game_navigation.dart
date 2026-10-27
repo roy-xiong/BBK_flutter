@@ -1107,6 +1107,7 @@ final class GameNavigation {
     bool allowBoundary = true,
     bool dynamicProbe = false,
   }) async {
+    final debugScripts = <String, int>{};
     final pending = <_NavNode>[_NavNode(initial, null, 0)],
         seen = <String>{},
         scheduled = <String>{initial.key},
@@ -1120,6 +1121,22 @@ final class GameNavigation {
       pending.sort((a, b) => a.cost.compareTo(b.cost));
       final node = pending.removeAt(0), state = node.state;
       if (!seen.add(state.key)) continue;
+      assert(() {
+        if (initial.flags.contains(254) &&
+            goal.scriptId == '14:9' &&
+            allowBoundary &&
+            !dynamicProbe) {
+          debugScripts[state.scriptId] =
+              (debugScripts[state.scriptId] ?? 0) + 1;
+          if (state.scriptId == '14:8') {
+            // ignore: avoid_print
+            print(
+              '[DEBUG-yuren] cave entrance ${state.mapId}/${state.x},${state.y}; npcs=${state.npcs}; flags251=${state.flags.contains(251)},252=${state.flags.contains(252)}',
+            );
+          }
+        }
+        return true;
+      }());
       final flood = _flood(state), script = game.data.scripts[state.scriptId];
       if (flood == null || script == null) continue;
       final map = flood.map;
@@ -1353,6 +1370,18 @@ final class GameNavigation {
         }
       }
     }
+    assert(() {
+      if (initial.flags.contains(254) &&
+          goal.scriptId == '14:9' &&
+          allowBoundary &&
+          !dynamicProbe) {
+        // ignore: avoid_print
+        print(
+          '[DEBUG-yuren] failed from ${initial.scriptId}: seen=${seen.length}, pending=${pending.length}, scripts=$debugScripts; frontier=${frontier.map((b) => '${b.input.scriptId}:${b.exit.event}=>${_simulate(b.input, b.exit.event, preview: true).state.scriptId}').toSet()}',
+        );
+      }
+      return true;
+    }());
     return null;
   }
 }
