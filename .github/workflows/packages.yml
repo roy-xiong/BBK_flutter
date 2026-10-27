@@ -6,7 +6,7 @@ on:
         description: 打包平台（仅构建所选平台）
         type: choice
         default: macos
-        options: [macos, android, ios, windows, all]
+        options: [macos, android, ios, windows, android-ios-macos, all]
 permissions:
   contents: read
 concurrency:
@@ -74,7 +74,7 @@ jobs:
           retention-days: 14
   macos:
     needs: [version, validate]
-    if: ${{ inputs.platform == 'macos' || inputs.platform == 'all' }}
+    if: ${{ inputs.platform == 'macos' || inputs.platform == 'android-ios-macos' || inputs.platform == 'all' }}
     runs-on: macos-26
     timeout-minutes: 45
     steps:
@@ -101,7 +101,7 @@ jobs:
           retention-days: 30
   android:
     needs: [version, validate]
-    if: ${{ inputs.platform == 'android' || inputs.platform == 'all' }}
+    if: ${{ inputs.platform == 'android' || inputs.platform == 'android-ios-macos' || inputs.platform == 'all' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
@@ -139,7 +139,7 @@ jobs:
           retention-days: 30
   ios:
     needs: [version, validate]
-    if: ${{ inputs.platform == 'ios' || inputs.platform == 'all' }}
+    if: ${{ inputs.platform == 'ios' || inputs.platform == 'android-ios-macos' || inputs.platform == 'all' }}
     runs-on: macos-26
     timeout-minutes: 45
     steps:
