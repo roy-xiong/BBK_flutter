@@ -61,6 +61,9 @@ jobs:
           set -o pipefail
           mkdir -p build/validation
           flutter test --no-pub --reporter expanded 2>&1 | tee build/validation/tests.log
+      - name: 连续回放摘要
+        if: always()
+        run: python3 tool/write_validation_summary.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:

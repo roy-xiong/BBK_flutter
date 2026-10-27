@@ -97,6 +97,7 @@ final class GameEngine {
   int screenX = 0, screenY = 0, money = 0, titleSelection = 0, ticks = 0;
   double _walkElapsed = 0;
   bool _scriptYield = false;
+  bool _dialogueConfirmHeld = false;
   bool allowMiss = false, allowTossArm = true;
   bool disableSave = false, fightEnabled = false, ended = false;
   List<int> randomMonsters = [], randomBackground = [2, 2, 2];
@@ -620,6 +621,12 @@ final class GameEngine {
   /// 按下和抬起分离，选择框必须显式选定，避免快读对白误选互斥剧情。
   void key(GameKey key, {bool down = true, bool automatic = false}) {
     if (error.isNotEmpty) return;
+    // 对白在按下确认时翻页。该次抬起仍属于对白，不能穿透到刚出现的战斗
+    // 去选择攻击目标，否则会把自动战斗卡在手动选敌状态。
+    if (key == GameKey.confirm && !down && _dialogueConfirmHeld) {
+      _dialogueConfirmHeld = false;
+      return;
+    }
     if (!automatic && down && key.index < 4) navigation.cancel();
     if (screen == 'intro') {
       if (down && key == GameKey.cancel) {
@@ -663,6 +670,7 @@ final class GameEngine {
           operation = null;
         }
       } else if (down && op.kind == 'dialogue') {
+        if (key == GameKey.confirm) _dialogueConfirmHeld = true;
         if (op.next >= op.text.length) {
           operation = null;
         } else {

@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import '../data/game_data.dart';
 import '../engine/game_engine.dart';
 import '../engine/game_actor.dart';
 import 'modern_art.dart';
@@ -10,6 +11,7 @@ import 'modern_world_objects.dart';
 
 /// 四个方向严格对应屏幕水平、垂直轴，绘制坐标从不影响原地图碰撞和脚本。
 final class ModernScenePainter extends CustomPainter {
+  static final _geometry = Expando<Map<GameMap, _SceneGeometry>>();
   ModernScenePainter(
     this.game,
     this.art, {
@@ -72,26 +74,13 @@ final class ModernScenePainter extends CustomPainter {
           wide: game.wide,
         );
     final tileSize = camera.tileSize, room = art.rooms[map.id];
-    final buildings = (art.buildings[map.id] ?? const <SceneBuilding>[])
-        .where((b) => art.sprites.containsKey('${b.key}/0'))
-        .toList(growable: false);
-    final decorations = (art.decorations[map.id] ?? const <SceneBuilding>[])
-        .where((b) => art.sprites.containsKey('${b.key}/0'))
-        .toList(growable: false);
-    Iterable<int> coveredBy(SceneBuilding b) =>
-        b.cells ??
-        [
-          for (var y = b.y; y < b.y + b.height; y++)
-            for (var x = b.x; x < b.x + b.width; x++) y * map.width + x,
-        ];
-    final foregroundCovered = <int>{
-      for (final b in [...buildings, ...decorations.where((b) => !b.floor)])
-        ...coveredBy(b),
-    };
-    final floorCovered = <int>{
-      for (final b in decorations.where((b) => b.floor)) ...coveredBy(b),
-    };
-    final buildingGround = <int>{for (final b in buildings) ...coveredBy(b)};
+    // 图集是弱键；退出会话后不靠静态缓存延长图片和地图的生命周期。
+    final cached = _geometry[art] ??= <GameMap, _SceneGeometry>{};
+    final geometry = cached.putIfAbsent(map, () => _SceneGeometry(map, art));
+    final decorations = geometry.decorations,
+        foregroundCovered = geometry.foregroundCovered,
+        floorCovered = geometry.floorCovered,
+        buildingGround = geometry.buildingGround;
     bool inside(int x, int y) =>
         room == null || room.contains(Offset(x + .5, y + .5));
     // 第一层只铺地面，不能因为图块不认识就把原物件擦成同一片地板。
@@ -252,7 +241,7 @@ final class ModernScenePainter extends CustomPainter {
       }
     }
     final objects = <(double, VoidCallback)>[];
-    for (final b in [...buildings, ...decorations.where((b) => !b.floor)]) {
+    for (final b in geometry.foreground) {
       final point = camera.point(b.x, b.y);
       final visualHeight = (b.visualHeight ?? b.height.toDouble())
           .clamp(0.0, b.y + b.height.toDouble())
@@ -265,51 +254,24 @@ final class ModernScenePainter extends CustomPainter {
         visualHeight * tileSize,
       );
       if (!footprint.overlaps(const Rect.fromLTWH(0, 0, 640, 384))) continue;
-      final owned = coveredBy(b).toSet();
-      final protected = Path();
-      var hasProtected = false;
-      for (
-        var yy = math.max(0, (b.y + b.height - visualHeight).floor());
-        yy < b.y + b.height;
-        yy++
-      ) {
-        for (var xx = b.x; xx < b.x + b.width; xx++) {
-          if (owned.contains(yy * map.width + xx)) continue;
-          final source = map.cell(xx, yy) & 127;
-          final material = ModernTerrain.sceneMaterial(
-            map.tiles,
-            source,
-            map.canWalk(xx, yy),
-          );
-          if (ModernTerrain.role(map.tiles, source) != 'floor' ||
-              material == 'water' ||
-              material == 'brick-road') {
-            protected.addRect(
-              Rect.fromLTWH(
-                (xx - camera.left) * tileSize,
-                (yy - camera.top) * tileSize,
-                tileSize,
-                tileSize,
-              ),
-            );
-            hasProtected = true;
-          }
-        }
-      }
       objects.add((
         b.y + b.height.toDouble(),
         () {
           canvas.save();
-          if (hasProtected && map.tiles != 6 && !b.key.startsWith('world:')) {
-            final bounds = Path()..addRect(footprint);
-            canvas.clipPath(
-              Path.combine(PathOperation.difference, bounds, protected),
-            );
-          }
+          // 遮挡形状按原地图坐标缓存，只改变 Canvas 变换，不逐帧执行 Path.combine。
+          canvas.translate(-camera.left * tileSize, -camera.top * tileSize);
+          canvas.scale(tileSize);
+          final clip = geometry.clips[b];
+          if (clip != null) canvas.clipPath(clip);
           art.drawObject(
             canvas,
             '${b.key}/0',
-            footprint,
+            Rect.fromLTWH(
+              b.x + (b.width - visualWidth) / 2,
+              b.y + b.height - visualHeight,
+              visualWidth,
+              visualHeight,
+            ),
             _paint..color = Colors.white,
           );
           canvas.restore();
@@ -742,6 +704,76 @@ final class ModernScenePainter extends CustomPainter {
       cameraOverride != oldDelegate.cameraOverride ||
       overview != oldDelegate.overview ||
       showActorsInOverview != oldDelegate.showActorsInOverview;
+}
+
+/// 原图占地、保护区域都是静态数据。每张图每个图集只计算一次，避免步行时
+/// 反复分配大集合并进行路径布尔运算；碰撞、事件和视觉尺寸均使用原定义。
+final class _SceneGeometry {
+  _SceneGeometry(GameMap map, ModernArt art) {
+    final buildings = (art.buildings[map.id] ?? const <SceneBuilding>[])
+        .where((b) => art.sprites.containsKey('${b.key}/0'))
+        .toList();
+    decorations = (art.decorations[map.id] ?? const <SceneBuilding>[])
+        .where((b) => art.sprites.containsKey('${b.key}/0'))
+        .toList();
+    foreground = [...buildings, ...decorations.where((b) => !b.floor)];
+    Iterable<int> coveredBy(SceneBuilding b) =>
+        b.cells ??
+        [
+          for (var y = b.y; y < b.y + b.height; y++)
+            for (var x = b.x; x < b.x + b.width; x++) y * map.width + x,
+        ];
+    foregroundCovered = {for (final b in foreground) ...coveredBy(b)};
+    floorCovered = {
+      for (final b in decorations.where((b) => b.floor)) ...coveredBy(b),
+    };
+    buildingGround = {for (final b in buildings) ...coveredBy(b)};
+    for (final b in foreground) {
+      if (map.tiles == 6 || b.key.startsWith('world:')) continue;
+      final height = (b.visualHeight ?? b.height.toDouble())
+          .clamp(0.0, b.y + b.height.toDouble())
+          .toDouble();
+      final width = b.visualWidth ?? b.width.toDouble();
+      final protected = Path(), owned = coveredBy(b).toSet();
+      var hasProtected = false;
+      for (
+        var y = math.max(0, (b.y + b.height - height).floor());
+        y < b.y + b.height;
+        y++
+      ) {
+        for (var x = b.x; x < b.x + b.width; x++) {
+          if (owned.contains(y * map.width + x)) continue;
+          final source = map.cell(x, y) & 127;
+          final material = ModernTerrain.sceneMaterial(
+            map.tiles,
+            source,
+            map.canWalk(x, y),
+          );
+          if (ModernTerrain.role(map.tiles, source) != 'floor' ||
+              material == 'water' ||
+              material == 'brick-road') {
+            protected.addRect(Rect.fromLTWH(x.toDouble(), y.toDouble(), 1, 1));
+            hasProtected = true;
+          }
+        }
+      }
+      if (hasProtected) {
+        final bounds = Path()
+          ..addRect(
+            Rect.fromLTWH(
+              b.x + (b.width - width) / 2,
+              b.y + b.height - height,
+              width,
+              height,
+            ),
+          );
+        clips[b] = Path.combine(PathOperation.difference, bounds, protected);
+      }
+    }
+  }
+  late final List<SceneBuilding> decorations, foreground;
+  late final Set<int> foregroundCovered, floorCovered, buildingGround;
+  final Map<SceneBuilding, Path> clips = {};
 }
 
 /// 独立放大头像，使用有来源记录的角色轮廓和新版肤色、发色材质。
