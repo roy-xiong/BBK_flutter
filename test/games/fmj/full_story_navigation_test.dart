@@ -23,6 +23,12 @@ void main() {
         'script': game.cursor?.script.id,
         'position': [game.player?.x, game.player?.y],
         'detail': detail,
+        if (action == 'arrived') 'flags': game.flags.toList()..sort(),
+        if (action == 'arrived')
+          'keys': {
+            'gold': game.inventory['14:4'] ?? 0,
+            'universal': game.inventory['14:2'] ?? 0,
+          },
       };
       trace.add(row);
       // ignore: avoid_print

@@ -145,9 +145,12 @@ final class _NavNode {
 }
 
 final class _NavOutcome {
-  const _NavOutcome(this.state, this.stable);
+  const _NavOutcome(this.state, this.stable, this.visited);
   final _NavState state;
   final bool stable;
+
+  /// 某些入场脚本立即转入战斗/过场脚本。保留经过的入口，不能只看最终脚本。
+  final Set<String> visited;
 }
 
 final class _NavFlood {
@@ -745,8 +748,9 @@ final class GameNavigation {
   /// 即使只读预览对白，也不跨越选择、战斗、奖励或物品消耗。
   _NavOutcome _simulate(_NavState input, int event, {bool preview = false}) {
     final state = input.copy();
+    final visited = <String>{state.scriptId};
     var script = game.data.scripts[state.scriptId];
-    if (script == null) return _NavOutcome(state, false);
+    if (script == null) return _NavOutcome(state, false, visited);
     int? pointer = event == 0
         ? 0
         : event <= script.events.length
@@ -756,7 +760,7 @@ final class GameNavigation {
       if (pointer == null ||
           pointer < 0 ||
           pointer >= script!.commands.length) {
-        return _NavOutcome(state, false);
+        return _NavOutcome(state, false, visited);
       }
       final command = script.commands[pointer];
       int n(int i) => command.arg(i);
@@ -764,12 +768,12 @@ final class GameNavigation {
           i >= 0 && i < state.variables.length ? state.variables[i] : 0;
       if (barriers.contains(command.opcode) &&
           !(preview && {13, 47, 61, 69}.contains(command.opcode))) {
-        return _NavOutcome(state, false);
+        return _NavOutcome(state, false, visited);
       }
       int? jump;
       switch (command.opcode) {
         case 9:
-          return _NavOutcome(state, true);
+          return _NavOutcome(state, true, visited);
         case 1:
           state.mapId = '${n(0)}:${n(1)}';
           state.x = n(2) + 4;
@@ -818,17 +822,18 @@ final class GameNavigation {
           if (n(1) >= 0 && n(1) < 240) state.variables[n(1)] = value(n(0));
         case 14:
           state.scriptId = '${n(0)}:${n(1)}';
+          visited.add(state.scriptId);
           state.npcs.clear();
           state.moving.clear();
           state.variables.fillRange(200, 240, 0);
           script = game.data.scripts[state.scriptId];
-          if (script == null) return _NavOutcome(state, false);
+          if (script == null) return _NavOutcome(state, false, visited);
           pointer = 0;
           continue;
       }
       pointer = jump == null ? pointer + 1 : script.addresses[jump];
     }
-    return _NavOutcome(state, false);
+    return _NavOutcome(state, false, visited);
   }
 
   _NavFlood? _flood(_NavState state, {bool allowEvents = false}) {
@@ -1093,6 +1098,20 @@ final class GameNavigation {
                     )
                     .toInt() +
                 1;
+        if (goal.event == 0 && result.visited.contains(goal.scriptId)) {
+          // 路线的最后一步就是触发入场剧情。无需假设剧情结束后仍停留在同一
+          // 脚本；真实对白、战斗和自动切图继续由游戏引擎执行。
+          return (node.first ??
+                  _NavLeg(
+                    exit.anchorX,
+                    exit.anchorY,
+                    exit.x,
+                    exit.y,
+                    exit.event,
+                    destination: true,
+                  ))
+              .ranked(cost);
+        }
         if (!result.stable) {
           frontier.add(_NavBoundary(node, input, exit, cost));
           continue;
@@ -1117,6 +1136,19 @@ final class GameNavigation {
               candidate.exit.event,
               preview: true,
             );
+        if (goal.event == 0 && preview.visited.contains(goal.scriptId)) {
+          final exit = candidate.exit;
+          return (candidate.node.first ??
+                  _NavLeg(
+                    exit.anchorX,
+                    exit.anchorY,
+                    exit.x,
+                    exit.y,
+                    exit.event,
+                    destination: true,
+                  ))
+              .ranked(candidate.cost);
+        }
         if (preview.state.scriptId == candidate.input.scriptId &&
             preview.state.mapId == candidate.input.mapId) {
           continue;
