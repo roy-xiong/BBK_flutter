@@ -1,0 +1,8 @@
+Noto Sans CJK SC Regular (unmodified original font)
+Source: https://github.com/notofonts/noto-cjk
+Font: https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf
+License: https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/LICENSE
+Retrieved: 2026-10-27
+Font SHA256: 2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b
+License SHA256: 6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2
+The original font bytes and naming are preserved. "BBK CJK" is only the Flutter asset family alias.

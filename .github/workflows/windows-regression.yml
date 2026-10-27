@@ -1,0 +1,32 @@
+name: Windows 原生窗口回归
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['lib/**', 'windows/**', 'integration_test/**', 'test_driver/**', 'tool/run_windows_integration.ps1', '.github/workflows/windows-regression.yml']
+concurrency:
+  group: windows-native-regression
+  cancel-in-progress: true
+permissions:
+  contents: read
+env:
+  PUB_HOSTED_URL: https://pub.dev
+jobs:
+  native-window:
+    runs-on: windows-2022
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.4'
+          cache: true
+      - run: flutter pub get --enforce-lockfile
+      - name: 原生窗口消息与游戏操作回归
+        shell: pwsh
+        run: ./tool/run_windows_integration.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: windows-native-regression
+          path: build/validation/
