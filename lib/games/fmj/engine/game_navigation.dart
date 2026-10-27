@@ -190,6 +190,7 @@ final class GameNavigation {
   bool planning = false;
   int generation = 0, waitTicks = 0, _blockedTicks = 0;
   final Map<String, Set<int>> _transferCache = {};
+  final Map<(String, String), int> _hopCache = {};
   _NavigationWorker? _worker;
   static const barriers = {
     13,
@@ -963,7 +964,10 @@ final class GameNavigation {
         return result;
       });
 
-  int _hops(String from, String to) {
+  int _hops(String from, String to) =>
+      _hopCache.putIfAbsent((from, to), () => _computeHops(from, to));
+
+  int _computeHops(String from, String to) {
     final queue = <(String, int)>[(from, 0)], seen = <String>{};
     for (var i = 0; i < queue.length && i < 300; i++) {
       final (id, distance) = queue[i];
@@ -992,12 +996,17 @@ final class GameNavigation {
         scheduled = <String>{initial.key},
         frontier = <_NavBoundary>[];
     _NavLeg? obstruction;
-    for (var budget = 0; pending.isNotEmpty && budget < 800; budget++) {
+    for (var budget = 0; pending.isNotEmpty && budget < 4000; budget++) {
       if (budget % 8 == 0) {
         await Future<void>.delayed(Duration.zero);
         if (request != generation) return null;
       }
-      pending.sort((a, b) => a.cost.compareTo(b.cost));
+      // 原野阡/陌使用同一地图和方向标志表达大量道路状态。仅按已走格数
+      // 扩展，会在进入钟山前耗尽预算；优先朝目标脚本方向搜索，并缓存图距离。
+      pending.sort(
+        (a, b) => (a.cost + 32 * _hops(a.state.scriptId, goal.scriptId))
+            .compareTo(b.cost + 32 * _hops(b.state.scriptId, goal.scriptId)),
+      );
       final node = pending.removeAt(0), state = node.state;
       if (!seen.add(state.key)) continue;
       final flood = _flood(state), script = game.data.scripts[state.scriptId];

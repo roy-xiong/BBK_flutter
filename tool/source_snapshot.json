@@ -62,7 +62,7 @@
       "source": "lib/engine/game_navigation.dart",
       "destination": "lib/games/fmj/engine/game_navigation.dart",
       "sourceSha256": "90d7de90e1fe0fcd50707ae9d9076690682f754a6bb6671b6883cd0580dee2dc",
-      "importedSha256": "bc299127b53a8e98546630acf512cfbed5373d3da27bb284bce121f1703bba46"
+      "importedSha256": "2d9b0a8a02aa8581ed05ce4f09e53029b325bb6c4c5953aa8b6ac605b884c2ea"
     },
     {
       "game": "fmj",
@@ -2499,6 +2499,12 @@
       "previousImportedSha256": "390520ba6fb6d9597d98dd160eb7bc574f40ba0eb698fd7ef3235bba0ab5d105",
       "currentSha256": "bc299127b53a8e98546630acf512cfbed5373d3da27bb284bce121f1703bba46",
       "reason": "连续回放发现钟山入口立即切到过场脚本，路线需识别实际经过的入口而不是只看最终脚本"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_navigation.dart",
+      "previousImportedSha256": "bc299127b53a8e98546630acf512cfbed5373d3da27bb284bce121f1703bba46",
+      "currentSha256": "2d9b0a8a02aa8581ed05ce4f09e53029b325bb6c4c5953aa8b6ac605b884c2ea",
+      "reason": "原野阡/陌方向状态扩展耗尽旧预算，优先搜索目标方向并缓存脚本图距离"
     }
   ]
 }
