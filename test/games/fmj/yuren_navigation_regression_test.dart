@@ -152,6 +152,7 @@ void main() {
       if (op != null && {'dialogue', 'message', 'timed'}.contains(op.kind)) {
         game.press(GameKey.confirm);
       }
+      if (game.menus.isNotEmpty) game.press(GameKey.cancel);
       if (game.canSave &&
           game.navigation.active == null &&
           !game.navigation.planning &&
@@ -252,6 +253,27 @@ void main() {
     expect(game.inventory['14:2'] ?? 0, 0);
   });
 
+  test('重入已通关洞口不重生旧敌方角色，也不重复发放战斗奖励', () {
+    final game = postTomb();
+    game.map = data.maps['1:46'];
+    game.cursor = ScriptCursor(data.scripts['14:8']!);
+    game.player!
+      ..x = 12
+      ..y = 17;
+    game.screenX = 8;
+    game.screenY = 14;
+    final inventory = Map.of(game.inventory);
+    final money = game.money;
+    for (var frame = 0; frame < 40; frame++) {
+      game.update();
+    }
+    expect(game.cursor?.running, isFalse);
+    expect(game.npcs.keys.toSet().intersection({1, 2, 3, 4, 5}), isEmpty);
+    expect(game.battle, isNull);
+    expect(game.inventory, inventory);
+    expect(game.money, money);
+  });
+
   test('转折路口旧进度可经正常入口回愚人居，再到山洞取得不点卡片', () async {
     final game = postTomb();
     game.restore(game.snapshot()..remove('navigationRevision'));
@@ -284,6 +306,19 @@ void main() {
       expect(game.flags.containsAll({1099, 2010}), isTrue);
       expect(game.inventory['14:7'], 1);
       expect(game.inventory['14:2'] ?? 0, 0);
+      await game.navigation.startGoal();
+      final shopChoice = await arrive(game);
+      expect(game.cursor?.script.id, '2:52', reason: '山洞取卡后必须能够正常返回愚人居');
+      expect(shopChoice?.options, contains('交出'));
+      game.choose(1, expected: shopChoice);
+      await arrive(game);
+      expect(game.flags.contains(2302), isTrue);
+      await game.navigation.startGoal();
+      final ghostChoice = await arrive(game);
+      expect(ghostChoice?.options, contains('奉还'));
+      game.choose(1, expected: ghostChoice);
+      await arrive(game);
+      expect(game.flags.containsAll({2301, 2302, 2303, 261}), isTrue);
     } finally {
       game.navigation.cancel();
     }

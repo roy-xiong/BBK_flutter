@@ -2,21 +2,54 @@ part of 'game_engine.dart';
 
 /// 修复旧导航把玩家误送出愚人居后的入口封闭。只为未完成的卡片支线开放
 /// 返回，所有人物对白、交还卡片、奖励和原入口坐标仍走正常脚本。
-bool _allowYurenReturn(
+bool _allowReturnPassage(
   GameScript script,
   GameCommand command,
   Set<int> flags,
 ) =>
-    script.id == '2:50' &&
-    command.address == 224 &&
-    command.opcode == 11 &&
-    command.arg(0) == 254 &&
-    flags.contains(254) &&
-    ((flags.contains(2008) && !flags.contains(2301) && !flags.contains(263)) ||
-        (flags.contains(2010) && !flags.contains(2302)) ||
-        (flags.contains(2009) &&
-            !flags.contains(2303) &&
-            !flags.contains(261)));
+    (script.id == '14:8' &&
+        command.address == 167 &&
+        command.opcode == 11 &&
+        flags.contains(254)) ||
+    (script.id == '2:50' &&
+        command.address == 224 &&
+        command.opcode == 11 &&
+        command.arg(0) == 254 &&
+        flags.contains(254) &&
+        ((flags.contains(2008) &&
+                !flags.contains(2301) &&
+                !flags.contains(263)) ||
+            (flags.contains(2010) && !flags.contains(2302)) ||
+            (flags.contains(2009) &&
+                !flags.contains(2303) &&
+                !flags.contains(261))));
+
+/// 天师剧情结束后，洞内原先暂时关闭的入口恢复为回到洞口的正常出口。
+/// 传送坐标复用天道战斗结束后的洞口落点；前期剧情的封路继续保留。
+(String, int, int, String)? _postTombCaveExit(
+  GameScript script,
+  GameCommand command,
+  Set<int> flags,
+) =>
+    script.id == '14:9' &&
+        command.address == 206 &&
+        command.opcode == 9 &&
+        flags.contains(254)
+    ? ('1:46', 6, 3, '14:8')
+    : null;
+
+/// 重入场景需反映已结束的战斗，不能重新生成堵在山洞通路上的旧敌方角色。
+List<int> _defeatedHemingActors(
+  GameScript script,
+  GameCommand command,
+  Set<int> flags,
+) {
+  if (script.id != '14:8' || command.address != 166 || command.opcode != 9) {
+    return const [];
+  }
+  if (flags.contains(252)) return const [1, 2, 3, 4, 5];
+  return flags.contains(251) ? const [4, 5] : const [];
+}
 
 final class GameGoal {
   const GameGoal(
@@ -809,6 +842,29 @@ final class GameNavigation {
       int? jump;
       switch (command.opcode) {
         case 9:
+          final passage = _postTombCaveExit(script, command, state.flags);
+          if (passage != null) {
+            state.mapId = passage.$1;
+            state.x = passage.$2 + 4;
+            state.y = passage.$3 + 3;
+            state.scriptId = passage.$4;
+            visited.add(state.scriptId);
+            state.npcs.clear();
+            state.moving.clear();
+            state.variables.fillRange(200, 240, 0);
+            script = game.data.scripts[state.scriptId];
+            if (script == null) return _NavOutcome(state, false, visited);
+            pointer = 0;
+            continue;
+          }
+          for (final id in _defeatedHemingActors(
+            script,
+            command,
+            state.flags,
+          )) {
+            state.npcs.remove(id);
+            state.moving.remove(id);
+          }
           return _NavOutcome(state, true, visited);
         case 1:
           state.mapId = '${n(0)}:${n(1)}';
@@ -818,7 +874,7 @@ final class GameNavigation {
           jump = n(0);
         case 11:
           if (state.flags.contains(n(0)) &&
-              !_allowYurenReturn(script, command, state.flags)) {
+              !_allowReturnPassage(script, command, state.flags)) {
             jump = n(1);
           }
         case 12:

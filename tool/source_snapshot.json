@@ -48,7 +48,7 @@
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "db1f174d53554e914bb1d6a496396b6c87cafda68516b5b6d8d80395dad646eb"
+      "importedSha256": "1fff82968d156f272f480d72e4930da039896bce23abef32ced16643ed0d77a0"
     },
     {
       "game": "fmj",
@@ -62,7 +62,7 @@
       "source": "lib/engine/game_navigation.dart",
       "destination": "lib/games/fmj/engine/game_navigation.dart",
       "sourceSha256": "90d7de90e1fe0fcd50707ae9d9076690682f754a6bb6671b6883cd0580dee2dc",
-      "importedSha256": "02d50b4c3542c7298732321a7fec049d914517b4615c793ff7fe37f849131be4"
+      "importedSha256": "fdd683bf1d8b5133859808f36cabc9293f7a5a165b7c3faa8d2f7d556f0e58c8"
     },
     {
       "game": "fmj",
@@ -2523,6 +2523,18 @@
       "previousImportedSha256": "f5a4a73c37eb6d60c5f312f5872cad2e6a21201de1933038e28e91b491f98e5a",
       "currentSha256": "02d50b4c3542c7298732321a7fec049d914517b4615c793ff7fe37f849131be4",
       "reason": "复现并修复愚人居游走人物误出地图、保留任务卡片钥匙，并按用户确认一次性补偿受影响旧档一把钥匙"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "db1f174d53554e914bb1d6a496396b6c87cafda68516b5b6d8d80395dad646eb",
+      "currentSha256": "1fff82968d156f272f480d72e4930da039896bce23abef32ced16643ed0d77a0",
+      "reason": "天师剧情结束后支持补做山洞卡片的正常往返，重入洞口不重生已击败守卫及天道"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_navigation.dart",
+      "previousImportedSha256": "02d50b4c3542c7298732321a7fec049d914517b4615c793ff7fe37f849131be4",
+      "currentSha256": "fdd683bf1d8b5133859808f36cabc9293f7a5a165b7c3faa8d2f7d556f0e58c8",
+      "reason": "天师剧情结束后支持补做山洞卡片的正常往返，重入洞口不重生已击败守卫及天道"
     }
   ]
 }

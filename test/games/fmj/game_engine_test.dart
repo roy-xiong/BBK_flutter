@@ -320,7 +320,7 @@ void main() {
       await directory.delete(recursive: true);
     }
   });
-  test('96 个故事节点的状态与原引擎逐项对照', () {
+  test('96 个故事节点与原引擎对照，已击败守卫不重生', () {
     final expected =
         (jsonDecode(
                   File(
@@ -372,6 +372,16 @@ void main() {
         expectedPlayers,
       );
       final ids = game.npcs.keys.toList()..sort();
+      // 原参考在击败鹤鸣山守卫后重新加载场景仍生成4、5号守卫，造成旧档补卡
+      // 时再次堵路。保留原参考文件，只明确扣除这项已修正的错误状态。
+      final expectedNpcs = (reference['npcs'] as List)
+          .where(
+            (npc) =>
+                !(reference['script'] == '14:8' &&
+                    (reference['flags'] as List).contains(251) &&
+                    const {4, 5}.contains((npc as Map)['id'])),
+          )
+          .toList();
       compare('npcs', [
         for (final id in ids)
           {
@@ -381,7 +391,7 @@ void main() {
             'x': game.npcs[id]?.x,
             'y': game.npcs[id]?.y,
           },
-      ], reference['npcs']);
+      ], expectedNpcs);
       compare('goods', game.inventory, {
         for (final item in reference['goods'] as List)
           (item as Map)['id']: item['count'],

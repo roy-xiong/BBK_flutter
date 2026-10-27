@@ -326,6 +326,17 @@ final class GameEngine {
       case 6:
         operation = GameOperation('move', args: a);
       case 9:
+        final passage = _postTombCaveExit(c.script, cmd, flags);
+        if (passage != null) {
+          npcs.clear();
+          _loadMap(passage.$1, passage.$2, passage.$3);
+          _chapter(passage.$4);
+          operation = GameOperation('delay', args: [40]);
+          break;
+        }
+        for (final id in _defeatedHemingActors(c.script, cmd, flags)) {
+          npcs.remove(id);
+        }
         if (c.script.id == '9:13' && stageStoneProgress != null) {
           final completed = stageStoneProgress ?? 0;
           variables[1] = completed;
@@ -338,7 +349,8 @@ final class GameEngine {
       case 10:
         jump(n(0));
       case 11:
-        if (flags.contains(n(0)) && !_allowYurenReturn(c.script, cmd, flags)) {
+        if (flags.contains(n(0)) &&
+            !_allowReturnPassage(c.script, cmd, flags)) {
           jump(n(1));
         }
       case 12:
