@@ -268,7 +268,8 @@ void main() {
         game.choose(choice!.options.indexOf(expected), expected: choice);
         await arrive(game);
       }
-      expect(game.flags.containsAll({2301, 2302, 2303, 261}), isTrue);
+      // 本回放选择“奉还”，与先选“不给”获得261标志是不同原剧情分支。
+      expect(game.flags.containsAll({2301, 2302, 2303}), isTrue);
       for (final id in ['14:5', '14:6', '14:7']) {
         expect(game.inventory[id] ?? 0, 0);
       }
