@@ -30,8 +30,18 @@ void main() {
     }
 
     Future<void> settle() async {
+      String? previousScript;
       for (var frame = 0; frame < 60000; frame++) {
+        if (game.navigation.planning) {
+          // 隔离区使用真实 CPU 时间；不能在主隔离区几毫秒内空转数万模拟帧，
+          // 把仍正常运行的规划误判为未完成。
+          await Future<void>.delayed(const Duration(milliseconds: 1));
+        }
         game.update();
+        if (game.cursor?.script.id != previousScript) {
+          previousScript = game.cursor?.script.id;
+          record('transfer', previousScript);
+        }
         expect(game.error, isEmpty, reason: '${trace.lastOrNull}');
         if (frame % 10 == 0) {
           await Future<void>.delayed(Duration.zero);
@@ -63,6 +73,8 @@ void main() {
         'op=${game.operation?.kind}:${game.operation?.text}:${game.operation?.start}:${game.operation?.next} '
         'battle=${game.battle?.phase}:${game.battle?.round} '
         'target=${game.battle?.targetKind} '
+        'planning=${game.navigation.planning} route=${game.route.length} '
+        'at=${game.cursor?.script.id}:${game.player?.x},${game.player?.y} '
         'cursor=${game.cursor?.running}:${game.cursor?.pointer}',
       );
     }
