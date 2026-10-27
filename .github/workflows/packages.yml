@@ -90,7 +90,7 @@ jobs:
           xcode-version: '26.6'
       - run: flutter pub get --enforce-lockfile
       - name: 构建 macOS 通用包
-        run: flutter build macos --release --no-pub --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}
+        run: flutter build macos --release --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}
       - run: bash tool/package_macos.sh '${{ needs.version.outputs.version }}' '${{ needs.version.outputs.build }}'
       - uses: actions/upload-artifact@v4
         with:
@@ -123,7 +123,9 @@ jobs:
           BBK_ANDROID_SIGNING: ${{ secrets.BBK_ANDROID_SIGNING }}
         run: python3 tool/restore_android_signing.py
       - run: flutter pub get --enforce-lockfile
-      - run: flutter build apk --release --no-pub --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}
+      # Flutter 3.44 按构建模式过滤测试插件；--no-pub 会跳过 Release 注册表重建，
+      # 导致 Java 注册测试插件，而 Gradle 的 Release 依赖已经排除了该插件。
+      - run: flutter build apk --release --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}
       - run: python3 tool/verify_android_signature.py build/app/outputs/flutter-apk/app-release.apk
       - name: 分发 APK
         run: |
@@ -154,7 +156,7 @@ jobs:
         with:
           xcode-version: '26.6'
       - run: flutter pub get --enforce-lockfile
-      - run: flutter build ios --release --no-codesign --no-pub --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}
+      - run: flutter build ios --release --no-codesign --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}
       - name: 打包未签名 IPA
         run: |
           mkdir -p dist build/ipa/Payload
@@ -190,7 +192,7 @@ jobs:
       - name: 发布前验证原生窗口响应与全部剧情检查点
         shell: pwsh
         run: ./tool/run_windows_integration.ps1
-      - run: flutter build windows --release --no-pub --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}
+      - run: flutter build windows --release --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}
       - name: 打包 Windows 便携版
         shell: pwsh
         run: |

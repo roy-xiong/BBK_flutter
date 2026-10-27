@@ -2,7 +2,11 @@
 
 ## 未发布
 
-## 1.0.12+13
+- 发布 Android、iOS 和 macOS 平台，包含新版场景绘制优化、救画家与完整剧情导航修复、统一中文字体。
+- 修复正式打包沿用测试插件注册表导致 Android Java 编译失败的问题；各平台 Release 构建重新生成对应模式的插件注册表，排除开发测试插件。
+- Android 使用项目固定签名并校验证书；iOS 提供未签名 IPA；macOS 提供 Apple Silicon 与 Intel 通用 DMG、ZIP，Release 附带全部下载链接及校验清单。
+
+## 1.0.12+13（Android 构建失败，未发布）
 
 - 补发 Android、iOS 和 macOS 平台，包含 1.0.11+12 中的新场景绘制优化、救画家与完整剧情导航修复、统一中文字体。
 - Android 沿用项目固定签名并校验证书；iOS 提供未签名 IPA；macOS 提供同时支持 Apple Silicon 与 Intel 的 DMG 和 ZIP。
