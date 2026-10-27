@@ -11,7 +11,10 @@ if target and trace.exists():
         output.write('### 连续故事导航回放\n\n')
         output.write(f'共记录 {len(rows)} 次操作；最后步骤：\n\n')
         output.write('```json\n')
-        output.write(json.dumps(rows[-18:], ensure_ascii=False, indent=2))
+        output.write(json.dumps([
+            {key: value for key, value in row.items() if key != 'flags'}
+            for row in rows[-18:]
+        ], ensure_ascii=False, indent=2))
         output.write('\n```\n')
         log = Path('build/validation/tests.log')
         if log.exists():

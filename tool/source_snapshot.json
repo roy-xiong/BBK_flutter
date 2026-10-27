@@ -62,7 +62,7 @@
       "source": "lib/engine/game_navigation.dart",
       "destination": "lib/games/fmj/engine/game_navigation.dart",
       "sourceSha256": "90d7de90e1fe0fcd50707ae9d9076690682f754a6bb6671b6883cd0580dee2dc",
-      "importedSha256": "2d9b0a8a02aa8581ed05ce4f09e53029b325bb6c4c5953aa8b6ac605b884c2ea"
+      "importedSha256": "f5a4a73c37eb6d60c5f312f5872cad2e6a21201de1933038e28e91b491f98e5a"
     },
     {
       "game": "fmj",
@@ -2505,6 +2505,12 @@
       "previousImportedSha256": "bc299127b53a8e98546630acf512cfbed5373d3da27bb284bce121f1703bba46",
       "currentSha256": "2d9b0a8a02aa8581ed05ce4f09e53029b325bb6c4c5953aa8b6ac605b884c2ea",
       "reason": "原野阡/陌方向状态扩展耗尽旧预算，优先搜索目标方向并缓存脚本图距离"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_navigation.dart",
+      "previousImportedSha256": "2d9b0a8a02aa8581ed05ce4f09e53029b325bb6c4c5953aa8b6ac605b884c2ea",
+      "currentSha256": "f5a4a73c37eb6d60c5f312f5872cad2e6a21201de1933038e28e91b491f98e5a",
+      "reason": "路线缺少218建业追贼前置剧情，补齐正常事件目标并取消无效的搜索预算调整"
     }
   ]
 }

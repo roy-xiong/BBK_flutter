@@ -250,6 +250,7 @@ final class GameNavigation {
     final middle = <(int, String, String, int)>[
       (216, '回三清宫复命', '2:2', 9),
       (217, '邀请小梅再次同行', '3:11', 1),
+      (218, '建业追捕小偷，结识袁姑娘', '7:14', 0),
       (219, '赶往钟山，与袁姑娘会合', '6:13', 0),
       (220, '解救钟山道院', '8:3', 0),
       (221, '进入霸王钟洞，守护宝钟', '8:10', 0),
@@ -475,7 +476,7 @@ final class GameNavigation {
       '7:1',
       21,
       f.contains(1117) || f.contains(1118),
-      f.contains(218) && !f.contains(255),
+      f.contains(218) && f.contains(224) && !f.contains(255),
       '去留由你决定。',
     );
     final locks = [
@@ -996,17 +997,12 @@ final class GameNavigation {
         scheduled = <String>{initial.key},
         frontier = <_NavBoundary>[];
     _NavLeg? obstruction;
-    for (var budget = 0; pending.isNotEmpty && budget < 4000; budget++) {
+    for (var budget = 0; pending.isNotEmpty && budget < 800; budget++) {
       if (budget % 8 == 0) {
         await Future<void>.delayed(Duration.zero);
         if (request != generation) return null;
       }
-      // 原野阡/陌使用同一地图和方向标志表达大量道路状态。仅按已走格数
-      // 扩展，会在进入钟山前耗尽预算；优先朝目标脚本方向搜索，并缓存图距离。
-      pending.sort(
-        (a, b) => (a.cost + 32 * _hops(a.state.scriptId, goal.scriptId))
-            .compareTo(b.cost + 32 * _hops(b.state.scriptId, goal.scriptId)),
-      );
+      pending.sort((a, b) => a.cost.compareTo(b.cost));
       final node = pending.removeAt(0), state = node.state;
       if (!seen.add(state.key)) continue;
       final flood = _flood(state), script = game.data.scripts[state.scriptId];

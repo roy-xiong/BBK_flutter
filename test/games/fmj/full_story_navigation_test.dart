@@ -54,8 +54,10 @@ void main() {
         }
         final op = game.operation;
         if (op?.kind == 'choice' || op?.kind == 'menu') {
-          // 放走老王才能体验密道支线；其余选择接受任务、归还、用钥匙。
-          final index = op!.scriptId == '5:18' ? 0 : op.options.length - 1;
+          // 放走老王体验密道；跳过紫瞳魔灯，为三张支线卡片保留三把万能钥匙。
+          final index = op!.scriptId == '5:18' || op.scriptId == '10:1'
+              ? 0
+              : op.options.length - 1;
           record(
             'choice',
             '${op.scriptId}@${op.address}: ${op.options[index]}',
@@ -135,6 +137,7 @@ void main() {
         }
       }
       expect(game.flags.contains(214), isTrue, reason: '完整路线必须真正救出小画家');
+      expect(game.flags.contains(218), isTrue, reason: '先经建业追贼剧情认识袁姑娘');
       expect(game.flags.contains(260), isTrue);
       expect(game.ended, isTrue, reason: '必须经最终剧情进入结局');
       record('complete', game.flags.toList()..sort());
