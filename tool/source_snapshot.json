@@ -48,7 +48,7 @@
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "3febb56b684b5ef0cb61598490c4b2bae4331b6cc9462bf958df7b822f997731"
+      "importedSha256": "e77a866fbe7ec190e393f5af2fa8186c2bfe3a4cfff1ae9693138b2aa67e2b70"
     },
     {
       "game": "fmj",
@@ -2469,6 +2469,24 @@
       "previousImportedSha256": "771521f053f5caa1caa440004bb51fa093d3f822ff1539324efcb398e4db3dac",
       "currentSha256": "4361c90e5b64acf215cb2b7a9ae6d9b6743a7fd02fff7e19ebb414bc3d676638",
       "reason": "完善全图材质备用切片与陈设覆盖验证"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "185e4a6eb938523f9939146723e9872bd2acf3ad532e1ccb435abc014b997a83",
+      "currentSha256": "e77a866fbe7ec190e393f5af2fa8186c2bfe3a4cfff1ae9693138b2aa67e2b70",
+      "reason": "修复Windows阻塞、后台寻路、对白确认穿透及钥匙救画家连续导航"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_navigation.dart",
+      "previousImportedSha256": "90d7de90e1fe0fcd50707ae9d9076690682f754a6bb6671b6883cd0580dee2dc",
+      "currentSha256": "2b7c45a2e3347174048cb8757d1c807b3da560fd84837cae1d3c2a9f55853eae",
+      "reason": "修复Windows阻塞、后台寻路、对白确认穿透及钥匙救画家连续导航"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_render.dart",
+      "previousImportedSha256": "b796a60d7f619e67d0a02e354df7d7d05e59c6495abc6984a052a0b5fcae7365",
+      "currentSha256": "5d745bd70ae930dc1f2856b506bb69ba5a5257c8193938eee198da85e543bcc2",
+      "reason": "修复Windows阻塞、后台寻路、对白确认穿透及钥匙救画家连续导航"
     }
   ]
 }
