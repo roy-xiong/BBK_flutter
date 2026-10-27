@@ -183,6 +183,13 @@ jobs:
           flutter-version: '3.44.4'
           cache: true
       - run: flutter pub get --enforce-lockfile
+      - uses: actions/download-artifact@v4
+        with:
+          name: bbk-validation
+          path: build/validation/story
+      - name: 发布前验证原生窗口响应与全部剧情检查点
+        shell: pwsh
+        run: ./tool/run_windows_integration.ps1
       - run: flutter build windows --release --no-pub --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}
       - name: 打包 Windows 便携版
         shell: pwsh
@@ -198,6 +205,11 @@ jobs:
           data目录、flutter_windows.dll和其他DLL需要保留在EXE旁。
           键盘方向键短按走一格，长按连续移动；可在游戏内查看或修改键盘映射。
           '@ | Set-Content -Encoding utf8 "$bundle/开始游戏.txt"
+          New-Item -ItemType Directory -Force "$bundle/验证记录" | Out-Null
+          Copy-Item build/validation/windows-window-probe.json "$bundle/验证记录/"
+          Copy-Item build/validation/windows-integration.json "$bundle/验证记录/"
+          Copy-Item build/validation/windows-font-line.png "$bundle/验证记录/"
+          Copy-Item build/validation/story/full-story-navigation.json "$bundle/验证记录/"
           python tool/verify_windows_bundle.py "$bundle" '${{ needs.version.outputs.version }}' '${{ needs.version.outputs.build }}'
           if ($LASTEXITCODE -ne 0) { throw 'Windows包校验未通过' }
           New-Item -ItemType Directory -Force dist | Out-Null
