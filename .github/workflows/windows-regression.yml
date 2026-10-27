@@ -25,6 +25,13 @@ jobs:
       - name: 原生窗口消息与游戏操作回归
         shell: pwsh
         run: ./tool/run_windows_integration.ps1
+      - name: 窗口响应实测摘要
+        if: always()
+        shell: pwsh
+        run: |
+          '### Windows 窗口消息与游戏回归' >> $env:GITHUB_STEP_SUMMARY
+          Get-Content build/validation/windows-window-probe.json -ErrorAction SilentlyContinue >> $env:GITHUB_STEP_SUMMARY
+          Get-Content build/validation/windows-integration.json -ErrorAction SilentlyContinue >> $env:GITHUB_STEP_SUMMARY
       - uses: actions/upload-artifact@v4
         if: always()
         with:

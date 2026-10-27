@@ -62,7 +62,7 @@
       "source": "lib/engine/game_navigation.dart",
       "destination": "lib/games/fmj/engine/game_navigation.dart",
       "sourceSha256": "90d7de90e1fe0fcd50707ae9d9076690682f754a6bb6671b6883cd0580dee2dc",
-      "importedSha256": "2b7c45a2e3347174048cb8757d1c807b3da560fd84837cae1d3c2a9f55853eae"
+      "importedSha256": "390520ba6fb6d9597d98dd160eb7bc574f40ba0eb698fd7ef3235bba0ab5d105"
     },
     {
       "game": "fmj",
@@ -2487,6 +2487,12 @@
       "previousImportedSha256": "b796a60d7f619e67d0a02e354df7d7d05e59c6495abc6984a052a0b5fcae7365",
       "currentSha256": "5d745bd70ae930dc1f2856b506bb69ba5a5257c8193938eee198da85e543bcc2",
       "reason": "修复Windows阻塞、后台寻路、对白确认穿透及钥匙救画家连续导航"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_navigation.dart",
+      "previousImportedSha256": "2b7c45a2e3347174048cb8757d1c807b3da560fd84837cae1d3c2a9f55853eae",
+      "currentSha256": "390520ba6fb6d9597d98dd160eb7bc574f40ba0eb698fd7ef3235bba0ab5d105",
+      "reason": "连续回放确认建业交信/钱袋支线的开放阶段与原城门脚本不符，按实际建业开放阶段修正"
     }
   ]
 }

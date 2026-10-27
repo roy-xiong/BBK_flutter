@@ -461,17 +461,17 @@ final class GameNavigation {
       1,
       f.contains(264),
       f.contains(201) &&
-          f.contains(217) &&
-          !f.contains(219) &&
+          f.contains(224) &&
+          !f.contains(255) &&
           (game.inventory['14:3'] ?? 0) > 0,
-      '交信获得三把万能钥匙。',
+      '钟山失钟、建业开放后交信，获得三把万能钥匙。',
     );
     add(
       '建业钱袋：决定归还或留下',
       '7:1',
       21,
       f.contains(1117) || f.contains(1118),
-      f.contains(218) && !f.contains(219),
+      f.contains(218) && !f.contains(255),
       '去留由你决定。',
     );
     final locks = [

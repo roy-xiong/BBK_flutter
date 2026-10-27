@@ -53,6 +53,7 @@ jobs:
       - run: dart format --output=none --set-exit-if-changed lib test
       - run: flutter analyze --no-pub
       - run: python3 tool/verify_source_snapshot.py
+      - run: python3 tool/verify_game_font.py
       - name: 原有两款游戏及合集入口回归
         env:
           FMJ_EXPORT_APPROVED_ART: '1'

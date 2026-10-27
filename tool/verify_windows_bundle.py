@@ -35,6 +35,13 @@ def main():
         if not (folder / name).is_file() or (folder / name).stat().st_size == 0:
             raise ValueError('缺少Windows运行文件：' + name)
     root = Path(__file__).resolve().parents[1]
+    # 字体在 fonts 声明下，不会被 assets 目录扫描自动覆盖，单独核对真实包内容。
+    font = Path('assets/fonts/NotoSansCJKsc-Regular.otf')
+    if hashlib.sha256((folder / 'data/flutter_assets' / font).read_bytes()).digest() != hashlib.sha256((root / font).read_bytes()).digest():
+        raise ValueError('Windows中文字体缺失或不一致')
+    manifest = json.loads((folder / 'data/flutter_assets/FontManifest.json').read_text(encoding='utf-8'))
+    if not any(row.get('family') == 'BBK CJK' and any(item.get('asset') == str(font) for item in row['fonts']) for row in manifest):
+        raise ValueError('Windows字体清单未绑定统一中文字体')
     directories = [line.strip()[2:] for line in (root / 'pubspec.yaml').read_text(encoding='utf-8').splitlines() if line.strip().startswith(('- assets/', '- licenses/'))]
     checked = 0
     for directory in directories:
