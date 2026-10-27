@@ -348,7 +348,7 @@ void main() {
         ),
       ),
     );
-    await tester.tap(find.text(game.goodsName('2:13')));
+    await tester.tap(find.widgetWithText(ListTile, game.goodsName('2:13')));
     await tester.pump();
     expect(find.text(game.players.first.name), findsNothing);
     expect(find.text(game.players[1].name), findsOneWidget);
