@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../ui/core/game_typography.dart';
 
 /// 应用视觉主题。
 abstract final class AppTheme {
@@ -13,6 +14,7 @@ abstract final class AppTheme {
       surface: surface,
     ).copyWith(primary: primary, secondary: secondary, surface: surface);
     return ThemeData(
+      fontFamily: GameTypography.family,
       brightness: Brightness.dark,
       colorScheme: colorScheme,
       scaffoldBackgroundColor: background,

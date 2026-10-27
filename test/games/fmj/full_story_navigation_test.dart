@@ -58,7 +58,12 @@ void main() {
           return;
         }
       }
-      fail('导航或剧情未结束：${game.notice} / ${trace.lastOrNull}');
+      fail(
+        '导航或剧情未结束：${game.notice} / ${trace.lastOrNull} / '
+        'op=${game.operation?.kind}:${game.operation?.text}:${game.operation?.start}:${game.operation?.next} '
+        'battle=${game.battle?.phase}:${game.battle?.round} '
+        'cursor=${game.cursor?.running}:${game.cursor?.pointer}',
+      );
     }
 
     try {

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../../../core/game_typography.dart';
 import '../../../../domain/models/library_game.dart';
 import '../../../../games/fmj/data/save_repository.dart' as fmj_data;
 import '../../../../games/fmj/ui/game_page.dart' as fmj;
@@ -124,6 +125,7 @@ final class _NativeGamePageState extends State<NativeGamePage> {
     if (fmjModel != null) {
       game = Theme(
         data: ThemeData(
+          fontFamily: GameTypography.family,
           colorScheme: ColorScheme.fromSeed(
             seedColor: const Color(0xffc6a56b),
             brightness: Brightness.dark,
@@ -142,6 +144,7 @@ final class _NativeGamePageState extends State<NativeGamePage> {
         builder: (context, _) => Theme(
           data: sgbyModel.cartoonEnabled
               ? ThemeData(
+                  fontFamily: GameTypography.family,
                   colorScheme: ColorScheme.fromSeed(
                     seedColor: const Color(0xff3d8b85),
                   ),

@@ -1,21 +1,24 @@
 import 'dart:collection';
 import 'dart:math' as math;
 import 'package:flutter/painting.dart';
+import '../../../ui/core/game_typography.dart';
 import '../engine/pixel_surface.dart';
 
-/// 系统字体是唯一的文字来源；使用实际字形宽度分页，不按 GBK 字节数切割。
+/// 使用随包中文字体的实际字形宽度分页，不按 GBK 字节数切割或替换文字编码。
 final class FlutterSystemFontLayout implements SystemTextLayout {
   final LinkedHashMap<(String, int, int, int), TextPage> _cache =
       LinkedHashMap();
   static const double fontSize = 14;
   static const double lineHeight = 16;
   static TextStyle style({Color color = const Color(0xff000000)}) => TextStyle(
+    fontFamily: GameTypography.family,
     color: color,
     fontSize: fontSize,
     height: lineHeight / fontSize,
     fontWeight: FontWeight.w400,
   );
   static const StrutStyle strut = StrutStyle(
+    fontFamily: GameTypography.family,
     fontSize: fontSize,
     height: lineHeight / fontSize,
     forceStrutHeight: true,

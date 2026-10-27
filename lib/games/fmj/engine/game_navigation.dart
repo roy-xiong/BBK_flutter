@@ -8,10 +8,70 @@ final class GameGoal {
     this.hint = '到达后与人物或机关正常交互。',
     this.done = false,
     this.ready = true,
+    this.continuation,
   });
   final String label, scriptId, hint;
   final int event;
   final bool done, ready;
+
+  /// 到达入口只完成一段路线；玩家处理开门选择后继续前往房内的真实目标。
+  final GameGoal? continuation;
+}
+
+/// 后台规划禁止持有 UI 排版器。路由解释不会绘制文字，此实现只用于类型隔离。
+final class _NavigationTextLayout implements SystemTextLayout {
+  const _NavigationTextLayout();
+  @override
+  TextPage fit(String text, int start, int width, int height) =>
+      TextPage('', start);
+}
+
+final class _NavigationRequest {
+  const _NavigationRequest(
+    this.maps,
+    this.scripts,
+    this.inventory,
+    this.state,
+    this.goal,
+    this.reply,
+  );
+  final Map<String, GameMap> maps;
+  final Map<String, GameScript> scripts;
+  final Map<String, int> inventory;
+  final _NavState state;
+  final GameGoal goal;
+  final SendPort reply;
+}
+
+/// 顶层入口只接收纯数据，不捕获会话、图片、回调或 Flutter 原生资源。
+Future<void> _planNavigation(_NavigationRequest request) async {
+  try {
+    final game = GameEngine._navigation(
+      GameData.navigation(request.maps, request.scripts),
+    )..inventory.addAll(request.inventory);
+    request.reply.send(
+      await game.navigation._route(request.state, request.goal, 0),
+    );
+  } catch (error) {
+    request.reply.send('后台寻路失败：$error');
+  }
+}
+
+/// 所有完成、失败和取消路径均关闭端口；取消也会结束等待及后台计算。
+final class _NavigationWorker {
+  final port = ReceivePort();
+  final result = Completer<_NavLeg?>();
+  Isolate? isolate;
+  StreamSubscription<dynamic>? subscription;
+  bool closed = false;
+  void close() {
+    if (closed) return;
+    closed = true;
+    isolate?.kill(priority: Isolate.immediate);
+    subscription?.cancel();
+    port.close();
+    if (!result.isCompleted) result.complete(null);
+  }
 }
 
 /// 仅供路由解释的独立副本，不保存 GameActor 引用或可变的游戏集合。
@@ -127,6 +187,7 @@ final class GameNavigation {
   bool planning = false;
   int generation = 0, waitTicks = 0, _blockedTicks = 0;
   final Map<String, Set<int>> _transferCache = {};
+  _NavigationWorker? _worker;
   static const barriers = {
     13,
     20,
@@ -358,7 +419,8 @@ final class GameNavigation {
           f.contains(207) &&
           !f.contains(215) &&
           !f.contains(2335) &&
-          (game.inventory['14:4'] ?? 0) > 0,
+          (game.cursor?.script.id == '5:16' ||
+              (game.inventory['14:4'] ?? 0) > 0),
       '用金色钥匙打开东厢房。',
     );
     add(
@@ -487,6 +549,8 @@ final class GameNavigation {
   );
 
   void cancel() {
+    _worker?.close();
+    _worker = null;
     generation++;
     active = null;
     _leg = null;
@@ -507,7 +571,16 @@ final class GameNavigation {
       return;
     }
     cancel();
-    active = goal ?? nextGoal;
+    final selected = goal ?? nextGoal;
+    active = selected.scriptId == '5:1' && selected.event == 56
+        ? GameGoal(
+            selected.label,
+            selected.scriptId,
+            selected.event,
+            hint: selected.hint,
+            continuation: GameGoal(selected.label, '5:16', 1),
+          )
+        : selected;
     await _plan();
   }
 
@@ -517,7 +590,45 @@ final class GameNavigation {
     planning = true;
     final request = generation;
     try {
-      final result = await _route(_capture(), goal, request);
+      final worker = _NavigationWorker();
+      _worker = worker;
+      worker.subscription = worker.port.listen((message) {
+        if (worker.result.isCompleted) return;
+        if (message is String) {
+          worker.result.completeError(StateError(message));
+        } else if (message is List) {
+          worker.result.completeError(
+            StateError('后台寻路异常：${message.firstOrNull}'),
+          );
+        } else {
+          worker.result.complete(message as _NavLeg?);
+        }
+      });
+      // 先建立结果监听，避免子隔离区快速完成或取消时遗失返回值。
+      final future = worker.result.future;
+      try {
+        final isolate = await Isolate.spawn(
+          _planNavigation,
+          _NavigationRequest(
+            game.data.maps,
+            game.data.scripts,
+            Map.of(game.inventory),
+            _capture(),
+            goal,
+            worker.port.sendPort,
+          ),
+          onError: worker.port.sendPort,
+          onExit: worker.port.sendPort,
+          errorsAreFatal: true,
+        );
+        worker.isolate = isolate;
+        if (worker.closed) isolate.kill(priority: Isolate.immediate);
+      } catch (error) {
+        if (!worker.result.isCompleted) worker.result.completeError(error);
+      }
+      final result = await future;
+      worker.close();
+      if (identical(_worker, worker)) _worker = null;
       if (request != generation) return;
       if (result == null) {
         active = null;
@@ -538,6 +649,10 @@ final class GameNavigation {
         game.notice = '寻路失败：$error';
       }
     } finally {
+      if (request == generation) {
+        _worker?.close();
+        _worker = null;
+      }
       // 旧请求结束不能解除新请求的 planning 状态。
       if (request == generation) planning = false;
     }
@@ -603,8 +718,11 @@ final class GameNavigation {
       game.interact();
     }
     if (next.destination) {
-      game.notice = '已到达：${active?.label ?? ''}';
-      active = null;
+      final follow = active?.continuation;
+      game.notice = follow == null
+          ? '已到达：${active?.label ?? ''}'
+          : '开门后继续前往：${follow.label}';
+      active = follow;
     }
     _leg = null;
     waitTicks = 3;

@@ -32,6 +32,29 @@ extension GameRendering on GameEngine {
     }
     final op = operation;
     final movie = op?.movie;
+    if (preferences['modernUi'] == true &&
+        !forceClassic &&
+        movie == null &&
+        op?.kind != 'credits') {
+      // 新版直接绘制高清场景，不能在每个 40ms 回调背后再软件绘制整幅经典地图。
+      // 对白的 next 参与真实翻页状态机，仍按原窗口宽度分页，不能随像素绘制跳过。
+      target.textRuns.clear();
+      if (op?.kind == 'dialogue') {
+        final head = op!.args.isNotEmpty
+            ? data.image(11, 1, op.args.first)
+            : null;
+        final first = textLayout.fit(
+          op.text,
+          op.start,
+          wide ? (head != null ? 202 : 262) : (head != null ? 101 : 131),
+          wide ? 34 : 17,
+        );
+        op.next = textLayout
+            .fit(op.text, first.next, wide ? 262 : 131, wide ? 34 : 17)
+            .next;
+      }
+      return;
+    }
     if (movie == null ||
         op == null ||
         op.args.length < 5 ||

@@ -72,6 +72,10 @@ final class GameViewModel extends ChangeNotifier {
   Uint32List? _previous;
   bool? _previousHd;
   int imageLogicalWidth = 320, imageLogicalHeight = 192;
+  String? _presentationKey, _sceneKey;
+
+  /// 静止场景不因菜单、提示条或定时器通知而再次光栅化。
+  int sceneRevision = 0;
   Future<void> initialize() async {
     try {
       final binary = rootBundle.load('assets/fmj/game/DAT.LIB');
@@ -171,7 +175,7 @@ final class GameViewModel extends ChangeNotifier {
       }
     }
     game.update();
-    _render();
+    _render(force: false);
     if (++_autosaveTicks >= 125) {
       _autosaveTicks = 0;
       if (game.canSave) unawaited(persist());
@@ -241,7 +245,7 @@ final class GameViewModel extends ChangeNotifier {
     }
   }
 
-  void _render() {
+  void _render({bool force = true}) {
     final game = engine;
     if (_disposed || game == null) return;
     if (_decoding) {
@@ -249,6 +253,31 @@ final class GameViewModel extends ChangeNotifier {
       return;
     }
     if (game.preferences['modernUi'] == true) {
+      final animated =
+          game.battle != null ||
+          game.screen == 'intro' ||
+          game.operation?.movie != null ||
+          game.operation?.kind == 'credits';
+      final sceneKey =
+          '${game.map?.id}/${game.cursor?.script.id}/'
+          '${game.wide}/${game.preferences['hd']}/${game.flags}/'
+          '${animated ? game.ticks : 0}/${game.route}/'
+          '${[...game.npcs.values, ?game.player].map((a) => '${a.type},${a.index},${a.sprite},${a.x},${a.y},${a.direction},'
+              '${a.step},${a.state},${a.visible}').join(';')}';
+      if (_sceneKey != sceneKey) {
+        _sceneKey = sceneKey;
+        sceneRevision++;
+      }
+      final op = game.operation;
+      final key =
+          '$sceneKey/${game.screen}/${game.sceneName}/${game.money}/'
+          '${game.notice}/${game.error}/${game.preferences}/'
+          '${identityHashCode(op)}/${op?.start}/${op?.next}/${op?.selected}/'
+          '${game.menus.map((m) => '${identityHashCode(m)},${m.selected},${m.page}').join(';')}/'
+          '${game.players.map((a) => '${a.hp},${a.maxHp},${a.mp},${a.maxMp},${a.level},${a.equipment}').join(';')}/'
+          '${game.navigation.active?.label}/${game.navigation.planning}';
+      if (!force && _presentationKey == key) return;
+      _presentationKey = key;
       _previous = null;
       textRuns = game.surface.textRuns.map((run) => run.copy()).toList();
       notifyListeners();

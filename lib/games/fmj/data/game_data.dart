@@ -151,6 +151,17 @@ final class GameScript {
 
 /// 可复用、带总量限制的资源仓库；退出场景不保留无限数量的大位图。
 final class GameData {
+  /// 寻路隔离区只接收地图和脚本，不复制 ROM 位图缓存、存档或界面对象。
+  GameData.navigation(
+    Map<String, GameMap> maps,
+    Map<String, GameScript> scripts,
+  ) : bytes = Uint8List(0),
+      encoding = GameEncoding({}),
+      stages = const [] {
+    this.maps.addAll(maps);
+    this.scripts.addAll(scripts);
+  }
+
   GameData({
     required this.bytes,
     required this.encoding,

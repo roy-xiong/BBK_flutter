@@ -1,5 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:async';
+import 'dart:isolate';
 import 'dart:math' as math;
 import '../data/game_data.dart';
 import 'game_actor.dart';
@@ -45,6 +47,11 @@ final class GameOperation {
 
 /// 纯 Dart 会话状态机；只由前台固定步长驱动，不持有 Widget 或平台 Context。
 final class GameEngine {
+  /// 仅供后台只读路由解释器使用，不创建电影或位图，也不调用 Flutter 排版器。
+  GameEngine._navigation(this.data)
+    : textLayout = const _NavigationTextLayout(),
+      random = math.Random(0);
+
   GameEngine(this.data, {required this.textLayout, math.Random? random})
     : random = random ?? math.Random() {
     surface = PixelSurface(320, 192, textLayout: textLayout);
@@ -712,6 +719,7 @@ final class GameEngine {
       if (index == 0 && flag != null) flags.add(flag);
       if (op.scriptId == '5:1' && op.address == 512 && index == 0) {
         flags.add(2335);
+        navigation.cancel();
       }
       if (op.scriptId == '2:18' && op.address == 866) {
         flags.add(2314);

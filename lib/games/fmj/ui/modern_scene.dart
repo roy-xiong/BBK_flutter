@@ -17,9 +17,13 @@ final class ModernScenePainter extends CustomPainter {
     this.overview = false,
     this.showActorsInOverview = false,
     this.textStyle,
+    this.revision,
   });
   final GameEngine game;
   final ModernArt? art;
+
+  /// 捕获创建时的修订号，不能比较持有同一个可变引擎的前后两个 delegate。
+  final int? revision;
 
   /// 审核文档复用同一生产渲染器导出完整地图；游戏默认路径不启用此模式。
   final ModernMapCamera? cameraOverride;
@@ -729,7 +733,15 @@ final class ModernScenePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant ModernScenePainter oldDelegate) => true;
+  bool shouldRepaint(covariant ModernScenePainter oldDelegate) =>
+      revision == null ||
+      revision != oldDelegate.revision ||
+      !identical(game, oldDelegate.game) ||
+      !identical(art, oldDelegate.art) ||
+      textStyle != oldDelegate.textStyle ||
+      cameraOverride != oldDelegate.cameraOverride ||
+      overview != oldDelegate.overview ||
+      showActorsInOverview != oldDelegate.showActorsInOverview;
 }
 
 /// 独立放大头像，使用有来源记录的角色轮廓和新版肤色、发色材质。

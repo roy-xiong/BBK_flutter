@@ -18,6 +18,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   ::CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
 
   flutter::DartProject project(L"data");
+  // Flutter 3.44 默认把 Dart UI 与 Win32 消息循环合并。游戏脚本或寻路的瞬时
+  // 负载不能阻塞拖动、关闭等窗口消息；固定 SDK 支持独立 UI 线程策略。
+  project.set_ui_thread_policy(flutter::UIThreadPolicy::RunOnSeparateThread);
 
   std::vector<std::string> command_line_arguments =
       GetCommandLineArguments();

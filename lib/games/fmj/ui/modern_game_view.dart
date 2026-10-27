@@ -157,11 +157,14 @@ final class _ModernSceneView extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              CustomPaint(
-                painter: ModernScenePainter(
-                  game,
-                  model.modernArt,
-                  textStyle: DefaultTextStyle.of(context).style,
+              RepaintBoundary(
+                child: CustomPaint(
+                  painter: ModernScenePainter(
+                    game,
+                    model.modernArt,
+                    revision: model.sceneRevision,
+                    textStyle: DefaultTextStyle.of(context).style,
+                  ),
                 ),
               ),
               if (battle != null)
