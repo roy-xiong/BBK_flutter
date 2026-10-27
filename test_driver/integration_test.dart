@@ -13,6 +13,7 @@ Future<void> main() => integrationDriver(
     File('${output.path}/windows-integration.json').writeAsStringSync(
       jsonEncode({
         'stages': data?['stages'],
+        'peakRss': data?['peakRss'],
         'nativeProbe': data?['nativeProbe'],
       }),
     );

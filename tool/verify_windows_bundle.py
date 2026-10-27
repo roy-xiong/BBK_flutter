@@ -40,7 +40,7 @@ def main():
     if hashlib.sha256((folder / 'data/flutter_assets' / font).read_bytes()).digest() != hashlib.sha256((root / font).read_bytes()).digest():
         raise ValueError('Windows中文字体缺失或不一致')
     manifest = json.loads((folder / 'data/flutter_assets/FontManifest.json').read_text(encoding='utf-8'))
-    if not any(row.get('family') == 'BBK CJK' and any(item.get('asset') == str(font) for item in row['fonts']) for row in manifest):
+    if not any(row.get('family') == 'BBK CJK' and any(item.get('asset') == font.as_posix() for item in row['fonts']) for row in manifest):
         raise ValueError('Windows字体清单未绑定统一中文字体')
     directories = [line.strip()[2:] for line in (root / 'pubspec.yaml').read_text(encoding='utf-8').splitlines() if line.strip().startswith(('- assets/', '- licenses/'))]
     checked = 0

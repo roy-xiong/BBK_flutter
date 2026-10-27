@@ -48,7 +48,8 @@ void main() {
         game.update();
       }
       await tester.pump(const Duration(milliseconds: 80));
-      for (final stage in [0, 8, 20, 32, 41, 50, 60, 68, 75, 83, 90, 95]) {
+      var peakRss = ProcessInfo.currentRss;
+      for (var stage = 0; stage < game.data.stages.length; stage++) {
         model.action((g) => g.selectStage(g.data.stages[stage]));
         for (var frame = 0; frame < 12; frame++) {
           final op = game.operation;
@@ -59,6 +60,8 @@ void main() {
           await tester.pump(const Duration(milliseconds: 40));
           expect(game.error, isEmpty);
           expect(tester.takeException(), isNull);
+          if (ProcessInfo.currentRss > peakRss)
+            peakRss = ProcessInfo.currentRss;
         }
       }
       model.setPaused(true);
@@ -110,7 +113,8 @@ void main() {
       }
       binding.reportData = {
         'screenshots': screenshots,
-        'stages': 12,
+        'stages': game.data.stages.length,
+        'peakRss': peakRss,
         'nativeProbe': 'WM_NULL',
       };
     } finally {
