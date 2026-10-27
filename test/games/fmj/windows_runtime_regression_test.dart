@@ -16,6 +16,7 @@ void main() {
       textLayout: FlutterSystemFontLayout(),
     );
     game.screen = 'play';
+    game.disableSave = true; // 此用例只测画面发布，不启动平台存档插件。
     game.intro = null;
     game.map = game.data.maps.values.first;
     game.players.add(

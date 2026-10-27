@@ -60,8 +60,9 @@ void main() {
           await tester.pump(const Duration(milliseconds: 40));
           expect(game.error, isEmpty);
           expect(tester.takeException(), isNull);
-          if (ProcessInfo.currentRss > peakRss)
+          if (ProcessInfo.currentRss > peakRss) {
             peakRss = ProcessInfo.currentRss;
+          }
         }
       }
       model.setPaused(true);
