@@ -1,5 +1,23 @@
 part of 'game_engine.dart';
 
+/// 修复旧导航把玩家误送出愚人居后的入口封闭。只为未完成的卡片支线开放
+/// 返回，所有人物对白、交还卡片、奖励和原入口坐标仍走正常脚本。
+bool _allowYurenReturn(
+  GameScript script,
+  GameCommand command,
+  Set<int> flags,
+) =>
+    script.id == '2:50' &&
+    command.address == 224 &&
+    command.opcode == 11 &&
+    command.arg(0) == 254 &&
+    flags.contains(254) &&
+    ((flags.contains(2008) && !flags.contains(2301) && !flags.contains(263)) ||
+        (flags.contains(2010) && !flags.contains(2302)) ||
+        (flags.contains(2009) &&
+            !flags.contains(2303) &&
+            !flags.contains(261)));
+
 final class GameGoal {
   const GameGoal(
     this.label,
@@ -486,7 +504,14 @@ final class GameNavigation {
       ('鹤鸣山洞：取得不点卡片', '14:9', 21, 1099, 253, 2333, 0),
       ('观星亭：开启后期宝箱', '2:33', 1, 1104, 260, 2334, 0),
     ];
+    final remainingKeys = game.inventory['14:2'] ?? 0;
+    final reservedCardKeys = const [
+      (1077, 2330),
+      (1095, 2332),
+      (1099, 2333),
+    ].where((card) => !f.contains(card.$1) && !f.contains(card.$2)).length;
     for (final lock in locks) {
+      final isCard = const {1077, 1095, 1099}.contains(lock.$4);
       add(
         lock.$1,
         lock.$2,
@@ -496,8 +521,11 @@ final class GameNavigation {
             f.contains(264) &&
             !f.contains(lock.$6) &&
             !f.contains(lock.$7) &&
-            (game.inventory['14:2'] ?? 0) > 0,
-        '每处消耗一把万能钥匙，当前剩余 ${game.inventory['14:2'] ?? 0} 把。',
+            remainingKeys > 0 &&
+            (isCard || remainingKeys > reservedCardKeys),
+        isCard
+            ? '消耗一把万能钥匙取得任务卡片，当前剩余 $remainingKeys 把。'
+            : '先为未取得的任务卡片保留 $reservedCardKeys 把钥匙，再开启可选宝箱。',
       );
     }
     add(
@@ -548,7 +576,7 @@ final class GameNavigation {
     List.of(game.variables),
     game.npcs.map((id, n) => MapEntry(id, (n.x, n.y))),
     game.npcs.entries
-        .where((e) => e.value.state == 2 || e.value.state == 3)
+        .where((e) => const {1, 2, 3}.contains(e.value.state))
         .map((e) => e.key)
         .toSet(),
   );
@@ -681,6 +709,12 @@ final class GameNavigation {
     if (next.blockedBy != null) {
       _leg = null;
       waitTicks = 12;
+      final blocker = game.npcs[next.blockedBy];
+      if (blocker != null && const {1, 2, 3}.contains(blocker.state)) {
+        // 活动人物会回来，等待并按新位置重算；不能为追人强行穿越地图出口。
+        _blockedTicks = 0;
+        return;
+      }
       if (++_blockedTicks >= 20) {
         active = null;
         game.notice = '前方人物挡路，请等待让路或手动交互后再次前往';
@@ -783,7 +817,10 @@ final class GameNavigation {
         case 10:
           jump = n(0);
         case 11:
-          if (state.flags.contains(n(0))) jump = n(1);
+          if (state.flags.contains(n(0)) &&
+              !_allowYurenReturn(script, command, state.flags)) {
+            jump = n(1);
+          }
         case 12:
           if (n(0) >= 0 && n(0) < 240) state.variables[n(0)] = n(1);
         case 21:
@@ -807,7 +844,7 @@ final class GameNavigation {
         case 38:
           state.npcs[n(0)] = (n(2), n(3));
         case 46:
-          if (n(1) == 2 || n(1) == 3) {
+          if (const {1, 2, 3}.contains(n(1))) {
             state.moving.add(n(0));
           } else {
             state.moving.remove(n(0));
@@ -1027,6 +1064,20 @@ final class GameNavigation {
             node.cost +
                 flood.distances[arrival.anchorY * map.width + arrival.anchorX],
           );
+        }
+        if (goal.event <= 40 && state.moving.contains(goal.event)) {
+          // 目标人物暂时进入了边缘或被其他人物挡住。它仍在本图，地图出口不能
+          // 当成接近人物的绕行路径，否则愚人居的单向出口会把整个支线锁死。
+          return (node.first ??
+                  _NavLeg(
+                    state.x,
+                    state.y,
+                    state.x,
+                    state.y,
+                    goal.event,
+                    blockedBy: goal.event,
+                  ))
+              .ranked(node.cost);
         }
         final relaxed = state.copy()..npcs.clear();
         final open = _flood(relaxed, allowEvents: true);

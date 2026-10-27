@@ -338,7 +338,9 @@ final class GameEngine {
       case 10:
         jump(n(0));
       case 11:
-        if (flags.contains(n(0))) jump(n(1));
+        if (flags.contains(n(0)) && !_allowYurenReturn(c.script, cmd, flags)) {
+          jump(n(1));
+        }
       case 12:
         _setVar(n(0), n(1));
       case 13:
@@ -866,9 +868,29 @@ final class GameEngine {
           continue;
         }
         if (random.nextInt(5) == 0) npc.direction = random.nextInt(4) + 1;
+        final currentMap = map;
+        if (currentMap == null) continue;
+        // 自由游走不能进入玩家不可达的四周取景边缘。旧档中已走到边缘的
+        // 人物逐格返回可达区域；强制剧情移动仍由原 move 指令独立控制。
+        final outside =
+            npc.x < 4 ||
+            npc.x >= currentMap.width - 4 ||
+            npc.y < 3 ||
+            npc.y >= currentMap.height - 2;
+        if (outside) {
+          npc.direction = npc.x < 4
+              ? 2
+              : npc.x >= currentMap.width - 4
+              ? 4
+              : npc.y < 3
+              ? 3
+              : 1;
+        }
         final (dx, dy) = _delta(npc.direction);
         final x = npc.x + dx, y = npc.y + dy;
-        if (_walkable(x, y) && !(p?.x == x && p?.y == y)) {
+        if (_walkable(x, y) &&
+            (outside || currentMap.canWalk(x, y, player: true)) &&
+            !(p?.x == x && p?.y == y)) {
           _moveActor(npc, npc.direction);
         }
       }
@@ -1043,6 +1065,7 @@ final class GameEngine {
   /// 保存快照不包含画布、闭包和平台资源；写入层负责串行与原子替换。
   Map<String, dynamic> snapshot() => {
     'format': 1,
+    'navigationRevision': 1,
     'rom': 'a71a98c72af5d1122cc4adbad861c5fa4c2454850cbc6d2b70903b818c0dfd93',
     'scene': sceneName,
     'map': map?.id,
@@ -1080,6 +1103,7 @@ final class GameEngine {
       'timer',
       'timerCounter',
       'timerEvent',
+      'navigationRevision',
     ]) {
       if (j[key] != null && j[key] is! int) {
         throw const FormatException('存档数值类型无效');
@@ -1142,6 +1166,22 @@ final class GameEngine {
     final nextMonsters = (j['randomMonsters'] as List).cast<int>().toList(),
         nextBackground = (j['randomBackground'] as List).cast<int>().toList();
     if (nextBackground.length != 3) throw const FormatException('存档战斗背景无效');
+    final nextFlags = rawFlags
+        .whereType<int>()
+        .where((v) => v > 0 && v <= 2400)
+        .toSet();
+    // 旧版完整剧情导航先用了紫瞳魔灯的钥匙，导致三把钥匙耗尽却没有不点卡片。
+    // 对这一明确状态补回一次；新快照带修订号，之后消耗、读档都不会重复补给。
+    final repairKey =
+        (j['navigationRevision'] as int? ?? 0) < 1 &&
+        preferences['storyScope'] == 'complete' &&
+        nextFlags.containsAll({264, 1077, 1095, 1114}) &&
+        !nextFlags.contains(1099) &&
+        !nextFlags.contains(2010) &&
+        !nextFlags.contains(2302) &&
+        (nextInventory['14:2'] ?? 0) == 0 &&
+        (nextInventory['14:7'] ?? 0) == 0;
+    if (repairKey) nextInventory['14:2'] = 1;
     players
       ..clear()
       ..addAll(nextPlayers);
@@ -1156,7 +1196,7 @@ final class GameEngine {
     money = (j['money'] as int? ?? 0).clamp(0, 2147483647);
     flags
       ..clear()
-      ..addAll(rawFlags.whereType<int>().where((v) => v > 0 && v <= 2400));
+      ..addAll(nextFlags);
     variables.setAll(0, rawVars.cast<int>());
     inventory
       ..clear()
@@ -1181,6 +1221,7 @@ final class GameEngine {
     route.clear();
     error = '';
     intro = null;
+    if (repairKey) notice = '已修复旧版导航进度：补回1把万能钥匙，可继续取得不点卡片';
     render();
   }
 
