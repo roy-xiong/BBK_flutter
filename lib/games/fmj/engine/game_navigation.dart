@@ -1112,6 +1112,7 @@ final class GameNavigation {
     bool allowBoundary = true,
     bool dynamicProbe = false,
   }) async {
+    final debugVisited = <String>{};
     final pending = <_NavNode>[_NavNode(initial, null, 0)],
         seen = <String>{},
         scheduled = <String>{initial.key},
@@ -1130,8 +1131,23 @@ final class GameNavigation {
       );
       final node = pending.removeAt(0), state = node.state;
       if (!seen.add(state.key)) continue;
+      assert(() {
+        debugVisited.add(state.scriptId);
+        return true;
+      }());
       final flood = _flood(state), script = game.data.scripts[state.scriptId];
       if (flood == null || script == null) continue;
+      assert(() {
+        if (initial.flags.contains(254) &&
+            goal.scriptId == '14:9' &&
+            const {'14:8', '14:9'}.contains(state.scriptId)) {
+          // ignore: avoid_print
+          print(
+            '[DEBUG-yuren] ${state.scriptId}:${state.x},${state.y} npcs=${state.npcs} exits=${flood.exits.keys}',
+          );
+        }
+        return true;
+      }());
       final map = flood.map;
       if (state.scriptId == goal.scriptId) {
         if (goal.event == 0) {
@@ -1363,6 +1379,18 @@ final class GameNavigation {
         }
       }
     }
+    assert(() {
+      if (initial.flags.contains(254) &&
+          goal.scriptId == '14:9' &&
+          allowBoundary &&
+          !dynamicProbe) {
+        // ignore: avoid_print
+        print(
+          '[DEBUG-yuren] ${initial.scriptId} seen=${seen.length} pending=${pending.length} regions=$debugVisited; frontier=${frontier.map((b) => '${b.input.scriptId}:${b.exit.event}=>${_simulate(b.input, b.exit.event, preview: true).state.scriptId}').toSet()}',
+        );
+      }
+      return true;
+    }());
     return null;
   }
 }
