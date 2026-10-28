@@ -39,6 +39,7 @@ class GameKeyboardBindings {
     GameControl.cycleFmjRunSpeed: '奔跑倍速',
     GameControl.toggleWideView: '远视野',
     GameControl.selectFmjStage: '选择关卡',
+    GameControl.toggleMoneyFarm: '开始 / 停止刷钱',
   };
   Map<String, String> get byCode => {
     for (final entry in bindings.entries)

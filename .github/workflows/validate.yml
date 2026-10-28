@@ -51,5 +51,6 @@ jobs:
             build/validation/current-scene-audit/lifu-bucket-well.png
             build/validation/current-scene-audit/jianye-north-shops.png
             build/validation/approved-art/map-2-20.png
+            build/validation/macos-v22/
           if-no-files-found: ignore
           retention-days: 14

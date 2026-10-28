@@ -6,6 +6,7 @@ import '../engine/game_actor.dart';
 import 'modern_art.dart';
 import 'modern_map_camera.dart';
 import 'modern_battle_layout.dart';
+import 'modern_battle_effects.dart';
 import 'modern_terrain.dart';
 import 'modern_world_objects.dart';
 
@@ -621,44 +622,7 @@ final class ModernScenePainter extends CustomPainter {
         );
       }
     }
-    final action = battle.current;
-    if (action != null && action.stage == 1 && action.movie != null) {
-      for (final target in action.targets.where((p) => p.visible)) {
-        final center = layout.point(target) + const Offset(0, -48),
-            phase = game.ticks % 16 / 16;
-        final healing = (action.changes[target] ?? 0) > 0;
-        final color = healing
-            ? const Color(0xff93dbb1)
-            : const Color(0xffebd7a2);
-        for (var i = 0; i < 3; i++) {
-          final radius = 18 + phase * 28 + i * 8;
-          canvas.drawOval(
-            Rect.fromCenter(
-              center: center + Offset(0, i * 5.0),
-              width: radius * 2,
-              height: radius * .75,
-            ),
-            _paint
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = 1.7
-              ..color = color.withValues(alpha: (1 - phase) * .8),
-          );
-        }
-        _paint.style = PaintingStyle.fill;
-        for (var i = 0; i < 9; i++) {
-          final angle = i * math.pi * 2 / 9 + phase * 2;
-          canvas.drawCircle(
-            center +
-                Offset(
-                  math.cos(angle) * (16 + phase * 24),
-                  math.sin(angle) * (22 + phase * 30),
-                ),
-            1.5,
-            _paint..color = color.withValues(alpha: 1 - phase),
-          );
-        }
-      }
-    }
+    ModernBattleEffects.draw(canvas, game, layout);
     for (final raise in battle.visibleRaises.where(
       (r) =>
           r.showing &&

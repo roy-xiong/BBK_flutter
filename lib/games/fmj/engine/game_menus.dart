@@ -76,10 +76,7 @@ extension GameMenus on GameEngine {
       if (down && key.index < 4) {
         changePurchaseQuantity(
           menu,
-          key == GameKey.right ||
-                  key == (menu.purchase!.selling ? GameKey.down : GameKey.up)
-              ? 1
-              : -1,
+          key == GameKey.right || key == GameKey.up ? 1 : -1,
         );
       } else if (!down && key == GameKey.confirm) {
         selectMenu(menu, 0);

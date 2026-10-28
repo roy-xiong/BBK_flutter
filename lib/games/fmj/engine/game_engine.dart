@@ -11,6 +11,7 @@ part 'game_render.dart';
 part 'game_battle.dart';
 part 'game_menus.dart';
 part 'game_navigation.dart';
+part 'game_money_farm.dart';
 
 /// 输入编号与 BBK 原引擎一致，触屏、键盘和寻路均经过同一入口。
 enum GameKey { up, down, left, right, pageUp, pageDown, confirm, cancel }
@@ -60,6 +61,7 @@ final class GameEngine {
   }
   final GameData data;
   late final GameNavigation navigation = GameNavigation(this);
+  late final GameMoneyFarm moneyFarm = GameMoneyFarm(this);
   final SystemTextLayout textLayout;
   final math.Random random;
   static final _speakerPrefix = RegExp(r'^([^：:\r\n，。！？!?]{1,16})[：:]');
@@ -147,6 +149,7 @@ final class GameEngine {
   /// 原引擎的一次 40ms 模拟；此层只处理游戏时间，不另读倍速或驱动平台定时器。
   void _updateStep() {
     ticks++;
+    moneyFarm.tick();
     if (screen == 'intro') {
       final movie = intro;
       if (movie == null || !movie.update()) {
@@ -200,6 +203,7 @@ final class GameEngine {
   }
 
   void startNewGame() {
+    moneyFarm.stop();
     navigation.cancel();
     stageStoneProgress = null;
     players.clear();
@@ -644,7 +648,10 @@ final class GameEngine {
       _dialogueConfirmHeld = false;
       return;
     }
-    if (!automatic && down && key.index < 4) navigation.cancel();
+    if (!automatic && down && (key.index < 4 || key == GameKey.cancel)) {
+      moneyFarm.stop();
+      navigation.cancel();
+    }
     if (screen == 'intro') {
       if (down && key == GameKey.cancel) {
         screen = 'title';
@@ -913,13 +920,14 @@ final class GameEngine {
   }
 
   /// 寻路只提交正常方向输入；不能跳过碰撞、地图事件、遭遇或剧情限制。
-  bool walkTo(int x, int y) {
+  bool walkTo(int x, int y, {bool nearest = false}) {
     final p = player, m = map;
     if (p == null ||
         m == null ||
         cursor?.running == true ||
         operation != null ||
-        battle != null) {
+        battle != null ||
+        menus.isNotEmpty) {
       return false;
     }
     final start = (p.x, p.y),
@@ -946,9 +954,22 @@ final class GameEngine {
         }
       }
     }
-    if (!parents.containsKey(target)) return false;
+    var destination = target;
+    if (!parents.containsKey(target)) {
+      if (!nearest) return false;
+      var distance = (start.$1 - x).abs() + (start.$2 - y).abs();
+      destination = start;
+      for (final cell in parents.keys) {
+        final value = (cell.$1 - x).abs() + (cell.$2 - y).abs();
+        if (value < distance) {
+          destination = cell;
+          distance = value;
+        }
+      }
+      if (destination == start) return false;
+    }
     final path = <(int, int)>[];
-    var current = target;
+    var current = destination;
     while (current != start) {
       path.add(current);
       final prev = parents[current];
@@ -1232,6 +1253,7 @@ final class GameEngine {
     cursor?.timer = j['timer'] as int? ?? 0;
     cursor?.timerCounter = j['timerCounter'] as int? ?? 0;
     cursor?.timerEvent = j['timerEvent'] as int? ?? 0;
+    moneyFarm.stop();
     navigation.cancel();
     disableSave = j['disableSave'] == true;
     allowMiss = j['allowMiss'] == true;

@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -17,14 +16,8 @@ abstract final class DesktopWindowService {
       state != AppLifecycleState.detached &&
       (supported || state == AppLifecycleState.resumed);
 
-  /// Esc由窗口处理，X/虚拟B仍为游戏取消；抬起及系统重复事件不再次最小化。
-  static bool handleKey(KeyEvent event) {
-    if (!supported || event.logicalKey != LogicalKeyboardKey.escape) {
-      return false;
-    }
-    if (event is KeyDownEvent) unawaited(minimize());
-    return true;
-  }
+  /// Esc交还游戏和当前弹窗处理，不再由宿主拦截或触发最小化。
+  static bool handleKey(KeyEvent event) => false;
 
   static Future<void> minimize() async {
     if (!supported) return;
@@ -38,30 +31,10 @@ abstract final class DesktopWindowService {
   }
 }
 
-/// 窗口快捷键先于路由和弹窗处理，避免Esc被对话框解释成“关闭”而误改游戏选择。
-final class DesktopWindowShortcuts extends StatefulWidget {
+/// 保留宿主包装接口；不注册全局按键监听，Esc遵循当前游戏或弹窗的返回语义。
+final class DesktopWindowShortcuts extends StatelessWidget {
   const DesktopWindowShortcuts({super.key, required this.child});
   final Widget child;
   @override
-  State<DesktopWindowShortcuts> createState() => _DesktopWindowShortcutsState();
-}
-
-final class _DesktopWindowShortcutsState extends State<DesktopWindowShortcuts> {
-  KeyEventResult _key(KeyEvent event) => DesktopWindowService.handleKey(event)
-      ? KeyEventResult.handled
-      : KeyEventResult.ignored;
-  @override
-  void initState() {
-    super.initState();
-    FocusManager.instance.addEarlyKeyEventHandler(_key);
-  }
-
-  @override
-  void dispose() {
-    FocusManager.instance.removeEarlyKeyEventHandler(_key);
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => widget.child;
+  Widget build(BuildContext context) => child;
 }

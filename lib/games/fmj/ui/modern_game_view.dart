@@ -200,12 +200,17 @@ final class _ModernSceneView extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               RepaintBoundary(
-                child: CustomPaint(
-                  painter: ModernScenePainter(
-                    game,
-                    model.modernArt,
-                    revision: model.sceneRevision,
-                    textStyle: DefaultTextStyle.of(context).style,
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTapUp: (details) =>
+                      model.tapMap(details.localPosition, constraints.biggest),
+                  child: CustomPaint(
+                    painter: ModernScenePainter(
+                      game,
+                      model.modernArt,
+                      revision: model.sceneRevision,
+                      textStyle: DefaultTextStyle.of(context).style,
+                    ),
                   ),
                 ),
               ),

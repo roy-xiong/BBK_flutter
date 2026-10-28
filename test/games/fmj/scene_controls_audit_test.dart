@@ -66,15 +66,15 @@ void main() {
     expect(g.inventory['9:1'], 5);
     expect(g.money, 100);
     expect(g.menus.last.kind, 'sell-quantity');
-    g.press(GameKey.down);
-    g.press(GameKey.down);
+    g.press(GameKey.up);
+    g.press(GameKey.up);
     expect(g.inventory['9:1'], 5);
     g.press(GameKey.cancel);
     expect(g.money, 100);
     expect(g.inventory['9:1'], 5);
     g.press(GameKey.confirm);
-    g.press(GameKey.down);
-    g.press(GameKey.down);
+    g.press(GameKey.up);
+    g.press(GameKey.up);
     g.press(GameKey.confirm);
     expect(g.inventory['9:1'], 3);
     expect(g.money, 100 + g.goods('9:1')!.word(20) * 2);
@@ -174,7 +174,7 @@ void main() {
     });
   }
 
-  testWidgets('桌面Esc请求最小化窗口，不向游戏提交取消键', (tester) async {
+  testWidgets('桌面Esc恢复游戏取消，不请求最小化窗口', (tester) async {
     debugDefaultTargetPlatformOverride = TargetPlatform.macOS;
     var minimized = 0;
     const channel = MethodChannel('bbk_flutter/window');
@@ -194,8 +194,8 @@ void main() {
       await tester.pumpWidget(MaterialApp(home: GamePage(viewModel: model)));
       await tester.sendKeyEvent(LogicalKeyboardKey.escape);
       await tester.pump();
-      expect(minimized, 1);
-      expect(g.menus, isEmpty);
+      expect(minimized, 0);
+      expect(g.menus.last.kind, 'main');
     } finally {
       await dispose(tester, model, saves, dir);
       tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
@@ -206,7 +206,7 @@ void main() {
     }
   });
 
-  testWidgets('桌面弹窗显示时Esc仍最小化，组件释放后没有残留快捷键回调', (tester) async {
+  testWidgets('桌面弹窗显示时Esc正常关闭，组件释放后没有残留快捷键回调', (tester) async {
     debugDefaultTargetPlatformOverride = TargetPlatform.macOS;
     var calls = 0;
     const channel = MethodChannel('bbk_flutter/window');
@@ -237,15 +237,16 @@ void main() {
       await tester.pumpAndSettle();
       await tester.sendKeyEvent(LogicalKeyboardKey.escape);
       await tester.pump();
-      expect(calls, 1);
-      expect(find.text('测试弹窗'), findsOneWidget);
+      expect(calls, 0);
+      await tester.pumpAndSettle();
+      expect(find.text('测试弹窗'), findsNothing);
       await tester.pumpWidget(
         MaterialApp(home: Scaffold(body: const Text('已释放'))),
       );
       await tester.pump();
       await tester.sendKeyEvent(LogicalKeyboardKey.escape);
       await tester.pump();
-      expect(calls, 1);
+      expect(calls, 0);
     } finally {
       await tester.pumpWidget(const SizedBox.shrink());
       tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(

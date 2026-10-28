@@ -67,36 +67,43 @@ final class ModernWorldObjects {
       _chest(canvas, target, opened: opened);
       return true;
     }
-    if (actor.sprite == 23 || actor.sprite == 24) {
-      // 仅替换已确认的慕容玄倒地形象与蛇妖。等比贴齐原机关底部，完整保留头脚，
-      // 出现坐标、遮挡范围、原剧情身份和交互仍由引擎持有。
+    if (const {24, 28, 36, 42}.contains(actor.sprite)) {
+      // 蛇妖、蛟、天师魂魄与朱雀使用对应战斗身份的同一原画；只变显示大小，
+      // 不再回退旧机关图，也不把袁萍芷的朱雀变身误画成其他鸟类。
+      final h = actor.sprite == 42
+          ? 2.5
+          : actor.sprite == 36
+          ? 2.2
+          : 2.0;
       return art.drawObject(
         canvas,
         'mechanism:${actor.sprite}/0',
-        target,
+        Rect.fromLTWH(
+          point.dx - tile * .65,
+          point.dy + tile - tile * h,
+          tile * 2.3,
+          tile * h,
+        ),
         paint,
       );
     }
+    if (actor.sprite == 23) {
+      return art.drawObject(canvas, 'mechanism:23/0', target, paint);
+    }
     if (actor.sprite == 31) {
-      // 天道保持剧情机关身份，地图用与战斗相符的深色道袍、空手四向形象。
       final key =
           'world:tiandao:${actor.direction.clamp(1, 4)}/${[0, 1, 2, 1][actor.step % 4]}';
-      final sprite = art.sprites[key];
-      if (sprite != null) {
-        final height = tile * 1.7,
-            width = height * sprite.rect.width / sprite.rect.height;
-        return art.drawSprite(
-          canvas,
-          key,
-          Rect.fromLTWH(
-            point.dx + tile / 2 - width / 2,
-            point.dy + tile - height,
-            width,
-            height,
-          ),
-          paint,
-        );
-      }
+      return art.drawObject(
+        canvas,
+        key,
+        Rect.fromLTWH(
+          point.dx - tile * .4,
+          point.dy - tile,
+          tile * 1.8,
+          tile * 2,
+        ),
+        paint,
+      );
     }
     final phase = [0, 1, 2, 1][actor.step % 4];
     final key = art.sprites.containsKey('mechanism:${actor.sprite}/$phase')

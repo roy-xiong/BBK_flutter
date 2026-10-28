@@ -203,6 +203,7 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
     switch (input) {
       case GameControl.quickTravel:
         model.action((g) {
+          g.moneyFarm.stop();
           if (g.screen != 'play' ||
               g.battle != null ||
               g.operation != null ||
@@ -213,6 +214,9 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
             unawaited(g.navigation.startGoal());
           }
         });
+      case GameControl.toggleMoneyFarm:
+        _stopQuickTravel();
+        model.action((g) => g.moneyFarm.toggle());
       case GameControl.selectFmjStage:
         _sheet(_StagePanel(model: model));
       case GameControl.cycleFmjRunSpeed:
@@ -394,6 +398,7 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                           onInput: _control,
                           hapticsEnabled:
                               game.preferences['hapticsEnabled'] != false,
+                          fmjMoneyFarmActive: game.moneyFarm.active,
                           fmjWideViewEnabled: game.wide,
                           fmjAutoBattleEnabled:
                               game.preferences['autoBattle'] == true,
@@ -406,6 +411,7 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                         onInput: _control,
                         hapticsEnabled:
                             game.preferences['hapticsEnabled'] != false,
+                        fmjMoneyFarmActive: game.moneyFarm.active,
                         fmjWideViewEnabled: game.wide,
                         fmjAutoBattleEnabled:
                             game.preferences['autoBattle'] == true,
@@ -657,6 +663,14 @@ final class _ClassicGameView extends StatelessWidget {
       builder: (context, constraints) => GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTapUp: (details) {
+          if (game != null && expected == null) {
+            model.tapMap(
+              details.localPosition,
+              constraints.biggest,
+              classic: true,
+            );
+            return;
+          }
           if (game == null ||
               expected == null ||
               !identical(game.operation, expected) ||

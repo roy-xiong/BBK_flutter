@@ -27,6 +27,12 @@ class MainFlutterWindow: NSWindow {
     windowChannel = channel
 
     super.awakeFromNib()
+    // NSWindow在用户移动、缩放后自动保存frame；两款游戏共用宿主窗口，跨启动恢复。
+    // 必须在Flutter替换contentViewController及初始frame之后读取，避免默认大小覆盖旧值。
+    let frameName = NSWindow.FrameAutosaveName("BBKClassicGames2MainWindow")
+    setFrameAutosaveName(frameName)
+    setFrameUsingName(frameName)
+
     gameActivity = ProcessInfo.processInfo.beginActivity(
       options: [.userInitiatedAllowingIdleSystemSleep],
       reason: "BBK 游戏自动战斗与策略结算"

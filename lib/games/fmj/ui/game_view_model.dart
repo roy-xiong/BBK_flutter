@@ -10,6 +10,7 @@ import '../engine/game_engine.dart';
 import '../engine/pixel_surface.dart';
 import 'system_font_layout.dart';
 import 'modern_art.dart';
+import 'modern_map_camera.dart';
 import 'game_keyboard_bindings.dart';
 
 /// 前台会话与 Flutter 帧桥接；同一时刻最多解码一张图片，销毁后及时释放 GPU 资源。
@@ -214,6 +215,41 @@ final class GameViewModel extends ChangeNotifier {
     }
   }
 
+  /// 将实际显示区域中的鼠标/触屏坐标还原成同一镜头的地图格；弹窗、战斗不透传。
+  /// 新点击会取消旧导航与刷钱；不可达目标只提交最近可达格，仍经正常方向输入行走。
+  void tapMap(ui.Offset position, ui.Size size, {bool classic = false}) {
+    final game = engine, map = engine?.map, player = engine?.player;
+    if (_disposed ||
+        paused ||
+        game == null ||
+        map == null ||
+        player == null ||
+        game.screen != 'play' ||
+        game.operation != null ||
+        game.battle != null ||
+        game.cursor?.running == true ||
+        game.menus.isNotEmpty ||
+        size.isEmpty ||
+        !(ui.Offset.zero & size).contains(position)) {
+      return;
+    }
+    final camera = ModernMapCamera(
+      mapWidth: map.width,
+      mapHeight: map.height,
+      playerX: player.x,
+      playerY: player.y,
+      wide: game.wide,
+    );
+    final x = camera.left + (position.dx / size.width * camera.columns).floor();
+    final y = camera.top + (position.dy / size.height * camera.rows).floor();
+    game.moneyFarm.stop();
+    game.navigation.cancel();
+    game.notice = game.walkTo(x, y, nearest: true)
+        ? '正在前往点击位置'
+        : '前方有阻碍，无法继续前进';
+    _render();
+  }
+
   void setPaused(bool value) {
     paused = value;
     _held = null;
@@ -290,7 +326,8 @@ final class GameViewModel extends ChangeNotifier {
           '${identityHashCode(op)}/${op?.start}/${op?.next}/${op?.selected}/'
           '${game.menus.map((m) => '${identityHashCode(m)},${m.selected},${m.page},${m.revision}').join(';')}/'
           '${game.players.map((a) => '${a.hp},${a.maxHp},${a.mp},${a.maxMp},${a.level},${a.equipment}').join(';')}/'
-          '${game.navigation.active?.label}/${game.navigation.planning}';
+          '${game.navigation.active?.label}/${game.navigation.planning}/'
+          '${game.moneyFarm.active}/${game.moneyFarm.rounds}';
       if (!force && _presentationKey == key) return;
       _presentationKey = key;
       _previous = null;
@@ -357,6 +394,7 @@ final class GameViewModel extends ChangeNotifier {
     _timer = null;
     _held = null;
     engine?.onSaveChanged = null;
+    engine?.moneyFarm.stop();
     engine?.navigation.cancel();
     image?.dispose();
     image = null;

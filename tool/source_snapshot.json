@@ -48,14 +48,14 @@
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "eb378573b97851b6a0f84ba2e1590185d6cf2257725a2fe5aa814e63f9de4c4c"
+      "importedSha256": "80711c0e2323c6212a46a5ab79158015be37e7049208042d0d923046115c8758"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_menus.dart",
       "destination": "lib/games/fmj/engine/game_menus.dart",
       "sourceSha256": "0d4fe2395bc3664887210d11914603f951d6e6ab37113b7ef9c2a241c5dc1c3a",
-      "importedSha256": "041c5421b3bdc39a8c3d454f00f45f22c3fef885f59f51c0688a024f317de3a7"
+      "importedSha256": "c1c4d05b04cb8f5a9b34023f833a781fdecd6c1f58f0151d51215be289f6cc4e"
     },
     {
       "game": "fmj",
@@ -384,14 +384,14 @@
       "source": "assets/modern/enhanced-art-sources.json",
       "destination": "assets/fmj/modern/enhanced-art-sources.json",
       "sourceSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e",
-      "importedSha256": "4d7562abd0d5c62514c562e8ebf089cbb5cc610eee8a8aebcb7342e1b64057c8"
+      "importedSha256": "e326720ad53dec59d794019811a434145a9c3d02ef88f724644f39f1cc7b8a4e"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "482156a2781dc69fc459384b44e35e570576b8d2c4a333d083d0ceb57f33df92"
+      "importedSha256": "8981364479eefd58857e95c9b72c73d60c383079975fc0b7205ce5ed15beb020"
     },
     {
       "game": "fmj",
@@ -2183,7 +2183,7 @@
     {
       "game": "fmj",
       "destination": "assets/fmj/modern/enhanced-surface-fallback-v5.png",
-      "importedSha256": "a88de2f760ddd42374833dcd752476bdac7dec5203b90a44a5887cdcb121aacc",
+      "importedSha256": "d23cc7d1d4a3168eb55ab123a9e3510e988efa7c48114050dbbee77c537924c3",
       "approval": "tool/fmj_art_v5_changes.json"
     },
     {
@@ -2209,6 +2209,18 @@
       "destination": "assets/fmj/modern/lifu-furniture-v7.png",
       "importedSha256": "0d94df07bdb6b603ba84d6fa350a3fe127ff68f792984e690636204feaf33edb",
       "approval": "本轮山门/李府/全地图入口修订，先不打包"
+    },
+    {
+      "game": "fmj",
+      "destination": "assets/fmj/modern/identity-v9.png",
+      "importedSha256": "1132b41f7010af90aee45c386ca87ffda4476579f3ff7b4ddd46fc2c00b91268",
+      "approval": "用户本轮要求：统一人物与可取消刷钱循环"
+    },
+    {
+      "game": "fmj",
+      "destination": "lib/games/fmj/engine/game_money_farm.dart",
+      "importedSha256": "db1968ab49fa56ad4342da6724b1ff6b0ee6739d2990fd1744f5c2c036ed3028",
+      "approval": "用户本轮要求：统一人物与可取消刷钱循环"
     }
   ],
   "integrationRevisions": [
@@ -2817,6 +2829,36 @@
       "previousImportedSha256": "279da1310974cf75e0965759792278310ca42f1faec12791b84b88b746a56722",
       "currentSha256": "0d94df07bdb6b603ba84d6fa350a3fe127ff68f792984e690636204feaf33edb",
       "reason": "10月28日审核意见V2：参考照片重绘整体四柱三间山门；中式石狮与底座一体；李府四组相邻椅桌椅、直边茶几及连续两级台阶；本轮不打包"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "eb378573b97851b6a0f84ba2e1590185d6cf2257725a2fe5aa814e63f9de4c4c",
+      "currentSha256": "80711c0e2323c6212a46a5ab79158015be37e7049208042d0d923046115c8758",
+      "reason": "macOS本轮：统一剧情战斗形象、出售向上增加、可取消建业刷钱循环、鼠标碰撞寻路、取消Esc最小化、窗口记忆及原SRS彩色战斗动效"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_menus.dart",
+      "previousImportedSha256": "041c5421b3bdc39a8c3d454f00f45f22c3fef885f59f51c0688a024f317de3a7",
+      "currentSha256": "c1c4d05b04cb8f5a9b34023f833a781fdecd6c1f58f0151d51215be289f6cc4e",
+      "reason": "macOS本轮：统一剧情战斗形象、出售向上增加、可取消建业刷钱循环、鼠标碰撞寻路、取消Esc最小化、窗口记忆及原SRS彩色战斗动效"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art-sources.json",
+      "previousImportedSha256": "4d7562abd0d5c62514c562e8ebf089cbb5cc610eee8a8aebcb7342e1b64057c8",
+      "currentSha256": "e326720ad53dec59d794019811a434145a9c3d02ef88f724644f39f1cc7b8a4e",
+      "reason": "macOS本轮：统一剧情战斗形象、出售向上增加、可取消建业刷钱循环、鼠标碰撞寻路、取消Esc最小化、窗口记忆及原SRS彩色战斗动效"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "482156a2781dc69fc459384b44e35e570576b8d2c4a333d083d0ceb57f33df92",
+      "currentSha256": "8981364479eefd58857e95c9b72c73d60c383079975fc0b7205ce5ed15beb020",
+      "reason": "macOS本轮：统一剧情战斗形象、出售向上增加、可取消建业刷钱循环、鼠标碰撞寻路、取消Esc最小化、窗口记忆及原SRS彩色战斗动效"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-surface-fallback-v5.png",
+      "previousImportedSha256": "a88de2f760ddd42374833dcd752476bdac7dec5203b90a44a5887cdcb121aacc",
+      "currentSha256": "d23cc7d1d4a3168eb55ab123a9e3510e988efa7c48114050dbbee77c537924c3",
+      "reason": "macOS本轮：统一剧情战斗形象、出售向上增加、可取消建业刷钱循环、鼠标碰撞寻路、取消Esc最小化、窗口记忆及原SRS彩色战斗动效"
     }
   ]
 }

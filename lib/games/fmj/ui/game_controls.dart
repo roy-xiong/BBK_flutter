@@ -19,6 +19,7 @@ enum GameControl {
   toggleWideView,
   search,
   help,
+  toggleMoneyFarm,
 }
 
 /// 按 BBK 原版尺寸、位置、配色和长按节奏保留的横屏悬浮控制区。
@@ -31,11 +32,13 @@ class GameControlsOverlay extends StatelessWidget {
     this.fmjWideViewEnabled = true,
     this.fmjAutoBattleEnabled = false,
     this.fmjRunSpeed = 1,
+    this.fmjMoneyFarmActive = false,
   });
   final bool hapticsEnabled,
       showFmjUtilityButtons,
       fmjWideViewEnabled,
-      fmjAutoBattleEnabled;
+      fmjAutoBattleEnabled,
+      fmjMoneyFarmActive;
   final int fmjRunSpeed;
   final ValueChanged<GameControl> onInput;
 
@@ -67,6 +70,7 @@ class GameControlsOverlay extends StatelessWidget {
                   wideViewEnabled: fmjWideViewEnabled,
                   autoBattleEnabled: fmjAutoBattleEnabled,
                   runSpeed: fmjRunSpeed,
+                  moneyFarmActive: fmjMoneyFarmActive,
                   onInput: onInput,
                 ),
               ),
@@ -102,12 +106,14 @@ class PortraitGameControlsPanel extends StatelessWidget {
     this.fmjWideViewEnabled = true,
     this.fmjAutoBattleEnabled = false,
     this.fmjRunSpeed = 1,
+    this.fmjMoneyFarmActive = false,
   });
   final bool isDarkTheme;
   final bool hapticsEnabled,
       showFmjUtilityButtons,
       fmjWideViewEnabled,
-      fmjAutoBattleEnabled;
+      fmjAutoBattleEnabled,
+      fmjMoneyFarmActive;
   final int fmjRunSpeed;
   final ValueChanged<GameControl> onInput;
 
@@ -147,6 +153,7 @@ class PortraitGameControlsPanel extends StatelessWidget {
                                   wideViewEnabled: fmjWideViewEnabled,
                                   autoBattleEnabled: fmjAutoBattleEnabled,
                                   runSpeed: fmjRunSpeed,
+                                  moneyFarmActive: fmjMoneyFarmActive,
                                   onInput: onInput,
                                 ),
                                 const SizedBox(height: 14),
@@ -206,6 +213,7 @@ class _FmjUtilityButtons extends StatelessWidget {
     required this.wideViewEnabled,
     required this.autoBattleEnabled,
     required this.runSpeed,
+    required this.moneyFarmActive,
     required this.onInput,
   });
 
@@ -213,6 +221,7 @@ class _FmjUtilityButtons extends StatelessWidget {
   final bool wideViewEnabled;
   final bool autoBattleEnabled;
   final int runSpeed;
+  final bool moneyFarmActive;
   final ValueChanged<GameControl> onInput;
 
   @override
@@ -267,6 +276,14 @@ class _FmjUtilityButtons extends StatelessWidget {
               const SizedBox(width: 8),
               button('选择关卡', '选择关卡', GameControl.selectFmjStage, width: 88),
             ],
+          ),
+          const SizedBox(height: 6),
+          button(
+            moneyFarmActive ? '停止自动刷钱' : '建业客栈战斗并出售富贵珠，循环刷钱',
+            moneyFarmActive ? '停止刷钱' : '一键刷钱',
+            GameControl.toggleMoneyFarm,
+            width: 276,
+            active: moneyFarmActive,
           ),
           const SizedBox(height: 6),
           Row(
