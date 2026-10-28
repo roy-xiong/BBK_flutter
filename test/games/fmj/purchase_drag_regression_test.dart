@@ -5,6 +5,7 @@ import 'package:bbk_flutter/games/fmj/data/game_data.dart';
 import 'package:bbk_flutter/games/fmj/engine/game_engine.dart';
 import 'package:bbk_flutter/games/fmj/ui/game_page.dart';
 import 'package:bbk_flutter/games/fmj/ui/game_view_model.dart';
+import 'package:bbk_flutter/games/fmj/ui/modern_game_view.dart';
 import 'package:bbk_flutter/games/fmj/ui/system_font_layout.dart';
 import 'game_engine_test.dart' show loadData;
 
@@ -125,6 +126,57 @@ void main() {
     } finally {
       await tester.pumpWidget(const SizedBox.shrink());
       model.dispose();
+      tester.view.resetPhysicalSize();
+      tester.view.resetDevicePixelRatio();
+    }
+  });
+
+  testWidgets('彩色数量框在窄屏可增减数量、取消及确认购买', (tester) async {
+    final game = engine();
+    final vm = GameViewModel()
+      ..engine = game
+      ..loading = false;
+    tester.view.physicalSize = const Size(360, 250);
+    tester.view.devicePixelRatio = 1;
+    await tester.runAsync(() => vm.prepareModernArt());
+    try {
+      game.openInventory(mode: 'buy', items: ['9:1']);
+      await tester.pumpWidget(
+        MaterialApp(
+          home: AnimatedBuilder(
+            animation: vm,
+            builder: (_, _) => ModernGameView(model: vm),
+          ),
+        ),
+      );
+      await tester.tap(find.widgetWithText(ListTile, game.goodsName('9:1')));
+      await tester.pump();
+      expect(find.text('购买数量'), findsOneWidget);
+      expect(game.money, 5000);
+      await tester.tap(find.byTooltip('增加购买数量'));
+      await tester.pump();
+      await tester.tap(find.byTooltip('增加购买数量'));
+      await tester.pump();
+      expect(
+        find.text('总价：${game.goods('9:1')!.word(18) * 2}'),
+        findsOneWidget,
+      );
+      await tester.tap(find.text('取消'));
+      await tester.pump();
+      expect(game.inventory['9:1'] ?? 0, 0);
+      expect(game.money, 5000);
+      await tester.tap(find.widgetWithText(ListTile, game.goodsName('9:1')));
+      await tester.pump();
+      await tester.tap(find.byTooltip('增加购买数量'));
+      await tester.pump();
+      await tester.tap(find.text('确认购买'));
+      await tester.pump();
+      expect(game.inventory['9:1'], 1);
+      expect(game.money, 5000 - game.goods('9:1')!.word(18));
+      expect(tester.takeException(), isNull);
+    } finally {
+      await tester.pumpWidget(const SizedBox.shrink());
+      vm.dispose();
       tester.view.resetPhysicalSize();
       tester.view.resetDevicePixelRatio();
     }

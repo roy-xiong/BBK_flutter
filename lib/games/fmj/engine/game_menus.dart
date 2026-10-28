@@ -10,6 +10,7 @@ final class GameMenu {
     this.actor = 0,
     this.onSelect,
     this.onRefresh,
+    this.purchase,
   });
   final String kind;
   final List<String> items;
@@ -18,7 +19,17 @@ final class GameMenu {
   final int actor;
   final void Function(int index)? onSelect;
   final void Function(GameMenu menu)? onRefresh;
+  final GamePurchase? purchase;
   int selected = 0, page = 0, revision = 0;
+}
+
+/// 购买框只持有待确认数量。库存和金钱在确认前不变，取消无需回滚存档数据。
+final class GamePurchase {
+  GamePurchase(this.id, this.unitPrice);
+  final String id;
+  final int unitPrice;
+  int quantity = 0, limit = 0;
+  int get total => quantity * unitPrice;
 }
 
 extension GameMenus on GameEngine {
@@ -60,6 +71,19 @@ extension GameMenus on GameEngine {
     if (menus.isEmpty) return;
     refreshMenus();
     final menu = menus.last;
+    if (menu.purchase != null) {
+      if (down && key.index < 4) {
+        changePurchaseQuantity(
+          menu,
+          key == GameKey.up || key == GameKey.right ? 1 : -1,
+        );
+      } else if (!down && key == GameKey.confirm) {
+        selectMenu(menu, 0);
+      } else if (!down && key == GameKey.cancel) {
+        selectMenu(menu, 1);
+      }
+      return;
+    }
     final count = menu.kind == 'state'
         ? players.length
         : menu.kind == 'equipment'
@@ -328,9 +352,7 @@ extension GameMenus on GameEngine {
             notice = '金钱不足';
             return;
           }
-          money -= r.word(18);
-          addGoods(id);
-          notice = '购入 ${goodsName(id)}';
+          _openPurchase(id, r.word(18));
         } else if (mode == 'sell') {
           if (r.byte(0) == 14 || r.word(132) != 0) {
             notice = '此物不能出售';
@@ -359,6 +381,60 @@ extension GameMenus on GameEngine {
     );
     rebuild(menu);
     menus.add(menu);
+  }
+
+  /// 按BBK购买流程进入数量确认。库存上限沿用当前引擎，不能被预览加减提前消耗。
+  void _openPurchase(String id, int price) {
+    final purchase = GamePurchase(id, price);
+    void refresh(GameMenu menu) {
+      final room = (999 - (inventory[id] ?? 0)).clamp(0, 999);
+      final affordable = price == 0 ? room : math.max(0, money) ~/ price;
+      final limit = math.min(room, affordable);
+      final quantity = purchase.quantity.clamp(0, limit);
+      if (purchase.limit != limit || purchase.quantity != quantity) {
+        menu.revision++;
+      }
+      purchase.limit = limit;
+      purchase.quantity = quantity;
+    }
+
+    late final GameMenu menu;
+    menu = GameMenu(
+      'buy-quantity',
+      ['确认购买', '取消'],
+      purchase: purchase,
+      onRefresh: refresh,
+      onSelect: (index) {
+        if (!identical(menus.lastOrNull, menu)) return;
+        refresh(menu);
+        menus.removeLast();
+        if (index != 0 || purchase.quantity == 0) return;
+        // 在同一同步操作内再次检查数量、余额；旧弹窗或重复点击不能重复成交。
+        final quantity = purchase.quantity, total = purchase.total;
+        if (goods(id) == null ||
+            quantity > 999 - (inventory[id] ?? 0) ||
+            total > money) {
+          return;
+        }
+        money -= total;
+        addGoods(id, quantity);
+        notice = '购入 ${goodsName(id)} ×$quantity';
+      },
+    );
+    refresh(menu);
+    menus.add(menu);
+  }
+
+  /// 键盘、虚拟方向键和触屏加减共用数量边界，模型变更后通知表现层刷新。
+  void changePurchaseQuantity(GameMenu menu, int delta) {
+    if (!identical(menus.lastOrNull, menu)) return;
+    refreshMenus();
+    final purchase = menu.purchase;
+    if (purchase == null) return;
+    final next = (purchase.quantity + delta).clamp(0, purchase.limit);
+    if (next == purchase.quantity) return;
+    purchase.quantity = next;
+    menu.revision++;
   }
 
   /// 原购买指令使用“编号、类型”的字节对，清单位于指令参数，不能读取文本。

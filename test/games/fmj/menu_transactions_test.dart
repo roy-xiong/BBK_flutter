@@ -230,6 +230,10 @@ void main() {
     game.money = 5000;
     game.openInventory(mode: 'buy', items: ['9:1']);
     choose(game, 0);
+    game.press(GameKey.up);
+    choose(game, 0);
+    choose(game, 0);
+    game.press(GameKey.up);
     choose(game, 0);
     expect(game.inventory['9:1'], 2);
     expect(game.money, 5000 - game.goods('9:1')!.word(18) * 2);

@@ -721,6 +721,13 @@ final class _NativeMenuState extends State<_NativeMenu> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.menu.purchase != null) {
+      return _PurchasePanel(
+        game: widget.game,
+        menu: widget.menu,
+        model: widget.model,
+      );
+    }
     _reveal();
     final game = widget.game, menu = widget.menu, scale = widget.scale;
     final actor = game.players.elementAtOrNull(menu.actor);
@@ -959,6 +966,166 @@ final class _NativeMenuState extends State<_NativeMenu> {
             else
               Flexible(child: body()),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// 使用同一引擎购买会话；关闭、B键和取消均不扣钱，触屏确认与A键共用提交入口。
+final class _PurchasePanel extends StatelessWidget {
+  const _PurchasePanel({
+    required this.game,
+    required this.menu,
+    required this.model,
+  });
+  final GameEngine game;
+  final GameMenu menu;
+  final GameViewModel model;
+
+  @override
+  Widget build(BuildContext context) {
+    final purchase = menu.purchase;
+    if (purchase == null) return const SizedBox.shrink();
+    void cancel() => model.action((g) => g.selectMenu(menu, 1));
+    return Material(
+      type: MaterialType.transparency,
+      child: _Plaque(
+        child: SizedBox(
+          width: 460,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  const Expanded(
+                    child: Text(
+                      '购买数量',
+                      style: TextStyle(color: _gold, fontSize: 16),
+                    ),
+                  ),
+                  SizedBox.square(
+                    dimension: 28,
+                    child: IconButton(
+                      padding: EdgeInsets.zero,
+                      tooltip: '取消购买',
+                      onPressed: cancel,
+                      icon: const Icon(Icons.close, size: 20, color: _paper),
+                    ),
+                  ),
+                ],
+              ),
+              Flexible(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(
+                        children: [
+                          GoodsIcon(
+                            id: purchase.id,
+                            art: model.modernArt,
+                            size: 32,
+                          ),
+                          const SizedBox(width: 6),
+                          Expanded(
+                            child: Text(
+                              game.goodsName(purchase.id),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                color: _paper,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            '已有 ${game.inventory[purchase.id] ?? 0}',
+                            style: const TextStyle(color: _paper, fontSize: 11),
+                          ),
+                        ],
+                      ),
+                      Wrap(
+                        spacing: 16,
+                        runSpacing: 2,
+                        children: [
+                          Text(
+                            '单价：${purchase.unitPrice}',
+                            style: const TextStyle(color: _paper, fontSize: 12),
+                          ),
+                          Text(
+                            '总价：${purchase.total}',
+                            style: const TextStyle(color: _gold, fontSize: 12),
+                          ),
+                          Text(
+                            '剩余金钱：${game.money - purchase.total}',
+                            style: const TextStyle(color: _paper, fontSize: 12),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 36,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      tooltip: '减少购买数量',
+                      padding: EdgeInsets.zero,
+                      onPressed: purchase.quantity == 0
+                          ? null
+                          : () => model.action(
+                              (g) => g.changePurchaseQuantity(menu, -1),
+                            ),
+                      icon: const Icon(Icons.remove, size: 22, color: _paper),
+                    ),
+                    SizedBox(
+                      width: 66,
+                      child: Text(
+                        '${purchase.quantity}',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(color: _gold, fontSize: 21),
+                      ),
+                    ),
+                    IconButton(
+                      tooltip: '增加购买数量',
+                      padding: EdgeInsets.zero,
+                      onPressed: purchase.quantity >= purchase.limit
+                          ? null
+                          : () => model.action(
+                              (g) => g.changePurchaseQuantity(menu, 1),
+                            ),
+                      icon: const Icon(Icons.add, size: 22, color: _paper),
+                    ),
+                    Text(
+                      ' / ${purchase.limit}',
+                      style: const TextStyle(color: _paper, fontSize: 11),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 32,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(onPressed: cancel, child: const Text('取消')),
+                    const SizedBox(width: 8),
+                    FilledButton(
+                      onPressed: purchase.quantity == 0
+                          ? null
+                          : () => model.action((g) => g.selectMenu(menu, 0)),
+                      child: const Text('确认购买'),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

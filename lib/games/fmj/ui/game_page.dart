@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../engine/game_engine.dart';
@@ -147,6 +148,7 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   }
 
   Offset? _toolbarPosition;
+  Offset? _toolbarDragOrigin, _toolbarPointerOrigin;
 
   /// 控制区只分发命令；按钮长按延迟 320ms，之后每 105ms 重复，完全沿用原版。
   void _control(GameControl input) {
@@ -370,21 +372,44 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                         left: toolbarX.toDouble(),
                         top: toolbarY.toDouble(),
                         child: GestureDetector(
-                          onPanUpdate: (details) => setState(
-                            () => _toolbarPosition = Offset(
-                              (toolbarX + details.delta.dx).clamp(
+                          dragStartBehavior: DragStartBehavior.down,
+                          onPanStart: (details) {
+                            _toolbarDragOrigin = Offset(
+                              toolbarX.toDouble(),
+                              toolbarY.toDouble(),
+                            );
+                            _toolbarPointerOrigin = details.globalPosition;
+                          },
+                          onPanUpdate: (details) => setState(() {
+                            // 使用起点和全局指针差，避免同一帧多次事件引用旧布局位置，
+                            // 也避免控件移动后其局部坐标系变化造成拖动回弹。
+                            final origin = _toolbarDragOrigin,
+                                pointer = _toolbarPointerOrigin;
+                            if (origin == null || pointer == null) return;
+                            final next =
+                                origin + details.globalPosition - pointer;
+                            _toolbarPosition = Offset(
+                              next.dx.clamp(
                                 0.0,
                                 math.max(
                                   0.0,
                                   constraints.maxWidth - toolbarWidth,
                                 ),
                               ),
-                              (toolbarY + details.delta.dy).clamp(
+                              next.dy.clamp(
                                 0.0,
                                 math.max(0.0, constraints.maxHeight - 44),
                               ),
-                            ),
-                          ),
+                            );
+                          }),
+                          onPanEnd: (_) {
+                            _toolbarDragOrigin = null;
+                            _toolbarPointerOrigin = null;
+                          },
+                          onPanCancel: () {
+                            _toolbarDragOrigin = null;
+                            _toolbarPointerOrigin = null;
+                          },
                           child: SizedBox(
                             width: toolbarWidth,
                             height: 44,

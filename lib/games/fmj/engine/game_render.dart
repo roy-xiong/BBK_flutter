@@ -396,7 +396,22 @@ extension GameRendering on GameEngine {
 
   void _drawMenu(GameMenu menu) {
     final kind = menu.kind;
-    if (kind == 'main') {
+    final purchase = menu.purchase;
+    if (purchase != null) {
+      final left = wide ? 52 : 8, top = wide ? 36 : 8;
+      surface.frame(left, top, wide ? 268 : 152, wide ? 164 : 88);
+      final line = wide ? 20 : 12;
+      final rows = [
+        goodsName(purchase.id),
+        '买入个数:${purchase.quantity}',
+        '总价:${purchase.total}',
+        '金钱:${money - purchase.total}',
+        '↑↓数量 A确认 B取消',
+      ];
+      for (var i = 0; i < rows.length; i++) {
+        _text(rows[i], left + 6, top + 5 + i * line, right: wide ? 262 : 147);
+      }
+    } else if (kind == 'main') {
       surface.frame(
         wide ? 12 : 8,
         wide ? 8 : 0,

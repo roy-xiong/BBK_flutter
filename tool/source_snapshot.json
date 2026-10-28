@@ -55,7 +55,7 @@
       "source": "lib/engine/game_menus.dart",
       "destination": "lib/games/fmj/engine/game_menus.dart",
       "sourceSha256": "0d4fe2395bc3664887210d11914603f951d6e6ab37113b7ef9c2a241c5dc1c3a",
-      "importedSha256": "3506497d2517fc6b6f2462c14b7ccde31f04feba9a9d4c25f8a3e8ea648b7661"
+      "importedSha256": "66aeecf4bdbf189674a939fa34858a2206328ec2a6fe0716b31a0370694b1ea0"
     },
     {
       "game": "fmj",
@@ -69,7 +69,7 @@
       "source": "lib/engine/game_render.dart",
       "destination": "lib/games/fmj/engine/game_render.dart",
       "sourceSha256": "b796a60d7f619e67d0a02e354df7d7d05e59c6495abc6984a052a0b5fcae7365",
-      "importedSha256": "a5cf4740728c9253cc73aa6c9e96f179479e539c991b970375de2a012fb61c42"
+      "importedSha256": "9d5c185ea0c5980ba494864b9fce848e4294a855307d33ad7961bd3f34a1df6a"
     },
     {
       "game": "fmj",
@@ -2661,6 +2661,18 @@
       "previousImportedSha256": "ce6caf6a72428374fade73fa02b3016d3dd1f91111d35878d9c1cc43a40c23ec",
       "currentSha256": "3a199cb411bdf3cdeb8461797d8673a52af589afde428ac08931be7dddfa2b27",
       "reason": "根据正式导出画面复核，山壁使用既有手绘灰岩的连续材质，药房立面补纹理并调整柱顶遮挡"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_menus.dart",
+      "previousImportedSha256": "3506497d2517fc6b6f2462c14b7ccde31f04feba9a9d4c25f8a3e8ea648b7661",
+      "currentSha256": "66aeecf4bdbf189674a939fa34858a2206328ec2a6fe0716b31a0370694b1ea0",
+      "reason": "对照BBK恢复购买数量确认与取消无副作用；彩色/经典菜单共用交易，方向键调整数量后统一确认扣钱"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_render.dart",
+      "previousImportedSha256": "a5cf4740728c9253cc73aa6c9e96f179479e539c991b970375de2a012fb61c42",
+      "currentSha256": "9d5c185ea0c5980ba494864b9fce848e4294a855307d33ad7961bd3f34a1df6a",
+      "reason": "对照BBK恢复购买数量确认与取消无副作用；彩色/经典菜单共用交易，方向键调整数量后统一确认扣钱"
     }
   ]
 }
