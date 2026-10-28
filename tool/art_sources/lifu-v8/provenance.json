@@ -1,0 +1,32 @@
+{
+  "method": "ImageGen CLI",
+  "model": "gpt-image-2",
+  "references": [
+    {
+      "role": "stone four-column paifang architecture reference",
+      "url": "https://pics6.baidu.com/feed/ac6eddc451da81cb287c70bf6b31190608243195.jpeg@f_auto?token=a56dce724cb98784b5211daeb8dfbd97"
+    },
+    {
+      "role": "red-and-gold paifang architecture reference",
+      "url": "https://bkimg.cdn.bcebos.com/pic/1b0d4f0f42a249676059f38e"
+    }
+  ],
+  "processing": "Generated alpha preserved for furniture/lion; gate checker background removed by connected neutral color mask, preserving disconnected stone carving. Trimmed and downsampled source images are packed into existing atlases.",
+  "gateParts": [
+    256,
+    512,
+    256
+  ],
+  "hallGroups": 4,
+  "groupSequence": [
+    "chair",
+    "tea table",
+    "chair"
+  ],
+  "constraints": [
+    "lion and plinth connected",
+    "both Lifu lions face left",
+    "no lanterns",
+    "no changes to maps, collisions or scripts"
+  ]
+}

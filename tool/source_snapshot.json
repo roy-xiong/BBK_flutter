@@ -293,7 +293,7 @@
       "source": "assets/modern/enhanced-00.png",
       "destination": "assets/fmj/modern/enhanced-00.png",
       "sourceSha256": "a23454a3f68d1fcd3083e623107dddb3b232db9fc622cee82bc8f81de294240b",
-      "importedSha256": "f7551f9b60fe37f0752bee5980a25f7a7f64e34ea964f371bd1132585d4fb36d"
+      "importedSha256": "ae1c7f779f3ec3c80789119313297615e55551d5e6dc9fa9914ed976a94889b7"
     },
     {
       "game": "fmj",
@@ -349,7 +349,7 @@
       "source": "assets/modern/enhanced-08.png",
       "destination": "assets/fmj/modern/enhanced-08.png",
       "sourceSha256": "ef7cc8f00cbd4fe4258f6786ee37a321eb19931f4f7a58f56d597b23b987e1a8",
-      "importedSha256": "60362596a3a23f47af8d307e24696d07f3b455d31f5c8172467dc3e38912062a"
+      "importedSha256": "db2dcfdb2b05ee8ed1d117ac551829c7b980f5b62547f6deccf2d2571fa5216e"
     },
     {
       "game": "fmj",
@@ -384,7 +384,7 @@
       "source": "assets/modern/enhanced-art-sources.json",
       "destination": "assets/fmj/modern/enhanced-art-sources.json",
       "sourceSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e",
-      "importedSha256": "d087d873b99c2b20407b912d4eef2fb1cd61918765eff08cdaafc35ac3de33b8"
+      "importedSha256": "4d7562abd0d5c62514c562e8ebf089cbb5cc610eee8a8aebcb7342e1b64057c8"
     },
     {
       "game": "fmj",
@@ -2207,7 +2207,7 @@
     {
       "game": "fmj",
       "destination": "assets/fmj/modern/lifu-furniture-v7.png",
-      "importedSha256": "279da1310974cf75e0965759792278310ca42f1faec12791b84b88b746a56722",
+      "importedSha256": "0d94df07bdb6b603ba84d6fa350a3fe127ff68f792984e690636204feaf33edb",
       "approval": "本轮山门/李府/全地图入口修订，先不打包"
     }
   ],
@@ -2793,6 +2793,30 @@
       "previousImportedSha256": "2ee67052f07dfab592d9e24b9a3dac4445d9aa95614642f7074739150b43e791",
       "currentSha256": "a9845fb10b3112711c1e1438b75ef08df06f498d7e400d6f3a4f4089fb436e88",
       "reason": "快捷前往保留长按连发手势，禁止Tooltip长按识别抢占指针；其他按钮提示规则不变"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-00.png",
+      "previousImportedSha256": "f7551f9b60fe37f0752bee5980a25f7a7f64e34ea964f371bd1132585d4fb36d",
+      "currentSha256": "ae1c7f779f3ec3c80789119313297615e55551d5e6dc9fa9914ed976a94889b7",
+      "reason": "10月28日审核意见V2：参考照片重绘整体四柱三间山门；中式石狮与底座一体；李府四组相邻椅桌椅、直边茶几及连续两级台阶；本轮不打包"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-08.png",
+      "previousImportedSha256": "60362596a3a23f47af8d307e24696d07f3b455d31f5c8172467dc3e38912062a",
+      "currentSha256": "db2dcfdb2b05ee8ed1d117ac551829c7b980f5b62547f6deccf2d2571fa5216e",
+      "reason": "10月28日审核意见V2：参考照片重绘整体四柱三间山门；中式石狮与底座一体；李府四组相邻椅桌椅、直边茶几及连续两级台阶；本轮不打包"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art-sources.json",
+      "previousImportedSha256": "d087d873b99c2b20407b912d4eef2fb1cd61918765eff08cdaafc35ac3de33b8",
+      "currentSha256": "4d7562abd0d5c62514c562e8ebf089cbb5cc610eee8a8aebcb7342e1b64057c8",
+      "reason": "10月28日审核意见V2：参考照片重绘整体四柱三间山门；中式石狮与底座一体；李府四组相邻椅桌椅、直边茶几及连续两级台阶；本轮不打包"
+    },
+    {
+      "destination": "assets/fmj/modern/lifu-furniture-v7.png",
+      "previousImportedSha256": "279da1310974cf75e0965759792278310ca42f1faec12791b84b88b746a56722",
+      "currentSha256": "0d94df07bdb6b603ba84d6fa350a3fe127ff68f792984e690636204feaf33edb",
+      "reason": "10月28日审核意见V2：参考照片重绘整体四柱三间山门；中式石狮与底座一体；李府四组相邻椅桌椅、直边茶几及连续两级台阶；本轮不打包"
     }
   ]
 }

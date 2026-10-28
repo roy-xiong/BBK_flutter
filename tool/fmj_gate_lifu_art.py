@@ -1,13 +1,11 @@
 """山门及李府陈设修订：在原占地内换绘美术，不修改地图、碰撞、事件或剧情资源。"""
 from pathlib import Path
-import copy
 import json
-import math
-import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / 'assets/fmj/modern'
+SOURCES = ROOT / 'tool/art_sources/lifu-v8'
 R = Image.Resampling.LANCZOS
 S = 2
 INK = '#35473f'
@@ -40,109 +38,49 @@ def sprite(hd, key):
     return Image.open(ART/hd['textures'][t]).convert('RGBA').crop((x,y,x+w,y+h))
 
 
+def gate_part(part):
+    """把完整四柱三间牌楼按原机关边界切分，三段共用同一比例和同一条基线。
+
+    原图分为256/512/256三个宽度；统一构图后再切片，避免独立画柱、边墙和
+    中楼导致檐口、横梁或颜色衔接不一致。只替换纹理，机关坐标和通行规则不变。
+    """
+    whole=Image.new('RGBA',(1024,640));image=source_image('sanqing-reference-gate.png')
+    image.thumbnail((1024,632),R)
+    whole.alpha_composite(image,((1024-image.width)//2,632-image.height))
+    left,right=[(0,256),(256,768),(768,1024)][part]
+    return whole.crop((left,0,right,640))
+
+
 def gate(hd):
-    c=Drawing(512,640)
-    c.oval((14,597,498,633),'#152e2944')
-    # 雕刻石座与朱漆柱用渐变而非平面色块，门中通道保持透明。
-    for cx in [70,442]:
-        c.polygon([(cx-37,582),(cx+37,582),(cx+51,608),(cx-51,608)],'#7b8c80',width=2)
-        c.rect((cx-35,560,cx+35,585),'#a9b39b',INK,2)
-        c.rect((cx-28,531,cx+28,563),'#bbc2a8',INK,2)
-        c.line([(cx-33,567),(cx+33,567)],'#d9d5b5',2)
-        c.oval((cx-24,550,cx+24,571),'#7b8f7b','#405c4d',2)
-        c.oval((cx-30,530,cx+30,548),'#c5ccb2',INK,2)
-        for y in [540,573]:
-            c.line([(cx-18,y+5),(cx-8,y),(cx,y+5),(cx+8,y),(cx+18,y+5)],'#647d68',2)
-        mask=Image.new('L',(512*S,640*S));ImageDraw.Draw(mask).rounded_rectangle(c.xy((cx-19,258,cx+19,536)),radius=10*S,fill=255)
-        yy,xx=np.mgrid[:640*S,:512*S];shade=np.maximum(0,np.cos((xx-cx*S)/(20*S)*math.pi/2))
-        rgb=np.stack([109+shade*59,38+shade*38,31+shade*31],axis=2).clip(0,255).astype('uint8')
-        layer=Image.fromarray(rgb).convert('RGBA');layer.putalpha(mask);c.im.alpha_composite(layer)
-        c.line([(cx-17,264),(cx-17,528)],'#61352c',2);c.line([(cx-8,268),(cx-8,525)],'#d59b67',2)
-        for y in [278,512]:c.rect((cx-21,y,cx+21,y+9),'#a17f48',INK,2);c.line([(cx-16,y+2),(cx+16,y+2)],'#ead3a0',1)
-    # 双层斗拱：挑梁、拱臂与承托木件一一相连，不悬空贴金条。
-    for cx in [70,442]:
-        for y,reach in [(264,34),(250,48),(236,62)]:
-            c.polygon([(cx-reach,y-9),(cx+reach,y-9),(cx+reach-8,y+4),(cx+16,y+7),(cx+12,y+16),(cx-12,y+16),(cx-16,y+7),(cx-reach+8,y+4)],'#637b6c',width=2)
-            c.line([(cx-reach+7,y-5),(cx+reach-7,y-5)],GOLD,2)
-    c.rect((51,236,461,276),'#4b675c',INK,2)
-    for y in [240,269]:c.line([(57,y),(455,y)],GOLD,3)
-    for x in range(87,432,34):
-        c.line([(x,249),(x+10,244),(x+20,249),(x+10,255),(x,249)],'#afaa75',2)
-    # 复用当前殿宇的手绘瓦片，使新门楼与其余建筑保持同一笔触。
-    roof=sprite(hd,'building:palace/0');roof=roof.crop((0,0,roof.width,round(roof.height*.5)))
-    c.rect((123,126,389,192),'#77543a',INK,2)
-    for x in range(136,386,22):c.rect((x,137,x+12,176),'#314f48',GOLD,1)
-    c.paste(roof,(0,141,512,116))
-    c.paste(roof,(55,4,402,151))
-    # 镇脊宝珠和吻兽，低饱和金属色仅用于结构边缘和纹样。
-    c.oval((243,1,269,26),'#b6a066',INK,2);c.oval((248,3,261,12),'#e8dcb0')
-    c.polygon([(129,266),(383,266),(378,325),(134,325)],'#294a45',GOLD,3)
-    c.rect((141,277,371,313),'#28463f','#887f57',1)
-    for x in [144,368]:
-        c.line([(x,283),(x+(-8 if x==144 else 8),296),(x,307)],'#d3b579',2)
-    c.text((256,295),'三清宫',37,'#ecda9e')
-    # 灯笼由横梁悬挂，保留层叠轮廓、铜顶、束腰与流苏。
-    for x in [111,401]:
-        c.line([(x,287),(x,326)],GOLD,2)
-        c.rect((x-17,325,x+17,332),'#b39761',INK,1)
-        c.oval((x-20,330,x+20,383),'#a24633',INK,2)
-        c.oval((x-12,332,x+12,380),'#c66b45','#8d3d2e',1)
-        c.line([(x-1,336),(x-1,376)],'#dba66c',2)
-        c.rect((x-13,380,x+13,386),'#ac915b',INK,1)
-        for dx in [-4,0,4]:c.line([(x+dx,386),(x+dx,409)],'#c9aa66',1)
-    return c.finish()
+    return gate_part(1)
 
 
 def gate_wing(hd, right=False):
-    """左右门楼同绘，替换旧放大的点阵侧柱，与中央朱柱、檐色和石座衔接。"""
-    c=Drawing(256,640)
-    c.oval((16,588,256,622),'#173b2e44')
-    c.rect((69,347,255,545),'#b1b99e',INK,2)
-    c.rect((81,370,255,502),'#5d7662',INK,2)
-    for y in [380,490]:c.line([(89,y),(255,y)],'#c6b079',2)
-    for x in range(105,255,46):
-        c.line([(x,405),(x-14,424),(x+10,431),(x+20,414)],'#aab795',3)
-        c.line([(x-8,460),(x+10,446),(x+22,460)],'#aab795',2)
-    for y in [521,537]:c.line([(76,y),(255,y)],'#6e8269',2)
-    c.polygon([(21,578),(87,578),(101,606),(7,606)],'#7c9080',width=2)
-    c.rect((18,550,89,583),'#b4c0a5',INK,2)
-    c.rect((29,276,79,552),'#bbc5aa',INK,2)
-    c.rect((37,285,69,541),'#809984',INK,1)
-    for y in range(315,524,37):
-        c.line([(45,y+14),(40,y+4),(53,y),(62,y+12),(54,y+24)],'#bfc9aa',2)
-    c.rect((18,267,90,285),'#738d77',INK,2)
-    c.polygon([(14,256),(94,256),(102,270),(7,270)],'#bcc6a8',width=2)
-    roof=sprite(hd,'building:house/0');roof=roof.crop((0,0,roof.width,round(roof.height*.55)))
-    c.paste(roof,(0,212,256,137))
-    c.rect((72,344,255,356),'#54715f',INK,1);c.line([(75,346),(255,346)],GOLD,2)
-    image=c.finish()
-    return ImageOps.mirror(image) if right else image
+    return gate_part(2 if right else 0)
 
 
-def side_chair():
-    c=Drawing(128,64);c.oval((12,52,117,64),'#15322a44')
-    c.polygon([(28,35),(99,37),(110,45),(33,46)],'#9b7755',width=2)
-    c.polygon([(33,46),(110,45),(107,53),(32,53)],'#674931',width=2)
-    for x in [29,95]:c.polygon([(x,45),(x+8,45),(x+6,62),(x-1,62)],'#6b5139')
-    c.polygon([(15,5),(31,9),(33,45),(17,39)],'#96714c',width=2)
-    c.polygon([(19,10),(27,13),(29,34),(20,30)],'#4f3d2b')
-    c.line([(19,9),(18,36)],'#cbb181',2)
-    for y in range(15,31,5):c.line([(21,y),(28,y+3)],'#a8895a',1)
-    c.line([(26,27),(95,30),(102,37)],'#bd9b6a',4)
-    c.line([(26,29),(95,32)],'#604b35',1)
-    for x in [45,68,91]:c.rect((x,32,x+3,39),'#6a4c31')
-    c.line([(39,49),(97,49)],'#c2a06b',1)
-    return c.finish()
+def source_image(name):
+    """读取已审看并去色键的手绘源图；等比缩放，避免再次把方座扶手椅拉成长椅。"""
+    with Image.open(SOURCES/name) as source:
+        return source.convert('RGBA')
 
 
 def side_group():
-    im=Image.new('RGBA',(128,192));chair=side_chair();im.alpha_composite(chair,(0,0));im.alpha_composite(chair,(0,128))
-    c=Drawing(128,64);c.oval((15,44,118,63),'#18362b44')
-    for x in [25,94]:c.polygon([(x,26),(x+7,26),(x+5,59),(x-2,59)],'#775438')
-    c.polygon([(15,13),(105,19),(119,32),(28,27)],'#b18f5f',width=2)
-    c.polygon([(28,27),(119,32),(117,39),(27,34)],'#785638',width=2)
-    c.line([(22,15),(103,21)],'#dcc395',2);c.line([(36,34),(106,38)],'#c3a16a',1)
-    im.alpha_composite(c.finish(),(0,64));return im
+    """每组两把朝内扶手椅夹一张茶几；等比放大并紧邻排列，不让三件家具散开。
+
+    三件沿南北排列，桌面采用与椅座一致的视角。先画后排椅，再画茶几，最后画
+    前排椅，保持轻微重叠处的正确遮挡；另一侧整组镜像，四组原占地保持一致。
+    """
+    c=Drawing(128,192)
+    chair=source_image('ming-chair-right.png');chair.thumbnail((82,84),R)
+    table=source_image('ming-tea-table-aligned.png');table.thumbnail((78,64),R)
+    chair_x=(128-chair.width)/2;table_x=(128-table.width)/2
+    for bottom in [84,190]:c.oval((42,bottom-7,91,bottom+1),'#15322a44')
+    c.oval((29,115,102,125),'#18362b44')
+    c.paste(chair,(chair_x,0,chair.width,chair.height))
+    c.paste(table,(table_x,62,table.width,table.height))
+    c.paste(chair,(chair_x,108,chair.width,chair.height))
+    return c.finish()
 
 
 def head_table(hd):
@@ -181,13 +119,16 @@ def stairs():
     c=Drawing(512,64);c.rect((0,0,511,13),'#b0baa5');c.rect((0,13,511,60),'#627a6b')
     c.line([(0,13),(511,13)],'#e2dfbb',3);c.line([(0,58),(511,58)],'#344f43',3)
     for x in range(0,512,55):c.line([(x,18),(x,56)],'#52695b',1)
-    # 对齐原99号台阶列x7及x13：每个出入口保留两级踏面。
-    for x in [7,13]:
-        center=(x+.5)/21*512
-        c.polygon([(center-13,0),(center+13,0),(center+18,27),(center-18,27)],'#bdc6ad')
-        c.rect((center-18,27,center+18,34),'#657d6b')
-        c.polygon([(center-18,34),(center+18,34),(center+23,55),(center-23,55)],'#a2b39a')
-        c.rect((center-23,55,center+23,63),'#4f6959');c.line([(center-19,37),(center+19,37)],'#e1dfbd',2)
+    # 两侧原踏步之间同样铺两级整段石阶，不能留下两段梯子夹一堵立墙。
+    left=(7+.5)/21*512;right=(13+.5)/21*512
+    c.polygon([(left-13,0),(right+13,0),(right+18,27),(left-18,27)],'#bdc6ad')
+    c.rect((left-18,27,right+18,34),'#657d6b')
+    c.polygon([(left-18,34),(right+18,34),(right+23,55),(left-23,55)],'#a2b39a')
+    c.rect((left-23,55,right+23,63),'#4f6959')
+    c.line([(left-19,37),(right+19,37)],'#e1dfbd',2)
+    for x in range(round(left),round(right)+1,28):
+        c.line([(x,2),(x,25)],'#93a28b',1)
+        c.line([(x+8,39),(x+8,53)],'#819680',1)
     return c.finish()
 
 
@@ -216,9 +157,19 @@ def main():
         t,x,y,w,h=hd['frames'][f'mechanism:gate:{n}/0']
         if t not in pages:pages[t]=Image.open(ART/hd['textures'][t]).convert('RGBA')
         pages[t].paste(image.resize((w,h),R),(x,y))
-        if n!=2:sources['frames'][f'mechanism:gate:{n}/0']={'source':'tool/fmj_gate_lifu_art.py','originalSprite':n,'details':'coordinated side wing roof, carved stone pier and inset cloud panel'}
+        sources['frames'][f'mechanism:gate:{n}/0']={'source':'tool/art_sources/lifu-v8/sanqing-reference-gate.png','originalSprite':n,'details':'one coherent four-column three-bay paifang, split at original mechanism boundaries'}
+    # 中式石狮与须弥座来自同一张完整原画，不能分离缩放造成脚掌悬空。
+    # right沿用旧摆放键名，原画朝左；left为镜像，用于其他原本朝右的位置。
+    lion=source_image('chinese-guardian-lion.png')
+    for side,image in [('right',lion),('left',ImageOps.mirror(lion))]:
+        lion_key=f'scenery:stone-lion-{side}/0';t,x,y,w,h=hd['frames'][lion_key]
+        if t not in pages:pages[t]=Image.open(ART/hd['textures'][t]).convert('RGBA')
+        fitted=Image.new('RGBA',(w,h));image=image.copy();image.thumbnail((w-8,h-8),R)
+        fitted.alpha_composite(image,((w-image.width)//2,h-image.height-4))
+        pages[t].paste(fitted,(x,y))
+        sources['frames'][lion_key]={'source':'tool/art_sources/lifu-v8/chinese-guardian-lion.png','derived':'Chinese seated guardian lion with attached plinth','mirrored':side=='left'}
     for t,page in pages.items():page.save(ART/hd['textures'][t],optimize=True)
-    sources['frames'][key]={'source':'tool/fmj_gate_lifu_art.py','derivedFrom':'building:palace/0','details':'double eaves, vermilion columns, dougong, bronze plaque, carved stone bases; unchanged original footprint'}
+    sources['frames'][key]={'source':'tool/art_sources/lifu-v8/sanqing-reference-gate.png','details':'reference-based four-column paifang, unified vermilion and gold, no lanterns; unchanged original footprint'}
     filename='lifu-furniture-v7.png'
     if filename not in hd['textures']:hd['textures'].append(filename)
     index=hd['textures'].index(filename);page=Image.new('RGBA',(512,512))
