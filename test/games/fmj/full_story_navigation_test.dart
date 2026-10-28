@@ -84,7 +84,8 @@ void main() {
             'target=${game.battle?.targetKind} '
             'planning=${game.navigation.planning} route=${game.route.length} '
             'at=${game.cursor?.script.id}:${game.player?.x},${game.player?.y} '
-            'cursor=${game.cursor?.running}:${game.cursor?.pointer}',
+            'cursor=${game.cursor?.running}:${game.cursor?.pointer} '
+            'npcs=${game.npcs.map((id, a) => MapEntry(id, '${a.x},${a.y},s${a.state},d${a.direction},p${a.pause}'))}',
           );
         }
 
