@@ -304,9 +304,11 @@ def main():
         w=span*64;h=192;im=Image.new('RGBA',(w,h));d=ImageDraw.Draw(im)
         # 窗与门的位置始终对应原宽建筑中心的出入口，纯色暗区只存在于真正的门洞。
         d.rectangle((19,66,w-20,181),fill='#c0b695',outline='#544c37',width=3)
+        plaster=Image.open(ART/'surface-wall-plaster.png').convert('RGBA').resize((w-40,112),R)
+        im.alpha_composite(plaster,(20,68));d=ImageDraw.Draw(im)
         d.rectangle((24,173,w-25,184),fill='#7d8371',outline='#3f534b',width=2)
         for x in [23,w-34]:
-            d.rectangle((x,61,x+11,175),fill='#775339',outline='#382f27',width=2);d.line((x+4,76,x+4,168),fill='#b99261',width=2)
+            d.rectangle((x,94,x+11,175),fill='#775339',outline='#382f27',width=2);d.line((x+4,101,x+4,168),fill='#b99261',width=2)
         opening=max(34,min(78,w//6));cx=w//2
         d.rectangle((cx-opening//2-6,92,cx+opening//2+6,179),fill='#77593a',outline='#3b3a2c',width=3)
         d.rectangle((cx-opening//2,100,cx+opening//2,173),fill='#172a25')
@@ -327,13 +329,15 @@ def main():
         building_page.alpha_composite(im,(xx+4,yy+4));key=f'building:hall-wide-{span}/0';hd['frames'][key]=[bt,xx+4,yy+4,w,h];sources['frames'][key]=dict(source='tool/fmj_art_v6.py',derivedFrom='building:hall/0',details='timber facade; latticed windows; open doors; stone doorstep; original entrance unchanged');xx+=w+8;rowh=max(rowh,h)
     building_page.crop((0,0,2048,yy+rowh+8)).save(ART/bfile,optimize=True)
     # 连续山壁沿原始山壁格铺设，有层理、嵌缝和明暗；不再出现逐格云纹块。
-    w=h=512;yy,xx=np.mgrid[:h,:w];noise=np.random.default_rng(60).normal(0,1.2,(h,w))
-    grain=4*np.sin(xx/49+np.sin(yy/69))+3*np.cos(yy/37)+noise
-    rock=np.stack([97+grain,115+grain,105+grain],axis=2).clip(0,255).astype('uint8');wall=Image.fromarray(rock).convert('RGBA');d=ImageDraw.Draw(wall)
-    for y in [0,103,231,367,511]:
-        pts=[(x,y+math.sin(x/53)*8)for x in range(-32,545,8)];d.line(pts,fill='#344d44',width=5);d.line([(x,y+5)for x,y in pts],fill='#879781',width=3)
-    for x,y in [(52,12),(273,110),(418,248),(180,373)]:
-        d.line([(x,y),(x+18,y+31),(x+7,y+58),(x+23,y+86)],fill='#405b4d',width=3)
+    w=h=512;yy,xx=np.mgrid[:h,:w]
+    # 复用游戏既有的手绘灰岩质感与青苔，而不是把墙壁画成几条平面色带。
+    # 横向的周期变形打散方砖感，连续采样仍严格以512为周期，接缝不会跳色。
+    rock=np.array(Image.open(ART/'surface-rock-ground.png').convert('RGB').resize((w,h),R)).astype(float)
+    shift=np.round(13*np.sin(yy*math.tau/h)+5*np.sin(yy*math.tau*3/h)).astype(int)
+    rock=rock[yy,(xx+shift)%w]
+    light=.81+.07*np.cos(yy*math.tau/h)+.045*np.sin(xx*math.tau/h)
+    rock=(rock*light[:,:,None]*np.array([.94,1.0,.96])).clip(0,255).astype('uint8')
+    wall=Image.fromarray(rock).convert('RGBA')
     wall.save(ART/'surface-mountain-wall-v6.png',optimize=True);hd['groundTextures']['mountain-wall']='surface-mountain-wall-v6.png'
     marks=json.loads((ART/'scene-landmarks.json').read_text())
     for mid,rows in marks.items():

@@ -2195,13 +2195,13 @@
     {
       "game": "fmj",
       "destination": "assets/fmj/modern/building-frontages-v6.png",
-      "importedSha256": "d25274a24815b4e7f16c551729606f3655d2cda7bf2cf04ae4b038c6be4cbb60",
+      "importedSha256": "ffe6091bd3a0e582576af0d32e476fa564fe544fa0bc1b627efcb6e1e32b5db1",
       "approval": "2026-10-28 用户六项反馈：216件彩色物品图标、全队状态、鹤鸣山洞宝箱优先、道具使用默认焦点、建筑完整立面和山壁材质"
     },
     {
       "game": "fmj",
       "destination": "assets/fmj/modern/surface-mountain-wall-v6.png",
-      "importedSha256": "ce6caf6a72428374fade73fa02b3016d3dd1f91111d35878d9c1cc43a40c23ec",
+      "importedSha256": "3a199cb411bdf3cdeb8461797d8673a52af589afde428ac08931be7dddfa2b27",
       "approval": "2026-10-28 用户六项反馈：216件彩色物品图标、全队状态、鹤鸣山洞宝箱优先、道具使用默认焦点、建筑完整立面和山壁材质"
     }
   ],
@@ -2649,6 +2649,18 @@
       "previousImportedSha256": "4361c90e5b64acf215cb2b7a9ae6d9b6743a7fd02fff7e19ebb414bc3d676638",
       "currentSha256": "4f0b595e3dc6a7bbf53dd14644b39fb1253ad335a622532574442a1d46668b10",
       "reason": "2026-10-28 用户六项反馈：216件彩色物品图标、全队状态、鹤鸣山洞宝箱优先、道具使用默认焦点、建筑完整立面和山壁材质"
+    },
+    {
+      "destination": "assets/fmj/modern/building-frontages-v6.png",
+      "previousImportedSha256": "d25274a24815b4e7f16c551729606f3655d2cda7bf2cf04ae4b038c6be4cbb60",
+      "currentSha256": "ffe6091bd3a0e582576af0d32e476fa564fe544fa0bc1b627efcb6e1e32b5db1",
+      "reason": "根据正式导出画面复核，山壁使用既有手绘灰岩的连续材质，药房立面补纹理并调整柱顶遮挡"
+    },
+    {
+      "destination": "assets/fmj/modern/surface-mountain-wall-v6.png",
+      "previousImportedSha256": "ce6caf6a72428374fade73fa02b3016d3dd1f91111d35878d9c1cc43a40c23ec",
+      "currentSha256": "3a199cb411bdf3cdeb8461797d8673a52af589afde428ac08931be7dddfa2b27",
+      "reason": "根据正式导出画面复核，山壁使用既有手绘灰岩的连续材质，药房立面补纹理并调整柱顶遮挡"
     }
   ]
 }
