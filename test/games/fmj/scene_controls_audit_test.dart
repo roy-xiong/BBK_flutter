@@ -99,7 +99,10 @@ void main() {
     );
     await tester.pump(const Duration(milliseconds: 150));
     expect(taps, 1);
-    await tester.pump(const Duration(milliseconds: 600));
+    // 按连续帧模拟按住过程；一次跳过600ms会把新创建的延迟计时器也推迟到末帧。
+    for (var i = 0; i < 10; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
     expect(taps, greaterThanOrEqualTo(4));
     await touch.up();
     final stopped = taps;

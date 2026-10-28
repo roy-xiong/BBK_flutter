@@ -650,7 +650,7 @@
       "source": "test/map_structure_fidelity_test.dart",
       "destination": "test/games/fmj/map_structure_fidelity_test.dart",
       "sourceSha256": "d976cde68cba9c3abd52e692eef2017d73005325f4f82bd31766429ff188f758",
-      "importedSha256": "75044a452ce6f65f322104d8db68300b6af97deb4090a735f258dafd5eed48a0"
+      "importedSha256": "245373705b513146746529627184921c884a0d6a7367da929a8b7d74818ac012"
     },
     {
       "game": "fmj",
@@ -2781,6 +2781,12 @@
       "previousImportedSha256": "f98a0b9b8aac9cc295cce78740e3148a9e837aec6b8e3163e684fa0e9ef88bfb",
       "currentSha256": "279da1310974cf75e0965759792278310ca42f1faec12791b84b88b746a56722",
       "reason": "本轮未打包修订：山门与李府陈设、全图北向屋顶及标签、出售数量、详情布局、Q长按与桌面生命周期"
+    },
+    {
+      "destination": "test/games/fmj/map_structure_fidelity_test.dart",
+      "previousImportedSha256": "75044a452ce6f65f322104d8db68300b6af97deb4090a735f258dafd5eed48a0",
+      "currentSha256": "245373705b513146746529627184921c884a0d6a7367da929a8b7d74818ac012",
+      "reason": "按原98/99号台阶地图片检查平台覆盖，继续保持地毯不得吞掉桌椅的原约束"
     }
   ]
 }

@@ -159,7 +159,9 @@ void main() {
       for (final object in entry.value as List) {
         expect(object['cells'], isNotNull);
         if (object['floor'] != true) continue;
-        final allowed = map['tiles'] == 6
+        final allowed = object['key'] == 'furniture:lifu-two-step-platform'
+            ? {98, 99}
+            : map['tiles'] == 6
             ? {for (var n = 2; n <= 19; n++) n}
             : {for (var n = 35; n <= 43; n++) n};
         for (final index in object['cells'] as List) {
