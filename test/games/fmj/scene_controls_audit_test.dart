@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'dart:convert';
+import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +8,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:bbk_flutter/games/fmj/data/game_data.dart';
 import 'package:bbk_flutter/games/fmj/data/save_repository.dart';
 import 'package:bbk_flutter/games/fmj/engine/game_engine.dart';
+import 'package:bbk_flutter/games/fmj/engine/game_actor.dart';
+import 'package:bbk_flutter/games/fmj/ui/modern_art.dart';
+import 'package:bbk_flutter/games/fmj/ui/modern_scene.dart';
+import 'package:bbk_flutter/games/fmj/ui/modern_map_camera.dart';
+import 'package:bbk_flutter/games/fmj/ui/modern_game_view.dart';
 import 'package:bbk_flutter/games/fmj/ui/game_controls.dart';
 import 'package:bbk_flutter/games/fmj/ui/game_page.dart';
 import 'package:bbk_flutter/games/fmj/ui/game_view_model.dart';
@@ -193,4 +200,151 @@ void main() {
       debugDefaultTargetPlatformOverride = null;
     }
   });
+
+  test('建业当铺杂货铺北侧原事件格归属北向屋顶，李府原石狮与木桶不变成坟椅', () {
+    final hd = GameData.decodeObject(
+      File('assets/fmj/modern/enhanced-art.json').readAsStringSync(),
+    );
+    for (final x in [9, 22]) {
+      final m = data.maps['1:39']!;
+      expect(m.event(x, 10), greaterThan(0));
+      final rows = (hd['buildings']['1:39'] as List).cast<Map>();
+      final b = rows.singleWhere((b) => b['x'] == x - 1 && b['y'] == 10);
+      expect(b['key'], 'building:house-north');
+      expect(b['cells'], contains(10 * m.width + x));
+    }
+    final lions = (hd['buildings']['1:37'] as List).cast<Map>().where(
+      (b) => b['x'] == 28 && [8, 12].contains(b['y']),
+    );
+    expect(lions, hasLength(2));
+    expect(lions.every((b) => b['key'] == 'scenery:stone-lion-right'), isTrue);
+    final m = data.maps['1:37']!, bucketCell = 15 * m.width + 45;
+    expect(m.cell(45, 15) & 127, 64);
+    expect(
+      (hd['decorations']['1:37'] as List).any(
+        (b) =>
+            b['key'] == 'furniture:wooden-bucket' &&
+            (b['cells'] as List).contains(bucketCell),
+      ),
+      isTrue,
+    );
+  });
+
+  testWidgets('窄屏购买出售子金光符时，默认无需滚动就能完整阅读说明', (tester) async {
+    final g = game();
+    g.preferences['modernUi'] = true;
+    g.inventory['12:5'] = 2;
+    final model = GameViewModel()
+      ..engine = g
+      ..loading = false;
+    await tester.runAsync(() => model.prepareModernArt());
+    tester.view.physicalSize = const Size(360, 250);
+    tester.view.devicePixelRatio = 1;
+    try {
+      for (final mode in ['buy', 'sell']) {
+        g.menus.clear();
+        g.openInventory(mode: mode, items: ['12:5']);
+        await tester.pumpWidget(
+          MaterialApp(home: ModernGameView(model: model)),
+        );
+        await tester.pump();
+        final description = find.text(g.goods('12:5')!.text(30));
+        expect(description, findsOneWidget);
+        final pane = find
+            .ancestor(
+              of: description,
+              matching: find.byType(SingleChildScrollView),
+            )
+            .first;
+        final scroll = tester.state<ScrollableState>(
+          find.descendant(of: pane, matching: find.byType(Scrollable)),
+        );
+        expect(
+          scroll.position.maxScrollExtent,
+          closeTo(0, .1),
+          reason: '$mode 子金光符应在详情区域完整显示',
+        );
+      }
+    } finally {
+      await tester.pumpWidget(const SizedBox.shrink());
+      model.dispose();
+      tester.view.resetPhysicalSize();
+      tester.view.resetDevicePixelRatio();
+    }
+  });
+
+  if (Platform.environment['FMJ_EXPORT_APPROVED_ART'] == '1') {
+    testWidgets('导出本轮山门、客厅、狮子木桶和北向店铺的正式绘制画面', (tester) async {
+      await tester.runAsync(() async {
+        final art = await ModernArt.load();
+        final g = game();
+        final font = FontLoader('BBK CJK')
+          ..addFont(rootBundle.load('assets/fonts/NotoSansCJKsc-Regular.otf'));
+        await font.load();
+        final actors =
+            jsonDecode(
+                  File(
+                    'test/games/fmj/fixtures/approved_map_actors.json',
+                  ).readAsStringSync(),
+                )
+                as Map;
+        final out = Directory('build/validation/current-scene-audit')
+          ..createSync(recursive: true);
+        try {
+          for (final item in [
+            ('1:1', 23, 41, 'sanqing-gate'),
+            ('2:20', 10, 8, 'lifu-hall'),
+            ('1:37', 29, 10, 'lifu-lions'),
+            ('1:37', 44, 16, 'lifu-bucket-well'),
+            ('1:39', 16, 10, 'jianye-north-shops'),
+          ]) {
+            g.map = data.maps[item.$1];
+            g.npcs.clear();
+            g.players.clear();
+            for (final row in actors[item.$1] as List) {
+              final a = GameActor.load(
+                data,
+                row['type'] as int,
+                row['index'] as int,
+              );
+              if (a != null) {
+                a.x = row['x'] as int;
+                a.y = row['y'] as int;
+                g.npcs[g.npcs.length + 1] = a;
+              }
+            }
+            final recorder = ui.PictureRecorder(), canvas = Canvas(recorder);
+            final camera = ModernMapCamera(
+              mapWidth: g.map!.width,
+              mapHeight: g.map!.height,
+              playerX: item.$2,
+              playerY: item.$3,
+              wide: true,
+            );
+            ModernScenePainter(
+              g,
+              art,
+              cameraOverride: camera,
+              textStyle: const TextStyle(fontFamily: 'BBK CJK'),
+            ).paint(canvas, const Size(640, 384));
+            final picture = recorder.endRecording(),
+                image = await picture.toImage(640, 384);
+            try {
+              final bytes = await image.toByteData(
+                format: ui.ImageByteFormat.png,
+              );
+              File(
+                '${out.path}/${item.$4}.png',
+              ).writeAsBytesSync(bytes!.buffer.asUint8List());
+            } finally {
+              image.dispose();
+              picture.dispose();
+            }
+          }
+        } finally {
+          art.dispose();
+        }
+      });
+    });
+  }
 }
