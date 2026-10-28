@@ -222,6 +222,8 @@ void main() {
     game.openInventory(mode: 'sell');
     final menu = game.menus.last;
     expect(game.selectMenu(menu, 0, expectedId: '9:1'), isTrue);
+    game.press(GameKey.down);
+    game.press(GameKey.confirm);
     final money = game.money;
     expect(game.selectMenu(menu, 0, expectedId: '9:1'), isFalse);
     expect(game.inventory['9:2'], 1);
@@ -379,6 +381,8 @@ void main() {
     game.addGoods('9:1');
     game.openInventory(mode: 'sell');
     choose(game, 0);
+    game.press(GameKey.down);
+    game.press(GameKey.confirm);
     expect(game.inventory['9:1'] ?? 0, 0);
     expect(game.menus.last.ids, isEmpty);
   });

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../../core/game_typography.dart';
+import '../../../core/desktop_window_service.dart';
 import '../../../../domain/models/library_game.dart';
 import '../../../../games/fmj/data/save_repository.dart' as fmj_data;
 import '../../../../games/fmj/ui/game_page.dart' as fmj;
@@ -111,7 +112,7 @@ final class _NativeGamePageState extends State<NativeGamePage> {
       if (mounted && !_leaving) {
         final lifecycle = WidgetsBinding.instance.lifecycleState;
         fmjModel?.setPaused(
-          lifecycle != null && lifecycle != AppLifecycleState.resumed,
+          lifecycle != null && !DesktopWindowService.runsIn(lifecycle),
         );
       }
     }

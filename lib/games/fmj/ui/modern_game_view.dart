@@ -852,55 +852,69 @@ final class _NativeMenuState extends State<_NativeMenu> {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(child: list()),
+          Expanded(flex: 2, child: list()),
           VerticalDivider(
             width: 14 * scale,
             color: _gold.withValues(alpha: .35),
           ),
           Expanded(
-            child: SingleChildScrollView(
-              controller: _details,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (id != null && menu.kind == 'inventory')
-                    GoodsIcon(
-                      id: id,
-                      art: widget.model.modernArt,
-                      size: 52 * scale,
+            flex: 3,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    if (id != null && menu.kind == 'inventory') ...[
+                      GoodsIcon(
+                        id: id,
+                        art: widget.model.modernArt,
+                        size: 30 * scale,
+                      ),
+                      SizedBox(width: 5 * scale),
+                    ],
+                    Expanded(
+                      child: Text(
+                        id == null
+                            ? ''
+                            : menu.kind == 'magic'
+                            ? game.magicName(id)
+                            : game.goodsName(id),
+                        style: TextStyle(
+                          color: _gold,
+                          fontSize: 13 * scale,
+                          fontWeight: FontWeight.w600,
+                          height: 1.2,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  Text(
-                    id == null
-                        ? ''
-                        : menu.kind == 'magic'
-                        ? game.magicName(id)
-                        : game.goodsName(id),
-                    style: TextStyle(
-                      color: _gold,
-                      fontSize: 13 * scale,
-                      fontWeight: FontWeight.w600,
+                  ],
+                ),
+                SizedBox(height: 4 * scale),
+                Text(
+                  meta,
+                  style: TextStyle(
+                    color: _paper,
+                    fontSize: 10.5 * scale,
+                    height: 1.25,
+                  ),
+                ),
+                SizedBox(height: 5 * scale),
+                Expanded(
+                  child: SingleChildScrollView(
+                    controller: _details,
+                    child: Text(
+                      description,
+                      style: TextStyle(
+                        color: const Color(0xffcec6ac),
+                        fontSize: 12 * scale,
+                        height: 1.3,
+                      ),
                     ),
                   ),
-                  SizedBox(height: 7 * scale),
-                  Text(
-                    meta,
-                    style: TextStyle(
-                      color: _paper,
-                      fontSize: 11 * scale,
-                      height: 1.5,
-                    ),
-                  ),
-                  SizedBox(height: 7 * scale),
-                  Text(
-                    description,
-                    style: TextStyle(
-                      color: const Color(0xffcec6ac),
-                      fontSize: 12 * scale,
-                      height: 1.6,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],
@@ -987,6 +1001,7 @@ final class _PurchasePanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final purchase = menu.purchase;
     if (purchase == null) return const SizedBox.shrink();
+    final verb = purchase.selling ? '出售' : '购买';
     void cancel() => model.action((g) => g.selectMenu(menu, 1));
     return Material(
       type: MaterialType.transparency,
@@ -998,17 +1013,17 @@ final class _PurchasePanel extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Text(
-                      '购买数量',
-                      style: TextStyle(color: _gold, fontSize: 16),
+                      '$verb数量',
+                      style: const TextStyle(color: _gold, fontSize: 16),
                     ),
                   ),
                   SizedBox.square(
                     dimension: 28,
                     child: IconButton(
                       padding: EdgeInsets.zero,
-                      tooltip: '取消购买',
+                      tooltip: '取消$verb',
                       onPressed: cancel,
                       icon: const Icon(Icons.close, size: 20, color: _paper),
                     ),
@@ -1059,7 +1074,7 @@ final class _PurchasePanel extends StatelessWidget {
                             style: const TextStyle(color: _gold, fontSize: 12),
                           ),
                           Text(
-                            '剩余金钱：${game.money - purchase.total}',
+                            '${purchase.selling ? '出售后金钱' : '剩余金钱'}：${game.money + (purchase.selling ? purchase.total : -purchase.total)}',
                             style: const TextStyle(color: _paper, fontSize: 12),
                           ),
                         ],
@@ -1074,7 +1089,7 @@ final class _PurchasePanel extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(
-                      tooltip: '减少购买数量',
+                      tooltip: '减少$verb数量',
                       padding: EdgeInsets.zero,
                       onPressed: purchase.quantity == 0
                           ? null
@@ -1092,7 +1107,7 @@ final class _PurchasePanel extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                      tooltip: '增加购买数量',
+                      tooltip: '增加$verb数量',
                       padding: EdgeInsets.zero,
                       onPressed: purchase.quantity >= purchase.limit
                           ? null
@@ -1119,7 +1134,7 @@ final class _PurchasePanel extends StatelessWidget {
                       onPressed: purchase.quantity == 0
                           ? null
                           : () => model.action((g) => g.selectMenu(menu, 0)),
-                      child: const Text('确认购买'),
+                      child: Text('确认$verb'),
                     ),
                   ],
                 ),

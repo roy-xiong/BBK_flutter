@@ -25,9 +25,10 @@ final class GameMenu {
 
 /// 购买框只持有待确认数量。库存和金钱在确认前不变，取消无需回滚存档数据。
 final class GamePurchase {
-  GamePurchase(this.id, this.unitPrice);
+  GamePurchase(this.id, this.unitPrice, {this.selling = false});
   final String id;
   final int unitPrice;
+  final bool selling;
   int quantity = 0, limit = 0;
   int get total => quantity * unitPrice;
 }
@@ -75,7 +76,10 @@ extension GameMenus on GameEngine {
       if (down && key.index < 4) {
         changePurchaseQuantity(
           menu,
-          key == GameKey.up || key == GameKey.right ? 1 : -1,
+          key == GameKey.right ||
+                  key == (menu.purchase!.selling ? GameKey.down : GameKey.up)
+              ? 1
+              : -1,
         );
       } else if (!down && key == GameKey.confirm) {
         selectMenu(menu, 0);
@@ -358,10 +362,7 @@ extension GameMenus on GameEngine {
             notice = '此物不能出售';
             return;
           }
-          if (useGoods(id)) {
-            money = (money + r.word(20)).clamp(0, 2147483647);
-            notice = '售出 ${goodsName(id)}';
-          }
+          _openPurchase(id, r.word(20), selling: true);
         } else if (mode == 'equip') {
           selectEquipmentOwner(id);
         } else {
@@ -384,11 +385,14 @@ extension GameMenus on GameEngine {
   }
 
   /// 按BBK购买流程进入数量确认。库存上限沿用当前引擎，不能被预览加减提前消耗。
-  void _openPurchase(String id, int price) {
-    final purchase = GamePurchase(id, price);
+  void _openPurchase(String id, int price, {bool selling = false}) {
+    final purchase = GamePurchase(id, price, selling: selling);
     void refresh(GameMenu menu) {
-      final room = (999 - (inventory[id] ?? 0)).clamp(0, 999);
-      final affordable = price == 0 ? room : math.max(0, money) ~/ price;
+      final room = selling
+          ? (inventory[id] ?? 0)
+          : (999 - (inventory[id] ?? 0)).clamp(0, 999);
+      final cash = selling ? 2147483647 - money : money;
+      final affordable = price == 0 ? room : math.max(0, cash) ~/ price;
       final limit = math.min(room, affordable);
       final quantity = purchase.quantity.clamp(0, limit);
       if (purchase.limit != limit || purchase.quantity != quantity) {
@@ -400,8 +404,8 @@ extension GameMenus on GameEngine {
 
     late final GameMenu menu;
     menu = GameMenu(
-      'buy-quantity',
-      ['确认购买', '取消'],
+      selling ? 'sell-quantity' : 'buy-quantity',
+      [selling ? '确认出售' : '确认购买', '取消'],
       purchase: purchase,
       onRefresh: refresh,
       onSelect: (index) {
@@ -411,6 +415,19 @@ extension GameMenus on GameEngine {
         if (index != 0 || purchase.quantity == 0) return;
         // 在同一同步操作内再次检查数量、余额；旧弹窗或重复点击不能重复成交。
         final quantity = purchase.quantity, total = purchase.total;
+        if (selling) {
+          final record = goods(id);
+          if (record == null ||
+              record.byte(0) == 14 ||
+              record.word(132) != 0 ||
+              total > 2147483647 - money ||
+              !useGoods(id, quantity)) {
+            return;
+          }
+          money += total;
+          notice = '售出 ${goodsName(id)} ×$quantity';
+          return;
+        }
         if (goods(id) == null ||
             quantity > 999 - (inventory[id] ?? 0) ||
             total > money) {

@@ -410,7 +410,9 @@ final class ModernScenePainter extends CustomPainter {
     if (game.map?.id.startsWith('3:') == true) return;
     for (final item in art.landmarks[game.map?.id] ?? const <SceneLandmark>[]) {
       final building = (art.buildings[game.map?.id] ?? const <SceneBuilding>[])
-          .where((b) => b.contains(item.x, item.y))
+          .where(
+            (b) => b.key.startsWith('building:') && b.contains(item.x, item.y),
+          )
           .firstOrNull;
       final point = building == null
           ? camera.point(item.x.floor(), item.y.floor()) +
@@ -423,7 +425,11 @@ final class ModernScenePainter extends CustomPainter {
                   building.width * camera.tileSize / 2,
                   building.height *
                       camera.tileSize *
-                      (building.key == 'building:cave-mouth' ? .27 : .6),
+                      (building.key == 'building:house-north'
+                          ? .25
+                          : building.key == 'building:cave-mouth'
+                          ? .27
+                          : .6),
                 );
       if (point.dx < -80 ||
           point.dx > 720 ||

@@ -403,9 +403,9 @@ extension GameRendering on GameEngine {
       final line = wide ? 20 : 12;
       final rows = [
         goodsName(purchase.id),
-        '买入个数:${purchase.quantity}',
+        '${purchase.selling ? '卖出' : '买入'}个数:${purchase.quantity}',
         '总价:${purchase.total}',
-        '金钱:${money - purchase.total}',
+        '金钱:${money + (purchase.selling ? purchase.total : -purchase.total)}',
         '↑↓数量 A确认 B取消',
       ];
       for (var i = 0; i < rows.length; i++) {

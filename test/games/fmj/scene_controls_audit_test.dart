@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bbk_flutter/games/fmj/data/game_data.dart';
@@ -17,6 +18,7 @@ import 'package:bbk_flutter/games/fmj/ui/game_controls.dart';
 import 'package:bbk_flutter/games/fmj/ui/game_page.dart';
 import 'package:bbk_flutter/games/fmj/ui/game_view_model.dart';
 import 'package:bbk_flutter/games/fmj/ui/system_font_layout.dart';
+import 'package:bbk_flutter/ui/core/desktop_window_service.dart';
 import 'game_engine_test.dart' show loadData;
 
 /// 通过真实菜单、长按和桌面生命周期验证本轮交互，不调用本地应用编译。
@@ -201,6 +203,56 @@ void main() {
     }
   });
 
+  testWidgets('桌面弹窗显示时Esc仍最小化，组件释放后没有残留快捷键回调', (tester) async {
+    debugDefaultTargetPlatformOverride = TargetPlatform.macOS;
+    var calls = 0;
+    const channel = MethodChannel('bbk_flutter/window');
+    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(channel, (
+      call,
+    ) async {
+      calls++;
+      return null;
+    });
+    try {
+      await tester.pumpWidget(
+        MaterialApp(
+          builder: (_, child) => DesktopWindowShortcuts(child: child!),
+          home: Builder(
+            builder: (context) => Scaffold(
+              body: TextButton(
+                onPressed: () => showDialog<void>(
+                  context: context,
+                  builder: (_) => const AlertDialog(title: Text('测试弹窗')),
+                ),
+                child: const Text('打开'),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.text('打开'));
+      await tester.pumpAndSettle();
+      await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+      await tester.pump();
+      expect(calls, 1);
+      expect(find.text('测试弹窗'), findsOneWidget);
+      await tester.pumpWidget(
+        MaterialApp(home: Scaffold(body: const Text('已释放'))),
+      );
+      await tester.pump();
+      await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+      await tester.pump();
+      expect(calls, 1);
+    } finally {
+      await tester.pumpWidget(const SizedBox.shrink());
+      tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+        channel,
+        null,
+      );
+      debugDefaultTargetPlatformOverride = null;
+    }
+  });
+
   test('建业当铺杂货铺北侧原事件格归属北向屋顶，李府原石狮与木桶不变成坟椅', () {
     final hd = GameData.decodeObject(
       File('assets/fmj/modern/enhanced-art.json').readAsStringSync(),
@@ -274,6 +326,77 @@ void main() {
   });
 
   if (Platform.environment['FMJ_EXPORT_APPROVED_ART'] == '1') {
+    testWidgets('导出购买出售说明区与出售数量确认框', (tester) async {
+      final g = game();
+      g.preferences['modernUi'] = true;
+      g.money = 5000;
+      final vm = GameViewModel()
+        ..engine = g
+        ..loading = false;
+      await tester.runAsync(() => vm.prepareModernArt());
+      final font = FontLoader('BBK CJK')
+        ..addFont(rootBundle.load('assets/fonts/NotoSansCJKsc-Regular.otf'));
+      await font.load();
+      final out = Directory('build/validation/current-scene-audit')
+        ..createSync(recursive: true);
+      tester.view.devicePixelRatio = 1;
+      try {
+        for (final width in [360, 800]) {
+          tester.view.physicalSize = Size(width.toDouble(), width * .6 + 40);
+          for (final mode in ['buy', 'sell', 'sale-confirm']) {
+            g.menus.clear();
+            g.inventory.clear();
+            g.inventory.addAll({'12:5': 3, '9:1': 5, '7:2': 2});
+            g.openInventory(
+              mode: mode == 'buy' ? 'buy' : 'sell',
+              items: ['12:5', '9:1', '7:2'],
+            );
+            if (mode == 'sale-confirm') {
+              g.press(GameKey.confirm);
+              g.changePurchaseQuantity(g.menus.last, 2);
+            }
+            await tester.pumpWidget(
+              MaterialApp(
+                theme: ThemeData.dark().copyWith(
+                  textTheme: ThemeData.dark().textTheme.apply(
+                    fontFamily: 'BBK CJK',
+                  ),
+                ),
+                home: Scaffold(
+                  body: RepaintBoundary(
+                    key: const ValueKey('audit-ui'),
+                    child: ModernGameView(model: vm),
+                  ),
+                ),
+              ),
+            );
+            await tester.pump();
+            final boundary =
+                tester.renderObject(find.byKey(const ValueKey('audit-ui')))
+                    as RenderRepaintBoundary;
+            await tester.runAsync(() async {
+              final image = await boundary.toImage(pixelRatio: 2);
+              try {
+                final png = await image.toByteData(
+                  format: ui.ImageByteFormat.png,
+                );
+                File(
+                  '${out.path}/$mode-$width.png',
+                ).writeAsBytesSync(png!.buffer.asUint8List());
+              } finally {
+                image.dispose();
+              }
+            });
+          }
+        }
+      } finally {
+        await tester.pumpWidget(const SizedBox.shrink());
+        vm.dispose();
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      }
+    });
+
     testWidgets('导出本轮山门、客厅、狮子木桶和北向店铺的正式绘制画面', (tester) async {
       await tester.runAsync(() async {
         final art = await ModernArt.load();

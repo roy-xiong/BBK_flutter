@@ -55,7 +55,7 @@
       "source": "lib/engine/game_menus.dart",
       "destination": "lib/games/fmj/engine/game_menus.dart",
       "sourceSha256": "0d4fe2395bc3664887210d11914603f951d6e6ab37113b7ef9c2a241c5dc1c3a",
-      "importedSha256": "66aeecf4bdbf189674a939fa34858a2206328ec2a6fe0716b31a0370694b1ea0"
+      "importedSha256": "041c5421b3bdc39a8c3d454f00f45f22c3fef885f59f51c0688a024f317de3a7"
     },
     {
       "game": "fmj",
@@ -69,7 +69,7 @@
       "source": "lib/engine/game_render.dart",
       "destination": "lib/games/fmj/engine/game_render.dart",
       "sourceSha256": "b796a60d7f619e67d0a02e354df7d7d05e59c6495abc6984a052a0b5fcae7365",
-      "importedSha256": "9d5c185ea0c5980ba494864b9fce848e4294a855307d33ad7961bd3f34a1df6a"
+      "importedSha256": "8b8bb6393b049c1ce903de845bafbc4196bc717d176416e3dbc7678208bcb2c5"
     },
     {
       "game": "fmj",
@@ -104,7 +104,7 @@
       "source": "lib/ui/game_controls.dart",
       "destination": "lib/games/fmj/ui/game_controls.dart",
       "sourceSha256": "f1003f2779a30e5e6f5cbd05b1220a837b1fe47d6144d6423fd0e935395a7b68",
-      "importedSha256": "f1003f2779a30e5e6f5cbd05b1220a837b1fe47d6144d6423fd0e935395a7b68"
+      "importedSha256": "2ee67052f07dfab592d9e24b9a3dac4445d9aa95614642f7074739150b43e791"
     },
     {
       "game": "fmj",
@@ -125,21 +125,21 @@
       "source": "lib/ui/game_page.dart",
       "destination": "lib/games/fmj/ui/game_page.dart",
       "sourceSha256": "63257197b764f9b0a967dd0105050b443fb5c5b8b1a356ac8cc39fd9077b02ee",
-      "importedSha256": "30af5a365e36864a070c1635c491431fba96791a173026f94600993f298800e9"
+      "importedSha256": "99b95c7b99c518485656d088a23438c3a52e50c7e855c2784a62a9558a45ac56"
     },
     {
       "game": "fmj",
       "source": "lib/ui/game_view_model.dart",
       "destination": "lib/games/fmj/ui/game_view_model.dart",
       "sourceSha256": "786dff4519fccfd2727406d85205e84ad72394a542c0ece02ca086e142e1a202",
-      "importedSha256": "d8a7e8e312201e65808705f96b87dab0a29aadc3835dcc8c4175bb1c0d5e08d5"
+      "importedSha256": "11aaa07bee055c193ebbc8434e14f36980924c70819ee49c5c07e2aec692b3ed"
     },
     {
       "game": "fmj",
       "source": "lib/ui/modern_art.dart",
       "destination": "lib/games/fmj/ui/modern_art.dart",
       "sourceSha256": "7aaabd5830dd20ecab38ff42b95a9205e8d1cc33b86e8924849ab00ea4428f85",
-      "importedSha256": "33f2e51393c2dfef355b379cefabb1f2365a8ddd84cffd41683d4477e74d5639"
+      "importedSha256": "7b4c604ec61b42f3ea3370c433359b4a94f2fbc0c856c1391ae287ac36a4cd42"
     },
     {
       "game": "fmj",
@@ -160,7 +160,7 @@
       "source": "lib/ui/modern_game_view.dart",
       "destination": "lib/games/fmj/ui/modern_game_view.dart",
       "sourceSha256": "7fead2e2d569c14ca9d2d9c012124c82b450b5e1e0c75310b0bc47eb495d45c0",
-      "importedSha256": "c374b145519ee8a3003632bb55a91ad623f22889024ba1a1862d996911124557"
+      "importedSha256": "00e44714d4f6e79145737cf375c9f9fbc733ddce8bf26e4ea7849a88552d1e8f"
     },
     {
       "game": "fmj",
@@ -174,7 +174,7 @@
       "source": "lib/ui/modern_scene.dart",
       "destination": "lib/games/fmj/ui/modern_scene.dart",
       "sourceSha256": "0ca7e7194f78502f1fc560c83b6a82701c4082b531bfc9e57d50dd480af0ba15",
-      "importedSha256": "8b506e56a60254ea2baaa519f77ea5bb7e17c1f00c0af80aa1790c6472b0c102"
+      "importedSha256": "3a0e300457e1b60626f4ee7d716f4683f7a28ec4b02bd69ec735971d4f8ae662"
     },
     {
       "game": "fmj",
@@ -293,7 +293,7 @@
       "source": "assets/modern/enhanced-00.png",
       "destination": "assets/fmj/modern/enhanced-00.png",
       "sourceSha256": "a23454a3f68d1fcd3083e623107dddb3b232db9fc622cee82bc8f81de294240b",
-      "importedSha256": "d4d587d78d2e55e09017b83d6e276510fbe2eac81372a9f2ac1381f3b47089fe"
+      "importedSha256": "f7551f9b60fe37f0752bee5980a25f7a7f64e34ea964f371bd1132585d4fb36d"
     },
     {
       "game": "fmj",
@@ -384,14 +384,14 @@
       "source": "assets/modern/enhanced-art-sources.json",
       "destination": "assets/fmj/modern/enhanced-art-sources.json",
       "sourceSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e",
-      "importedSha256": "58f71e59e42b49483eaf0cadc98dfdffa36335e8033a43f51b1eccfe5f37bad5"
+      "importedSha256": "d087d873b99c2b20407b912d4eef2fb1cd61918765eff08cdaafc35ac3de33b8"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "2e0b3c19646047c9a2015e59979f29125d9808c62bca846778565c5d0e04129b"
+      "importedSha256": "482156a2781dc69fc459384b44e35e570576b8d2c4a333d083d0ceb57f33df92"
     },
     {
       "game": "fmj",
@@ -1126,7 +1126,7 @@
       "source": "lib/ui/features/game/view_models/game_view_model.dart",
       "destination": "lib/games/sgby/ui/features/game/view_models/game_view_model.dart",
       "sourceSha256": "84d5fd993d62c8446d0a129f364f66f136905c9b1039c904805b8042b2a6d270",
-      "importedSha256": "46b26a3b4c2933c5185809a420a363d3a0a7187a79e3e820f12034c87b72979d"
+      "importedSha256": "23fd08168ef89231e87de2e13a2aaa7fe21f15dc5e7669e840fedc57dfb0ed1b"
     },
     {
       "game": "sgby",
@@ -1175,7 +1175,7 @@
       "source": "lib/ui/features/game/views/game_page.dart",
       "destination": "lib/games/sgby/ui/features/game/views/game_page.dart",
       "sourceSha256": "b9fa4d3c62037d986974041d2092a65b40418fe1a29e2cd606850f0ad33e2a30",
-      "importedSha256": "f46999989f5b8ac909379ba074433a74a2248fe33d451ced25dc2ebe4ecc94ed"
+      "importedSha256": "1f72b122312f7f5f3149fd100ac1f711ef8a5248571835cf04ec319ac63f81d0"
     },
     {
       "game": "sgby",
@@ -2203,6 +2203,12 @@
       "destination": "assets/fmj/modern/surface-mountain-wall-v6.png",
       "importedSha256": "3a199cb411bdf3cdeb8461797d8673a52af589afde428ac08931be7dddfa2b27",
       "approval": "2026-10-28 用户六项反馈：216件彩色物品图标、全队状态、鹤鸣山洞宝箱优先、道具使用默认焦点、建筑完整立面和山壁材质"
+    },
+    {
+      "game": "fmj",
+      "destination": "assets/fmj/modern/lifu-furniture-v7.png",
+      "importedSha256": "279da1310974cf75e0965759792278310ca42f1faec12791b84b88b746a56722",
+      "approval": "本轮山门/李府/全地图入口修订，先不打包"
     }
   ],
   "integrationRevisions": [
@@ -2679,6 +2685,102 @@
       "previousImportedSha256": "68ccaeeda513525cae13800208e658876b60c94c73e5236236e6abee7ed711af",
       "currentSha256": "eb378573b97851b6a0f84ba2e1590185d6cf2257725a2fe5aa814e63f9de4c4c",
       "reason": "默认使用选项同步启用按键提交，修复回车与虚拟A必须先移动方向键的问题，保留对白抬起防穿透"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_menus.dart",
+      "previousImportedSha256": "66aeecf4bdbf189674a939fa34858a2206328ec2a6fe0716b31a0370694b1ea0",
+      "currentSha256": "041c5421b3bdc39a8c3d454f00f45f22c3fef885f59f51c0688a024f317de3a7",
+      "reason": "按本轮指示调整山门、李府陈设及全图北向入口；修复出售数量确认，保留原地图事件和碰撞"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_render.dart",
+      "previousImportedSha256": "9d5c185ea0c5980ba494864b9fce848e4294a855307d33ad7961bd3f34a1df6a",
+      "currentSha256": "8b8bb6393b049c1ce903de845bafbc4196bc717d176416e3dbc7678208bcb2c5",
+      "reason": "按本轮指示调整山门、李府陈设及全图北向入口；修复出售数量确认，保留原地图事件和碰撞"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-00.png",
+      "previousImportedSha256": "d4d587d78d2e55e09017b83d6e276510fbe2eac81372a9f2ac1381f3b47089fe",
+      "currentSha256": "f7551f9b60fe37f0752bee5980a25f7a7f64e34ea964f371bd1132585d4fb36d",
+      "reason": "按本轮指示调整山门、李府陈设及全图北向入口；修复出售数量确认，保留原地图事件和碰撞"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art-sources.json",
+      "previousImportedSha256": "58f71e59e42b49483eaf0cadc98dfdffa36335e8033a43f51b1eccfe5f37bad5",
+      "currentSha256": "94ff3e5466cee6b8e52031df022e9b7948d885b9eaa5dccd152e8cf214fec2b5",
+      "reason": "按本轮指示调整山门、李府陈设及全图北向入口；修复出售数量确认，保留原地图事件和碰撞"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "2e0b3c19646047c9a2015e59979f29125d9808c62bca846778565c5d0e04129b",
+      "currentSha256": "b11ea266714043316c1e68d1a973f7c2c8dd5cdac7d38fa2eef678aacda9a101",
+      "reason": "按本轮指示调整山门、李府陈设及全图北向入口；修复出售数量确认，保留原地图事件和碰撞"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_controls.dart",
+      "previousImportedSha256": "f1003f2779a30e5e6f5cbd05b1220a837b1fe47d6144d6423fd0e935395a7b68",
+      "currentSha256": "2ee67052f07dfab592d9e24b9a3dac4445d9aa95614642f7074739150b43e791",
+      "reason": "本轮未打包修订：山门与李府陈设、全图北向屋顶及标签、出售数量、详情布局、Q长按与桌面生命周期"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_page.dart",
+      "previousImportedSha256": "30af5a365e36864a070c1635c491431fba96791a173026f94600993f298800e9",
+      "currentSha256": "99b95c7b99c518485656d088a23438c3a52e50c7e855c2784a62a9558a45ac56",
+      "reason": "本轮未打包修订：山门与李府陈设、全图北向屋顶及标签、出售数量、详情布局、Q长按与桌面生命周期"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_view_model.dart",
+      "previousImportedSha256": "d8a7e8e312201e65808705f96b87dab0a29aadc3835dcc8c4175bb1c0d5e08d5",
+      "currentSha256": "11aaa07bee055c193ebbc8434e14f36980924c70819ee49c5c07e2aec692b3ed",
+      "reason": "本轮未打包修订：山门与李府陈设、全图北向屋顶及标签、出售数量、详情布局、Q长按与桌面生命周期"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_art.dart",
+      "previousImportedSha256": "33f2e51393c2dfef355b379cefabb1f2365a8ddd84cffd41683d4477e74d5639",
+      "currentSha256": "7b4c604ec61b42f3ea3370c433359b4a94f2fbc0c856c1391ae287ac36a4cd42",
+      "reason": "本轮未打包修订：山门与李府陈设、全图北向屋顶及标签、出售数量、详情布局、Q长按与桌面生命周期"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_game_view.dart",
+      "previousImportedSha256": "c374b145519ee8a3003632bb55a91ad623f22889024ba1a1862d996911124557",
+      "currentSha256": "00e44714d4f6e79145737cf375c9f9fbc733ddce8bf26e4ea7849a88552d1e8f",
+      "reason": "本轮未打包修订：山门与李府陈设、全图北向屋顶及标签、出售数量、详情布局、Q长按与桌面生命周期"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_scene.dart",
+      "previousImportedSha256": "8b506e56a60254ea2baaa519f77ea5bb7e17c1f00c0af80aa1790c6472b0c102",
+      "currentSha256": "3a0e300457e1b60626f4ee7d716f4683f7a28ec4b02bd69ec735971d4f8ae662",
+      "reason": "本轮未打包修订：山门与李府陈设、全图北向屋顶及标签、出售数量、详情布局、Q长按与桌面生命周期"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art-sources.json",
+      "previousImportedSha256": "94ff3e5466cee6b8e52031df022e9b7948d885b9eaa5dccd152e8cf214fec2b5",
+      "currentSha256": "d087d873b99c2b20407b912d4eef2fb1cd61918765eff08cdaafc35ac3de33b8",
+      "reason": "本轮未打包修订：山门与李府陈设、全图北向屋顶及标签、出售数量、详情布局、Q长按与桌面生命周期"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "b11ea266714043316c1e68d1a973f7c2c8dd5cdac7d38fa2eef678aacda9a101",
+      "currentSha256": "482156a2781dc69fc459384b44e35e570576b8d2c4a333d083d0ceb57f33df92",
+      "reason": "本轮未打包修订：山门与李府陈设、全图北向屋顶及标签、出售数量、详情布局、Q长按与桌面生命周期"
+    },
+    {
+      "destination": "lib/games/sgby/ui/features/game/view_models/game_view_model.dart",
+      "previousImportedSha256": "46b26a3b4c2933c5185809a420a363d3a0a7187a79e3e820f12034c87b72979d",
+      "currentSha256": "23fd08168ef89231e87de2e13a2aaa7fe21f15dc5e7669e840fedc57dfb0ed1b",
+      "reason": "本轮未打包修订：山门与李府陈设、全图北向屋顶及标签、出售数量、详情布局、Q长按与桌面生命周期"
+    },
+    {
+      "destination": "lib/games/sgby/ui/features/game/views/game_page.dart",
+      "previousImportedSha256": "f46999989f5b8ac909379ba074433a74a2248fe33d451ced25dc2ebe4ecc94ed",
+      "currentSha256": "1f72b122312f7f5f3149fd100ac1f711ef8a5248571835cf04ec319ac63f81d0",
+      "reason": "本轮未打包修订：山门与李府陈设、全图北向屋顶及标签、出售数量、详情布局、Q长按与桌面生命周期"
+    },
+    {
+      "destination": "assets/fmj/modern/lifu-furniture-v7.png",
+      "previousImportedSha256": "f98a0b9b8aac9cc295cce78740e3148a9e837aec6b8e3163e684fa0e9ef88bfb",
+      "currentSha256": "279da1310974cf75e0965759792278310ca42f1faec12791b84b88b746a56722",
+      "reason": "本轮未打包修订：山门与李府陈设、全图北向屋顶及标签、出售数量、详情布局、Q长按与桌面生命周期"
     }
   ]
 }

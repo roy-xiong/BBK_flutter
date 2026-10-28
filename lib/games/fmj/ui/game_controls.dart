@@ -232,6 +232,7 @@ class _FmjUtilityButtons extends StatelessWidget {
           color: active ? const Color(0xFF23594E) : const Color(0xFF354D6A),
           pressedColor: const Color(0xFF163C35),
           borderRadius: BorderRadius.circular(7),
+          repeatable: action == GameControl.quickTravel,
           hapticsEnabled: hapticsEnabled,
           label: label,
           onPressed: () => onInput(action),

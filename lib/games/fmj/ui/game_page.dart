@@ -13,6 +13,7 @@ import 'system_font_layout.dart';
 import 'game_keyboard_bindings.dart';
 import 'game_keyboard_mapping_sheet.dart';
 import 'game_cheat_panel.dart';
+import 'package:bbk_flutter/ui/core/desktop_window_service.dart';
 
 /// 页面只管理输入、生命周期与面板；所有游戏结果由 GameEngine 决定。
 final class GamePage extends StatefulWidget {
@@ -38,12 +39,20 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    _foreground = state == AppLifecycleState.resumed;
+    _foreground = DesktopWindowService.runsIn(state);
+    if (state != AppLifecycleState.resumed) {
+      _stopQuickTravel();
+      model.releaseHeldKeys();
+    }
     model.setPaused(!_foreground || _sheetOpen);
+    model.setWindowVisible(
+      state == AppLifecycleState.resumed || state == AppLifecycleState.inactive,
+    );
   }
 
   @override
   void dispose() {
+    _stopQuickTravel();
     WidgetsBinding.instance.removeObserver(this);
     unawaited(model.persist());
     if (widget.viewModel == null) model.dispose();
@@ -52,6 +61,7 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
 
   Future<void> _sheet(Widget child, {bool compact = false}) async {
     if (_sheetOpen) return;
+    _stopQuickTravel();
     _sheetOpen = true;
     model.setPaused(true);
     try {
@@ -75,6 +85,7 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   }
 
   KeyEventResult _keyboard(FocusNode node, KeyEvent event) {
+    if (DesktopWindowService.handleKey(event)) return KeyEventResult.handled;
     if (_sheetOpen) return KeyEventResult.ignored;
     final code = GameKeyboardBindings.codeFor(event.physicalKey);
     final action = code == null ? null : model.keyboardBindings.actionFor(code);
@@ -85,6 +96,9 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
     if (gameKey != null) {
       if (event is KeyDownEvent) model.down(gameKey);
       if (event is KeyUpEvent) model.up(gameKey);
+    } else if (action == GameControl.quickTravel) {
+      if (event is KeyDownEvent) _startQuickTravel();
+      if (event is KeyUpEvent) _stopQuickTravel();
     } else if (event is KeyDownEvent) {
       _control(action);
     }
@@ -93,6 +107,7 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
 
   Future<void> _keyMapping() async {
     if (_sheetOpen) return;
+    _stopQuickTravel();
     _sheetOpen = true;
     model.setPaused(true);
     try {
@@ -104,6 +119,7 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   }
 
   Future<void> _leaveGame() async {
+    _stopQuickTravel();
     final returnToLibrary = widget.onReturnToLibrary;
     if (returnToLibrary != null) {
       await returnToLibrary();
@@ -149,6 +165,34 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
 
   Offset? _toolbarPosition;
   Offset? _toolbarDragOrigin, _toolbarPointerOrigin;
+  Timer? _quickTravelDelay, _quickTravelRepeat;
+  bool _quickTravelHeld = false;
+
+  /// 与方向键一致：320ms识别长按，之后按真实时间105ms连续触发，松开或失焦即清理。
+  void _startQuickTravel() {
+    if (_quickTravelHeld) return;
+    _quickTravelHeld = true;
+    _control(GameControl.quickTravel);
+    _quickTravelDelay = Timer(const Duration(milliseconds: 320), () {
+      if (!mounted || !_quickTravelHeld || _sheetOpen || model.paused) return;
+      _control(GameControl.quickTravel);
+      _quickTravelRepeat = Timer.periodic(const Duration(milliseconds: 105), (
+        _,
+      ) {
+        if (mounted && _quickTravelHeld && !_sheetOpen && !model.paused) {
+          _control(GameControl.quickTravel);
+        }
+      });
+    });
+  }
+
+  void _stopQuickTravel() {
+    _quickTravelHeld = false;
+    _quickTravelDelay?.cancel();
+    _quickTravelDelay = null;
+    _quickTravelRepeat?.cancel();
+    _quickTravelRepeat = null;
+  }
 
   /// 控制区只分发命令；按钮长按延迟 320ms，之后每 105ms 重复，完全沿用原版。
   void _control(GameControl input) {
@@ -165,7 +209,7 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
               g.cursor?.running == true ||
               g.menus.isNotEmpty) {
             g.press(GameKey.confirm);
-          } else {
+          } else if (!g.navigation.planning && g.navigation.active == null) {
             unawaited(g.navigation.startGoal());
           }
         });

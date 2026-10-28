@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bbk_flutter/ui/core/desktop_window_service.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -207,6 +208,9 @@ class _GamePageState extends State<GamePage>
         focusNode: _focus,
         autofocus: true,
         onKeyEvent: (_, event) {
+          if (DesktopWindowService.handleKey(event)) {
+            return KeyEventResult.handled;
+          }
           if (ModalRoute.of(context)?.isCurrent != true || _viewModel.paused) {
             return KeyEventResult.ignored;
           }

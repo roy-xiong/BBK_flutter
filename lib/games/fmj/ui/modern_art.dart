@@ -108,6 +108,7 @@ final class ModernArt {
           'furniture:bookshelf/0',
           'furniture:screen-front/0',
           'furniture:tea-table/0',
+          'building:house-north/0',
         }.contains(key) &&
         footprint.width / footprint.height >
             source.width / source.height * 1.35;

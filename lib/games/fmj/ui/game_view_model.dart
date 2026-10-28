@@ -65,6 +65,7 @@ final class GameViewModel extends ChangeNotifier {
       _disposed = false,
       _decoding = false,
       _dirty = false;
+  bool _windowVisible = true;
   Timer? _timer;
   GameKey? _held;
   int _heldElapsed = 0, _autosaveTicks = 0;
@@ -175,7 +176,7 @@ final class GameViewModel extends ChangeNotifier {
       }
     }
     game.update();
-    _render(force: false);
+    if (_windowVisible) _render(force: false);
     if (++_autosaveTicks >= 125) {
       _autosaveTicks = 0;
       if (game.canSave) unawaited(persist());
@@ -218,6 +219,20 @@ final class GameViewModel extends ChangeNotifier {
     _held = null;
     if (value) unawaited(persist());
     notifyListeners();
+  }
+
+  /// 释放物理按键状态，不取消已启动的导航和自动战斗。
+  void releaseHeldKeys() {
+    _held = null;
+    _heldElapsed = 0;
+    _heldRepeating = false;
+  }
+
+  /// 最小化后只推进逻辑；恢复可见时上传最新画面，避免后台积压GPU图片。
+  void setWindowVisible(bool value) {
+    if (_disposed || _windowVisible == value) return;
+    _windowVisible = value;
+    if (value) _render();
   }
 
   /// 合集退出前可要求保存失败向上传递，防止失败后仍关闭会话。

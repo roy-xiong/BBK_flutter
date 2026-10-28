@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bbk_flutter/ui/core/desktop_window_service.dart';
 import 'dart:collection';
 import 'dart:ui' show AppLifecycleState;
 
@@ -102,12 +103,7 @@ final class GameViewModel extends ChangeNotifier {
       _session?.options.enabled('showTroopIcons') ?? false;
 
   /// macOS 窗口失焦或遮挡后继续推进；移动平台仍按前后台暂停。
-  bool get usesBackgroundClock =>
-      !kIsWeb &&
-      [
-        TargetPlatform.macOS,
-        TargetPlatform.windows,
-      ].contains(defaultTargetPlatform);
+  bool get usesBackgroundClock => DesktopWindowService.supported;
   bool get paused =>
       !_attached ||
       (!_foreground && !usesBackgroundClock) ||
