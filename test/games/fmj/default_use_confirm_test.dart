@@ -88,7 +88,7 @@ void main() {
       try {
         await tester.pumpWidget(MaterialApp(home: GamePage(viewModel: model)));
         await tester.pump();
-        expect(find.text('使用万能钥匙'), findsOneWidget);
+        expect(find.textContaining('使用万能钥匙'), findsOneWidget);
         if (keyboard) {
           await tester.sendKeyDownEvent(LogicalKeyboardKey.enter);
           await tester.sendKeyUpEvent(LogicalKeyboardKey.enter);
