@@ -424,7 +424,12 @@ final class GameEngine {
           final use = choice.options.indexWhere(
             (text) => text.startsWith('使用'),
           );
-          if (use >= 0) choice.selected = use;
+          if (use >= 0) {
+            // 默认使用既要高亮，也要允许A/回车直接提交；对白同次确认的抬起
+            // 仍由_dialogueConfirmHeld拦截，不会穿透到刚出现的选择框。
+            choice.selected = use;
+            choice.armed = true;
+          }
         }
       case 32:
       case 38:

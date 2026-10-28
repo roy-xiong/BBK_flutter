@@ -93,7 +93,7 @@ void main() {
           await tester.sendKeyDownEvent(LogicalKeyboardKey.enter);
           await tester.sendKeyUpEvent(LogicalKeyboardKey.enter);
         } else {
-          await tester.tap(find.bySemanticsLabel('确认').hitTestable());
+          await tester.tap(find.text('A').hitTestable());
         }
         await tester.pump();
         expect(game.operation, isNull);
@@ -102,10 +102,17 @@ void main() {
       } finally {
         await tester.pumpWidget(const SizedBox.shrink());
         model.dispose();
-        await tester.runAsync(() async {
-          await repository.flush();
-          directory.deleteSync(recursive: true);
-        });
+        var written = false;
+        repository.flush().then((_) => written = true);
+        // 页面销毁提交的存档Future属于测试时间域；需同时推进真实I/O和虚拟帧。
+        for (var i = 0; i < 100 && !written; i++) {
+          await tester.runAsync(
+            () => Future<void>.delayed(const Duration(milliseconds: 20)),
+          );
+          await tester.pump(const Duration(milliseconds: 20));
+        }
+        expect(written, isTrue);
+        await tester.runAsync(() => directory.delete(recursive: true));
       }
     });
   }

@@ -48,7 +48,7 @@
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "68ccaeeda513525cae13800208e658876b60c94c73e5236236e6abee7ed711af"
+      "importedSha256": "eb378573b97851b6a0f84ba2e1590185d6cf2257725a2fe5aa814e63f9de4c4c"
     },
     {
       "game": "fmj",
@@ -2673,6 +2673,12 @@
       "previousImportedSha256": "a5cf4740728c9253cc73aa6c9e96f179479e539c991b970375de2a012fb61c42",
       "currentSha256": "9d5c185ea0c5980ba494864b9fce848e4294a855307d33ad7961bd3f34a1df6a",
       "reason": "对照BBK恢复购买数量确认与取消无副作用；彩色/经典菜单共用交易，方向键调整数量后统一确认扣钱"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "68ccaeeda513525cae13800208e658876b60c94c73e5236236e6abee7ed711af",
+      "currentSha256": "eb378573b97851b6a0f84ba2e1590185d6cf2257725a2fe5aa814e63f9de4c4c",
+      "reason": "默认使用选项同步启用按键提交，修复回车与虚拟A必须先移动方向键的问题，保留对白抬起防穿透"
     }
   ]
 }
