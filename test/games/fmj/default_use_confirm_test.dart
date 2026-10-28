@@ -35,8 +35,9 @@ void main() {
         if (cmd.opcode != 31 ||
             options is! List ||
             options.first != '取消' ||
-            !options.any((v) => v is String && v.startsWith('使用')))
+            !options.any((v) => v is String && v.startsWith('使用'))) {
           continue;
+        }
         cases++;
         final game = engine();
         // 使用同一真实会话进入并提交，确认必须跳到原第二项的地址。
