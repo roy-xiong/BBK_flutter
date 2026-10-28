@@ -145,6 +145,7 @@ abstract final class ModernBattleEffects {
         Offset.zero,
         Offset(bitmap.width.toDouble(), bitmap.height.toDouble()),
         colors,
+        const [0, .5, 1],
       );
       canvas.drawPath(shape, paint);
       paint.shader = null;

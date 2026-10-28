@@ -149,7 +149,14 @@ void main() {
     final stage = Map<String, dynamic>.from(
       data.stages.firstWhere((s) => s['scriptId'] == '7:1'),
     );
-    g.restore(stage);
+    g.selectStage(stage);
+    for (var i = 0; i < 200; i++) {
+      g.update();
+      if (const {'timed', 'dialogue', 'message'}.contains(g.operation?.kind)) {
+        g.press(GameKey.confirm);
+      }
+      if (g.cursor?.running != true && g.operation == null) break;
+    }
     g.flags
       ..remove(221)
       ..add(1117);
