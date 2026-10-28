@@ -20,7 +20,7 @@
       "source": "lib/data/game_data.dart",
       "destination": "lib/games/fmj/data/game_data.dart",
       "sourceSha256": "db001d4b81c04f764d3d6f14c9ca197ba8e9e1a4ebb44da9bccc9cac41c57a21",
-      "importedSha256": "ff83ab95673632f51c27fa52ba8655731b9f124f8980c20c0fdabc5ad7ffbf8d"
+      "importedSha256": "db001d4b81c04f764d3d6f14c9ca197ba8e9e1a4ebb44da9bccc9cac41c57a21"
     },
     {
       "game": "fmj",
@@ -132,7 +132,7 @@
       "source": "lib/ui/game_view_model.dart",
       "destination": "lib/games/fmj/ui/game_view_model.dart",
       "sourceSha256": "786dff4519fccfd2727406d85205e84ad72394a542c0ece02ca086e142e1a202",
-      "importedSha256": "0241254ed5ce6bef49ce428579896fb0410650d35bc7b010683d814da57a0916"
+      "importedSha256": "d8a7e8e312201e65808705f96b87dab0a29aadc3835dcc8c4175bb1c0d5e08d5"
     },
     {
       "game": "fmj",
@@ -174,7 +174,7 @@
       "source": "lib/ui/modern_scene.dart",
       "destination": "lib/games/fmj/ui/modern_scene.dart",
       "sourceSha256": "0ca7e7194f78502f1fc560c83b6a82701c4082b531bfc9e57d50dd480af0ba15",
-      "importedSha256": "510c496296bac24044ec3cd8fd789cd26bacbc9638378b69b13be221bc3cd73b"
+      "importedSha256": "8b506e56a60254ea2baaa519f77ea5bb7e17c1f00c0af80aa1790c6472b0c102"
     },
     {
       "game": "fmj",
@@ -202,7 +202,7 @@
       "source": "lib/ui/system_font_layout.dart",
       "destination": "lib/games/fmj/ui/system_font_layout.dart",
       "sourceSha256": "442b07134193baa639878c27261214891d2a94d14472807f145bfa6c5750cc0c",
-      "importedSha256": "99a73b93da46542058329be17a2876f45d2ff3a2b1966693336e0a3c7653fe82"
+      "importedSha256": "442b07134193baa639878c27261214891d2a94d14472807f145bfa6c5750cc0c"
     },
     {
       "game": "fmj",
@@ -1098,7 +1098,7 @@
       "source": "lib/ui/core/app_theme.dart",
       "destination": "lib/games/sgby/ui/core/app_theme.dart",
       "sourceSha256": "f69dab2315c3b6695372fcb721b45fba734ce5839c40ae5b596ca05f5908c1ac",
-      "importedSha256": "859ae43235c2452eeef76c1bc3af6b058571294d7786747fe3d4f82c25942a62"
+      "importedSha256": "f69dab2315c3b6695372fcb721b45fba734ce5839c40ae5b596ca05f5908c1ac"
     },
     {
       "game": "sgby",
@@ -2609,12 +2609,6 @@
       "reason": "修复原购买指令参数与商品顺序、装备适用角色与库存刷新、用药交易和辅助法术消耗；补充原始全商店及菜单回归"
     },
     {
-      "destination": "lib/games/fmj/data/game_data.dart",
-      "previousImportedSha256": "db001d4b81c04f764d3d6f14c9ca197ba8e9e1a4ebb44da9bccc9cac41c57a21",
-      "currentSha256": "ff83ab95673632f51c27fa52ba8655731b9f124f8980c20c0fdabc5ad7ffbf8d",
-      "reason": "2026-10-28 用户六项反馈：216件彩色物品图标、全队状态、鹤鸣山洞宝箱优先、道具使用默认焦点、建筑完整立面和山壁材质"
-    },
-    {
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "previousImportedSha256": "63836cb158e9c83c2aad63a7248e02aa6f5aaee4ff6984fa8ee5809a559ac454",
       "currentSha256": "68ccaeeda513525cae13800208e658876b60c94c73e5236236e6abee7ed711af",
@@ -2627,27 +2621,9 @@
       "reason": "2026-10-28 用户六项反馈：216件彩色物品图标、全队状态、鹤鸣山洞宝箱优先、道具使用默认焦点、建筑完整立面和山壁材质"
     },
     {
-      "destination": "lib/games/fmj/ui/game_view_model.dart",
-      "previousImportedSha256": "d8a7e8e312201e65808705f96b87dab0a29aadc3835dcc8c4175bb1c0d5e08d5",
-      "currentSha256": "0241254ed5ce6bef49ce428579896fb0410650d35bc7b010683d814da57a0916",
-      "reason": "2026-10-28 用户六项反馈：216件彩色物品图标、全队状态、鹤鸣山洞宝箱优先、道具使用默认焦点、建筑完整立面和山壁材质"
-    },
-    {
       "destination": "lib/games/fmj/ui/modern_game_view.dart",
       "previousImportedSha256": "17cbc0bdf2b597499123eb2b2945ffbc35ed4b7df4842aadca37c9dd1b35b7bb",
       "currentSha256": "c374b145519ee8a3003632bb55a91ad623f22889024ba1a1862d996911124557",
-      "reason": "2026-10-28 用户六项反馈：216件彩色物品图标、全队状态、鹤鸣山洞宝箱优先、道具使用默认焦点、建筑完整立面和山壁材质"
-    },
-    {
-      "destination": "lib/games/fmj/ui/modern_scene.dart",
-      "previousImportedSha256": "8b506e56a60254ea2baaa519f77ea5bb7e17c1f00c0af80aa1790c6472b0c102",
-      "currentSha256": "510c496296bac24044ec3cd8fd789cd26bacbc9638378b69b13be221bc3cd73b",
-      "reason": "2026-10-28 用户六项反馈：216件彩色物品图标、全队状态、鹤鸣山洞宝箱优先、道具使用默认焦点、建筑完整立面和山壁材质"
-    },
-    {
-      "destination": "lib/games/fmj/ui/system_font_layout.dart",
-      "previousImportedSha256": "442b07134193baa639878c27261214891d2a94d14472807f145bfa6c5750cc0c",
-      "currentSha256": "99a73b93da46542058329be17a2876f45d2ff3a2b1966693336e0a3c7653fe82",
       "reason": "2026-10-28 用户六项反馈：216件彩色物品图标、全队状态、鹤鸣山洞宝箱优先、道具使用默认焦点、建筑完整立面和山壁材质"
     },
     {
@@ -2672,12 +2648,6 @@
       "destination": "test/games/fmj/enhanced_release_test.dart",
       "previousImportedSha256": "4361c90e5b64acf215cb2b7a9ae6d9b6743a7fd02fff7e19ebb414bc3d676638",
       "currentSha256": "4f0b595e3dc6a7bbf53dd14644b39fb1253ad335a622532574442a1d46668b10",
-      "reason": "2026-10-28 用户六项反馈：216件彩色物品图标、全队状态、鹤鸣山洞宝箱优先、道具使用默认焦点、建筑完整立面和山壁材质"
-    },
-    {
-      "destination": "lib/games/sgby/ui/core/app_theme.dart",
-      "previousImportedSha256": "f69dab2315c3b6695372fcb721b45fba734ce5839c40ae5b596ca05f5908c1ac",
-      "currentSha256": "859ae43235c2452eeef76c1bc3af6b058571294d7786747fe3d4f82c25942a62",
       "reason": "2026-10-28 用户六项反馈：216件彩色物品图标、全队状态、鹤鸣山洞宝箱优先、道具使用默认焦点、建筑完整立面和山壁材质"
     }
   ]
