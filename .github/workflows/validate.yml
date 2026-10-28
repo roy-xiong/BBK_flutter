@@ -38,3 +38,18 @@ jobs:
           path: build/validation/
           if-no-files-found: ignore
           retention-days: 14
+      - name: 本轮场景与菜单小体积预览
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fmj-current-review
+          path: |
+            build/validation/current-scene-audit/*360.png
+            build/validation/current-scene-audit/sanqing-gate.png
+            build/validation/current-scene-audit/lifu-hall.png
+            build/validation/current-scene-audit/lifu-lions.png
+            build/validation/current-scene-audit/lifu-bucket-well.png
+            build/validation/current-scene-audit/jianye-north-shops.png
+            build/validation/approved-art/map-2-20.png
+          if-no-files-found: ignore
+          retention-days: 14
