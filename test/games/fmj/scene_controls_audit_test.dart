@@ -340,6 +340,9 @@ void main() {
       final font = FontLoader('BBK CJK')
         ..addFont(rootBundle.load('assets/fonts/NotoSansCJKsc-Regular.otf'));
       await font.load();
+      final icons = FontLoader('MaterialIcons')
+        ..addFont(rootBundle.load('fonts/MaterialIcons-Regular.otf'));
+      await icons.load();
       final out = Directory('build/validation/current-scene-audit')
         ..createSync(recursive: true);
       tester.view.devicePixelRatio = 1;

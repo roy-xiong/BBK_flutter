@@ -104,7 +104,7 @@
       "source": "lib/ui/game_controls.dart",
       "destination": "lib/games/fmj/ui/game_controls.dart",
       "sourceSha256": "f1003f2779a30e5e6f5cbd05b1220a837b1fe47d6144d6423fd0e935395a7b68",
-      "importedSha256": "2ee67052f07dfab592d9e24b9a3dac4445d9aa95614642f7074739150b43e791"
+      "importedSha256": "a9845fb10b3112711c1e1438b75ef08df06f498d7e400d6f3a4f4089fb436e88"
     },
     {
       "game": "fmj",
@@ -2787,6 +2787,12 @@
       "previousImportedSha256": "75044a452ce6f65f322104d8db68300b6af97deb4090a735f258dafd5eed48a0",
       "currentSha256": "245373705b513146746529627184921c884a0d6a7367da929a8b7d74818ac012",
       "reason": "按原98/99号台阶地图片检查平台覆盖，继续保持地毯不得吞掉桌椅的原约束"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_controls.dart",
+      "previousImportedSha256": "2ee67052f07dfab592d9e24b9a3dac4445d9aa95614642f7074739150b43e791",
+      "currentSha256": "a9845fb10b3112711c1e1438b75ef08df06f498d7e400d6f3a4f4089fb436e88",
+      "reason": "快捷前往保留长按连发手势，禁止Tooltip长按识别抢占指针；其他按钮提示规则不变"
     }
   ]
 }

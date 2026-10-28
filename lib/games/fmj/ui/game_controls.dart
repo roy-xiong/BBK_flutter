@@ -226,6 +226,10 @@ class _FmjUtilityButtons extends StatelessWidget {
     }) {
       return Tooltip(
         message: label,
+        // 快捷前往的长按用于连发，不能让Tooltip的LongPress识别器抢走指针。
+        triggerMode: action == GameControl.quickTravel
+            ? TooltipTriggerMode.manual
+            : null,
         child: _NesInputButton(
           width: width,
           height: 40,
