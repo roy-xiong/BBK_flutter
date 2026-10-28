@@ -8,6 +8,7 @@ import 'dialogue_presentation.dart';
 import '../engine/game_engine.dart';
 import '../engine/game_actor.dart';
 import 'game_view_model.dart';
+import 'goods_icon.dart';
 
 const _gold = Color(0xffd8b875), _paper = Color(0xffece3cb);
 
@@ -54,7 +55,7 @@ final class _WorldInformation extends StatelessWidget {
   final GameEngine game;
   @override
   Widget build(BuildContext context) {
-    final player = game.player, battle = game.battle;
+    final battle = game.battle;
     final location = game.sceneName.isNotEmpty
         ? game.sceneName
         : game.map?.name ?? '伏魔记';
@@ -66,41 +67,82 @@ final class _WorldInformation extends StatelessWidget {
         ),
         border: Border(top: BorderSide(color: Color(0xff997e4f))),
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-        child: Row(
-          children: [
-            const Icon(Icons.place_outlined, size: 16, color: _gold),
-            const SizedBox(width: 5),
-            Expanded(
-              child: Text(
-                location,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(color: _gold, fontSize: 12),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          Widget member(GameActor p) => FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerRight,
+            child: Text(
+              '${p.name}  Lv.${p.level}   气血 ${p.hp}/${p.maxHp}',
+              maxLines: 1,
+              style: TextStyle(
+                color: _paper,
+                fontSize: constraints.maxWidth < 500 && game.players.length > 1
+                    ? 10.5
+                    : 12,
+                height: 1.1,
               ),
             ),
-            const SizedBox(width: 10),
-            if (battle != null)
-              Text(
-                '战斗 · 第 ${battle.round + 1} 回合',
-                style: const TextStyle(color: _paper, fontSize: 12),
-              )
-            else if (player != null)
-              Flexible(
-                flex: 3,
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    '${player.name}  Lv.${player.level}   气血 ${player.hp}/${player.maxHp}',
-                    maxLines: 1,
-                    style: const TextStyle(color: _paper, fontSize: 12),
+          );
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: (constraints.maxWidth * .25).clamp(62.0, 150.0),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.place_outlined, size: 14, color: _gold),
+                      const SizedBox(width: 4),
+                      Expanded(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            location,
+                            maxLines: 1,
+                            style: const TextStyle(color: _gold, fontSize: 12),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-          ],
-        ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: battle != null
+                      ? Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            '战斗 · 第 ${battle.round + 1} 回合',
+                            style: const TextStyle(color: _paper, fontSize: 12),
+                          ),
+                        )
+                      : constraints.maxWidth >= 960
+                      ? Row(
+                          children: [
+                            for (final p in game.players)
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: member(p),
+                                ),
+                              ),
+                          ],
+                        )
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            for (final p in game.players)
+                              Flexible(child: member(p)),
+                          ],
+                        ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
@@ -732,6 +774,11 @@ final class _NativeMenuState extends State<_NativeMenu> {
         itemCount: items.length,
         itemBuilder: (context, i) {
           final expectedId = menu.ids.elementAtOrNull(i);
+          final goodsId = menu.kind == 'inventory'
+              ? expectedId
+              : menu.kind == 'equipment'
+              ? actor?.equipment.elementAtOrNull(i)
+              : null;
           return ListTile(
             dense: true,
             contentPadding: EdgeInsets.symmetric(horizontal: 8 * scale),
@@ -752,7 +799,16 @@ final class _NativeMenuState extends State<_NativeMenu> {
                       ),
                     ),
                   )
-                : null,
+                : goodsId == null
+                ? null
+                : GoodsIcon(
+                    key: ValueKey('menu-goods-$goodsId'),
+                    id: goodsId,
+                    art: widget.model.modernArt,
+                    size: math.min(_extent - 2, 32 * scale),
+                  ),
+            minLeadingWidth: goodsId == null ? null : 20,
+            horizontalTitleGap: 5 * scale,
             title: Text(
               items[i],
               maxLines: menu.kind == 'state' ? 7 : 1,
@@ -800,6 +856,12 @@ final class _NativeMenuState extends State<_NativeMenu> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  if (id != null && menu.kind == 'inventory')
+                    GoodsIcon(
+                      id: id,
+                      art: widget.model.modernArt,
+                      size: 52 * scale,
+                    ),
                   Text(
                     id == null
                         ? ''

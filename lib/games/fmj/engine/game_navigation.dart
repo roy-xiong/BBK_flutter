@@ -501,7 +501,7 @@ final class GameNavigation {
       ('白水镇：取得虫子卡片', '9:1', 21, 1077, 229, 2330, 0),
       ('南北村：紫瞳魔灯', '10:1', 21, 1114, 234, 2331, 252),
       ('酆都客栈：取得小鬼卡片', '11:4', 21, 1095, 247, 2332, 0),
-      ('鹤鸣山洞：取得不点卡片', '14:9', 21, 1099, 253, 2333, 0),
+      ('鹤鸣山洞：取得不点卡片', '14:9', 21, 1099, 252, 2333, 0),
       ('观星亭：开启后期宝箱', '2:33', 1, 1104, 260, 2334, 0),
     ];
     final remainingKeys = game.inventory['14:2'] ?? 0;
@@ -518,7 +518,6 @@ final class GameNavigation {
         lock.$3,
         f.contains(lock.$4),
         f.contains(lock.$5) &&
-            f.contains(264) &&
             !f.contains(lock.$6) &&
             !f.contains(lock.$7) &&
             remainingKeys > 0 &&
@@ -563,9 +562,19 @@ final class GameNavigation {
     return rows;
   }
 
-  GameGoal get nextGoal => game.preferences['storyScope'] == 'complete'
-      ? sideGoals.where((g) => g.ready).firstOrNull ?? mainGoal
-      : mainGoal;
+  GameGoal get nextGoal {
+    if (game.preferences['storyScope'] != 'complete') return mainGoal;
+    final available = sideGoals.where((g) => g.ready).toList();
+    // 洞内先取任务卡片，再继续玄武机关。钥匙是真实库存条件，与取得钥匙的
+    // 送信标志无关；已开箱、已取卡或主动取消者不重复推荐、不重复发奖励。
+    if (game.cursor?.script.id == '14:9') {
+      final card = available
+          .where((g) => g.scriptId == '14:9' && g.event == 21)
+          .firstOrNull;
+      if (card != null) return card;
+    }
+    return available.firstOrNull ?? mainGoal;
+  }
 
   _NavState _capture() => _NavState(
     game.map?.id ?? '',

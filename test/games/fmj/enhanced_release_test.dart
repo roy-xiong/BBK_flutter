@@ -222,12 +222,11 @@ void main() {
         .cast<Map>()
         .singleWhere((b) => b['key'] == 'building:cave-mouth');
     expect([cave['x'], cave['y'], cave['width'], cave['height']], [5, 1, 4, 4]);
-    final entrance = (read('scene-landmarks.json')['1:6'] as List)
-        .cast<Map>()
-        .singleWhere((e) => e['target'] == '3:1');
-    expect(entrance['label'], '伏魔洞');
-    expect(entrance['x'], inInclusiveRange(5, 9));
-    expect(entrance['y'], inInclusiveRange(1, 5));
+    expect(
+      read('scene-landmarks.json')['1:6'],
+      isEmpty,
+      reason: '按最新反馈移除洞口名牌，洞口模型及真实出口保留',
+    );
     final blocker = GameActor.load(data, 4, 10);
     expect(blocker?.sprite, 10, reason: '坍塌石头仍采用原剧情的机关资源与碰撞');
     final caveLinks = read('scene-landmarks.json');

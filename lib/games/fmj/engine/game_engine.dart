@@ -417,6 +417,15 @@ final class GameEngine {
               )
               ..scriptId = c.script.id
               ..address = cmd.address;
+        final choice = operation;
+        if (choice != null && choice.options.firstOrNull == '取消') {
+          // 只给明确的道具使用默认焦点；原选项顺序和分支索引保持不变。
+          // 不自动提交，人物生死、交物、交换等剧情选择仍沿用原默认项。
+          final use = choice.options.indexWhere(
+            (text) => text.startsWith('使用'),
+          );
+          if (use >= 0) choice.selected = use;
+        }
       case 32:
       case 38:
         final npc = GameActor.load(data, cmd.opcode == 32 ? 4 : 2, n(1));

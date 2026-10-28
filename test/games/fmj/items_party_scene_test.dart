@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bbk_flutter/games/fmj/data/game_data.dart';
 import 'package:bbk_flutter/games/fmj/engine/game_engine.dart';
@@ -8,6 +11,7 @@ import 'package:bbk_flutter/games/fmj/engine/game_actor.dart';
 import 'package:bbk_flutter/games/fmj/ui/game_view_model.dart';
 import 'package:bbk_flutter/games/fmj/ui/modern_art.dart';
 import 'package:bbk_flutter/games/fmj/ui/modern_game_view.dart';
+import 'package:bbk_flutter/games/fmj/ui/goods_icon.dart';
 import 'package:bbk_flutter/games/fmj/ui/system_font_layout.dart';
 import 'game_engine_test.dart' show loadData;
 
@@ -176,4 +180,148 @@ void main() {
     expect(marks['1:6'], isEmpty, reason: '伏魔洞入口不挂名牌');
     expect((marks['1:1'] as List).any((v) => v['label'] == '三清宫药房'), isTrue);
   });
+
+  testWidgets('购物、出售、背包、战斗使用和穿戴的每件物品都有图标', (tester) async {
+    final game = engine()
+      ..screen = 'play'
+      ..intro = null;
+    game.players.add(GameActor.load(data, 1, 1)!);
+    for (var slot = 0; slot < 8; slot++) {
+      game.unequip(game.players.first, slot);
+    }
+    final model = GameViewModel()
+      ..engine = game
+      ..loading = false;
+    await tester.runAsync(() => model.prepareModernArt());
+    try {
+      for (final mode in [
+        'buy',
+        'sell',
+        'equip',
+        'use',
+        'throw',
+        'equipment',
+      ]) {
+        game.menus.clear();
+        game.inventory.clear();
+        game.addGoods('7:2');
+        game.addGoods('9:1');
+        if (mode == 'equipment') {
+          game.equip(game.players.first, '7:2');
+          game.openEquipment(0);
+        } else {
+          game.openInventory(mode: mode, items: ['7:2', '9:1']);
+        }
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(body: ModernGameView(model: model)),
+          ),
+        );
+        await tester.pump();
+        final expected = mode == 'equipment'
+            ? game.players.first.equipment.whereType<String>().toList()
+            : game.menus.last.ids;
+        for (final id in expected) {
+          final icon = find.byKey(ValueKey('menu-goods-$id'));
+          await tester.ensureVisible(icon);
+          expect(icon, findsOneWidget, reason: '$mode/$id');
+          expect(
+            tester.widget<GoodsIcon>(icon).art?.sprites,
+            contains('goods:$id/0'),
+          );
+        }
+        expect(tester.takeException(), isNull);
+      }
+    } finally {
+      await tester.pumpWidget(const SizedBox.shrink());
+      model.dispose();
+    }
+  });
+
+  if (Platform.environment['FMJ_EXPORT_APPROVED_ART'] == '1') {
+    testWidgets('导出实际图标菜单及完整队伍信息栏', (tester) async {
+      final font = FontLoader('BBKGameCJK')
+        ..addFont(rootBundle.load('assets/fonts/NotoSansCJKsc-Regular.otf'));
+      await font.load();
+      final game = engine()
+        ..screen = 'play'
+        ..intro = null
+        ..map = data.maps['2:9']
+        ..sceneName = '三清宫药房';
+      for (final id in [1, 2, 3]) {
+        game.players.add(
+          GameActor.load(data, 1, id)!
+            ..x = 5
+            ..y = 11
+            ..level = 50
+            ..hp = 888
+            ..maxHp = 999,
+        );
+      }
+      final model = GameViewModel()
+        ..engine = game
+        ..loading = false;
+      await tester.runAsync(() => model.prepareModernArt());
+      final folder = Directory('build/validation/item-party-ui')
+        ..createSync(recursive: true);
+      tester.view.devicePixelRatio = 1;
+      try {
+        for (final width in [360, 800]) {
+          tester.view.physicalSize = Size(width.toDouble(), width * .6 + 48);
+          for (final mode in ['party', 'buy', 'equip', 'equipment']) {
+            game.menus.clear();
+            game.inventory.clear();
+            game.addGoods('7:2');
+            game.addGoods('9:1');
+            game.addGoods('14:7');
+            if (mode == 'equipment') {
+              game.equip(game.players.first, '7:2');
+              game.openEquipment(0);
+            } else if (mode != 'party') {
+              game.openInventory(mode: mode, items: ['7:2', '9:1', '14:7']);
+            }
+            await tester.pumpWidget(
+              MaterialApp(
+                theme: ThemeData.dark().copyWith(
+                  textTheme: ThemeData.dark().textTheme.apply(
+                    fontFamily: 'BBKGameCJK',
+                  ),
+                ),
+                home: Scaffold(
+                  body: RepaintBoundary(
+                    key: const ValueKey('item-ui-capture'),
+                    child: ModernGameView(model: model),
+                  ),
+                ),
+              ),
+            );
+            await tester.pump();
+            final boundary =
+                tester.renderObject(
+                      find.byKey(const ValueKey('item-ui-capture')),
+                    )
+                    as RenderRepaintBoundary;
+            await tester.runAsync(() async {
+              final image = await boundary.toImage(pixelRatio: 2);
+              try {
+                final bytes = await image.toByteData(
+                  format: ui.ImageByteFormat.png,
+                );
+                File(
+                  '${folder.path}/$mode-$width.png',
+                ).writeAsBytesSync(bytes!.buffer.asUint8List());
+              } finally {
+                image.dispose();
+              }
+            });
+          }
+        }
+      } finally {
+        await tester.pumpWidget(const SizedBox.shrink());
+        model.dispose();
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      }
+    });
+  }
 }
