@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bbk_flutter/games/fmj/ui/modern_art.dart';
 
-/// 锁定用户选回的24个旧帧；四向走路必须各有迈步帧，不能再复用同一站姿。
+/// 地图迈步和战斗站姿沿用旧版，蓄力及横斩攻击保留新版，不能整组误覆盖。
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   final expected =
@@ -14,7 +14,7 @@ void main() {
           )
           as Map;
 
-  test('柳清风恢复调整前的地图迈步和战斗帧', () {
+  test('柳清风保留旧版地图迈步和战斗站姿，仅攻击使用新版', () {
     final hd =
         jsonDecode(
               File('assets/fmj/modern/enhanced-art.json').readAsStringSync(),
@@ -23,7 +23,15 @@ void main() {
     final frames = hd['frames'] as Map;
     expect((expected['frames'] as Map).length, 24);
     for (final e in (expected['frames'] as Map).entries) {
-      expect(frames[e.key], e.value['frame'], reason: '${e.key} 恢复旧帧');
+      expect(frames[e.key], e.value['frame'], reason: '${e.key} 保留指定版本');
+    }
+    final textures = hd['textures'] as List;
+    for (var phase = 0; phase < 12; phase++) {
+      final frame = frames['battle:hero:1/$phase'] as List;
+      expect(
+        textures[frame[0]],
+        phase >= 1 && phase <= 4 ? 'hero-v10.png' : isNot('hero-v10.png'),
+      );
     }
     for (var direction = 1; direction <= 4; direction++) {
       final poses = {
@@ -34,7 +42,7 @@ void main() {
     }
   });
 
-  testWidgets('旧帧可从正式图集加载，无悬空图片引用', (tester) async {
+  testWidgets('指定的新旧动作均可从正式图集加载，无悬空图片引用', (tester) async {
     await tester.runAsync(() async {
       final art = await ModernArt.load();
       try {

@@ -384,14 +384,14 @@
       "source": "assets/modern/enhanced-art-sources.json",
       "destination": "assets/fmj/modern/enhanced-art-sources.json",
       "sourceSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e",
-      "importedSha256": "01119d65e96256d8a18254033d852ca72078f71b9753228e31c0e15c8ab84f2c"
+      "importedSha256": "f451106b89f2ceca96aa05df80ff35da74aaa9f9e30029a99f79617e3b7918f9"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "da7a663babbf337441b739e6fee11b0dbfd984e2af71b4ede3d011a0659161b8"
+      "importedSha256": "b9a8d09c374a586c678fdfb84907a96089a59287492972fd524d9e664cc43d50"
     },
     {
       "game": "fmj",
@@ -3111,6 +3111,18 @@
       "previousImportedSha256": "609a70e32e5d2109b40ddcce74abaabcc9fc538641f01b54b34c10dfee8d2d3c",
       "currentSha256": "da7a663babbf337441b739e6fee11b0dbfd984e2af71b4ede3d011a0659161b8",
       "reason": "按用户要求恢复b7da41b版本柳清风24个旧帧及逐格移动，移除平滑选项；其他角色与场景精灵像素保持原样"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art-sources.json",
+      "previousImportedSha256": "01119d65e96256d8a18254033d852ca72078f71b9753228e31c0e15c8ab84f2c",
+      "currentSha256": "f451106b89f2ceca96aa05df80ff35da74aaa9f9e30029a99f79617e3b7918f9",
+      "reason": "按用户追加要求仅恢复柳清风新版蓄力及横斩攻击动作，保留旧地图四向迈步、战斗站姿和逐格移动"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "da7a663babbf337441b739e6fee11b0dbfd984e2af71b4ede3d011a0659161b8",
+      "currentSha256": "b9a8d09c374a586c678fdfb84907a96089a59287492972fd524d9e664cc43d50",
+      "reason": "按用户追加要求仅恢复柳清风新版蓄力及横斩攻击动作，保留旧地图四向迈步、战斗站姿和逐格移动"
     }
   ]
 }
