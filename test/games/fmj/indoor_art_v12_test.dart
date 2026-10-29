@@ -69,9 +69,25 @@ void main() {
         (i) => (maps['2:22']!['cells'][i] as int) & 127,
       );
       expect(
-        tiles.any((tile) => {81, 82, 83}.contains(tile)),
+        tiles.any((tile) => {82, 83}.contains(tile)),
         isFalse,
         reason: '客栈楼梯不能被新家具遮盖',
+      );
+    }
+    for (final id in ['2:21', '2:22', '2:26']) {
+      final scene = hd['decorations'][id] as List;
+      final seatedOriginal = (maps[id]!['cells'] as List)
+          .where((cell) => (cell as int) & 127 == 76)
+          .length;
+      expect(
+        scene.where((b) => b['key'] == 'interior-v12:seated-guest'),
+        hasLength(seatedOriginal),
+        reason: '$id 原图坐客不能变成长凳',
+      );
+      expect(
+        scene.where((b) => b['key'] == 'furniture:tea-set'),
+        isEmpty,
+        reason: '茶壶必须与对应餐桌一起绘制，不能单独落在地板上',
       );
     }
     for (final id in audit['maps'] as List) {

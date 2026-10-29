@@ -4,6 +4,7 @@
 区域，所有既有帧的坐标和像素保持不变，不增加运行时图片解码预算。
 """
 from pathlib import Path
+import copy
 import json
 from PIL import Image, ImageDraw
 
@@ -37,6 +38,7 @@ def main():
     hd = json.loads((ART / 'enhanced-art.json').read_text())
     provenance = json.loads((ART / 'enhanced-art-sources.json').read_text())
     maps = json.loads((ROOT / 'assets/fmj/game/FmjGuideData.json').read_text())['maps']
+    original_layout=json.loads((SOURCES/'original-indoor-layout.json').read_text())
     pages = {}
 
     def sprite(key):
@@ -84,7 +86,7 @@ def main():
 
     sizes = {'sealed-jar':(96,112),'storage-sack':(96,96),'herb-pot':(96,96),
              'pottery-bowl':(96,72),'herb-rack':(128,192),'kitchen-counter':(192,128),
-             'vase-stand':(96,160),'weapon-rack':(160,192),'round-stool':(96,96),'bronze-scale':(96,112)}
+             'vase-stand':(96,160),'weapon-rack':(160,192),'round-stool':(96,96),'bronze-scale':(96,112),'seated-guest':(128,192)}
     for key,size in sizes.items():
         im = Image.open(SOURCES/(key+'.png')).convert('RGBA')
         bounds = im.getchannel('A').point(lambda a:255 if a>16 else 0).getbbox()
@@ -94,6 +96,18 @@ def main():
         target = Image.new('RGBA',size)
         target.alpha_composite(im,((size[0]-im.width)//2,size[1]-im.height-2))
         insert(key,target)
+
+    # 茶壶与桌面在同一张完整图片里，不能再按旧茶壶图块的上一行独立落地。
+    tea=sprite('furniture:tea-set/0')
+    tea.thumbnail((150,75),R)
+    for height in [2,3]:
+        table=sprite(f'furniture:inn-table-{height}/0')
+        table.alpha_composite(tea,(28,14))
+        table=table.resize((128,table.height//2),R)
+        name=f'inn-tea-table-{height}'
+        insert(name,table)
+        hd['frames'][f'furniture:inn-table-{height}-tea/0']=hd['frames'][PREFIX+name+'/0']
+        provenance['frames'][PREFIX+name+'/0']={'source':'tool/fmj_indoor_review_v12.py','composite':[f'furniture:inn-table-{height}/0','furniture:tea-set/0']}
 
     # 木柜外沿继续使用现有柜台原画，完整替代7号图块集上残留的旧格栅纹理。
     counter = sprite('furniture:shop-counter/0')
@@ -120,11 +134,7 @@ def main():
         if not m['id'].startswith('2:'):
             continue
         mid,w,h = m['id'],m['width'],m['height']
-        rows = hd['decorations'].setdefault(mid,[])
-        for b in rows:
-            if mid=='2:8' and b['key']==PREFIX+'cave-mouth':
-                b['key']='furniture:hidden-passage'
-        rows[:] = [b for b in rows if not b['key'].startswith(PREFIX)]
+        rows = hd['decorations'][mid] = copy.deepcopy(original_layout.get(mid,[]))
         # 前轮把部分酒坛上半片(50/51)误当作重复人像清空。只有下方确有坛身
         # (52/53)时才撤销该清空规则，不能把真实柜台掌柜的旧头像重新画回来。
         if m['tiles']==7:
@@ -160,6 +170,43 @@ def main():
                 if v&127 in tiles and i not in covered:
                     add(name,[i],visual)
 
+        if mid in {'2:21','2:22','2:26'}:
+            # 原图76/77为朝向桌子的坐客，81是其座凳底脚；不能整体当成长凳。
+            for b in list(rows):
+                if b['key'].startswith('furniture:long-bench-') and any(
+                        (m['cells'][i]&127)in {76,77} for i in b['cells']):
+                    rows.remove(b)
+                    b['key']=PREFIX+'seated-guest'
+                    b['visualHeight']=2.7
+                    b['visualWidth']=1.7
+                    rows.append(b)
+                    count+=1
+            # 建业客栈南墙边的餐桌只露出上面两排，仍是桌子，不是储物柜。
+            owned={i for b in rows for i in b.get('cells',[])}
+            for i,value in enumerate(m['cells']):
+                if value&127!=64 or i in owned or i%w+1>=w or m['cells'][i+1]&127!=65:
+                    continue
+                cells=[i,i+1]
+                for dy,pair in [(1,[66,67]),(2,[68,69])]:
+                    start=i+dy*w
+                    if start+w<=len(m['cells'])and [m['cells'][start]&127,m['cells'][start+1]&127]==pair:
+                        cells.extend([start,start+1])
+                    else:break
+                if len(cells)>=2:
+                    shown_height=len(cells)//2
+                    rows.append({'key':'furniture:inn-table-'+str(max(2,shown_height)),'x':i%w,'y':i//w,'width':2,'height':shown_height,'visualHeight':max(2,shown_height),'cells':cells})
+                    count+=1
+            for b in list(rows):
+                if b['key']!='furniture:tea-set':continue
+                table=next((t for t in rows if t['key'].startswith('furniture:inn-table-')and t['x']==b['x']and 0<=t['y']-b['y']<=1),None)
+                assert table is not None,(mid,'茶壶缺少对应餐桌',b)
+                height=2 if table['height']<=2 else 3
+                table['key']=f'furniture:inn-table-{height}-tea'
+                table['cells']=sorted(set(table['cells']+b['cells']))
+                rows.remove(b)
+                count+=1
+            covered={i for b in rows for i in b.get('cells',[])}
+
         if m['tiles']==3:
             group('window',{33,34})
             group('vase-stand',{28,29},2)
@@ -186,8 +233,8 @@ def main():
             group('sealed-jar',{50,51,52,53},2)
             group('bronze-scale',{54,55},1.7)
             group('weapon-rack'if mid=='2:17'else'herb-rack',set(range(37,39))|{40,41,42,43,44,45,46,47,48,49})
-            # 81/82/83是客栈楼梯，沿用已绘制的台阶，不能套成长凳。
-            group('bench',{79,80})
+            # 82/83是客栈楼梯；81是长凳底脚，需要跟随79/80一起绘制。
+            group('bench',{79,80,81})
             singles('storage-sack',{16,56})
             singles('sealed-jar',{17,57})
             singles('pottery-bowl',{22,23})
@@ -230,13 +277,14 @@ def main():
         page.save(ART/hd['textures'][t],optimize=True)
     for name,value in [('enhanced-art.json',hd),('enhanced-art-sources.json',provenance)]:
         (ART/name).write_text(json.dumps(value,ensure_ascii=False,separators=(',',':')))
-    labels={'sealed-jar':'封口陶坛','storage-sack':'麻布储物袋','herb-pot':'带盖药罐','pottery-bowl':'陶制碗盆','herb-rack':'器物储存架','kitchen-counter':'厨房案台','vase-stand':'花瓶与木花几','weapon-rack':'兵器陈列架','round-stool':'竹面木凳','bronze-scale':'铜制药秤','bookcase':'书架','screen-side':'纵向木屏风','screen-front':'横向木屏风','tea-table':'木茶案','cabinet':'储物柜','bench':'木长凳','window':'木格纸窗'}
+    labels={'sealed-jar':'封口陶坛','storage-sack':'麻布储物袋','herb-pot':'带盖药罐','pottery-bowl':'陶制碗盆','herb-rack':'器物储存架','kitchen-counter':'厨房案台','vase-stand':'花瓶与木花几','weapon-rack':'兵器陈列架','round-stool':'竹面木凳','bronze-scale':'铜制药秤','bookcase':'书架','screen-side':'纵向木屏风','screen-front':'横向木屏风','tea-table':'木茶案','cabinet':'储物柜','bench':'木长凳','window':'木格纸窗','seated-guest':'坐在桌边的客人'}
     fixes={}
     for mid in changed:
         names=sorted({labels.get(b['key'][len(PREFIX):],b['key'][len(PREFIX):])for b in hd['decorations'][mid]if b['key'].startswith(PREFIX) and not b.get('floor')})
         notes=[]
         if names:notes.append('补齐本场景残留旧图：'+'、'.join(names)+'。')
         if hd.get('tileOverrides',{}).get(mid):notes.append('补绘柜台侧板、面板与木作边沿，去除原点阵格栅和碎片；瓶罐下方保留连续木质台面。')
+        if mid in {'2:21','2:22','2:26'}:notes.append('茶壶与对应桌面合成绘制，坐客恢复朝向餐桌的人物；保留原来的桌椅格位。')
         notes.append('原地图、碰撞、交互格及已有家具布局保留。')
         fixes[mid]=notes
     fixes['2:8']=['揭开后的隐藏入口改用与其他洞口一致的完整岩石洞口，保留原入口和剧情显隐规则。']

@@ -293,7 +293,7 @@
       "source": "assets/modern/enhanced-00.png",
       "destination": "assets/fmj/modern/enhanced-00.png",
       "sourceSha256": "a23454a3f68d1fcd3083e623107dddb3b232db9fc622cee82bc8f81de294240b",
-      "importedSha256": "9977f9f7028b15ea35b63b36c33585d1af06e61aa2bfd2b8b28698f849663d0f"
+      "importedSha256": "9727b3c04d2d1d9b306cadee99d073f25f04044c7846281d56ffd1f16e94c470"
     },
     {
       "game": "fmj",
@@ -384,14 +384,14 @@
       "source": "assets/modern/enhanced-art-sources.json",
       "destination": "assets/fmj/modern/enhanced-art-sources.json",
       "sourceSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e",
-      "importedSha256": "b59f7cfb1cf6d9fac192ac07aad04351f124a1f8281f8b225a4d019c8c88d019"
+      "importedSha256": "b3c261c51732566aa50b652d8a1fee4d8575ec9964abe4afc03a6b26cc0ebe53"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "edea4331ed428796e47387cd69cedeaabaeaff2959492885a2920947d6b555ce"
+      "importedSha256": "609a70e32e5d2109b40ddcce74abaabcc9fc538641f01b54b34c10dfee8d2d3c"
     },
     {
       "game": "fmj",
@@ -3057,6 +3057,24 @@
       "previousImportedSha256": "b8dad447ee101e50cbb3975b831730f5968a5b0ab90a242444a27a9d2e60b8bf",
       "currentSha256": "edea4331ed428796e47387cd69cedeaabaeaff2959492885a2920947d6b555ce",
       "reason": "器物图与柜台木板拆为前景和支承底层，避免替换瓶罐时台面出现地砖缺口"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-00.png",
+      "previousImportedSha256": "9977f9f7028b15ea35b63b36c33585d1af06e61aa2bfd2b8b28698f849663d0f",
+      "currentSha256": "9727b3c04d2d1d9b306cadee99d073f25f04044c7846281d56ffd1f16e94c470",
+      "reason": "对照原版客栈，将74/75茶壶合成到餐桌桌面，76/77坐客恢复人物；补齐南墙边局部餐桌，不改原地图"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art-sources.json",
+      "previousImportedSha256": "b59f7cfb1cf6d9fac192ac07aad04351f124a1f8281f8b225a4d019c8c88d019",
+      "currentSha256": "b3c261c51732566aa50b652d8a1fee4d8575ec9964abe4afc03a6b26cc0ebe53",
+      "reason": "对照原版客栈，将74/75茶壶合成到餐桌桌面，76/77坐客恢复人物；补齐南墙边局部餐桌，不改原地图"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "edea4331ed428796e47387cd69cedeaabaeaff2959492885a2920947d6b555ce",
+      "currentSha256": "609a70e32e5d2109b40ddcce74abaabcc9fc538641f01b54b34c10dfee8d2d3c",
+      "reason": "对照原版客栈，将74/75茶壶合成到餐桌桌面，76/77坐客恢复人物；补齐南墙边局部餐桌，不改原地图"
     }
   ]
 }
