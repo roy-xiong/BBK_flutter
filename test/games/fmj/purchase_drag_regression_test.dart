@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bbk_flutter/games/fmj/data/game_data.dart';
 import 'package:bbk_flutter/games/fmj/engine/game_engine.dart';
-import 'package:bbk_flutter/games/fmj/ui/game_page.dart';
 import 'package:bbk_flutter/games/fmj/ui/game_view_model.dart';
 import 'package:bbk_flutter/games/fmj/ui/modern_game_view.dart';
 import 'package:bbk_flutter/games/fmj/ui/system_font_layout.dart';
@@ -80,55 +79,6 @@ void main() {
     game.press(GameKey.confirm);
     expect(game.inventory['9:1'], 999);
     expect(game.money, game.goods('9:1')!.word(18));
-  });
-
-  testWidgets('同一帧多次拖动工具栏不丢位移，后续逐帧移动也贴住指针', (tester) async {
-    final game = engine();
-    final model = GameViewModel()
-      ..engine = game
-      ..loading = false;
-    tester.view.physicalSize = const Size(1000, 700);
-    tester.view.devicePixelRatio = 1;
-    await tester.runAsync(() => model.prepareModernArt());
-    try {
-      await tester.pumpWidget(MaterialApp(home: GamePage(viewModel: model)));
-      final bar = find
-          .ancestor(
-            of: find.byTooltip('控制设置'),
-            matching: find.byWidgetPredicate(
-              (w) => w is GestureDetector && w.onPanUpdate != null,
-            ),
-          )
-          .first;
-      final gesture = await tester.startGesture(
-        tester.getCenter(find.byTooltip('控制设置')),
-      );
-      await gesture.moveBy(const Offset(30, 30));
-      await tester.pump();
-      final before = tester.getTopLeft(bar);
-      await gesture.moveBy(const Offset(20, 12));
-      await gesture.moveBy(const Offset(20, 12));
-      await gesture.moveBy(const Offset(20, 12));
-      await tester.pump();
-      expect(tester.getTopLeft(bar).dx - before.dx, closeTo(60, .1));
-      expect(tester.getTopLeft(bar).dy - before.dy, closeTo(36, .1));
-      final second = tester.getTopLeft(bar);
-      for (var i = 0; i < 4; i++) {
-        await gesture.moveBy(const Offset(13, 7));
-        await tester.pump();
-      }
-      expect(tester.getTopLeft(bar).dx - second.dx, closeTo(52, .1));
-      expect(tester.getTopLeft(bar).dy - second.dy, closeTo(28, .1));
-      await gesture.up();
-      await tester.pump();
-      expect(find.byType(BottomSheet), findsNothing, reason: '拖动不能误点控制设置');
-      expect(tester.takeException(), isNull);
-    } finally {
-      await tester.pumpWidget(const SizedBox.shrink());
-      model.dispose();
-      tester.view.resetPhysicalSize();
-      tester.view.resetDevicePixelRatio();
-    }
   });
 
   testWidgets('彩色数量框在窄屏可增减数量、取消及确认购买', (tester) async {

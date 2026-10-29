@@ -41,8 +41,27 @@ final class GameCheatPanel extends StatelessWidget {
           toggle(
             'invincible',
             '切换我方无敌',
-            '敌人的攻击无法扣除我方生命',
+            '免疫伤害、毒乱眠封及敌方削弱，开启时清除已有异常',
             Icons.health_and_safety,
+          ),
+          ListTile(
+            leading: const Icon(Icons.paid),
+            title: Text(game.moneyFarm.active ? '停止刷钱' : '一键刷钱'),
+            subtitle: Text(
+              game.moneyFarm.active
+                  ? '已完成${game.moneyFarm.rounds}轮；点击停止，保留当前进度'
+                  : '建业客栈战斗 → 当铺出售富贵珠 → 循环；再次点击或方向输入取消',
+            ),
+            trailing: Icon(
+              game.moneyFarm.active
+                  ? Icons.stop_circle_outlined
+                  : Icons.play_circle_outline,
+            ),
+            onTap: () {
+              model.action((g) => g.moneyFarm.toggle());
+              // 关闭作弊面板后按原页面暂停规则恢复时钟；停止按钮也可在下次打开时点击。
+              Navigator.of(context).pop();
+            },
           ),
           toggle('oneHitKill', '切换一击必杀', '我方攻击命中后直接消灭所有受伤敌人', Icons.flash_on),
           toggle(

@@ -41,14 +41,14 @@
       "source": "lib/engine/game_battle.dart",
       "destination": "lib/games/fmj/engine/game_battle.dart",
       "sourceSha256": "5375ae6aa517e1fc8de0296091ad7c2f8acf48eb93368643e773cb8f9167b071",
-      "importedSha256": "107a1273912c067f81121240e4b2c7ea8d83da05587cd70861293d016c8d8888"
+      "importedSha256": "939c4d45ebfc39b9d8290c99b0c4dff99bccb33ac80ac7014994d3dc19dfddad"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "80711c0e2323c6212a46a5ab79158015be37e7049208042d0d923046115c8758"
+      "importedSha256": "dc6aacde0579c22170a0751272793e5131dacc33869da5d501c8a7b80e67abc4"
     },
     {
       "game": "fmj",
@@ -384,14 +384,14 @@
       "source": "assets/modern/enhanced-art-sources.json",
       "destination": "assets/fmj/modern/enhanced-art-sources.json",
       "sourceSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e",
-      "importedSha256": "e326720ad53dec59d794019811a434145a9c3d02ef88f724644f39f1cc7b8a4e"
+      "importedSha256": "0f29abc90709669ad67f79f228fdbf617681d591645cf02380ae7c1279b33749"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "8981364479eefd58857e95c9b72c73d60c383079975fc0b7205ce5ed15beb020"
+      "importedSha256": "d69253396c711f575323ee0aa7de6bf16c376a24c680131a7aa0dbcce3bf8999"
     },
     {
       "game": "fmj",
@@ -2221,6 +2221,12 @@
       "destination": "lib/games/fmj/engine/game_money_farm.dart",
       "importedSha256": "db1968ab49fa56ad4342da6724b1ff6b0ee6739d2990fd1744f5c2c036ed3028",
       "approval": "用户本轮要求：统一人物与可取消刷钱循环"
+    },
+    {
+      "game": "fmj",
+      "destination": "assets/fmj/modern/hero-v10.png",
+      "importedSha256": "d24debd4d0d6e8489f51a6f1b7297a78f4b2b23d98cd003cee536e7a6397d791",
+      "approval": "本轮用户明确要求修订柳清风比例"
     }
   ],
   "integrationRevisions": [
@@ -2859,6 +2865,30 @@
       "previousImportedSha256": "a88de2f760ddd42374833dcd752476bdac7dec5203b90a44a5887cdcb121aacc",
       "currentSha256": "d23cc7d1d4a3168eb55ab123a9e3510e988efa7c48114050dbbee77c537924c3",
       "reason": "macOS本轮：统一剧情战斗形象、出售向上增加、可取消建业刷钱循环、鼠标碰撞寻路、取消Esc最小化、窗口记忆及原SRS彩色战斗动效"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_battle.dart",
+      "previousImportedSha256": "107a1273912c067f81121240e4b2c7ea8d83da05587cd70861293d016c8d8888",
+      "currentSha256": "939c4d45ebfc39b9d8290c99b0c4dff99bccb33ac80ac7014994d3dc19dfddad",
+      "reason": "10月29日：固定菜单/作弊收拢、完整状态免疫、成年柳清风、落石叠帧及显示平滑插值；原地图和剧情资源未改"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "80711c0e2323c6212a46a5ab79158015be37e7049208042d0d923046115c8758",
+      "currentSha256": "dc6aacde0579c22170a0751272793e5131dacc33869da5d501c8a7b80e67abc4",
+      "reason": "10月29日：固定菜单/作弊收拢、完整状态免疫、成年柳清风、落石叠帧及显示平滑插值；原地图和剧情资源未改"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art-sources.json",
+      "previousImportedSha256": "e326720ad53dec59d794019811a434145a9c3d02ef88f724644f39f1cc7b8a4e",
+      "currentSha256": "0f29abc90709669ad67f79f228fdbf617681d591645cf02380ae7c1279b33749",
+      "reason": "10月29日：固定菜单/作弊收拢、完整状态免疫、成年柳清风、落石叠帧及显示平滑插值；原地图和剧情资源未改"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "8981364479eefd58857e95c9b72c73d60c383079975fc0b7205ce5ed15beb020",
+      "currentSha256": "d69253396c711f575323ee0aa7de6bf16c376a24c680131a7aa0dbcce3bf8999",
+      "reason": "10月29日：固定菜单/作弊收拢、完整状态免疫、成年柳清风、落石叠帧及显示平滑插值；原地图和剧情资源未改"
     }
   ]
 }

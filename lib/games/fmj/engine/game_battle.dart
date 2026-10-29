@@ -210,6 +210,11 @@ final class GameBattle {
   int _speed(GameActor p) => _computed(p, 128, p.speed);
 
   void update() {
+    if (game.preferences['invincible'] == true) {
+      for (final p in game.players) {
+        game._clearInvincibleStatus(p);
+      }
+    }
     phaseTicks++;
     if (scriptPaused && game.cursor?.running != true) scriptPaused = false;
     if (phase == 'select') {
@@ -873,6 +878,7 @@ final class GameBattle {
   }
 
   void _status(int mask, int rounds, GameActor target, {int? luck}) {
+    if (target.type == 1 && game.preferences['invincible'] == true) return;
     for (final bit in [1, 2, 4, 8]) {
       if (mask & bit != 0 &&
           target.immunity & bit == 0 &&
@@ -889,6 +895,11 @@ final class GameBattle {
   }
 
   void _modifier(GameActor target, int mask, int value, int rounds) {
+    if (value < 0 &&
+        target.type == 1 &&
+        game.preferences['invincible'] == true) {
+      return;
+    }
     if (value != 0) {
       target.modifiers[mask] = (value, rounds);
     }
@@ -1115,7 +1126,8 @@ final class GameBattle {
           );
         }
       }
-      if (a.status & 8 != 0) {
+      if (a.status & 8 != 0 &&
+          !(a.type == 1 && game.preferences['invincible'] == true)) {
         final before = a.hp;
         a.hp = a.hp == 1 ? 0 : (a.hp * .75).truncate();
         animations.add(

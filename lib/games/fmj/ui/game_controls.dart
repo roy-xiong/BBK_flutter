@@ -278,14 +278,6 @@ class _FmjUtilityButtons extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 6),
-          button(
-            moneyFarmActive ? '停止自动刷钱' : '建业客栈战斗并出售富贵珠，循环刷钱',
-            moneyFarmActive ? '停止刷钱' : '一键刷钱',
-            GameControl.toggleMoneyFarm,
-            width: 276,
-            active: moneyFarmActive,
-          ),
-          const SizedBox(height: 6),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [

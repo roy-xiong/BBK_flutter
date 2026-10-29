@@ -28,6 +28,10 @@ jobs:
           set -o pipefail
           mkdir -p build/validation
           flutter test --no-pub --reporter expanded 2>&1 | tee build/validation/tests.log
+      - name: 全地图交互审核网页
+        run: |
+          python3 -m pip install Pillow
+          python3 tool/build_fmj_review.py
       - name: 连续回放摘要
         if: always()
         run: python3 tool/write_validation_summary.py
@@ -53,4 +57,11 @@ jobs:
             build/validation/approved-art/map-2-20.png
             build/validation/macos-v22/
           if-no-files-found: ignore
+          retention-days: 14
+      - name: 全地图交互审核文档
+        uses: actions/upload-artifact@v4
+        with:
+          name: fmj-map-review
+          path: build/validation/review/
+          if-no-files-found: error
           retention-days: 14

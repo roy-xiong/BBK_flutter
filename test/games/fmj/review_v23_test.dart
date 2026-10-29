@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:bbk_flutter/games/fmj/engine/game_actor.dart';
 import 'package:bbk_flutter/games/fmj/engine/game_engine.dart';
 import 'package:bbk_flutter/games/fmj/ui/game_page.dart';
 import 'package:bbk_flutter/games/fmj/ui/game_view_model.dart';
@@ -12,6 +11,8 @@ import 'package:bbk_flutter/games/fmj/ui/modern_scene.dart';
 import 'package:bbk_flutter/games/fmj/ui/system_font_layout.dart';
 import 'package:bbk_flutter/games/fmj/data/game_data.dart';
 import 'game_engine_test.dart' show loadData;
+import 'package:bbk_flutter/games/fmj/ui/world_motion.dart';
+import 'package:bbk_flutter/games/fmj/ui/modern_map_camera.dart';
 
 /// 固定菜单、作弊收拢、原落石及状态免疫不能只依赖静态资源存在。
 void main() {
@@ -91,9 +92,54 @@ void main() {
     }
   });
 
+  test('平滑步行在两格之间显示连续位置，镜头随之连续，原坐标和剧情不变', () {
+    var time = Duration.zero;
+    final g = create();
+    final motion = WorldMotion(clock: () => time);
+    final player = g.player!
+      ..x = 20
+      ..y = 12;
+    g.setPreference('smoothWalking', true);
+    motion.capture(g);
+    player.x++;
+    motion.capture(g);
+    expect(motion.position(player).dx, 20);
+    time = const Duration(microseconds: 52500);
+    final p = motion.position(player);
+    expect(p.dx, closeTo(20.5, .001));
+    expect(player.x, 21);
+    final camera = ModernMapCamera(
+      mapWidth: 60,
+      mapHeight: 40,
+      playerX: p.dx,
+      playerY: p.dy,
+      wide: true,
+    );
+    expect(camera.viewLeft, closeTo(10.5, .001));
+    expect(camera.paintColumns, 21);
+    expect(camera.point(p.dx, p.dy).dx, 320);
+    time = const Duration(milliseconds: 106);
+    expect(motion.position(player).dx, 21);
+    expect(motion.moving, false);
+    player.x = 40;
+    motion.capture(g);
+    expect(motion.position(player).dx, 40, reason: '传送与切图不能做跨地图滑动');
+    g.setPreference('smoothWalking', false);
+    motion.capture(g);
+    player.x++;
+    motion.capture(g);
+    expect(motion.position(player).dx, 41);
+    motion.dispose();
+  });
+
   testWidgets('取伏魔剑后的落石SRS叠帧出现在正式彩色场景', (tester) async {
     await tester.runAsync(() async {
       final g = create(), art = await ModernArt.load();
+      g.map = data.maps['3:1'];
+      g.npcs.clear();
+      g.player!
+        ..x = 16
+        ..y = 12;
       final movie = GameMovie(data, 1, 1)..iterations = 1;
       g.operation = GameOperation('movie', args: [1, 1, 0, 0, 2])
         ..movie = movie;
@@ -106,6 +152,14 @@ void main() {
         final picture = recorder.endRecording();
         final image = await picture.toImage(640, 384);
         try {
+          if (Platform.environment['FMJ_EXPORT_APPROVED_ART'] == '1') {
+            final out = Directory('build/validation/review-v23')
+              ..createSync(recursive: true);
+            final png = await image.toByteData(format: ui.ImageByteFormat.png);
+            File(
+              '${out.path}/fall-${movie.active.firstOrNull?.first ?? 49}.png',
+            ).writeAsBytesSync(png!.buffer.asUint8List());
+          }
           return (await image.toByteData(
             format: ui.ImageByteFormat.rawRgba,
           ))!.buffer.asUint8List().toList();

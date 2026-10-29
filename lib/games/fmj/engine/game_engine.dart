@@ -81,6 +81,7 @@ final class GameEngine {
     'portraitControls': false,
     'manualLayout': false,
     'wideView': true,
+    'smoothWalking': true,
     'hd': true,
     'runSpeed': 1,
     'autoBattle': false,
@@ -1269,12 +1270,25 @@ final class GameEngine {
     render();
   }
 
+  /// 作弊免疫不写入原角色的immunity位，关闭后立即恢复装备与ROM的正常规则。
+  void _clearInvincibleStatus(GameActor actor) {
+    actor.status = 0;
+    actor.permanentStatus = 0;
+    actor.statusRounds.clear();
+    actor.modifiers.removeWhere((_, value) => value.$1 < 0);
+  }
+
   void setPreference(String name, dynamic value) {
     if (!preferences.containsKey(name)) return;
     if (name == 'storyScope' && value != 'main' && value != 'complete') return;
     if (name == 'runSpeed' && (value is! int || value < 1 || value > 4)) return;
     if (name != 'runSpeed' && name != 'storyScope' && value is! bool) return;
     preferences[name] = value;
+    if (name == 'invincible' && value == true) {
+      for (final p in players) {
+        _clearInvincibleStatus(p);
+      }
+    }
     if (name == 'wideView') {
       surface = PixelSurface(
         wide ? 320 : 160,

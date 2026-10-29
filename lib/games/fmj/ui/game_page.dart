@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../engine/game_engine.dart';
@@ -163,8 +162,6 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
     }
   }
 
-  Offset? _toolbarPosition;
-  Offset? _toolbarDragOrigin, _toolbarPointerOrigin;
   Timer? _quickTravelDelay, _quickTravelRepeat;
   bool _quickTravelHeld = false;
 
@@ -255,13 +252,9 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
             modern = game?.preferences['modernUi'] == true,
             dark = game?.preferences['darkControls'] != false,
             controlsVisible = game?.preferences['controlsVisible'] != false;
-        final desktop = {
-          TargetPlatform.macOS,
-          TargetPlatform.windows,
-          TargetPlatform.linux,
-        }.contains(Theme.of(context).platform);
         return Scaffold(
           backgroundColor: Colors.black,
+          appBar: game == null ? null : _fixedMenu(game, modern, dark),
           body: SafeArea(
             child: LayoutBuilder(
               builder: (context, constraints) {
@@ -296,16 +289,6 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                   modernWidth * 3 / 5 +
                       ModernGameView.informationHeight(modernWidth),
                 );
-                final toolbarWidth = math.min(constraints.maxWidth - 16, 396.0);
-                final toolbar = _toolbarPosition ?? const Offset(8, 8);
-                final toolbarX = toolbar.dx.clamp(
-                      0.0,
-                      math.max(0.0, constraints.maxWidth - toolbarWidth),
-                    ),
-                    toolbarY = toolbar.dy.clamp(
-                      0.0,
-                      math.max(0.0, constraints.maxHeight - 44),
-                    );
                 Widget surface;
                 if (model.loading) {
                   surface = const Center(child: CircularProgressIndicator());
@@ -398,7 +381,6 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                           onInput: _control,
                           hapticsEnabled:
                               game.preferences['hapticsEnabled'] != false,
-                          fmjMoneyFarmActive: game.moneyFarm.active,
                           fmjWideViewEnabled: game.wide,
                           fmjAutoBattleEnabled:
                               game.preferences['autoBattle'] == true,
@@ -411,188 +393,10 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                         onInput: _control,
                         hapticsEnabled:
                             game.preferences['hapticsEnabled'] != false,
-                        fmjMoneyFarmActive: game.moneyFarm.active,
                         fmjWideViewEnabled: game.wide,
                         fmjAutoBattleEnabled:
                             game.preferences['autoBattle'] == true,
                         fmjRunSpeed: game.preferences['runSpeed'] as int? ?? 1,
-                      ),
-                    if (game != null)
-                      Positioned(
-                        left: toolbarX.toDouble(),
-                        top: toolbarY.toDouble(),
-                        child: GestureDetector(
-                          dragStartBehavior: DragStartBehavior.down,
-                          onPanStart: (details) {
-                            _toolbarDragOrigin = Offset(
-                              toolbarX.toDouble(),
-                              toolbarY.toDouble(),
-                            );
-                            _toolbarPointerOrigin = details.globalPosition;
-                          },
-                          onPanUpdate: (details) => setState(() {
-                            // 使用起点和全局指针差，避免同一帧多次事件引用旧布局位置，
-                            // 也避免控件移动后其局部坐标系变化造成拖动回弹。
-                            final origin = _toolbarDragOrigin,
-                                pointer = _toolbarPointerOrigin;
-                            if (origin == null || pointer == null) return;
-                            final next =
-                                origin + details.globalPosition - pointer;
-                            _toolbarPosition = Offset(
-                              next.dx.clamp(
-                                0.0,
-                                math.max(
-                                  0.0,
-                                  constraints.maxWidth - toolbarWidth,
-                                ),
-                              ),
-                              next.dy.clamp(
-                                0.0,
-                                math.max(0.0, constraints.maxHeight - 44),
-                              ),
-                            );
-                          }),
-                          onPanEnd: (_) {
-                            _toolbarDragOrigin = null;
-                            _toolbarPointerOrigin = null;
-                          },
-                          onPanCancel: () {
-                            _toolbarDragOrigin = null;
-                            _toolbarPointerOrigin = null;
-                          },
-                          child: SizedBox(
-                            width: toolbarWidth,
-                            height: 44,
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: DecoratedBox(
-                                decoration: BoxDecoration(
-                                  color: const Color(0x99000000),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    _tool(
-                                      '返回游戏选择',
-                                      Icons.arrow_back,
-                                      () => unawaited(_leaveGame()),
-                                    ),
-                                    _tool(
-                                      '打开存档界面',
-                                      Icons.save,
-                                      () =>
-                                          model.action((g) => g.openSaveMenu()),
-                                    ),
-                                    _tool(
-                                      '控制设置',
-                                      Icons.settings,
-                                      () => _sheet(
-                                        _SettingsPanel(model: model),
-                                        compact: true,
-                                      ),
-                                    ),
-                                    _tool(
-                                      '作弊系统',
-                                      Icons.auto_fix_high,
-                                      () =>
-                                          _sheet(GameCheatPanel(model: model)),
-                                    ),
-                                    _tool(
-                                      '剧情帮助与任务',
-                                      Icons.map,
-                                      () => _sheet(_GuidePanel(model: model)),
-                                    ),
-                                    _tool(
-                                      game.preferences['hd'] == true
-                                          ? '切换经典画质'
-                                          : '切换高清画质',
-                                      Icons.hd,
-                                      () => model.action(
-                                        (g) => g.setPreference(
-                                          'hd',
-                                          g.preferences['hd'] != true,
-                                        ),
-                                      ),
-                                      active: game.preferences['hd'] == true,
-                                    ),
-                                    _tool(
-                                      '切换控制区明暗主题',
-                                      Icons.brightness_6,
-                                      () => model.action(
-                                        (g) => g.setPreference(
-                                          'darkControls',
-                                          !dark,
-                                        ),
-                                      ),
-                                    ),
-                                    _tool(
-                                      desktop
-                                          ? '键盘映射'
-                                          : portrait
-                                          ? '切换横屏'
-                                          : '切换竖屏',
-                                      desktop
-                                          ? Icons.keyboard
-                                          : portrait
-                                          ? Icons.stay_current_landscape
-                                          : Icons.stay_current_portrait,
-                                      () {
-                                        if (desktop) {
-                                          unawaited(_keyMapping());
-                                        } else {
-                                          unawaited(
-                                            SystemChrome.setPreferredOrientations(
-                                              portrait
-                                                  ? [
-                                                      DeviceOrientation
-                                                          .landscapeLeft,
-                                                      DeviceOrientation
-                                                          .landscapeRight,
-                                                    ]
-                                                  : [
-                                                      DeviceOrientation
-                                                          .portraitUp,
-                                                    ],
-                                            ),
-                                          );
-                                          model.action(
-                                            (g) => g.setPreference(
-                                              'manualLayout',
-                                              false,
-                                            ),
-                                          );
-                                        }
-                                      },
-                                    ),
-                                    _tool(
-                                      modern ? '切换经典 UI' : '切换仙侠新版',
-                                      Icons.auto_awesome,
-                                      () async {
-                                        // 完成解码后再切换，避免首次切换出现半幅画面或空底。
-                                        if (!modern &&
-                                            model.modernArt == null) {
-                                          await model.prepareModernArt();
-                                          if (!mounted ||
-                                              model.modernArt == null) {
-                                            return;
-                                          }
-                                        }
-                                        model.action(
-                                          (g) => g.setPreference(
-                                            'modernUi',
-                                            !modern,
-                                          ),
-                                        );
-                                      },
-                                      active: modern,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
                       ),
                     if (game?.notice.isNotEmpty == true)
                       Positioned(
@@ -635,18 +439,98 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
     ),
   );
 
-  Widget _tool(
-    String label,
-    IconData icon,
-    VoidCallback onPressed, {
-    bool active = false,
-  }) => IconButton(
-    tooltip: label,
-    constraints: const BoxConstraints.tightFor(width: 44, height: 44),
-    padding: EdgeInsets.zero,
-    onPressed: onPressed,
-    icon: Icon(icon, color: active ? const Color(0xffffd166) : Colors.white),
-  );
+  /// 与三国霸业相同：宿主工具固定在AppBar，游戏布局从其下方开始，不遮地图。
+  PreferredSizeWidget _fixedMenu(GameEngine game, bool modern, bool dark) =>
+      AppBar(
+        key: const ValueKey('fmj-fixed-menu'),
+        toolbarHeight: 44,
+        leading: IconButton(
+          tooltip: '返回游戏选择',
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => unawaited(_leaveGame()),
+        ),
+        title: const Text('伏魔记', style: TextStyle(fontSize: 17)),
+        actions: [
+          IconButton(
+            tooltip: '控制设置',
+            icon: const Icon(Icons.settings),
+            onPressed: () =>
+                _sheet(_SettingsPanel(model: model), compact: true),
+          ),
+          IconButton(
+            tooltip: '作弊系统',
+            icon: const Icon(Icons.auto_fix_high),
+            onPressed: () => _sheet(GameCheatPanel(model: model)),
+          ),
+          IconButton(
+            tooltip: modern ? '切换经典 UI' : '切换仙侠新版',
+            icon: Icon(modern ? Icons.contrast : Icons.auto_awesome),
+            onPressed: () async {
+              if (!modern && model.modernArt == null) {
+                await model.prepareModernArt();
+                if (!mounted || model.modernArt == null) return;
+              }
+              model.action((g) => g.setPreference('modernUi', !modern));
+            },
+          ),
+          PopupMenuButton<String>(
+            tooltip: '游戏工具',
+            onSelected: (value) async {
+              switch (value) {
+                case 'save':
+                  model.action((g) => g.openSaveMenu());
+                case 'guide':
+                  await _sheet(_GuidePanel(model: model));
+                case 'keys':
+                  await _keyMapping();
+                case 'hd':
+                  model.action(
+                    (g) => g.setPreference('hd', g.preferences['hd'] != true),
+                  );
+                case 'theme':
+                  model.action((g) => g.setPreference('darkControls', !dark));
+                case 'controls':
+                  model.action(
+                    (g) => g.setPreference(
+                      'controlsVisible',
+                      g.preferences['controlsVisible'] != true,
+                    ),
+                  );
+                case 'orientation':
+                  model.action((g) {
+                    final portrait = g.preferences['manualLayout'] == true
+                        ? g.preferences['portraitControls'] == true
+                        : MediaQuery.sizeOf(context).height >=
+                              MediaQuery.sizeOf(context).width;
+                    g.setPreference('manualLayout', true);
+                    g.setPreference('portraitControls', !portrait);
+                  });
+              }
+            },
+            itemBuilder: (_) => [
+              const PopupMenuItem(value: 'save', child: Text('存储进度')),
+              const PopupMenuItem(value: 'guide', child: Text('剧情帮助与任务')),
+              const PopupMenuItem(value: 'keys', child: Text('键盘映射')),
+              PopupMenuItem(
+                value: 'hd',
+                child: Text(
+                  game.preferences['hd'] == true ? '切换经典画质' : '切换高清画质',
+                ),
+              ),
+              const PopupMenuItem(value: 'theme', child: Text('切换控制区明暗主题')),
+              PopupMenuItem(
+                value: 'controls',
+                child: Text(
+                  game.preferences['controlsVisible'] == false
+                      ? '显示屏幕按键'
+                      : '隐藏屏幕按键',
+                ),
+              ),
+              const PopupMenuItem(value: 'orientation', child: Text('横竖屏布局')),
+            ],
+          ),
+        ],
+      );
 }
 
 final class _ClassicGameView extends StatelessWidget {
@@ -904,6 +788,7 @@ final class _SettingsPanel extends StatelessWidget {
               for (final entry in [
                 ('controlsVisible', '屏幕按键', Icons.sports_esports),
                 ('hapticsEnabled', '按键震动', Icons.vibration),
+                ('smoothWalking', '平滑步行', Icons.motion_photos_on),
                 ('hd', '角色扮演游戏高清画质', Icons.hd),
               ])
                 SwitchListTile(

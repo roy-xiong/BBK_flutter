@@ -9,6 +9,8 @@ import 'modern_battle_layout.dart';
 import 'modern_battle_effects.dart';
 import 'modern_terrain.dart';
 import 'modern_world_objects.dart';
+import 'world_motion.dart';
+import 'modern_scene_effects.dart';
 
 /// 四个方向严格对应屏幕水平、垂直轴，绘制坐标从不影响原地图碰撞和脚本。
 final class ModernScenePainter extends CustomPainter {
@@ -21,8 +23,10 @@ final class ModernScenePainter extends CustomPainter {
     this.showActorsInOverview = false,
     this.textStyle,
     this.revision,
-  });
+    this.motion,
+  }) : super(repaint: motion);
   final GameEngine game;
+  final WorldMotion? motion;
   final ModernArt? art;
 
   /// 捕获创建时的修订号，不能比较持有同一个可变引擎的前后两个 delegate。
@@ -65,13 +69,14 @@ final class ModernScenePainter extends CustomPainter {
       return;
     }
     final map = game.map!, player = game.player;
+    final visual = player == null ? null : motion?.position(player);
     final camera =
         cameraOverride ??
         ModernMapCamera(
           mapWidth: map.width,
           mapHeight: map.height,
-          playerX: player?.x ?? map.width ~/ 2,
-          playerY: player?.y ?? map.height ~/ 2,
+          playerX: visual?.dx ?? player?.x ?? map.width ~/ 2,
+          playerY: visual?.dy ?? player?.y ?? map.height ~/ 2,
           wide: game.wide,
         );
     final tileSize = camera.tileSize, room = art.rooms[map.id];
@@ -85,8 +90,8 @@ final class ModernScenePainter extends CustomPainter {
     bool inside(int x, int y) =>
         room == null || room.contains(Offset(x + .5, y + .5));
     // 第一层只铺地面，不能因为图块不认识就把原物件擦成同一片地板。
-    for (var row = 0; row < camera.rows; row++) {
-      for (var column = 0; column < camera.columns; column++) {
+    for (var row = 0; row < camera.paintRows; row++) {
+      for (var column = 0; column < camera.paintColumns; column++) {
         final (x, y) = camera.sample(column, row);
         final target = camera.target(column, row);
         _paint.color = Colors.white;
@@ -157,8 +162,8 @@ final class ModernScenePainter extends CustomPainter {
       );
     }
     // 第二层逐格保留原结构：围墙、砖道、池沿、云气、石栏、椅凳和未知陈设均有图。
-    for (var row = 0; row < camera.rows; row++) {
-      for (var column = 0; column < camera.columns; column++) {
+    for (var row = 0; row < camera.paintRows; row++) {
+      for (var column = 0; column < camera.paintColumns; column++) {
         final (x, y) = camera.sample(column, row);
         final index = y * map.width + x;
         if (!inside(x, y) ||
@@ -260,7 +265,10 @@ final class ModernScenePainter extends CustomPainter {
         () {
           canvas.save();
           // 遮挡形状按原地图坐标缓存，只改变 Canvas 变换，不逐帧执行 Path.combine。
-          canvas.translate(-camera.left * tileSize, -camera.top * tileSize);
+          canvas.translate(
+            -camera.viewLeft * tileSize,
+            -camera.viewTop * tileSize,
+          );
           canvas.scale(tileSize);
           final clip = geometry.clips[b];
           if (clip != null) canvas.clipPath(clip);
@@ -295,7 +303,11 @@ final class ModernScenePainter extends CustomPainter {
       final actors = [...game.npcs.values, ?player]
         ..sort((a, b) => a.y.compareTo(b.y));
       for (final actor in actors) {
-        final point = camera.point(actor.x, actor.y);
+        final visual = motion?.position(actor);
+        final point = camera.point(
+          visual?.dx ?? actor.x,
+          visual?.dy ?? actor.y,
+        );
         if (point.dx < -160 ||
             point.dx > 800 ||
             point.dy < -192 ||
@@ -318,6 +330,7 @@ final class ModernScenePainter extends CustomPainter {
           ).createShader(const Rect.fromLTWH(0, 0, 640, 384)),
       );
       _paint.shader = null;
+      ModernSceneEffects.draw(canvas, game, art);
     }
     canvas.restore();
   }
@@ -372,7 +385,9 @@ final class ModernScenePainter extends CustomPainter {
     final source = art.frames['$resource/$frame'] ?? art.frames['$resource/0'];
     if (source == null && hd == null) return;
     // 身份同时通过轮廓大小区分：师傅高冠宽袍，孩童与小师弟明显矮于成年剑客。
-    final stature = actor.type != 2
+    final stature = actor.type == 1 && actor.index == 1
+        ? 1.13
+        : actor.type != 2
         ? 1.0
         : switch (actor.index) {
             1 => 1.08,
