@@ -293,7 +293,7 @@
       "source": "assets/modern/enhanced-00.png",
       "destination": "assets/fmj/modern/enhanced-00.png",
       "sourceSha256": "a23454a3f68d1fcd3083e623107dddb3b232db9fc622cee82bc8f81de294240b",
-      "importedSha256": "9727b3c04d2d1d9b306cadee99d073f25f04044c7846281d56ffd1f16e94c470"
+      "importedSha256": "08c6765920bc6ed0ba8fcd9e408dfef748e18506c08a30b88d71631ba7e3a125"
     },
     {
       "game": "fmj",
@@ -3075,6 +3075,12 @@
       "previousImportedSha256": "edea4331ed428796e47387cd69cedeaabaeaff2959492885a2920947d6b555ce",
       "currentSha256": "609a70e32e5d2109b40ddcce74abaabcc9fc538641f01b54b34c10dfee8d2d3c",
       "reason": "对照原版客栈，将74/75茶壶合成到餐桌桌面，76/77坐客恢复人物；补齐南墙边局部餐桌，不改原地图"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-00.png",
+      "previousImportedSha256": "9727b3c04d2d1d9b306cadee99d073f25f04044c7846281d56ffd1f16e94c470",
+      "currentSha256": "08c6765920bc6ed0ba8fcd9e408dfef748e18506c08a30b88d71631ba7e3a125",
+      "reason": "柜台支承层只保留连续木板，去除重复复制的算盘和账本，其他图集帧不变"
     }
   ]
 }

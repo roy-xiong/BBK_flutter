@@ -111,7 +111,15 @@ def main():
 
     # 木柜外沿继续使用现有柜台原画，完整替代7号图块集上残留的旧格栅纹理。
     counter = sprite('furniture:shop-counter/0')
-    insert('counter-top',counter.crop((0,0,counter.width,round(counter.height*.4))).resize((128,64),R))
+    # 支承层只能是木板，不能把原柜台上的算盘和账本随底图重复复制到每只瓶罐旁。
+    top=Image.new('RGBA',(128,64),'#b69a6e')
+    td=ImageDraw.Draw(top)
+    for y in range(4,59,9):
+        td.line([(3,y),(41,y+1),(82,y),(124,y+2)],fill='#ad9167',width=1)
+    td.line((1,1,126,1),fill='#deca9e',width=2)
+    td.rectangle((0,0,127,63),outline='#786345',width=2)
+    td.rectangle((2,59,125,62),fill='#90734d')
+    insert('counter-top',top)
     insert('counter-front',counter.crop((0,round(counter.height*.36),counter.width,counter.height)).resize((128,64),R))
     side = Image.new('RGBA',(64,64),'#826744')
     d = ImageDraw.Draw(side)
