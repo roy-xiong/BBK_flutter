@@ -159,6 +159,24 @@ void main() {
       for (final object in entry.value as List) {
         expect(object['cells'], isNotNull);
         if (object['floor'] != true) continue;
+        if (const {
+          'interior-v12:counter-top',
+          'interior-v12:counter-side',
+        }.contains(object['key'])) {
+          expect(map['tiles'], 7, reason: '柜台支承层仅用于店内图块');
+          for (final cell in object['cells'] as List) {
+            expect(
+              (entry.value as List).any(
+                (foreground) =>
+                    foreground['floor'] != true &&
+                    (foreground['cells'] as List).contains(cell),
+              ),
+              isTrue,
+              reason: '支承层只能恢复已有器物下的木板，不能凭空覆盖地面',
+            );
+          }
+          continue;
+        }
         final allowed = object['key'] == 'furniture:lifu-two-step-platform'
             ? {98, 99}
             : map['tiles'] == 6
