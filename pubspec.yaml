@@ -1,7 +1,7 @@
 name: bbk_flutter
 description: "步步高经典游戏2：纯 Flutter 伏魔记与三国霸业。"
 publish_to: none
-version: 1.0.25+26
+version: 1.0.26+27
 environment:
   sdk: ^3.12.2
 dependencies:
