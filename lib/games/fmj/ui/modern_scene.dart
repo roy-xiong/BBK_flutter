@@ -10,6 +10,8 @@ import 'modern_battle_effects.dart';
 import 'modern_terrain.dart';
 import 'modern_world_objects.dart';
 import 'modern_scene_effects.dart';
+import 'modern_maze_floor.dart';
+import 'modern_opening_scene.dart';
 
 /// 四个方向严格对应屏幕水平、垂直轴，绘制坐标从不影响原地图碰撞和脚本。
 final class ModernScenePainter extends CustomPainter {
@@ -59,6 +61,10 @@ final class ModernScenePainter extends CustomPainter {
       canvas.restore();
       return;
     }
+    if (ModernOpeningScene.draw(canvas, game, art)) {
+      canvas.restore();
+      return;
+    }
     if (game.battle != null || game.map == null) {
       _landscape(canvas, art);
       if (game.battle != null) _battle(canvas, art);
@@ -87,6 +93,29 @@ final class ModernScenePainter extends CustomPainter {
         buildingGround = geometry.buildingGround;
     bool inside(int x, int y) =>
         room == null || room.contains(Offset(x + .5, y + .5));
+    final caveFloor = geometry.caveFloor;
+    if (caveFloor != null) {
+      // 先铺整片洞壁，再用缓存的圆角地面轮廓绘制道路。形状只算一次，不逐帧
+      // Path.combine，不改变真实可行走格，也不在每块地砖连接处画圆角缝。
+      for (var row = 0; row < camera.rows; row++) {
+        for (var column = 0; column < camera.columns; column++) {
+          art.drawGround(
+            canvas,
+            'cave-wall',
+            camera.target(column, row),
+            camera.left + column,
+            camera.top + row,
+            _paint..color = Colors.white,
+          );
+        }
+      }
+      canvas.save();
+      canvas.translate(-camera.left * tileSize, -camera.top * tileSize);
+      canvas.scale(tileSize);
+      canvas.clipPath(caveFloor);
+      canvas.scale(1 / tileSize);
+      canvas.translate(camera.left * tileSize, camera.top * tileSize);
+    }
     // 第一层只铺地面，不能因为图块不认识就把原物件擦成同一片地板。
     for (var row = 0; row < camera.rows; row++) {
       for (var column = 0; column < camera.columns; column++) {
@@ -131,6 +160,7 @@ final class ModernScenePainter extends CustomPainter {
           material = 'city-stone';
         }
         material = groundOverrides[y * map.width + x] ?? material;
+        if (caveFloor != null) material = 'cave';
         if (!art.drawGround(
           canvas,
           material,
@@ -154,6 +184,7 @@ final class ModernScenePainter extends CustomPainter {
         }
       }
     }
+    if (caveFloor != null) canvas.restore();
     // 地毯先铺，再画它上面的桌椅；覆盖集合只包含原地毯片，不包含整块矩形。
     for (final b in decorations.where((b) => b.floor)) {
       final point = camera.point(b.x, b.y);
@@ -217,28 +248,7 @@ final class ModernScenePainter extends CustomPainter {
           continue;
         }
         if (map.tiles == 8) {
-          // 洞壁沿原不可行走格绘制统一岩层，边缘明暗只标出真实的洞壁轮廓。
-          if (!map.canWalk(x, y)) {
-            final target = camera.target(column, row);
-            if (map.canWalk(x, y - 1)) {
-              canvas.drawLine(
-                target.topLeft,
-                target.topRight,
-                _paint
-                  ..color = const Color(0xff819389)
-                  ..strokeWidth = tileSize * .047,
-              );
-            }
-            if (map.canWalk(x, y + 1)) {
-              canvas.drawLine(
-                target.bottomLeft,
-                target.bottomRight,
-                _paint
-                  ..color = const Color(0xff1f3030)
-                  ..strokeWidth = tileSize * .094,
-              );
-            }
-          }
+          // 道路转角已由同一完整轮廓决定，不再叠回直角边线。
           continue;
         }
         if (key == null) continue;
@@ -699,6 +709,13 @@ final class ModernScenePainter extends CustomPainter {
 /// 反复分配大集合并进行路径布尔运算；碰撞、事件和视觉尺寸均使用原定义。
 final class _SceneGeometry {
   _SceneGeometry(GameMap map, ModernArt art) {
+    caveFloor = map.tiles == 8
+        ? ModernMazeFloor.build(
+            width: map.width,
+            height: map.height,
+            walkable: map.canWalk,
+          )
+        : null;
     final buildings = (art.buildings[map.id] ?? const <SceneBuilding>[])
         .where((b) => art.sprites.containsKey('${b.key}/0'))
         .toList();
@@ -739,6 +756,9 @@ final class _SceneGeometry {
         for (var x = b.x; x < b.x + b.width; x++) {
           if (owned.contains(y * map.width + x)) continue;
           final source = map.cell(x, y) & 127;
+          // 石狮是后画在台阶上的前景物件。不能用其占格把亭子/台阶挖出
+          // 矩形洞后露出泥土地；石狮自身的碰撞和前后排序仍保留。
+          if (ModernTerrain.role(map.tiles, source) == 'stone-lion') continue;
           final material = ModernTerrain.sceneMaterial(
             map.tiles,
             source,
@@ -769,6 +789,7 @@ final class _SceneGeometry {
   late final List<SceneBuilding> decorations, foreground;
   late final Set<int> foregroundCovered, floorCovered, buildingGround;
   final Map<SceneBuilding, Path> clips = {};
+  late final Path? caveFloor;
 }
 
 /// 独立放大头像，使用有来源记录的角色轮廓和新版肤色、发色材质。

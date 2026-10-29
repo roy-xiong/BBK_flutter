@@ -70,6 +70,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: fmj-partial-review
-          path: build/validation/partial-review/
+          path: |
+            build/validation/partial-review/
+            build/validation/art-sweep-v15/
           if-no-files-found: error
           retention-days: 14

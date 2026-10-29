@@ -26,7 +26,9 @@ void main() {
         reason: entry.key,
       );
       expect(
-        hd['decorations'][entry.key] ?? [],
+        (hd['decorations'][entry.key] as List? ?? [])
+            .where((b) => !(b['key'] as String).startsWith('sweep-v15:'))
+            .toList(),
         entry.value['decorations'],
         reason: entry.key,
       );
