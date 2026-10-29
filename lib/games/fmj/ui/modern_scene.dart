@@ -722,8 +722,9 @@ final class _SceneGeometry {
       // 下沿参与遮挡排序，不能再用旧壁片/树片把新原画裁出矩形缺口。
       if (map.tiles == 6 ||
           b.key.startsWith('world:') ||
-          b.key.startsWith('review-v14:'))
+          b.key.startsWith('review-v14:')) {
         continue;
+      }
       final height = (b.visualHeight ?? b.height.toDouble())
           .clamp(0.0, b.y + b.height.toDouble())
           .toDouble();
