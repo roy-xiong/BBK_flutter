@@ -100,6 +100,9 @@ def main():
         page.alpha_composite(im,(x+2,y+2));hd['frames'][key]=[texture,x+2,y+2,im.width,im.height];sources['frames'][key]={'source':'tool/fmj_partial_review_v11.py','scope':'仅用户本轮19张已批注地图'};x+=im.width+4;rowh=max(rowh,im.height)
     used_bottom=max(f[2]+f[4]for f in hd['frames'].values()if f[0]==texture)
     page.crop((0,0,768,min(768,used_bottom+4))).save(ART/file,optimize=True)
+    for mid in REVISED:
+        rows=hd['decorations'].get(mid,[])
+        rows[:]=[b for b in rows if not b['key'].startswith('review-v11:')]
     overrides=hd.setdefault('tileOverrides',{})
     for mid in TERRAIN_MAPS:
         rules={}
@@ -120,17 +123,23 @@ def main():
             t=value&127;x=i%w;y=i//w
             key='review-v11:water-jar'if mid=='1:1'and t==39 else'review-v11:potted-shrub'if mid=='1:1'and t==50 else'review-v11:lotus'if mid=='1:1'and t==94 else'review-v11:signpost'if mid!='1:1'and t==50 else None
             if key:add(mid,key,x,y,1,1,[i],1.4 if 'signpost'in key else 1.05)
-            if mid=='1:1'and t==104 and x+1<w and y+1<m['height']and [m['cells'][i+1]&127,m['cells'][i+w]&127,m['cells'][i+w+1]&127]==[105,106,107]:
+            if mid=='1:1'and (x,y)in[(18,20),(26,20)]and t==104 and x+1<w and y+1<m['height']and [m['cells'][i+1]&127,m['cells'][i+w]&127,m['cells'][i+w+1]&127]==[105,106,107]:
                 add(mid,'review-v11:temple-censer',x,y,2,2,[i,i+1,i+w,i+w+1],2.3)
     for mid in ['1:23','1:30']:
         m=maps[mid];w=m['width'];seen=set()
-        for i,value in enumerate(m['cells']):
-            tile=value&127
-            if tile not in range(32,38):continue
-            xx=i%w-(tile-32)%3;yy=i//w-(tile-32)//3
-            if (xx,yy)in seen or xx<0 or yy<0:continue
-            seen.add((xx,yy));span=min(3,w-xx);cells=[(yy+dy)*w+xx+dx for dy in range(2)for dx in range(span)if m['cells'][(yy+dy)*w+xx+dx]&127 in range(32,38)]
-            add(mid,'review-v11:granary',xx,yy,span,2,cells,2.6)
+        # 部分谷仓用左/右片直接相邻组成两格宽，不能按缺失中片反推成两座重叠谷仓。
+        candidates={i for i,v in enumerate(m['cells'])if v&127 in range(32,38)}
+        for start in sorted(candidates):
+            if start in seen:continue
+            todo=[start];component=[];seen.add(start)
+            while todo:
+                cell=todo.pop();component.append(cell);xx=cell%w;yy=cell//w
+                for nx,ny in[(xx-1,yy),(xx+1,yy),(xx,yy-1),(xx,yy+1)]:
+                    nxt=ny*w+nx
+                    if 0<=nx<w and 0<=ny<m['height']and nxt in candidates and nxt not in seen:seen.add(nxt);todo.append(nxt)
+            xx=min(c%w for c in component);yy=min(c//w for c in component)
+            span=max(c%w for c in component)-xx+1;height=max(c//w for c in component)-yy+1
+            add(mid,'review-v11:granary',xx,yy,span,height,component,2.6)
     # 仅裁掉没有任何现存帧引用的外沿，坐标与帧内像素逐字节保留，留4像素采样边距。
     saved=0
     for t,name in enumerate(hd['textures']):

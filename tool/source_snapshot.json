@@ -391,7 +391,7 @@
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "9be22dcb0822e2a944e25b80ce0a8176c48ecca4b6d8fb6634519a02775e446e"
+      "importedSha256": "caefa0ba8b17f82e51e20fa0b9939749978ec63212734303eb575a05d8b84ebe"
     },
     {
       "game": "fmj",
@@ -2991,6 +2991,12 @@
       "previousImportedSha256": "8f73388b2ee4111bb90e9a1f3313f227f13641a64e6967df4df8439f6af64277",
       "currentSha256": "874b2a70ab75f414ad12706ce94e5d6160b72b2b1350a89d6eeccc3304d6853d",
       "reason": "本轮19张已批注地图的定向美术修订；旧帧像素及坐标不变，仅裁剪无引用外沿以保持解码预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "9be22dcb0822e2a944e25b80ce0a8176c48ecca4b6d8fb6634519a02775e446e",
+      "currentSha256": "caefa0ba8b17f82e51e20fa0b9939749978ec63212734303eb575a05d8b84ebe",
+      "reason": "只替换庭院两座审核香炉；压缩谷仓按原相邻片合并，避免重叠"
     }
   ]
 }
