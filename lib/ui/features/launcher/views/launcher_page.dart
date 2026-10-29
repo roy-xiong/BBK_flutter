@@ -8,6 +8,7 @@ import '../../../../games/fmj/data/save_repository.dart' as fmj;
 import '../../../../games/sgby/data/repositories/game_save_repository.dart'
     as sgby;
 import '../../../core/image_manager.dart';
+import '../../../core/gamepad_input.dart';
 import '../../game/views/native_game_page.dart';
 import '../view_models/launcher_view_model.dart';
 
@@ -93,88 +94,104 @@ final class _LauncherPageState extends State<LauncherPage> {
   );
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: const Text('步步高经典游戏2'),
-      actions: [
-        IconButton(
-          tooltip: '关于与设置说明',
-          onPressed: _about,
-          icon: const Icon(Icons.settings_outlined),
-        ),
-      ],
-    ),
-    body: SafeArea(
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 420),
-          child: ListenableBuilder(
-            listenable: _model,
-            builder: (context, _) {
-              if (_model.loading) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              return SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            '选择游戏',
-                            style: Theme.of(context).textTheme.titleLarge,
+  Widget build(BuildContext context) => GamepadListener(
+    enabled: () => !_model.loading && !_model.opening,
+    onInput: (input) {
+      if (input == GamepadAction.confirm || input == GamepadAction.menu) {
+        unawaited(_open(_model.selected));
+      } else if (input.index < 4) {
+        final next =
+            (LibraryGame.values.indexOf(_model.selected) +
+                (input == GamepadAction.up || input == GamepadAction.left
+                    ? -1
+                    : 1)) %
+            LibraryGame.values.length;
+        _model.select(LibraryGame.values[next]);
+      }
+    },
+    child: Scaffold(
+      appBar: AppBar(
+        title: const Text('步步高经典游戏2'),
+        actions: [
+          IconButton(
+            tooltip: '关于与设置说明',
+            onPressed: _about,
+            icon: const Icon(Icons.settings_outlined),
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 420),
+            child: ListenableBuilder(
+              listenable: _model,
+              builder: (context, _) {
+                if (_model.loading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                return SingleChildScrollView(
+                  padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              '选择游戏',
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
                           ),
-                        ),
-                        Text(
-                          '2 款',
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      '点击封面直接进入游戏',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                    const SizedBox(height: 22),
-                    LayoutBuilder(
-                      builder: (context, constraints) {
-                        const spacing = 16.0;
-                        final columns = constraints.maxWidth >= 260 ? 2 : 1;
-                        final width =
-                            (constraints.maxWidth - spacing * (columns - 1)) /
-                            columns;
-                        return FocusTraversalGroup(
-                          child: Wrap(
-                            spacing: spacing,
-                            runSpacing: 18,
-                            children: [
-                              for (final game in LibraryGame.values)
-                                SizedBox(
-                                  width: width,
-                                  child: _GameTile(
-                                    game: game,
-                                    selected: game == _model.selected,
-                                    onSelect: _model.opening
-                                        ? null
-                                        : () => _model.select(game),
-                                    onOpen: _model.opening
-                                        ? null
-                                        : () => _open(game),
+                          Text(
+                            '2 款',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        '点击封面直接进入游戏',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      const SizedBox(height: 22),
+                      LayoutBuilder(
+                        builder: (context, constraints) {
+                          const spacing = 16.0;
+                          final columns = constraints.maxWidth >= 260 ? 2 : 1;
+                          final width =
+                              (constraints.maxWidth - spacing * (columns - 1)) /
+                              columns;
+                          return FocusTraversalGroup(
+                            child: Wrap(
+                              spacing: spacing,
+                              runSpacing: 18,
+                              children: [
+                                for (final game in LibraryGame.values)
+                                  SizedBox(
+                                    width: width,
+                                    child: _GameTile(
+                                      game: game,
+                                      selected: game == _model.selected,
+                                      onSelect: _model.opening
+                                          ? null
+                                          : () => _model.select(game),
+                                      onOpen: _model.opening
+                                          ? null
+                                          : () => _open(game),
+                                    ),
                                   ),
-                                ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              );
-            },
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),

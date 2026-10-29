@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bbk_flutter/ui/core/desktop_window_service.dart';
+import 'package:bbk_flutter/ui/core/gamepad_input.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -196,203 +197,226 @@ class _GamePageState extends State<GamePage>
 
   @override
   Widget build(BuildContext context) {
-    return PopScope<Object?>(
-      canPop: false,
-      onPopInvokedWithResult: (didPop, _) {
-        // 合集由外层统一确认返回；独立游戏继续将系统返回映射为取消键。
-        if (!didPop && widget.onReturnToLibrary == null) {
-          _viewModel.send(GameInput.cancel);
-        }
+    return GamepadListener(
+      enabled: () => !_viewModel.paused,
+      onInput: (input) {
+        final action = switch (input) {
+          GamepadAction.up => GameInput.up,
+          GamepadAction.down => GameInput.down,
+          GamepadAction.left => GameInput.left,
+          GamepadAction.right => GameInput.right,
+          GamepadAction.confirm || GamepadAction.menu => GameInput.confirm,
+          GamepadAction.cancel => GameInput.cancel,
+          GamepadAction.pageUp => GameInput.pageUp,
+          GamepadAction.pageDown => GameInput.pageDown,
+          GamepadAction.search => GameInput.search,
+          GamepadAction.help => GameInput.help,
+          GamepadAction.quickTravel => null,
+        };
+        if (action != null) _viewModel.send(action);
       },
-      child: Focus(
-        focusNode: _focus,
-        autofocus: true,
-        onKeyEvent: (_, event) {
-          if (DesktopWindowService.handleKey(event)) {
-            return KeyEventResult.handled;
+      child: PopScope<Object?>(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, _) {
+          // 合集由外层统一确认返回；独立游戏继续将系统返回映射为取消键。
+          if (!didPop && widget.onReturnToLibrary == null) {
+            _viewModel.send(GameInput.cancel);
           }
-          if (ModalRoute.of(context)?.isCurrent != true || _viewModel.paused) {
-            return KeyEventResult.ignored;
-          }
-          if (event is! KeyDownEvent && event is! KeyRepeatEvent) {
-            return KeyEventResult.ignored;
-          }
-          if (event.logicalKey == LogicalKeyboardKey.f9) {
-            if (event is KeyDownEvent) _viewModel.toggleCartoon();
-            return KeyEventResult.handled;
-          }
-          if (event.logicalKey == LogicalKeyboardKey.f10) {
-            if (event is KeyDownEvent) {
-              _viewModel.setControls(!_viewModel.controlsVisible);
-            }
-            return KeyEventResult.handled;
-          }
-          final action = _viewModel.keyboardAction(event.logicalKey.keyId);
-          if (action == null) return KeyEventResult.ignored;
-          _viewModel.send(action);
-          return KeyEventResult.handled;
         },
-        child: AnimatedBuilder(
-          animation: _viewModel,
-          builder: (context, _) => Scaffold(
-            backgroundColor: _viewModel.cartoonEnabled
-                ? const Color(0xffeef6ed)
-                : const Color(0xff101214),
-            appBar: !_viewModel.controlsVisible
-                ? null
-                : AppBar(
-                    leading: widget.onReturnToLibrary == null
-                        ? null
-                        : IconButton(
-                            tooltip: '返回游戏库',
-                            onPressed: widget.onReturnToLibrary,
-                            icon: const Icon(Icons.arrow_back),
-                          ),
-                    title: const Text('三国霸业'),
-                    toolbarHeight: 44,
-                    actions: [
-                      IconButton(
-                        tooltip: _viewModel.cartoonEnabled
-                            ? '切换黑白模式'
-                            : '切换彩色卡通',
-                        onPressed: _viewModel.toggleCartoon,
-                        icon: Icon(
-                          _viewModel.cartoonEnabled
-                              ? Icons.contrast
-                              : Icons.palette_outlined,
-                        ),
-                      ),
-                      IconButton(
-                        tooltip: '隐藏全部界面按钮',
-                        onPressed: () => _viewModel.setControls(false),
-                        icon: const Icon(Icons.visibility_off_outlined),
-                      ),
-                      if (MediaQuery.sizeOf(context).width >= 700) ...[
+        child: Focus(
+          focusNode: _focus,
+          autofocus: true,
+          onKeyEvent: (_, event) {
+            if (DesktopWindowService.handleKey(event)) {
+              return KeyEventResult.handled;
+            }
+            if (ModalRoute.of(context)?.isCurrent != true ||
+                _viewModel.paused) {
+              return KeyEventResult.ignored;
+            }
+            if (event is! KeyDownEvent && event is! KeyRepeatEvent) {
+              return KeyEventResult.ignored;
+            }
+            if (event.logicalKey == LogicalKeyboardKey.f9) {
+              if (event is KeyDownEvent) _viewModel.toggleCartoon();
+              return KeyEventResult.handled;
+            }
+            if (event.logicalKey == LogicalKeyboardKey.f10) {
+              if (event is KeyDownEvent) {
+                _viewModel.setControls(!_viewModel.controlsVisible);
+              }
+              return KeyEventResult.handled;
+            }
+            final action = _viewModel.keyboardAction(event.logicalKey.keyId);
+            if (action == null) return KeyEventResult.ignored;
+            _viewModel.send(action);
+            return KeyEventResult.handled;
+          },
+          child: AnimatedBuilder(
+            animation: _viewModel,
+            builder: (context, _) => Scaffold(
+              backgroundColor: _viewModel.cartoonEnabled
+                  ? const Color(0xffeef6ed)
+                  : const Color(0xff101214),
+              appBar: !_viewModel.controlsVisible
+                  ? null
+                  : AppBar(
+                      leading: widget.onReturnToLibrary == null
+                          ? null
+                          : IconButton(
+                              tooltip: '返回游戏库',
+                              onPressed: widget.onReturnToLibrary,
+                              icon: const Icon(Icons.arrow_back),
+                            ),
+                      title: const Text('三国霸业'),
+                      toolbarHeight: 44,
+                      actions: [
                         IconButton(
-                          tooltip: '键盘映射',
-                          onPressed: () async {
-                            await showGameKeyboardSheet(context, _viewModel);
+                          tooltip: _viewModel.cartoonEnabled
+                              ? '切换黑白模式'
+                              : '切换彩色卡通',
+                          onPressed: _viewModel.toggleCartoon,
+                          icon: Icon(
+                            _viewModel.cartoonEnabled
+                                ? Icons.contrast
+                                : Icons.palette_outlined,
+                          ),
+                        ),
+                        IconButton(
+                          tooltip: '隐藏全部界面按钮',
+                          onPressed: () => _viewModel.setControls(false),
+                          icon: const Icon(Icons.visibility_off_outlined),
+                        ),
+                        if (MediaQuery.sizeOf(context).width >= 700) ...[
+                          IconButton(
+                            tooltip: '键盘映射',
+                            onPressed: () async {
+                              await showGameKeyboardSheet(context, _viewModel);
+                              if (mounted) _focus.requestFocus();
+                            },
+                            icon: const Icon(Icons.keyboard_outlined),
+                          ),
+                          IconButton(
+                            tooltip: '存储进度',
+                            onPressed: _viewModel.hasWorld
+                                ? _viewModel.openSaveMenu
+                                : null,
+                            icon: const Icon(Icons.save_outlined),
+                          ),
+                        ],
+                        PopupMenuButton<String>(
+                          tooltip: '游戏工具',
+                          onSelected: (action) async {
+                            if (!context.mounted) return;
+                            switch (action) {
+                              case 'keys':
+                                await showGameKeyboardSheet(
+                                  context,
+                                  _viewModel,
+                                );
+                              case 'settings':
+                                await _showSettings();
+                              case 'orientation':
+                                await _toggleOrientation();
+                              case 'save':
+                                _viewModel.openSaveMenu();
+                              case 'roster':
+                                _viewModel.send(GameInput.generalRoster);
+                              case 'cheats':
+                                await showGameCheatSheet(
+                                  context,
+                                  viewModel: _viewModel,
+                                );
+                            }
                             if (mounted) _focus.requestFocus();
                           },
-                          icon: const Icon(Icons.keyboard_outlined),
-                        ),
-                        IconButton(
-                          tooltip: '存储进度',
-                          onPressed: _viewModel.hasWorld
-                              ? _viewModel.openSaveMenu
-                              : null,
-                          icon: const Icon(Icons.save_outlined),
+                          itemBuilder: (_) => [
+                            const PopupMenuItem(
+                              value: 'keys',
+                              child: Text('键盘映射'),
+                            ),
+                            const PopupMenuItem(
+                              value: 'settings',
+                              child: Text('控制设置'),
+                            ),
+                            const PopupMenuItem(
+                              value: 'orientation',
+                              child: Text('横竖屏'),
+                            ),
+                            PopupMenuItem(
+                              value: 'save',
+                              enabled: _viewModel.hasWorld,
+                              child: const Text('存储进度'),
+                            ),
+                            PopupMenuItem(
+                              value: 'roster',
+                              enabled: _viewModel.hasWorld,
+                              child: const Text('将领列表'),
+                            ),
+                            PopupMenuItem(
+                              value: 'cheats',
+                              enabled: _viewModel.hasWorld,
+                              child: const Text('作弊系统'),
+                            ),
+                          ],
                         ),
                       ],
-                      PopupMenuButton<String>(
-                        tooltip: '游戏工具',
-                        onSelected: (action) async {
-                          if (!context.mounted) return;
-                          switch (action) {
-                            case 'keys':
+                    ),
+              body: Stack(
+                children: [
+                  Positioned.fill(child: _body()),
+                  if (!_viewModel.controlsVisible)
+                    Positioned(
+                      top: 8,
+                      right: 8,
+                      child: SafeArea(
+                        child: PopupMenuButton<String>(
+                          tooltip: '显示界面控件',
+                          icon: const Icon(Icons.more_horiz),
+                          color: Theme.of(context).colorScheme.surface,
+                          onSelected: (action) async {
+                            if (action == 'library') {
+                              await widget.onReturnToLibrary?.call();
+                              return;
+                            }
+                            if (action == 'show') _viewModel.setControls(true);
+                            if (action == 'art') _viewModel.toggleCartoon();
+                            if (action == 'keys') {
                               await showGameKeyboardSheet(context, _viewModel);
-                            case 'settings':
-                              await _showSettings();
-                            case 'orientation':
-                              await _toggleOrientation();
-                            case 'save':
-                              _viewModel.openSaveMenu();
-                            case 'roster':
-                              _viewModel.send(GameInput.generalRoster);
-                            case 'cheats':
-                              await showGameCheatSheet(
-                                context,
-                                viewModel: _viewModel,
-                              );
-                          }
-                          if (mounted) _focus.requestFocus();
-                        },
-                        itemBuilder: (_) => [
-                          const PopupMenuItem(
-                            value: 'keys',
-                            child: Text('键盘映射'),
-                          ),
-                          const PopupMenuItem(
-                            value: 'settings',
-                            child: Text('控制设置'),
-                          ),
-                          const PopupMenuItem(
-                            value: 'orientation',
-                            child: Text('横竖屏'),
-                          ),
-                          PopupMenuItem(
-                            value: 'save',
-                            enabled: _viewModel.hasWorld,
-                            child: const Text('存储进度'),
-                          ),
-                          PopupMenuItem(
-                            value: 'roster',
-                            enabled: _viewModel.hasWorld,
-                            child: const Text('将领列表'),
-                          ),
-                          PopupMenuItem(
-                            value: 'cheats',
-                            enabled: _viewModel.hasWorld,
-                            child: const Text('作弊系统'),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-            body: Stack(
-              children: [
-                Positioned.fill(child: _body()),
-                if (!_viewModel.controlsVisible)
-                  Positioned(
-                    top: 8,
-                    right: 8,
-                    child: SafeArea(
-                      child: PopupMenuButton<String>(
-                        tooltip: '显示界面控件',
-                        icon: const Icon(Icons.more_horiz),
-                        color: Theme.of(context).colorScheme.surface,
-                        onSelected: (action) async {
-                          if (action == 'library') {
-                            await widget.onReturnToLibrary?.call();
-                            return;
-                          }
-                          if (action == 'show') _viewModel.setControls(true);
-                          if (action == 'art') _viewModel.toggleCartoon();
-                          if (action == 'keys') {
-                            await showGameKeyboardSheet(context, _viewModel);
-                          }
-                          if (action == 'settings') await _showSettings();
-                          if (mounted) _focus.requestFocus();
-                        },
-                        itemBuilder: (_) => [
-                          if (widget.onReturnToLibrary != null)
+                            }
+                            if (action == 'settings') await _showSettings();
+                            if (mounted) _focus.requestFocus();
+                          },
+                          itemBuilder: (_) => [
+                            if (widget.onReturnToLibrary != null)
+                              const PopupMenuItem(
+                                value: 'library',
+                                child: Text('返回游戏库'),
+                              ),
                             const PopupMenuItem(
-                              value: 'library',
-                              child: Text('返回游戏库'),
+                              value: 'show',
+                              child: Text('显示全部界面按钮'),
                             ),
-                          const PopupMenuItem(
-                            value: 'show',
-                            child: Text('显示全部界面按钮'),
-                          ),
-                          PopupMenuItem(
-                            value: 'art',
-                            child: Text(
-                              _viewModel.cartoonEnabled ? '切换黑白模式' : '切换彩色卡通',
+                            PopupMenuItem(
+                              value: 'art',
+                              child: Text(
+                                _viewModel.cartoonEnabled ? '切换黑白模式' : '切换彩色卡通',
+                              ),
                             ),
-                          ),
-                          const PopupMenuItem(
-                            value: 'keys',
-                            child: Text('键盘映射'),
-                          ),
-                          const PopupMenuItem(
-                            value: 'settings',
-                            child: Text('控制设置'),
-                          ),
-                        ],
+                            const PopupMenuItem(
+                              value: 'keys',
+                              child: Text('键盘映射'),
+                            ),
+                            const PopupMenuItem(
+                              value: 'settings',
+                              child: Text('控制设置'),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

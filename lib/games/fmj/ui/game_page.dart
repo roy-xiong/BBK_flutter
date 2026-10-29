@@ -13,6 +13,7 @@ import 'game_keyboard_bindings.dart';
 import 'game_keyboard_mapping_sheet.dart';
 import 'game_cheat_panel.dart';
 import 'package:bbk_flutter/ui/core/desktop_window_service.dart';
+import 'package:bbk_flutter/ui/core/gamepad_input.dart';
 
 /// 页面只管理输入、生命周期与面板；所有游戏结果由 GameEngine 决定。
 final class GamePage extends StatefulWidget {
@@ -242,142 +243,175 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   }
 
   @override
-  Widget build(BuildContext context) => Focus(
-    autofocus: true,
-    onKeyEvent: _keyboard,
-    child: AnimatedBuilder(
-      animation: model,
-      builder: (context, _) {
-        final game = model.engine,
-            modern = game?.preferences['modernUi'] == true,
-            dark = game?.preferences['darkControls'] != false,
-            controlsVisible = game?.preferences['controlsVisible'] != false;
-        return Scaffold(
-          backgroundColor: Colors.black,
-          appBar: game == null ? null : _fixedMenu(game, modern, dark),
-          body: SafeArea(
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                final portrait = game?.preferences['manualLayout'] == true
-                    ? game?.preferences['portraitControls'] == true
-                    : constraints.maxHeight >= constraints.maxWidth;
-                final sceneHeight = math.min(
-                  constraints.maxWidth * 3 / 5,
-                  constraints.maxHeight * .48,
-                );
-                final gameWidth = sceneHeight * 5 / 3;
-                final gameHeight =
-                    sceneHeight +
-                    (modern ? ModernGameView.informationHeight(gameWidth) : 0);
-                // 原版悬浮按键占地不变；新版画面在横屏时避开两侧输入区，避免血条和
-                // 目标被十字键、A/B 及辅助按钮遮住。关闭屏幕按键后恢复完整画面。
-                final sideButton = (constraints.biggest.shortestSide * .14)
-                    .clamp(46.0, 68.0);
-                final sideGap = (sideButton * .12).clamp(6.0, 10.0);
-                final leftInputWidth = 18 + sideButton * 3 + sideGap * 2 + 12;
-                const rightInputWidth = 18 + 280.0 + 12;
-                final insetModern =
-                    modern &&
-                    !portrait &&
-                    controlsVisible &&
-                    constraints.maxWidth - leftInputWidth - rightInputWidth >=
-                        240;
-                final modernWidth =
-                    constraints.maxWidth - leftInputWidth - rightInputWidth;
-                final modernHeight = math.min(
-                  constraints.maxHeight,
-                  modernWidth * 3 / 5 +
-                      ModernGameView.informationHeight(modernWidth),
-                );
-                Widget surface;
-                if (model.loading) {
-                  surface = const Center(child: CircularProgressIndicator());
-                } else if (model.failure != null ||
-                    game?.error.isNotEmpty == true) {
-                  surface = Center(
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.all(24),
-                        child: Text(model.failure ?? game?.error ?? ''),
-                      ),
-                    ),
+  Widget build(BuildContext context) => GamepadListener(
+    enabled: () => !_sheetOpen && !model.paused,
+    onInput: (input) => _control(switch (input) {
+      GamepadAction.up => GameControl.up,
+      GamepadAction.down => GameControl.down,
+      GamepadAction.left => GameControl.left,
+      GamepadAction.right => GameControl.right,
+      GamepadAction.confirm => GameControl.confirm,
+      GamepadAction.cancel => GameControl.cancel,
+      GamepadAction.menu =>
+        model.engine?.screen == 'title'
+            ? GameControl.confirm
+            : GameControl.cancel,
+      GamepadAction.pageUp => GameControl.pageUp,
+      GamepadAction.pageDown => GameControl.pageDown,
+      GamepadAction.search => GameControl.search,
+      GamepadAction.help => GameControl.help,
+      GamepadAction.quickTravel => GameControl.quickTravel,
+    }),
+    child: Focus(
+      autofocus: true,
+      onKeyEvent: _keyboard,
+      child: AnimatedBuilder(
+        animation: model,
+        builder: (context, _) {
+          final game = model.engine,
+              modern = game?.preferences['modernUi'] == true,
+              dark = game?.preferences['darkControls'] != false,
+              controlsVisible = game?.preferences['controlsVisible'] != false;
+          return Scaffold(
+            backgroundColor: Colors.black,
+            appBar: game == null ? null : _fixedMenu(game, modern, dark),
+            body: SafeArea(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final portrait = game?.preferences['manualLayout'] == true
+                      ? game?.preferences['portraitControls'] == true
+                      : constraints.maxHeight >= constraints.maxWidth;
+                  final sceneHeight = math.min(
+                    constraints.maxWidth * 3 / 5,
+                    constraints.maxHeight * .48,
                   );
-                } else {
-                  surface = modern
-                      ? LayoutBuilder(
-                          builder: (context, available) {
-                            final width = math.min(
-                              available.maxWidth,
-                              math.max(
-                                    0.0,
-                                    available.maxHeight -
-                                        ModernGameView.informationHeight(
-                                          available.maxWidth,
-                                        ),
-                                  ) *
-                                  5 /
-                                  3,
-                            );
-                            return Center(
-                              child: SizedBox(
-                                width: width,
-                                height:
-                                    width * 3 / 5 +
-                                    ModernGameView.informationHeight(width),
-                                child: RepaintBoundary(
-                                  child: ModernGameView(model: model),
+                  final gameWidth = sceneHeight * 5 / 3;
+                  final gameHeight =
+                      sceneHeight +
+                      (modern
+                          ? ModernGameView.informationHeight(gameWidth)
+                          : 0);
+                  // 原版悬浮按键占地不变；新版画面在横屏时避开两侧输入区，避免血条和
+                  // 目标被十字键、A/B 及辅助按钮遮住。关闭屏幕按键后恢复完整画面。
+                  final sideButton = (constraints.biggest.shortestSide * .14)
+                      .clamp(46.0, 68.0);
+                  final sideGap = (sideButton * .12).clamp(6.0, 10.0);
+                  final leftInputWidth = 18 + sideButton * 3 + sideGap * 2 + 12;
+                  const rightInputWidth = 18 + 280.0 + 12;
+                  final insetModern =
+                      modern &&
+                      !portrait &&
+                      controlsVisible &&
+                      constraints.maxWidth - leftInputWidth - rightInputWidth >=
+                          240;
+                  final modernWidth =
+                      constraints.maxWidth - leftInputWidth - rightInputWidth;
+                  final modernHeight = math.min(
+                    constraints.maxHeight,
+                    modernWidth * 3 / 5 +
+                        ModernGameView.informationHeight(modernWidth),
+                  );
+                  Widget surface;
+                  if (model.loading) {
+                    surface = const Center(child: CircularProgressIndicator());
+                  } else if (model.failure != null ||
+                      game?.error.isNotEmpty == true) {
+                    surface = Center(
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(24),
+                          child: Text(model.failure ?? game?.error ?? ''),
+                        ),
+                      ),
+                    );
+                  } else {
+                    surface = modern
+                        ? LayoutBuilder(
+                            builder: (context, available) {
+                              final width = math.min(
+                                available.maxWidth,
+                                math.max(
+                                      0.0,
+                                      available.maxHeight -
+                                          ModernGameView.informationHeight(
+                                            available.maxWidth,
+                                          ),
+                                    ) *
+                                    5 /
+                                    3,
+                              );
+                              return Center(
+                                child: SizedBox(
+                                  width: width,
+                                  height:
+                                      width * 3 / 5 +
+                                      ModernGameView.informationHeight(width),
+                                  child: RepaintBoundary(
+                                    child: ModernGameView(model: model),
+                                  ),
                                 ),
+                              );
+                            },
+                          )
+                        : Center(
+                            child: AspectRatio(
+                              aspectRatio: 5 / 3,
+                              child: RepaintBoundary(
+                                child: _ClassicGameView(model: model),
                               ),
-                            );
-                          },
-                        )
-                      : Center(
-                          child: AspectRatio(
-                            aspectRatio: 5 / 3,
-                            child: RepaintBoundary(
-                              child: _ClassicGameView(model: model),
                             ),
-                          ),
-                        );
-                }
-                return Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    ColoredBox(
-                      color: dark
-                          ? const Color(0xff1b1e22)
-                          : const Color(0xffd8d5cd),
-                    ),
-                    Positioned(
-                      key: const ValueKey('game-surface-layout'),
-                      left: portrait
-                          ? (constraints.maxWidth - gameWidth) / 2
-                          : insetModern
-                          ? leftInputWidth
-                          : 0,
-                      top: insetModern
-                          ? (constraints.maxHeight - modernHeight) / 2
-                          : 0,
-                      width: portrait
-                          ? gameWidth
-                          : insetModern
-                          ? modernWidth
-                          : constraints.maxWidth,
-                      height: portrait
-                          ? gameHeight
-                          : insetModern
-                          ? modernHeight
-                          : constraints.maxHeight,
-                      child: ColoredBox(color: Colors.black, child: surface),
-                    ),
-                    if (game != null && controlsVisible && portrait)
+                          );
+                  }
+                  return Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      ColoredBox(
+                        color: dark
+                            ? const Color(0xff1b1e22)
+                            : const Color(0xffd8d5cd),
+                      ),
                       Positioned(
-                        top: gameHeight,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        child: PortraitGameControlsPanel(
-                          isDarkTheme: dark,
+                        key: const ValueKey('game-surface-layout'),
+                        left: portrait
+                            ? (constraints.maxWidth - gameWidth) / 2
+                            : insetModern
+                            ? leftInputWidth
+                            : 0,
+                        top: insetModern
+                            ? (constraints.maxHeight - modernHeight) / 2
+                            : 0,
+                        width: portrait
+                            ? gameWidth
+                            : insetModern
+                            ? modernWidth
+                            : constraints.maxWidth,
+                        height: portrait
+                            ? gameHeight
+                            : insetModern
+                            ? modernHeight
+                            : constraints.maxHeight,
+                        child: ColoredBox(color: Colors.black, child: surface),
+                      ),
+                      if (game != null && controlsVisible && portrait)
+                        Positioned(
+                          top: gameHeight,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          child: PortraitGameControlsPanel(
+                            isDarkTheme: dark,
+                            onInput: _control,
+                            hapticsEnabled:
+                                game.preferences['hapticsEnabled'] != false,
+                            fmjWideViewEnabled: game.wide,
+                            fmjAutoBattleEnabled:
+                                game.preferences['autoBattle'] == true,
+                            fmjRunSpeed:
+                                game.preferences['runSpeed'] as int? ?? 1,
+                          ),
+                        ),
+                      if (game != null && controlsVisible && !portrait)
+                        GameControlsOverlay(
                           onInput: _control,
                           hapticsEnabled:
                               game.preferences['hapticsEnabled'] != false,
@@ -387,55 +421,45 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                           fmjRunSpeed:
                               game.preferences['runSpeed'] as int? ?? 1,
                         ),
-                      ),
-                    if (game != null && controlsVisible && !portrait)
-                      GameControlsOverlay(
-                        onInput: _control,
-                        hapticsEnabled:
-                            game.preferences['hapticsEnabled'] != false,
-                        fmjWideViewEnabled: game.wide,
-                        fmjAutoBattleEnabled:
-                            game.preferences['autoBattle'] == true,
-                        fmjRunSpeed: game.preferences['runSpeed'] as int? ?? 1,
-                      ),
-                    if (game?.notice.isNotEmpty == true)
-                      Positioned(
-                        left: 12,
-                        right: 12,
-                        bottom: 4,
-                        child: IgnorePointer(
-                          child: Center(
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                color: const Color(0xb3000000),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 3,
+                      if (game?.notice.isNotEmpty == true)
+                        Positioned(
+                          left: 12,
+                          right: 12,
+                          bottom: 4,
+                          child: IgnorePointer(
+                            child: Center(
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: const Color(0xb3000000),
+                                  borderRadius: BorderRadius.circular(4),
                                 ),
-                                child: Text(
-                                  game?.notice ?? '',
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
-                                  style: const TextStyle(
-                                    fontSize: 11,
-                                    color: Color(0xffe0ce9a),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 3,
+                                  ),
+                                  child: Text(
+                                    game?.notice ?? '',
+                                    textAlign: TextAlign.center,
+                                    maxLines: 2,
+                                    style: const TextStyle(
+                                      fontSize: 11,
+                                      color: Color(0xffe0ce9a),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                  ],
-                );
-              },
+                    ],
+                  );
+                },
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     ),
   );
 
