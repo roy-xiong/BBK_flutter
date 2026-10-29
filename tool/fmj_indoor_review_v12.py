@@ -125,6 +125,15 @@ def main():
             if mid=='2:8' and b['key']==PREFIX+'cave-mouth':
                 b['key']='furniture:hidden-passage'
         rows[:] = [b for b in rows if not b['key'].startswith(PREFIX)]
+        # 前轮把部分酒坛上半片(50/51)误当作重复人像清空。只有下方确有坛身
+        # (52/53)时才撤销该清空规则，不能把真实柜台掌柜的旧头像重新画回来。
+        if m['tiles']==7:
+            def jar_lid_erased(b):
+                cells=b.get('cells',[])
+                return b['key']=='furniture:erased-duplicate' and cells and all(
+                    (m['cells'][i]&127)in {50,51} and i+w<len(m['cells']) and
+                    (m['cells'][i+w]&127)in {52,53} for i in cells)
+            rows[:] = [b for b in rows if not jar_lid_erased(b)]
         covered = {i for b in rows for i in b.get('cells',[])}
         count = 0
 
@@ -176,8 +185,9 @@ def main():
             group('herb-rack',{10,11,14,15,34,35})
             group('sealed-jar',{50,51,52,53},2)
             group('bronze-scale',{54,55},1.7)
-            group('weapon-rack',set(range(37,39))|{40,41,42,43,44,45,46,47,48,49})
-            group('bench',{79,80,81,82,83})
+            group('weapon-rack'if mid=='2:17'else'herb-rack',set(range(37,39))|{40,41,42,43,44,45,46,47,48,49})
+            # 81/82/83是客栈楼梯，沿用已绘制的台阶，不能套成长凳。
+            group('bench',{79,80})
             singles('storage-sack',{16,56})
             singles('sealed-jar',{17,57})
             singles('pottery-bowl',{22,23})

@@ -30,10 +30,38 @@ void main() {
     ]) {
       expect(objects.any((b) => b['key'] == 'interior-v12:$name'), isTrue);
     }
+    final pharmacyJar = objects.singleWhere(
+      (b) =>
+          b['key'] == 'interior-v12:sealed-jar' && b['x'] == 16 && b['y'] == 6,
+    );
+    expect(
+      pharmacyJar['cells'],
+      containsAll([136, 137, 156, 157]),
+      reason: '坛口和坛身四片必须一起接管，不能裁掉上半部',
+    );
+    expect(
+      (hd['decorations']['2:18'] as List).any(
+        (b) => b['key'] == 'interior-v12:weapon-rack',
+      ),
+      isFalse,
+      reason: '药铺墙上是器物药材架，不是兵器架',
+    );
     final guide =
         jsonDecode(File('assets/fmj/game/FmjGuideData.json').readAsStringSync())
             as Map;
     final maps = {for (final m in guide['maps'] as List) m['id']: m as Map};
+    for (final b in (hd['decorations']['2:22'] as List).where(
+      (b) => (b['key'] as String).startsWith('interior-v12:'),
+    )) {
+      final tiles = (b['cells'] as List).map(
+        (i) => (maps['2:22']!['cells'][i] as int) & 127,
+      );
+      expect(
+        tiles.any((tile) => {81, 82, 83}.contains(tile)),
+        isFalse,
+        reason: '客栈楼梯不能被新家具遮盖',
+      );
+    }
     for (final id in audit['maps'] as List) {
       final map = maps[id]!;
       for (final b in (hd['decorations'][id] as List).where(
