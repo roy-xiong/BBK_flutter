@@ -17,7 +17,7 @@ def encoded(im):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--input',type=Path,default=ROOT/'build/validation/approved-art');parser.add_argument('--output',type=Path,default=ROOT/'build/validation/review/伏魔记全地图交互审核-20261029.html');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--input',type=Path,default=ROOT/'build/validation/approved-art');parser.add_argument('--output',type=Path,default=ROOT/'build/validation/review/伏魔记全地图交互审核-20261029.html');parser.add_argument('--patch',action='store_true');args=parser.parse_args()
     guide=json.loads((ROOT/'assets/fmj/game/FmjGuideData.json').read_text());hd=json.loads((ART/'enhanced-art.json').read_text());entries=[]
     scripts={s['id']:s for s in guide['scripts']};aliases={}
     for script in guide['scripts']:
@@ -32,14 +32,26 @@ def main():
                     break
     aliases.setdefault('1:37',set()).add('李府');aliases.setdefault('2:20',set()).add('李府客厅')
 
+    fixes_path=ROOT/'tool/partial_review_v11_fixes.json'
+    fixes=json.loads(fixes_path.read_text())if fixes_path.exists()else {}
+    revised=set(hd.get('partialReviewV11',{}).get('maps',[]))
     for m in guide['maps']:
+        if args.patch and m['id']not in revised:continue
         path=args.input/('map-'+m['id'].replace(':','-')+'.png')
         with Image.open(path)as im:
             assert im.size==(m['width']*48,m['height']*48),(m['id'],im.size)
             entry={'id':m['id'],'name':m['name'],'kind':'道路/室外'if m['id'].startswith('1:')else'室内/洞府','width':im.width,'height':im.height,'tileSize':48,'mapWidth':m['width'],'mapHeight':m['height'],'tileset':m['tiles'],'cells':m['cells'],'image':encoded(im)}
+        if m['id']in fixes:entry['revisionSummary']=fixes[m['id']]
         entry['aliases']=sorted(aliases.get(m['id'],set()))
         entry['road']=any(s in m['name']for s in ['路','阡','原野','小径','入口','山道'])
         entries.append(entry)
+    if args.patch:
+        assert len(entries)==len(revised)>0
+        revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+        args.output.parent.mkdir(parents=True,exist_ok=True)
+        args.output.write_text(json.dumps({'revision':revision,'entries':entries},ensure_ascii=False,separators=(',',':')))
+        print('Updated-map patch:',len(entries),'maps, bytes',args.output.stat().st_size)
+        return
     labels={'wood':'木地板','wood-cross':'横向木板','cave':'洞窟地面','cave-wall':'洞窟墙壁','rock-ground':'岩石地面','wood-post':'木柱','wall-plaster':'灰泥墙面','abyss':'深渊','earth':'泥土地','grass':'草地','stone':'石路','city-stone':'城镇石地','brick-road':'砖道','indoor-stone':'室内石地','hall-floor':'殿堂地砖','hall-wall':'殿堂墙面','mountain-wall':'山洞山壁','water':'水面','bamboo-forest':'竹林'}
     materials={**hd['groundTextures']}
     for key,value in materials.items():

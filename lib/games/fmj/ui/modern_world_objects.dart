@@ -36,6 +36,31 @@ final class ModernWorldObjects {
       );
       return drawn;
     }
+    if (actor.sprite == 40 && game.map?.id == '1:9') {
+      // 原2:32事件为北玄武、西白虎、南朱雀、东苍龙。只换绘造型，不改变精魄
+      // 消耗、触发条件、机关位置和碰撞；其他场景的同编号机关保持原有设计。
+      final guardian = switch ((actor.x, actor.y)) {
+        (11, 7) => 'tortoise',
+        (7, 11) => 'tiger',
+        (11, 15) => 'bird',
+        (15, 11) => 'dragon',
+        _ => null,
+      };
+      if (guardian != null &&
+          art.drawObject(
+            canvas,
+            'review-v11:guardian-$guardian/0',
+            Rect.fromLTWH(
+              point.dx - tile * .5,
+              point.dy - tile * 1.3,
+              tile * 2,
+              tile * 2.3,
+            ),
+            paint,
+          )) {
+        return true;
+      }
+    }
     if (actor.sprite == 8) {
       _sword(
         canvas,

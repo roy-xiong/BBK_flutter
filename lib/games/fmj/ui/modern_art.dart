@@ -64,6 +64,7 @@ final class ModernArt {
     this.buildings = const {},
     this.decorations = const {},
     this.rooms = const {},
+    this.tileOverrides = const {},
   });
   final ui.Image atlas, landscape;
   final Map<String, ui.Rect> frames;
@@ -75,6 +76,9 @@ final class ModernArt {
   final Map<String, List<SceneBuilding>> buildings;
   final Map<String, List<SceneBuilding>> decorations;
   final Map<String, ui.Rect> rooms;
+
+  /// 审核修订限定到明确地图；未审核场景继续使用原图块目录。
+  final Map<String, Map<int, (String, String, String?)>> tileOverrides;
 
   /// 物件只等比缩放并贴齐占地下沿。地图占地是碰撞语义，不能拿来横向、纵向
   /// 分别拉伸原画；地毯是地面图案，单独沿其原有铺设区域绘制。
@@ -329,12 +333,36 @@ final class ModernArt {
           ),
         ),
       );
+      final tileOverrides = <String, Map<int, (String, String, String?)>>{};
+      for (final entry in (hd['tileOverrides'] as Map? ?? const {}).entries) {
+        final rules = <int, (String, String, String?)>{};
+        for (final row in (entry.value as Map).entries) {
+          final tile = int.tryParse('${row.key}'), rule = row.value;
+          if (tile == null ||
+              tile < 0 ||
+              tile > 127 ||
+              rule is! List ||
+              rule.length != 3 ||
+              rule[0] is! String ||
+              rule[1] is! String ||
+              rule[2] != null && rule[2] is! String) {
+            throw FormatException('场景修订图块无效：${entry.key}/${row.key}');
+          }
+          rules[tile] = (
+            rule[0] as String,
+            rule[1] as String,
+            rule[2] as String?,
+          );
+        }
+        tileOverrides['${entry.key}'] = Map.unmodifiable(rules);
+      }
       return ModernArt(
         atlas,
         landscape,
         Map.unmodifiable(frames),
         textures: List.unmodifiable(textures),
         sprites: Map.unmodifiable(sprites),
+        tileOverrides: Map.unmodifiable(tileOverrides),
         backgrounds: Map.unmodifiable(backgrounds),
         groundTextures: Map.unmodifiable(groundTextures),
         landmarks: Map.unmodifiable(landmarks),

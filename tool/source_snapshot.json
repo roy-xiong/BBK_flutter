@@ -293,56 +293,56 @@
       "source": "assets/modern/enhanced-00.png",
       "destination": "assets/fmj/modern/enhanced-00.png",
       "sourceSha256": "a23454a3f68d1fcd3083e623107dddb3b232db9fc622cee82bc8f81de294240b",
-      "importedSha256": "ae1c7f779f3ec3c80789119313297615e55551d5e6dc9fa9914ed976a94889b7"
+      "importedSha256": "ecd3d5f00cdf3fedcc39b041a53d8508c1acd9891e7df7423d30a6c349a3136b"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-01.png",
       "destination": "assets/fmj/modern/enhanced-01.png",
       "sourceSha256": "858ff7001a89094388d608450f6b103e6a41e20de456d882dc3e9f5e10909b1a",
-      "importedSha256": "f6de4546b8de615dbd81bdf7d82d341c9a444e74364500f7c75c2d4d32b949fe"
+      "importedSha256": "3420770b4456bf023e517922dbc2327567be1a882f8173b896035798cfb7e999"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-02.png",
       "destination": "assets/fmj/modern/enhanced-02.png",
       "sourceSha256": "7c773e85c7558577489ec290c1784475a322489f40cfffe5a120528c5a15906a",
-      "importedSha256": "942a0d9b1754460e8e4f81299dc554ff2afd80b8621f18ee9dbfd3dc146a4c9d"
+      "importedSha256": "ab91ef80ab2e3b863cc7375e51825cec8ad80472b0c057e13d9427469f499f38"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-03.png",
       "destination": "assets/fmj/modern/enhanced-03.png",
       "sourceSha256": "7cd41907a10ec92b398d9e5a46dff8c1a33942771d3656021085865594a26d4c",
-      "importedSha256": "9ca7d0a0e08e9f7ad01fd32010dd43cfa3d65c3c4225eb838742d69dfaf13f25"
+      "importedSha256": "6c32924d41bf792a6de800c1bd92878a91fad085400a840e6b5893fbb0a9c2df"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-04.png",
       "destination": "assets/fmj/modern/enhanced-04.png",
       "sourceSha256": "1c29ad7b1e297216c27b2be2dc9d42ec290cc0829ad120dcf87a6e0bc96ad641",
-      "importedSha256": "7ac59f8464bd42526d01f6b4da887904d575609ecfc145f49ba7f98b2cf7e6a0"
+      "importedSha256": "ba41cdb234f8ceac4da5fc3c6ff66c0a4e1e653ee2d72c2ae3b79c390489fa73"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-05.png",
       "destination": "assets/fmj/modern/enhanced-05.png",
       "sourceSha256": "f6b3135d409b967f1bc45af71e40d201ca444e0df647d0e29eeb7284ff8b92ba",
-      "importedSha256": "60873839f5ae76b52440614522cebe326274ca4a386f70a1dbd0c526c189f669"
+      "importedSha256": "d72a2f4b72b1ea130d44c61ea5bb76b83cbcc79c737e56af0b02c94c5c8e3766"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-06.png",
       "destination": "assets/fmj/modern/enhanced-06.png",
       "sourceSha256": "6f8ec480887060d00418f11181a7a22fa85f3fded4dda1c45bafc01869b4528d",
-      "importedSha256": "dec32b24b2ce98f6e3306c3b0b111c7d627bd756ed8656ead9db0471e809522c"
+      "importedSha256": "f7a7909012be55dced4e806391d1966c800a9aca03f8b7efba8ed98bffd27289"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-07.png",
       "destination": "assets/fmj/modern/enhanced-07.png",
       "sourceSha256": "eca46747531bb706e1ab5dccf4317e2e0ac69a47b26f22478e537157c7ee48e5",
-      "importedSha256": "5acea2a1ae5d90c2c7de94b816e6343f33df1eed3f78473fa07a542eb7bf306d"
+      "importedSha256": "d4679d92988c7df30d2959e60d7db51ebc874af988dddee556bf6d0fa78eca6d"
     },
     {
       "game": "fmj",
@@ -356,7 +356,7 @@
       "source": "assets/modern/enhanced-09.png",
       "destination": "assets/fmj/modern/enhanced-09.png",
       "sourceSha256": "1ce89330d66574640f0b490270faea4dce643b25819aaa8f498eafce7d72f21a",
-      "importedSha256": "ffd5e09b4a1e1f6d42298e045d516baaa8f9660b565e37ec54f00618bfb89faa"
+      "importedSha256": "f048be4c113df12e41498cad585b69f8c51550702238d752f0d735ead37e75a9"
     },
     {
       "game": "fmj",
@@ -370,7 +370,7 @@
       "source": "assets/modern/enhanced-11.png",
       "destination": "assets/fmj/modern/enhanced-11.png",
       "sourceSha256": "f048f9fa743c0eaccc80794b7f1e9f84dc2665a194c518ffa79148faf35ceb84",
-      "importedSha256": "012fc4b293e1f59af5a513fd4b296bb2f16a915571293345a3298866b91c6101"
+      "importedSha256": "f8351f3dc55fd6ead7f05dcb92e221c7aab63d7b336bfad0254740a0294eeb5f"
     },
     {
       "game": "fmj",
@@ -384,14 +384,14 @@
       "source": "assets/modern/enhanced-art-sources.json",
       "destination": "assets/fmj/modern/enhanced-art-sources.json",
       "sourceSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e",
-      "importedSha256": "0f29abc90709669ad67f79f228fdbf617681d591645cf02380ae7c1279b33749"
+      "importedSha256": "1d4e91ed78e24dbf16951f95cd51e9726490d576a5cb97268c89732e09dfd4d9"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "d69253396c711f575323ee0aa7de6bf16c376a24c680131a7aa0dbcce3bf8999"
+      "importedSha256": "9be22dcb0822e2a944e25b80ce0a8176c48ecca4b6d8fb6634519a02775e446e"
     },
     {
       "game": "fmj",
@@ -2195,7 +2195,7 @@
     {
       "game": "fmj",
       "destination": "assets/fmj/modern/building-frontages-v6.png",
-      "importedSha256": "ffe6091bd3a0e582576af0d32e476fa564fe544fa0bc1b627efcb6e1e32b5db1",
+      "importedSha256": "101bbefc8a8ea9ea5c13757695ce10ef3d49d4e6fb94eadfba1d05e52f8af282",
       "approval": "2026-10-28 用户六项反馈：216件彩色物品图标、全队状态、鹤鸣山洞宝箱优先、道具使用默认焦点、建筑完整立面和山壁材质"
     },
     {
@@ -2207,7 +2207,7 @@
     {
       "game": "fmj",
       "destination": "assets/fmj/modern/lifu-furniture-v7.png",
-      "importedSha256": "0d94df07bdb6b603ba84d6fa350a3fe127ff68f792984e690636204feaf33edb",
+      "importedSha256": "ca1a52dc5bbc6853fd9ee5c7c8c2a0ccad77c8827aa3e46c67473ed941890fca",
       "approval": "本轮山门/李府/全地图入口修订，先不打包"
     },
     {
@@ -2225,8 +2225,14 @@
     {
       "game": "fmj",
       "destination": "assets/fmj/modern/hero-v10.png",
-      "importedSha256": "8f73388b2ee4111bb90e9a1f3313f227f13641a64e6967df4df8439f6af64277",
+      "importedSha256": "874b2a70ab75f414ad12706ce94e5d6160b72b2b1350a89d6eeccc3304d6853d",
       "approval": "本轮用户明确要求修订柳清风比例"
+    },
+    {
+      "game": "fmj",
+      "destination": "assets/fmj/modern/partial-review-v11.png",
+      "importedSha256": "5fdd61a768b85e5d18f301b3710bb431a273ead4f7dde428a200b6873ae3c407",
+      "approval": "用户本轮已导出的19项局部审核意见"
     }
   ],
   "integrationRevisions": [
@@ -2895,6 +2901,96 @@
       "previousImportedSha256": "d24debd4d0d6e8489f51a6f1b7297a78f4b2b23d98cd003cee536e7a6397d791",
       "currentSha256": "8f73388b2ee4111bb90e9a1f3313f227f13641a64e6967df4df8439f6af64277",
       "reason": "原画按独立透明轮廓切片，修正袖子和剑尖跨列时的断片；四方向和战斗完整轮廓保持原比例"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-00.png",
+      "previousImportedSha256": "ae1c7f779f3ec3c80789119313297615e55551d5e6dc9fa9914ed976a94889b7",
+      "currentSha256": "ecd3d5f00cdf3fedcc39b041a53d8508c1acd9891e7df7423d30a6c349a3136b",
+      "reason": "本轮19张已批注地图的定向美术修订；旧帧像素及坐标不变，仅裁剪无引用外沿以保持解码预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-01.png",
+      "previousImportedSha256": "f6de4546b8de615dbd81bdf7d82d341c9a444e74364500f7c75c2d4d32b949fe",
+      "currentSha256": "3420770b4456bf023e517922dbc2327567be1a882f8173b896035798cfb7e999",
+      "reason": "本轮19张已批注地图的定向美术修订；旧帧像素及坐标不变，仅裁剪无引用外沿以保持解码预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-02.png",
+      "previousImportedSha256": "942a0d9b1754460e8e4f81299dc554ff2afd80b8621f18ee9dbfd3dc146a4c9d",
+      "currentSha256": "ab91ef80ab2e3b863cc7375e51825cec8ad80472b0c057e13d9427469f499f38",
+      "reason": "本轮19张已批注地图的定向美术修订；旧帧像素及坐标不变，仅裁剪无引用外沿以保持解码预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-03.png",
+      "previousImportedSha256": "9ca7d0a0e08e9f7ad01fd32010dd43cfa3d65c3c4225eb838742d69dfaf13f25",
+      "currentSha256": "6c32924d41bf792a6de800c1bd92878a91fad085400a840e6b5893fbb0a9c2df",
+      "reason": "本轮19张已批注地图的定向美术修订；旧帧像素及坐标不变，仅裁剪无引用外沿以保持解码预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-04.png",
+      "previousImportedSha256": "7ac59f8464bd42526d01f6b4da887904d575609ecfc145f49ba7f98b2cf7e6a0",
+      "currentSha256": "ba41cdb234f8ceac4da5fc3c6ff66c0a4e1e653ee2d72c2ae3b79c390489fa73",
+      "reason": "本轮19张已批注地图的定向美术修订；旧帧像素及坐标不变，仅裁剪无引用外沿以保持解码预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-05.png",
+      "previousImportedSha256": "60873839f5ae76b52440614522cebe326274ca4a386f70a1dbd0c526c189f669",
+      "currentSha256": "d72a2f4b72b1ea130d44c61ea5bb76b83cbcc79c737e56af0b02c94c5c8e3766",
+      "reason": "本轮19张已批注地图的定向美术修订；旧帧像素及坐标不变，仅裁剪无引用外沿以保持解码预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-06.png",
+      "previousImportedSha256": "dec32b24b2ce98f6e3306c3b0b111c7d627bd756ed8656ead9db0471e809522c",
+      "currentSha256": "f7a7909012be55dced4e806391d1966c800a9aca03f8b7efba8ed98bffd27289",
+      "reason": "本轮19张已批注地图的定向美术修订；旧帧像素及坐标不变，仅裁剪无引用外沿以保持解码预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-07.png",
+      "previousImportedSha256": "5acea2a1ae5d90c2c7de94b816e6343f33df1eed3f78473fa07a542eb7bf306d",
+      "currentSha256": "d4679d92988c7df30d2959e60d7db51ebc874af988dddee556bf6d0fa78eca6d",
+      "reason": "本轮19张已批注地图的定向美术修订；旧帧像素及坐标不变，仅裁剪无引用外沿以保持解码预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-09.png",
+      "previousImportedSha256": "ffd5e09b4a1e1f6d42298e045d516baaa8f9660b565e37ec54f00618bfb89faa",
+      "currentSha256": "f048be4c113df12e41498cad585b69f8c51550702238d752f0d735ead37e75a9",
+      "reason": "本轮19张已批注地图的定向美术修订；旧帧像素及坐标不变，仅裁剪无引用外沿以保持解码预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-11.png",
+      "previousImportedSha256": "012fc4b293e1f59af5a513fd4b296bb2f16a915571293345a3298866b91c6101",
+      "currentSha256": "f8351f3dc55fd6ead7f05dcb92e221c7aab63d7b336bfad0254740a0294eeb5f",
+      "reason": "本轮19张已批注地图的定向美术修订；旧帧像素及坐标不变，仅裁剪无引用外沿以保持解码预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art-sources.json",
+      "previousImportedSha256": "0f29abc90709669ad67f79f228fdbf617681d591645cf02380ae7c1279b33749",
+      "currentSha256": "1d4e91ed78e24dbf16951f95cd51e9726490d576a5cb97268c89732e09dfd4d9",
+      "reason": "本轮19张已批注地图的定向美术修订；旧帧像素及坐标不变，仅裁剪无引用外沿以保持解码预算"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "d69253396c711f575323ee0aa7de6bf16c376a24c680131a7aa0dbcce3bf8999",
+      "currentSha256": "9be22dcb0822e2a944e25b80ce0a8176c48ecca4b6d8fb6634519a02775e446e",
+      "reason": "本轮19张已批注地图的定向美术修订；旧帧像素及坐标不变，仅裁剪无引用外沿以保持解码预算"
+    },
+    {
+      "destination": "assets/fmj/modern/building-frontages-v6.png",
+      "previousImportedSha256": "ffe6091bd3a0e582576af0d32e476fa564fe544fa0bc1b627efcb6e1e32b5db1",
+      "currentSha256": "101bbefc8a8ea9ea5c13757695ce10ef3d49d4e6fb94eadfba1d05e52f8af282",
+      "reason": "本轮19张已批注地图的定向美术修订；旧帧像素及坐标不变，仅裁剪无引用外沿以保持解码预算"
+    },
+    {
+      "destination": "assets/fmj/modern/lifu-furniture-v7.png",
+      "previousImportedSha256": "0d94df07bdb6b603ba84d6fa350a3fe127ff68f792984e690636204feaf33edb",
+      "currentSha256": "ca1a52dc5bbc6853fd9ee5c7c8c2a0ccad77c8827aa3e46c67473ed941890fca",
+      "reason": "本轮19张已批注地图的定向美术修订；旧帧像素及坐标不变，仅裁剪无引用外沿以保持解码预算"
+    },
+    {
+      "destination": "assets/fmj/modern/hero-v10.png",
+      "previousImportedSha256": "8f73388b2ee4111bb90e9a1f3313f227f13641a64e6967df4df8439f6af64277",
+      "currentSha256": "874b2a70ab75f414ad12706ce94e5d6160b72b2b1350a89d6eeccc3304d6853d",
+      "reason": "本轮19张已批注地图的定向美术修订；旧帧像素及坐标不变，仅裁剪无引用外沿以保持解码预算"
     }
   ]
 }

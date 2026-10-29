@@ -80,6 +80,7 @@ final class ModernScenePainter extends CustomPainter {
           wide: game.wide,
         );
     final tileSize = camera.tileSize, room = art.rooms[map.id];
+    final tileOverrides = art.tileOverrides[map.id] ?? const {};
     // 图集是弱键；退出会话后不靠静态缓存延长图片和地图的生命周期。
     final cached = _geometry[art] ??= <GameMap, _SceneGeometry>{};
     final geometry = cached.putIfAbsent(map, () => _SceneGeometry(map, art));
@@ -104,7 +105,10 @@ final class ModernScenePainter extends CustomPainter {
             (y < 3 ||
                 y >= map.height - 3 &&
                     const {20, 21, 24}.contains(map.cell(x, y) & 127));
-        var material = map.tiles == 6
+        final reviewed = tileOverrides[map.cell(x, y) & 127];
+        var material = reviewed != null
+            ? reviewed.$1
+            : map.tiles == 6
             ? (hallWall ? 'hall-wall' : 'hall-floor')
             : buildingGround.contains(y * map.width + x)
             ? ModernTerrain.base(map.tiles)
@@ -114,9 +118,15 @@ final class ModernScenePainter extends CustomPainter {
                 map.canWalk(x, y),
               );
         final sourceTile = map.cell(x, y) & 127;
-        if (map.tiles == 2 && sourceTile >= 86 && sourceTile <= 93) {
+        if (reviewed == null &&
+            map.tiles == 2 &&
+            sourceTile >= 86 &&
+            sourceTile <= 93) {
           material = 'mountain-wall';
-        } else if (map.tiles == 2 && sourceTile >= 103 && sourceTile <= 109) {
+        } else if (reviewed == null &&
+            map.tiles == 2 &&
+            sourceTile >= 103 &&
+            sourceTile <= 109) {
           material = 'earth';
         } else if (const {3, 5, 7}.contains(map.tiles) && material == 'stone') {
           material = 'indoor-stone';
@@ -171,8 +181,11 @@ final class ModernScenePainter extends CustomPainter {
             floorCovered.contains(index)) {
           continue;
         }
-        final tile = map.cell(x, y) & 127,
-            key = ModernTerrain.structureKey(map.tiles, tile);
+        final tile = map.cell(x, y) & 127;
+        final reviewed = tileOverrides[tile];
+        final key = reviewed != null
+            ? reviewed.$3
+            : ModernTerrain.structureKey(map.tiles, tile);
         if (map.tiles == 2 && tile >= 2 && tile <= 7) {
           art.drawGround(
             canvas,
@@ -184,7 +197,9 @@ final class ModernScenePainter extends CustomPainter {
           );
           continue;
         }
-        if (map.tiles == 2 && tile >= 86 && tile <= 93) continue;
+        if (reviewed == null && map.tiles == 2 && tile >= 86 && tile <= 93) {
+          continue;
+        }
         if (map.tiles == 2 && tile >= 103 && tile <= 109) continue;
         if (map.tiles == 1 &&
             const {60, 63, 64, 67, 68}.contains(tile) &&

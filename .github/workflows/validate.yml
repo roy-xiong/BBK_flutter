@@ -32,6 +32,7 @@ jobs:
         run: |
           python3 -m pip install Pillow
           python3 tool/build_fmj_review.py
+          python3 tool/build_fmj_review.py --patch --output build/validation/partial-review/maps.json
       - name: 连续回放摘要
         if: always()
         run: python3 tool/write_validation_summary.py
@@ -63,5 +64,12 @@ jobs:
         with:
           name: fmj-map-review
           path: build/validation/review/
+          if-no-files-found: error
+          retention-days: 14
+      - name: 本轮已批注地图修订画面
+        uses: actions/upload-artifact@v4
+        with:
+          name: fmj-partial-review
+          path: build/validation/partial-review/
           if-no-files-found: error
           retention-days: 14
