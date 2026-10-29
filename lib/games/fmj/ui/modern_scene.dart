@@ -77,6 +77,7 @@ final class ModernScenePainter extends CustomPainter {
         );
     final tileSize = camera.tileSize, room = art.rooms[map.id];
     final tileOverrides = art.tileOverrides[map.id] ?? const {};
+    final groundOverrides = art.groundOverrides[map.id] ?? const {};
     // 图集是弱键；退出会话后不靠静态缓存延长图片和地图的生命周期。
     final cached = _geometry[art] ??= <GameMap, _SceneGeometry>{};
     final geometry = cached.putIfAbsent(map, () => _SceneGeometry(map, art));
@@ -129,6 +130,7 @@ final class ModernScenePainter extends CustomPainter {
         } else if (map.tiles == 1 && material == 'stone') {
           material = 'city-stone';
         }
+        material = groundOverrides[y * map.width + x] ?? material;
         if (!art.drawGround(
           canvas,
           material,

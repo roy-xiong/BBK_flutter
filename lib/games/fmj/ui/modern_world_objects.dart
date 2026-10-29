@@ -52,9 +52,9 @@ final class ModernWorldObjects {
             'review-v11:guardian-$guardian/0',
             Rect.fromLTWH(
               point.dx - tile * .5,
-              point.dy - tile * 1.3,
+              point.dy - tile * 2.0,
               tile * 2,
-              tile * 2.3,
+              tile * 3.0,
             ),
             paint,
           )) {
@@ -71,6 +71,19 @@ final class ModernWorldObjects {
         ),
       );
       return true;
+    }
+    if (actor.sprite == 11 && game.map?.id == '3:2') {
+      return art.drawObject(
+        canvas,
+        'review-v14:cave-stairs/0',
+        Rect.fromLTWH(
+          point.dx - tile * .12,
+          point.dy - tile * .35,
+          tile * 1.25,
+          tile * 1.35,
+        ),
+        paint,
+      );
     }
     if (actor.sprite == 7) {
       // 原脚本击败护灯兽后先停止动画，再将步帧设为0；亮灯动画本身也会经过

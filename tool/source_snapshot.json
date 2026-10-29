@@ -293,7 +293,7 @@
       "source": "assets/modern/enhanced-00.png",
       "destination": "assets/fmj/modern/enhanced-00.png",
       "sourceSha256": "a23454a3f68d1fcd3083e623107dddb3b232db9fc622cee82bc8f81de294240b",
-      "importedSha256": "97baad8e994b43215ee20ba072fb1e7ec2341d4b48d3defa369034f8d8128c78"
+      "importedSha256": "8842c775aa156378f29ca866326bf2f36856dc4ae2bb8185758e671aeebd6c3a"
     },
     {
       "game": "fmj",
@@ -384,14 +384,14 @@
       "source": "assets/modern/enhanced-art-sources.json",
       "destination": "assets/fmj/modern/enhanced-art-sources.json",
       "sourceSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e",
-      "importedSha256": "f451106b89f2ceca96aa05df80ff35da74aaa9f9e30029a99f79617e3b7918f9"
+      "importedSha256": "3a53cf4810a4b2d0d33d29ca9968a5a569aae3395076c6d2e9a4f0ab6655b669"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "b9a8d09c374a586c678fdfb84907a96089a59287492972fd524d9e664cc43d50"
+      "importedSha256": "b2da188cb980d161d99e51c905ca722b51893dca5cc489cd1267d56767c71b23"
     },
     {
       "game": "fmj",
@@ -3123,6 +3123,24 @@
       "previousImportedSha256": "da7a663babbf337441b739e6fee11b0dbfd984e2af71b4ede3d011a0659161b8",
       "currentSha256": "b9a8d09c374a586c678fdfb84907a96089a59287492972fd524d9e664cc43d50",
       "reason": "按用户追加要求仅恢复柳清风新版蓄力及横斩攻击动作，保留旧地图四向迈步、战斗站姿和逐格移动"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-00.png",
+      "previousImportedSha256": "97baad8e994b43215ee20ba072fb1e7ec2341d4b48d3defa369034f8d8128c78",
+      "currentSha256": "8842c775aa156378f29ca866326bf2f36856dc4ae2bb8185758e671aeebd6c3a",
+      "reason": "依照续审2导出的32张地图意见，补齐柱式四象、石灯井箱衣架及场景专用墙地底材；44项通过保持原样"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art-sources.json",
+      "previousImportedSha256": "f451106b89f2ceca96aa05df80ff35da74aaa9f9e30029a99f79617e3b7918f9",
+      "currentSha256": "3a53cf4810a4b2d0d33d29ca9968a5a569aae3395076c6d2e9a4f0ab6655b669",
+      "reason": "依照续审2导出的32张地图意见，补齐柱式四象、石灯井箱衣架及场景专用墙地底材；44项通过保持原样"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "b9a8d09c374a586c678fdfb84907a96089a59287492972fd524d9e664cc43d50",
+      "currentSha256": "b2da188cb980d161d99e51c905ca722b51893dca5cc489cd1267d56767c71b23",
+      "reason": "依照续审2导出的32张地图意见，补齐柱式四象、石灯井箱衣架及场景专用墙地底材；44项通过保持原样"
     }
   ]
 }

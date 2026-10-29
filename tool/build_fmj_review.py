@@ -37,7 +37,10 @@ def main():
     interior=hd.get('interiorReviewV12')
     if interior:
         fixes=json.loads((ROOT/'tool/indoor_review_v12_fixes.json').read_text())
-    revised=set((interior or hd.get('partialReviewV11',{})).get('maps',[]))
+    third=hd.get('reviewRound3')
+    if third:
+        fixes=json.loads((ROOT/'tool/review_v14_fixes.json').read_text())
+    revised=set((third or interior or hd.get('partialReviewV11',{})).get('maps',[]))
     for m in guide['maps']:
         if args.patch and m['id']not in revised:continue
         path=args.input/('map-'+m['id'].replace(':','-')+'.png')

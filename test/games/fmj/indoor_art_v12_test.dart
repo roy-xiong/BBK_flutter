@@ -80,7 +80,12 @@ void main() {
           .where((cell) => (cell as int) & 127 == 76)
           .length;
       expect(
-        scene.where((b) => b['key'] == 'interior-v12:seated-guest'),
+        scene.where(
+          (b) => const {
+            'interior-v12:seated-guest',
+            'review-v14:seated-guest-bench',
+          }.contains(b['key']),
+        ),
         hasLength(seatedOriginal),
         reason: '$id 原图坐客不能变成长凳',
       );

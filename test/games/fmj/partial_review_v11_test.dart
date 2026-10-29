@@ -17,8 +17,9 @@ void main() {
     );
     expect(original.length, 64);
     final indoor = (hd['interiorReviewV12']?['maps'] as List? ?? []).toSet();
+    final current = (hd['reviewRound3']?['maps'] as List? ?? []).toSet();
     for (final entry in original.entries) {
-      if (indoor.contains(entry.key)) continue;
+      if (indoor.contains(entry.key) || current.contains(entry.key)) continue;
       expect(
         hd['buildings'][entry.key] ?? [],
         entry.value['buildings'],

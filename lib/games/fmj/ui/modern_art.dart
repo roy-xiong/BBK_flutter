@@ -65,6 +65,7 @@ final class ModernArt {
     this.decorations = const {},
     this.rooms = const {},
     this.tileOverrides = const {},
+    this.groundOverrides = const {},
   });
   final ui.Image atlas, landscape;
   final Map<String, ui.Rect> frames;
@@ -79,6 +80,9 @@ final class ModernArt {
 
   /// 审核修订限定到明确地图；未审核场景继续使用原图块目录。
   final Map<String, Map<int, (String, String, String?)>> tileOverrides;
+
+  /// 原物件占格与其背后的墙/地板独立。按地图格覆盖底材，不改碰撞或遮挡集合。
+  final Map<String, Map<int, String>> groundOverrides;
 
   /// 物件只等比缩放并贴齐占地下沿。地图占地是碰撞语义，不能拿来横向、纵向
   /// 分别拉伸原画；地毯是地面图案，单独沿其原有铺设区域绘制。
@@ -364,6 +368,24 @@ final class ModernArt {
         }
         tileOverrides['${entry.key}'] = Map.unmodifiable(rules);
       }
+      final groundOverrides = <String, Map<int, String>>{};
+      for (final entry in (hd['groundOverrides'] as Map? ?? const {}).entries) {
+        if (entry.value is! Map) {
+          throw FormatException('场景底材修订无效：${entry.key}');
+        }
+        final rules = <int, String>{};
+        for (final row in (entry.value as Map).entries) {
+          final cell = int.tryParse('${row.key}');
+          if (cell == null ||
+              cell < 0 ||
+              row.value is! String ||
+              !groundTextures.containsKey(row.value)) {
+            throw FormatException('场景底材修订无效：${entry.key}/${row.key}');
+          }
+          rules[cell] = row.value as String;
+        }
+        groundOverrides['${entry.key}'] = Map.unmodifiable(rules);
+      }
       return ModernArt(
         atlas,
         landscape,
@@ -371,6 +393,7 @@ final class ModernArt {
         textures: List.unmodifiable(textures),
         sprites: Map.unmodifiable(sprites),
         tileOverrides: Map.unmodifiable(tileOverrides),
+        groundOverrides: Map.unmodifiable(groundOverrides),
         backgrounds: Map.unmodifiable(backgrounds),
         groundTextures: Map.unmodifiable(groundTextures),
         landmarks: Map.unmodifiable(landmarks),
