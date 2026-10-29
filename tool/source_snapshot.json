@@ -2225,7 +2225,7 @@
     {
       "game": "fmj",
       "destination": "assets/fmj/modern/hero-v10.png",
-      "importedSha256": "d24debd4d0d6e8489f51a6f1b7297a78f4b2b23d98cd003cee536e7a6397d791",
+      "importedSha256": "8f73388b2ee4111bb90e9a1f3313f227f13641a64e6967df4df8439f6af64277",
       "approval": "本轮用户明确要求修订柳清风比例"
     }
   ],
@@ -2889,6 +2889,12 @@
       "previousImportedSha256": "8981364479eefd58857e95c9b72c73d60c383079975fc0b7205ce5ed15beb020",
       "currentSha256": "d69253396c711f575323ee0aa7de6bf16c376a24c680131a7aa0dbcce3bf8999",
       "reason": "10月29日：固定菜单/作弊收拢、完整状态免疫、成年柳清风、落石叠帧及显示平滑插值；原地图和剧情资源未改"
+    },
+    {
+      "destination": "assets/fmj/modern/hero-v10.png",
+      "previousImportedSha256": "d24debd4d0d6e8489f51a6f1b7297a78f4b2b23d98cd003cee536e7a6397d791",
+      "currentSha256": "8f73388b2ee4111bb90e9a1f3313f227f13641a64e6967df4df8439f6af64277",
+      "reason": "原画按独立透明轮廓切片，修正袖子和剑尖跨列时的断片；四方向和战斗完整轮廓保持原比例"
     }
   ]
 }
