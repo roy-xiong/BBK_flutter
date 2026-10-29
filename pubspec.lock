@@ -171,12 +171,11 @@ packages:
     source: hosted
     version: "0.1.3"
   gamepads_windows:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: gamepads_windows
-      sha256: "2caf3abda6fe5a7ff7f434b00e71cfc823b594ef30326b7347e4635f1f0bad9c"
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/gamepads_windows"
+      relative: true
+    source: path
     version: "0.3.2"
   hooks:
     dependency: transitive

@@ -1,0 +1,15 @@
+name: gamepads_windows
+description: BBK Windows XInput backend with main-thread event dispatch.
+version: 0.3.2
+publish_to: none
+environment:
+  sdk: '>=3.9.0 <4.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+flutter:
+  plugin:
+    implements: gamepads
+    platforms:
+      windows:
+        pluginClass: GamepadsWindowsPluginCApi

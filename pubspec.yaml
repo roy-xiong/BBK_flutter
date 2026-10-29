@@ -11,6 +11,8 @@ dependencies:
   path_provider: ^2.1.6
   gamepads: 0.1.13
 dependency_overrides:
+  gamepads_windows:
+    path: packages/gamepads_windows
   path_provider_android: 2.2.23
   vm_service: 15.3.0
 dev_dependencies:

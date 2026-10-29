@@ -2,6 +2,8 @@
 from pathlib import Path
 from collections import Counter
 import argparse,copy,json,subprocess
+from datetime import datetime
+from zoneinfo import ZoneInfo
 from PIL import Image,ImageDraw,ImageFont
 from continue_fmj_review import payload
 from build_fmj_review import encoded
@@ -13,6 +15,8 @@ def main():
     parser=argparse.ArgumentParser()
     for option in ['previous','patch','frames','output']:parser.add_argument('--'+option,type=Path,required=True)
     args=parser.parse_args();old=payload(args.previous);patch=json.loads(args.patch.read_text())
+    review_date=datetime.now(ZoneInfo('Asia/Shanghai')).strftime('%Y-%m-%d')
+    export_date=review_date.replace('-','')
     replacement={e['id']:e for e in patch['entries']}
     archive=copy.deepcopy(old['approvedReviews']);reviews=copy.deepcopy(old['initialReviews']);entries=[]
     revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
@@ -54,7 +58,7 @@ def main():
     for key,r in reviews.items():
         before=old['initialReviews'].get(key)or old['approvedReviews'].get(key)
         if before:assert r['comment']==before['comment']and r['markers']==before['markers']
-    data={'revision':revision,'renderRevision':patch['revision'],'date':'2026-10-29','entries':entries,'initialReviews':reviews,'approvedReviews':archive,'mapCount':sum(bool(e['tileSize'])for e in entries),'totalCatalogCount':len(entries)+len(archive),'reviewRoundLabel':'全量美术与开场修订 · 三清宫水池重新待复审','exportFilename':'伏魔记-全地图审核意见-续审4-20261029.json'}
+    data={'revision':revision,'renderRevision':patch['revision'],'date':review_date,'entries':entries,'initialReviews':reviews,'approvedReviews':archive,'mapCount':sum(bool(e['tileSize'])for e in entries),'totalCatalogCount':len(entries)+len(archive),'reviewRoundLabel':'全量美术与开场修订 · 三清宫水池重新待复审','exportFilename':f'伏魔记-全地图审核意见-续审4-{export_date}.json'}
     template=(ROOT/'tool/fmj_review_template.html').read_text();script=json.dumps(data,ensure_ascii=False,separators=(',',':')).replace('</','<\\/')
     args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(template.replace('/*__REVIEW_DATA__*/','const DATA='+script+';'))
     manifest={'revision':revision,'renderRevision':patch['revision'],'updatedMaps':len(replacement),'openingSamples':3,'approvedHidden':len(archive),'visibleEntries':len(entries),'statuses':dict(Counter(r['status']for r in reviews.values()))}
