@@ -40,7 +40,7 @@ def main():
         entry['aliases']=sorted(aliases.get(m['id'],set()))
         entry['road']=any(s in m['name']for s in ['路','阡','原野','小径','入口','山道'])
         entries.append(entry)
-    labels={'earth':'泥土地','grass':'草地','stone':'石路','city-stone':'城镇石地','brick-road':'砖道','indoor-stone':'室内石地','hall-floor':'殿堂地砖','hall-wall':'殿堂墙面','mountain-wall':'山洞山壁','water':'水面','bamboo-forest':'竹林'}
+    labels={'wood':'木地板','wood-cross':'横向木板','cave':'洞窟地面','cave-wall':'洞窟墙壁','rock-ground':'岩石地面','wood-post':'木柱','wall-plaster':'灰泥墙面','abyss':'深渊','earth':'泥土地','grass':'草地','stone':'石路','city-stone':'城镇石地','brick-road':'砖道','indoor-stone':'室内石地','hall-floor':'殿堂地砖','hall-wall':'殿堂墙面','mountain-wall':'山洞山壁','water':'水面','bamboo-forest':'竹林'}
     materials={**hd['groundTextures']}
     for key,value in materials.items():
         with Image.open(ART/value)as im:
@@ -55,9 +55,9 @@ def main():
         im.thumbnail((180,350),Image.Resampling.LANCZOS);canvas.alpha_composite(im,(i*200+(200-im.width)//2,370-im.height))
     entries.append({'id':'hero:liuqingfeng','name':'柳清风 · 四方向与战斗比例','kind':'人物/动效','width':canvas.width,'height':canvas.height,'tileSize':0,'image':encoded(canvas)})
     fall=ROOT/'build/validation/review-v23'
-    for path in sorted(fall.glob('fall-*.png')):
+    for frame_index,path in enumerate(sorted(fall.glob('fall-*.png')),1):
         with Image.open(path)as im:
-            entries.append({'id':'effect:'+path.stem,'name':'取伏魔剑后的落石 · '+path.stem,'kind':'人物/动效','width':im.width,'height':im.height,'tileSize':0,'image':encoded(im)})
+            entries.append({'id':'effect:'+path.stem,'name':'取伏魔剑后的落石 · 画面'+str(frame_index),'kind':'人物/动效','width':im.width,'height':im.height,'tileSize':0,'image':encoded(im)})
     revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     data=json.dumps({'revision':revision,'date':'2026-10-29','mapCount':len(guide['maps']),'entries':entries},ensure_ascii=False,separators=(',',':')).replace('</','<\\/')
     template=(ROOT/'tool/fmj_review_template.html').read_text()
