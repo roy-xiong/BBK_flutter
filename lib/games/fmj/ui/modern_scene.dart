@@ -718,7 +718,12 @@ final class _SceneGeometry {
     };
     buildingGround = {for (final b in buildings) ...coveredBy(b)};
     for (final b in foreground) {
-      if (map.tiles == 6 || b.key.startsWith('world:')) continue;
+      // 本轮按完整物件重绘的树冠、衣架和灯柱可以伸出原切片占格；仍按原
+      // 下沿参与遮挡排序，不能再用旧壁片/树片把新原画裁出矩形缺口。
+      if (map.tiles == 6 ||
+          b.key.startsWith('world:') ||
+          b.key.startsWith('review-v14:'))
+        continue;
       final height = (b.visualHeight ?? b.height.toDouble())
           .clamp(0.0, b.y + b.height.toDouble())
           .toDouble();

@@ -384,14 +384,14 @@
       "source": "assets/modern/enhanced-art-sources.json",
       "destination": "assets/fmj/modern/enhanced-art-sources.json",
       "sourceSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e",
-      "importedSha256": "3a53cf4810a4b2d0d33d29ca9968a5a569aae3395076c6d2e9a4f0ab6655b669"
+      "importedSha256": "333b8b3ed9a8ddafba281610673b1fe21cc17a84ffeb86604cc1fd25d5143316"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "3e477e83fc7ccf6a479478e6b255a8e716704c4e25fbe87b3f1c023404097347"
+      "importedSha256": "aa08dfabc1720ba5b05db4c70c5a20e8c9dc2850a06ead1cd022598a6f524ead"
     },
     {
       "game": "fmj",
@@ -3147,6 +3147,18 @@
       "previousImportedSha256": "b2da188cb980d161d99e51c905ca722b51893dca5cc489cd1267d56767c71b23",
       "currentSha256": "3e477e83fc7ccf6a479478e6b255a8e716704c4e25fbe87b3f1c023404097347",
       "reason": "按原四片谷仓组合定位，避免相邻两座谷仓被连通域合并"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art-sources.json",
+      "previousImportedSha256": "3a53cf4810a4b2d0d33d29ca9968a5a569aae3395076c6d2e9a4f0ab6655b669",
+      "currentSha256": "333b8b3ed9a8ddafba281610673b1fe21cc17a84ffeb86604cc1fd25d5143316",
+      "reason": "正式整图复核后保留完整树冠衣架灯柱，洞口孤立方形墙片改完整岩石组合"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "3e477e83fc7ccf6a479478e6b255a8e716704c4e25fbe87b3f1c023404097347",
+      "currentSha256": "aa08dfabc1720ba5b05db4c70c5a20e8c9dc2850a06ead1cd022598a6f524ead",
+      "reason": "正式整图复核后保留完整树冠衣架灯柱，洞口孤立方形墙片改完整岩石组合"
     }
   ]
 }

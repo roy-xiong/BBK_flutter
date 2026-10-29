@@ -55,6 +55,9 @@ def main():
     for guardian in ['dragon','tiger','bird','tortoise']:
         old='review-v11:guardian-'+guardian+'/0';hd['frames'][old]=hd['frames'][PREFIX+'pillar-'+guardian+'/0']
         provenance['frames'][old]={'alias':PREFIX+'pillar-'+guardian+'/0','details':'用户要求四象保留各自身份，但必须是柱式机关'}
+    for name,source in [('tree','plant:camphor/0'),('coastal-tree','plant:camphor/0'),('rock-outcrop','plant:rock/0')]:
+        hd['frames'][PREFIX+name+'/0']=hd['frames'][source]
+        provenance['frames'][PREFIX+name+'/0']={'alias':source,'details':'完整物件不再按旧切片轮廓裁掉树冠或岩石'}
 
     # 原山道20/21/22是土路边缘，不能用纯色石阶条替代。此处只修本轮三张山道。
     earth=Image.open(ART/hd['groundTextures']['earth']).convert('RGBA')
@@ -97,7 +100,17 @@ def main():
             if mid=='1:5':
                 for tile in [20,21,22]:rules[str(tile)]=['earth','earth-steps',PREFIX+'earth-steps/0']
                 notes.append('土阶改为与泥土地一致的细致踏面，移除粗糙的纯色横条。')
-            if mid=='1:6':rules['50']=['mountain-wall','floor',None]
+            if mid=='1:6':
+                rules['50']=['earth','floor',None]
+                candidates={i for i,v in enumerate(m['cells'])if v&127==50}
+                for cells in components(candidates,w,height):
+                    x=min(i%w for i in cells);y=min(i//w for i in cells)
+                    span=max(i%w for i in cells)-x+1;h=max(i//w for i in cells)-y+1
+                    if h>span*2:
+                        for start in range(y,y+h,2):
+                            part=[i for i in cells if start<=i//w<start+2]
+                            if part:add(PREFIX+'rock-outcrop',part,2.0,2.0)
+                    else:add(PREFIX+'rock-outcrop',cells)
             for b in buildings:
                 if b['key']=='building:cave-mouth':
                     ground(b['cells'],'mountain-wall')
@@ -129,7 +142,7 @@ def main():
             notes.append('六组仓身旧图恢复竹编茅草谷仓，覆盖完整顶盖与仓身。')
         if mid in ['1:43','1:44']:
             for i,v in enumerate(m['cells']):
-                if v&127==50:add('plant:camphor'if mid=='1:44'else'review-v11:potted-shrub',[i],2.2 if mid=='1:44'else 1.2,1.6 if mid=='1:44'else 1.1)
+                if v&127==50:add(PREFIX+'tree'if mid=='1:44'else'review-v11:potted-shrub',[i],2.2 if mid=='1:44'else 1.2,1.6 if mid=='1:44'else 1.1)
             notes.append('钟山道院零散植被改为完整树木；同类旧盆景补齐彩绘。')
         if mid=='1:45':
             seen=set();clean=[]
@@ -137,6 +150,8 @@ def main():
                 identity=(b['key'],tuple(sorted(b.get('cells',[]))))
                 if identity not in seen:clean.append(b);seen.add(identity)
             buildings[:]=clean
+            for b in buildings:
+                if b['key']=='plant:camphor':b['key']=PREFIX+'coastal-tree'
             hd['tileOverrides'].setdefault(mid,{})['114']=['earth','floor',None]
             notes.append('合并北海重复树冠，清除脱离树身的旧切片，保持完整树形和原碰撞。')
         if m['tiles']==3:
