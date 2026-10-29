@@ -109,6 +109,7 @@ def main():
     aliases = {'bookcase':'furniture:bookshelf/0','screen-side':'furniture:screen-side/0',
                'screen-front':'furniture:screen-front/0','cabinet':'furniture:cabinet/0',
                'bench':'furniture:long-bench-3/0','tea-table':'furniture:tea-table/0',
+               'window':'furniture:window/0',
                'cave-mouth':'building:cave-mouth/0'}
     for name,source in aliases.items():
         hd['frames'][PREFIX+name+'/0'] = hd['frames'][source]
@@ -151,6 +152,7 @@ def main():
                     add(name,[i],visual)
 
         if m['tiles']==3:
+            group('window',{33,34})
             group('vase-stand',{28,29},2)
             group('bookcase',set(range(49,58)))
             group('screen-side',{58,59,60,61,62,63})
@@ -195,6 +197,8 @@ def main():
         # 这些柜体切片已由原有高清木柜绘制，属于保留项；其余物件必须有完整接管。
         existing_cabinets={3:{89,90},5:{31,32},7:{8,9}}.get(m['tiles'],set())
         rules=hd.get('tileOverrides',{}).get(mid,{})
+        if not rules:
+            hd.get('tileOverrides',{}).pop(mid,None)
         audit[mid]={'newObjects':count,'remainingPropTiles':sorted({v&127 for i,v in enumerate(m['cells']) if i not in covered and (v&127)not in existing_cabinets and str(v&127)not in rules and hd['tileCatalog'][str(m['tiles'])][v&127][1] in ['wood-object','household']})}
         if count or hd.get('tileOverrides',{}).get(mid):
             changed.append(mid)
@@ -203,7 +207,7 @@ def main():
         page.save(ART/hd['textures'][t],optimize=True)
     for name,value in [('enhanced-art.json',hd),('enhanced-art-sources.json',provenance)]:
         (ART/name).write_text(json.dumps(value,ensure_ascii=False,separators=(',',':')))
-    labels={'sealed-jar':'封口陶坛','storage-sack':'麻布储物袋','herb-pot':'带盖药罐','pottery-bowl':'陶制碗盆','herb-rack':'器物储存架','kitchen-counter':'厨房案台','vase-stand':'花瓶与木花几','weapon-rack':'兵器陈列架','round-stool':'竹面木凳','bronze-scale':'铜制药秤','bookcase':'书架','screen-side':'纵向木屏风','screen-front':'横向木屏风','tea-table':'木茶案','cabinet':'储物柜','bench':'木长凳'}
+    labels={'sealed-jar':'封口陶坛','storage-sack':'麻布储物袋','herb-pot':'带盖药罐','pottery-bowl':'陶制碗盆','herb-rack':'器物储存架','kitchen-counter':'厨房案台','vase-stand':'花瓶与木花几','weapon-rack':'兵器陈列架','round-stool':'竹面木凳','bronze-scale':'铜制药秤','bookcase':'书架','screen-side':'纵向木屏风','screen-front':'横向木屏风','tea-table':'木茶案','cabinet':'储物柜','bench':'木长凳','window':'木格纸窗'}
     fixes={}
     for mid in changed:
         names=sorted({labels.get(b['key'][len(PREFIX):],b['key'][len(PREFIX):])for b in hd['decorations'][mid]if b['key'].startswith(PREFIX)})

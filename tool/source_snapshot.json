@@ -384,14 +384,14 @@
       "source": "assets/modern/enhanced-art-sources.json",
       "destination": "assets/fmj/modern/enhanced-art-sources.json",
       "sourceSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e",
-      "importedSha256": "eaf92e8587d195003d11e844e1c85d7302792ebb90b70f4f4f76d2d43388a4b1"
+      "importedSha256": "b59f7cfb1cf6d9fac192ac07aad04351f124a1f8281f8b225a4d019c8c88d019"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "975b4eca4a36d5371c74d9de97ea852f50771ed08e37b5cd6a02550d185a9c80"
+      "importedSha256": "abc77221903a5e452efdf8596a72b00900ac9f978fd5136068718a84abf1d6be"
     },
     {
       "game": "fmj",
@@ -3033,6 +3033,18 @@
       "previousImportedSha256": "d099284010904dcab267a89ac3ce852d1101e950ec58a6e0d9b9764597dc181f",
       "currentSha256": "975b4eca4a36d5371c74d9de97ea852f50771ed08e37b5cd6a02550d185a9c80",
       "reason": "依照用户最新审核及室内类推要求补绘22个室内场景；既有帧像素不变，新素材复用图集空闲区，暗道入口改为岩石洞口"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art-sources.json",
+      "previousImportedSha256": "eaf92e8587d195003d11e844e1c85d7302792ebb90b70f4f4f76d2d43388a4b1",
+      "currentSha256": "b59f7cfb1cf6d9fac192ac07aad04351f124a1f8281f8b225a4d019c8c88d019",
+      "reason": "补齐室内木窗并清理空覆写目录，保持未修改场景映射一致"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "975b4eca4a36d5371c74d9de97ea852f50771ed08e37b5cd6a02550d185a9c80",
+      "currentSha256": "abc77221903a5e452efdf8596a72b00900ac9f978fd5136068718a84abf1d6be",
+      "reason": "补齐室内木窗并清理空覆写目录，保持未修改场景映射一致"
     }
   ]
 }
