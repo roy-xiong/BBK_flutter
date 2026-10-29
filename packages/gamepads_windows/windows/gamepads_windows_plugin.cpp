@@ -10,6 +10,7 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <unordered_map>
 
 namespace {
 using Value = flutter::EncodableValue;
@@ -37,19 +38,19 @@ class BbkGamepads final : public flutter::Plugin {
         result->Success(Value(false));
       } else { result->NotImplemented(); }
     });
-    if (registrar_->GetView()) window_ = registrar_->GetView()->GetNativeWindow();
-    if (window_ && get_state_) {
-      delegate_ = registrar_->RegisterTopLevelWindowProcDelegate(
-          [this](HWND, UINT message, WPARAM wparam, LPARAM) -> std::optional<LRESULT> {
-            if (message == WM_TIMER && wparam == timer_) { Poll(); return 0; }
-            return std::nullopt;
-          });
-      timer_ = SetTimer(window_, reinterpret_cast<UINT_PTR>(this), 16, nullptr);
+    if (get_state_) {
+      // 线程消息定时器由当前窗口线程的DispatchMessage执行。Flutter插件注册时视图
+      // 尚未挂到宿主窗口，不能依赖子窗口WM_TIMER传给顶层窗口代理。
+      timer_ = SetTimer(nullptr, 0, 16, [](HWND, UINT, UINT_PTR id, DWORD) {
+        const auto found = owners_.find(id);
+        if (found != owners_.end()) found->second->Poll();
+      });
+      if (timer_) owners_[timer_] = this;
     }
   }
   ~BbkGamepads() override {
-    if (window_ && timer_) KillTimer(window_, timer_);
-    if (delegate_ >= 0) registrar_->UnregisterTopLevelWindowProcDelegate(delegate_);
+    owners_.erase(timer_);
+    if (timer_) KillTimer(nullptr, timer_);
     channel_->SetMethodCallHandler(nullptr);
     if (module_) FreeLibrary(module_);
   }
@@ -105,9 +106,8 @@ class BbkGamepads final : public flutter::Plugin {
   std::unique_ptr<flutter::MethodChannel<Value>> channel_;
   HMODULE module_ = nullptr;
   GetState get_state_ = nullptr;
-  HWND window_ = nullptr;
   UINT_PTR timer_ = 0;
-  int delegate_ = -1;
+  inline static std::unordered_map<UINT_PTR, BbkGamepads*> owners_;
   std::array<bool, XUSER_MAX_COUNT> connected_{};
   std::array<XINPUT_STATE, XUSER_MAX_COUNT> previous_{};
 };
