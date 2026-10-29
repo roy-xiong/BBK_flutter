@@ -19,11 +19,25 @@ def encoded(im):
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--input',type=Path,default=ROOT/'build/validation/approved-art');parser.add_argument('--output',type=Path,default=ROOT/'build/validation/review/伏魔记全地图交互审核-20261029.html');args=parser.parse_args()
     guide=json.loads((ROOT/'assets/fmj/game/FmjGuideData.json').read_text());hd=json.loads((ART/'enhanced-art.json').read_text());entries=[]
+    scripts={s['id']:s for s in guide['scripts']};aliases={}
+    for script in guide['scripts']:
+        commands=script['commands']
+        for i,c in enumerate(commands):
+            if c['op']!=1:continue
+            target=f"{c['a'][0]}:{c['a'][1]}"
+            for following in commands[i+1:i+4]:
+                if following['op']==14:
+                    sid=f"{following['a'][0]}:{following['a'][1]}"
+                    if sid in scripts:aliases.setdefault(target,set()).add(scripts[sid]['name'].replace('李俯','李府'))
+                    break
+    aliases.setdefault('1:37',set()).add('李府');aliases.setdefault('2:20',set()).add('李府客厅')
+
     for m in guide['maps']:
         path=args.input/('map-'+m['id'].replace(':','-')+'.png')
         with Image.open(path)as im:
             assert im.size==(m['width']*48,m['height']*48),(m['id'],im.size)
             entry={'id':m['id'],'name':m['name'],'kind':'道路/室外'if m['id'].startswith('1:')else'室内/洞府','width':im.width,'height':im.height,'tileSize':48,'mapWidth':m['width'],'mapHeight':m['height'],'tileset':m['tiles'],'cells':m['cells'],'image':encoded(im)}
+        entry['aliases']=sorted(aliases.get(m['id'],set()))
         entry['road']=any(s in m['name']for s in ['路','阡','原野','小径','入口','山道'])
         entries.append(entry)
     labels={'earth':'泥土地','grass':'草地','stone':'石路','city-stone':'城镇石地','brick-road':'砖道','indoor-stone':'室内石地','hall-floor':'殿堂地砖','hall-wall':'殿堂墙面','mountain-wall':'山洞山壁','water':'水面','bamboo-forest':'竹林'}
