@@ -1,6 +1,5 @@
 {
   "mapsScanned": 83,
-  "oldContourDefinitionsReplaced": 764,
   "remainingOriginalContourDefinitions": [],
   "keptOriginalBlackWhiteAssetsForClassicMode": true,
   "reviewMaps": [
@@ -45,5 +44,7 @@
     "3:4",
     "3:5",
     "3:10"
-  ]
+  ],
+  "oldContourDefinitionsAudited": 764,
+  "detailedPaintedDefinitionsRetained": 38
 }

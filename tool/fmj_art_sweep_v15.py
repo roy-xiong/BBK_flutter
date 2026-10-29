@@ -111,12 +111,23 @@ def main():
         if record.get('transform')=='original-contour-native-material'and f and tuple(f)not in aliases:
             original.append(key)
     # 一个帧可能有多个结构别名，按实际矩形只重绘一次。
-    done=set()
+    done=set();retained=list(hd.get('artSweepV15',{}).get('retainedDetailedPaintings',[]))
     for key in original:
         t,x,y,w,h=hd['frames'][key];tileset,index=map(int,key.split('/')[0].split(':')[1:]);role=source['frames'][key]['semantic']
         page=pages.setdefault(t,Image.open(ART/hd['textures'][t]).convert('RGBA'))
-        if (t,x,y,w,h)not in done:page.paste(clean_tile(tileset,index,role,(w,h)),(x,y,x+w,y+h));done.add((t,x,y,w,h))
-        source['frames'][key]={**source['frames'][key],'transform':'offline-clean-vector-material','source':'tool/fmj_art_sweep_v15.py','originalContourUsed':False}
+        original_image=page.crop((x,y,x+w,y+h))
+        keep=role=='rock'or tileset==9 and role=='stone-object'and index in[115,116,117]
+        if keep:
+            im=original_image;retained.append(key);transform='retained-detailed-painting'
+        elif role=='rug':
+            im=Image.new('RGBA',(w,h));transform='covered-by-complete-rug'
+        else:
+            im=clean_tile(tileset,index,role,(w,h));transform='redrawn-material-with-shape-reference'
+            if role in['roof','wall-cap','wall-panel','wood-object','stone-object','stone-steps','stone-rail','pond-rail','source-detail']:
+                alpha=original_image.getchannel('A').filter(ImageFilter.MaxFilter(3)).filter(ImageFilter.MinFilter(3)).filter(ImageFilter.GaussianBlur(.45))
+                im.putalpha(alpha)
+        if (t,x,y,w,h)not in done:page.paste(im,(x,y,x+w,y+h));done.add((t,x,y,w,h))
+        source['frames'][key]={**source['frames'][key],'transform':transform,'source':'tool/fmj_art_sweep_v15.py','shapeReferenceOnly':True}
     for key,record in source['frames'].items():
         if record.get('transform')=='original-contour-native-material' and tuple(hd['frames'].get(key,[])) in aliases:
             record['transform']='complete-illustration-alias'
@@ -169,7 +180,8 @@ def main():
     hd['frames']['opening:butterfly/0']=[t,4,page.height+2,butterfly.width,butterfly.height]
     source['frames']['opening:butterfly/0']={'source':'tool/art_sources/art-sweep-v15/butterfly.png'}
     definitions=list(dict.fromkeys([*hd.get('artSweepV15',{}).get('definitionKeys',[]),*original]))
-    hd['artSweepV15']={**hd.get('artSweepV15',{}),'maps':list(maps),'legacyDefinitionsRedrawn':len(definitions),'definitionKeys':definitions,'openingMovies':['1:2','1:3']}
+    retained=list(dict.fromkeys(retained))
+    hd['artSweepV15']={**hd.get('artSweepV15',{}),'maps':list(maps),'legacyDefinitionsAudited':len(definitions),'legacyDefinitionsRedrawn':len(definitions)-len(retained),'retainedDetailedPaintings':retained,'definitionKeys':definitions,'openingMovies':['1:2','1:3']}
     for name,value in [('enhanced-art.json',hd),('enhanced-art-sources.json',source)]:
         (ART/name).write_text(json.dumps(value,ensure_ascii=False,separators=(',',':')))
     print('Redrawn legacy definitions',len(original),'atlas10 new height',expanded.height)

@@ -293,84 +293,84 @@
       "source": "assets/modern/enhanced-00.png",
       "destination": "assets/fmj/modern/enhanced-00.png",
       "sourceSha256": "a23454a3f68d1fcd3083e623107dddb3b232db9fc622cee82bc8f81de294240b",
-      "importedSha256": "931e63fcc1848d30ad38cf8426076fb21f86a042d1b2b3949418c41278813319"
+      "importedSha256": "ffdf7d911b778c9ef74b13af214dad21508963c11838a8bd0dc8114267ec2f1b"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-01.png",
       "destination": "assets/fmj/modern/enhanced-01.png",
       "sourceSha256": "858ff7001a89094388d608450f6b103e6a41e20de456d882dc3e9f5e10909b1a",
-      "importedSha256": "08f3f1a45daba58ed5cd17fdd53170836523e42c6d988cfc3c65f2c2772db958"
+      "importedSha256": "2e58d0b7727a81ce23bf0a5c86d86d14740dd284ac8eb1e701976786c2be4993"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-02.png",
       "destination": "assets/fmj/modern/enhanced-02.png",
       "sourceSha256": "7c773e85c7558577489ec290c1784475a322489f40cfffe5a120528c5a15906a",
-      "importedSha256": "3fcdc34f152793597706b8b4d5e8d0f28266d3199a905c42cbca698204254269"
+      "importedSha256": "7d421b2f487d2cb1f42d0f643f57a3edbf34e1b42a1693110dca6b7dace15abc"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-03.png",
       "destination": "assets/fmj/modern/enhanced-03.png",
       "sourceSha256": "7cd41907a10ec92b398d9e5a46dff8c1a33942771d3656021085865594a26d4c",
-      "importedSha256": "c8d43f62e61c725fb099c9dc33b5e340bfe676382fbd9bb2738ca9830fbc0be5"
+      "importedSha256": "a7eb7a085cafcd37b42e0b80ffd85b4ab32c1adfc107d454500cade6bf90941f"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-04.png",
       "destination": "assets/fmj/modern/enhanced-04.png",
       "sourceSha256": "1c29ad7b1e297216c27b2be2dc9d42ec290cc0829ad120dcf87a6e0bc96ad641",
-      "importedSha256": "f415570155517ff060eb1e58128a86e9df20ced9d138980ed0813affcb2d9f5a"
+      "importedSha256": "ddf6447b28276c26a34668838ada4a5fe50214ff7e4384f79648710e6f673bcf"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-05.png",
       "destination": "assets/fmj/modern/enhanced-05.png",
       "sourceSha256": "f6b3135d409b967f1bc45af71e40d201ca444e0df647d0e29eeb7284ff8b92ba",
-      "importedSha256": "9142fcff0e54d3cd120e243f81a545dd33ea955b90770d174ae2f6ea54eada4f"
+      "importedSha256": "88c91260ba5cba4aa7a1333424ea4472aa6463881b95560b170d44d1125e5953"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-06.png",
       "destination": "assets/fmj/modern/enhanced-06.png",
       "sourceSha256": "6f8ec480887060d00418f11181a7a22fa85f3fded4dda1c45bafc01869b4528d",
-      "importedSha256": "1faaf758a2ed9996c1634a348ab6d5b15286b324da7a51aace3ef0dbaa6731d7"
+      "importedSha256": "7da85b6fe556cb8c2a6c61f04a409c5e0c69ad48b55ea5af807179db1ee21ca8"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-07.png",
       "destination": "assets/fmj/modern/enhanced-07.png",
       "sourceSha256": "eca46747531bb706e1ab5dccf4317e2e0ac69a47b26f22478e537157c7ee48e5",
-      "importedSha256": "0c5b9cabaa7fa49277211111c3c47681c52418d96279494e361af2a4b81fdef9"
+      "importedSha256": "b8c6970d0d478995a645380f46d6545447d628b954fd252cb3c3c5959645b16a"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-08.png",
       "destination": "assets/fmj/modern/enhanced-08.png",
       "sourceSha256": "ef7cc8f00cbd4fe4258f6786ee37a321eb19931f4f7a58f56d597b23b987e1a8",
-      "importedSha256": "2273c6e9531b109b9d9042444d06202a0f0cff35592b531ac83e374bca8ac579"
+      "importedSha256": "be8ff25ea0cdc3537fff78fc585e3a85544e05edd9bf5217a6894a062de51afd"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-09.png",
       "destination": "assets/fmj/modern/enhanced-09.png",
       "sourceSha256": "1ce89330d66574640f0b490270faea4dce643b25819aaa8f498eafce7d72f21a",
-      "importedSha256": "e17e5ec9fd99ba8277d8788eaa7148443185acf31c5208c0f7c6ea5e237e684e"
+      "importedSha256": "89cd980f049eb5b69dc278827f584c407ac200168957c1e0efa499c07c6b08f7"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-10.png",
       "destination": "assets/fmj/modern/enhanced-10.png",
       "sourceSha256": "446ad1ac681ee0de6965ad4790df6c22572760e629fb8b5a20d5df7ec573b2b9",
-      "importedSha256": "0ccd07bfac07886161492afd58632957f52d1047b53d3bb40a3d428377b74372"
+      "importedSha256": "9dbbf482c09444f9e3e6bceb556d60cea2325b78742be4e90f5672b6a1f09b41"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-11.png",
       "destination": "assets/fmj/modern/enhanced-11.png",
       "sourceSha256": "f048f9fa743c0eaccc80794b7f1e9f84dc2665a194c518ffa79148faf35ceb84",
-      "importedSha256": "d9809c9bfaa0c361071798499e948a1ab970406463997448391fa7eba29e2971"
+      "importedSha256": "012f1970763e5ceca8ce2341fd86466679a76413e6350df427443ad425cbd89e"
     },
     {
       "game": "fmj",
@@ -384,14 +384,14 @@
       "source": "assets/modern/enhanced-art-sources.json",
       "destination": "assets/fmj/modern/enhanced-art-sources.json",
       "sourceSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e",
-      "importedSha256": "e0df11aa0c76e16865c39da81801babfd3cd8d5fc88382479bd2125569e7f421"
+      "importedSha256": "6582134287773c5073fcd18c685934bc6e5d396c270c81038aab9ca6f2c785af"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "9a0bf22bec90d8be7b226e793def25eb9aecc01c6cb77ed4f7a5578071b4fe07"
+      "importedSha256": "4a31c3a94dc244aee32be84f1e4b7df7bf6d7ba653373769ce22a4c2e92513f2"
     },
     {
       "game": "fmj",
@@ -3261,6 +3261,90 @@
       "previousImportedSha256": "c8f20af9ef5a2c5500141709efc50aecccffaf9cddc914be8283fe5daec4189e",
       "currentSha256": "9a0bf22bec90d8be7b226e793def25eb9aecc01c6cb77ed4f7a5578071b4fe07",
       "reason": "全量材质重绘后的补充语义检查：完整石灯、路牌和殿外香炉替代旧切片；现有完整角色和家具像素不变"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-00.png",
+      "previousImportedSha256": "931e63fcc1848d30ad38cf8426076fb21f86a042d1b2b3949418c41278813319",
+      "currentSha256": "ffdf7d911b778c9ef74b13af214dad21508963c11838a8bd0dc8114267ec2f1b",
+      "reason": "整图渲染复核纠正过期元数据：保留38条已完成彩绘的山石，规则结构保留透明外形，避免整片覆盖背景"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-01.png",
+      "previousImportedSha256": "08f3f1a45daba58ed5cd17fdd53170836523e42c6d988cfc3c65f2c2772db958",
+      "currentSha256": "2e58d0b7727a81ce23bf0a5c86d86d14740dd284ac8eb1e701976786c2be4993",
+      "reason": "整图渲染复核纠正过期元数据：保留38条已完成彩绘的山石，规则结构保留透明外形，避免整片覆盖背景"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-02.png",
+      "previousImportedSha256": "3fcdc34f152793597706b8b4d5e8d0f28266d3199a905c42cbca698204254269",
+      "currentSha256": "7d421b2f487d2cb1f42d0f643f57a3edbf34e1b42a1693110dca6b7dace15abc",
+      "reason": "整图渲染复核纠正过期元数据：保留38条已完成彩绘的山石，规则结构保留透明外形，避免整片覆盖背景"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-03.png",
+      "previousImportedSha256": "c8d43f62e61c725fb099c9dc33b5e340bfe676382fbd9bb2738ca9830fbc0be5",
+      "currentSha256": "a7eb7a085cafcd37b42e0b80ffd85b4ab32c1adfc107d454500cade6bf90941f",
+      "reason": "整图渲染复核纠正过期元数据：保留38条已完成彩绘的山石，规则结构保留透明外形，避免整片覆盖背景"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-04.png",
+      "previousImportedSha256": "f415570155517ff060eb1e58128a86e9df20ced9d138980ed0813affcb2d9f5a",
+      "currentSha256": "ddf6447b28276c26a34668838ada4a5fe50214ff7e4384f79648710e6f673bcf",
+      "reason": "整图渲染复核纠正过期元数据：保留38条已完成彩绘的山石，规则结构保留透明外形，避免整片覆盖背景"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-05.png",
+      "previousImportedSha256": "9142fcff0e54d3cd120e243f81a545dd33ea955b90770d174ae2f6ea54eada4f",
+      "currentSha256": "88c91260ba5cba4aa7a1333424ea4472aa6463881b95560b170d44d1125e5953",
+      "reason": "整图渲染复核纠正过期元数据：保留38条已完成彩绘的山石，规则结构保留透明外形，避免整片覆盖背景"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-06.png",
+      "previousImportedSha256": "1faaf758a2ed9996c1634a348ab6d5b15286b324da7a51aace3ef0dbaa6731d7",
+      "currentSha256": "7da85b6fe556cb8c2a6c61f04a409c5e0c69ad48b55ea5af807179db1ee21ca8",
+      "reason": "整图渲染复核纠正过期元数据：保留38条已完成彩绘的山石，规则结构保留透明外形，避免整片覆盖背景"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-07.png",
+      "previousImportedSha256": "0c5b9cabaa7fa49277211111c3c47681c52418d96279494e361af2a4b81fdef9",
+      "currentSha256": "b8c6970d0d478995a645380f46d6545447d628b954fd252cb3c3c5959645b16a",
+      "reason": "整图渲染复核纠正过期元数据：保留38条已完成彩绘的山石，规则结构保留透明外形，避免整片覆盖背景"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-08.png",
+      "previousImportedSha256": "2273c6e9531b109b9d9042444d06202a0f0cff35592b531ac83e374bca8ac579",
+      "currentSha256": "be8ff25ea0cdc3537fff78fc585e3a85544e05edd9bf5217a6894a062de51afd",
+      "reason": "整图渲染复核纠正过期元数据：保留38条已完成彩绘的山石，规则结构保留透明外形，避免整片覆盖背景"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-09.png",
+      "previousImportedSha256": "e17e5ec9fd99ba8277d8788eaa7148443185acf31c5208c0f7c6ea5e237e684e",
+      "currentSha256": "89cd980f049eb5b69dc278827f584c407ac200168957c1e0efa499c07c6b08f7",
+      "reason": "整图渲染复核纠正过期元数据：保留38条已完成彩绘的山石，规则结构保留透明外形，避免整片覆盖背景"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-10.png",
+      "previousImportedSha256": "0ccd07bfac07886161492afd58632957f52d1047b53d3bb40a3d428377b74372",
+      "currentSha256": "9dbbf482c09444f9e3e6bceb556d60cea2325b78742be4e90f5672b6a1f09b41",
+      "reason": "整图渲染复核纠正过期元数据：保留38条已完成彩绘的山石，规则结构保留透明外形，避免整片覆盖背景"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-11.png",
+      "previousImportedSha256": "d9809c9bfaa0c361071798499e948a1ab970406463997448391fa7eba29e2971",
+      "currentSha256": "012f1970763e5ceca8ce2341fd86466679a76413e6350df427443ad425cbd89e",
+      "reason": "整图渲染复核纠正过期元数据：保留38条已完成彩绘的山石，规则结构保留透明外形，避免整片覆盖背景"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art-sources.json",
+      "previousImportedSha256": "e0df11aa0c76e16865c39da81801babfd3cd8d5fc88382479bd2125569e7f421",
+      "currentSha256": "6582134287773c5073fcd18c685934bc6e5d396c270c81038aab9ca6f2c785af",
+      "reason": "整图渲染复核纠正过期元数据：保留38条已完成彩绘的山石，规则结构保留透明外形，避免整片覆盖背景"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "9a0bf22bec90d8be7b226e793def25eb9aecc01c6cb77ed4f7a5578071b4fe07",
+      "currentSha256": "4a31c3a94dc244aee32be84f1e4b7df7bf6d7ba653373769ce22a4c2e92513f2",
+      "reason": "整图渲染复核纠正过期元数据：保留38条已完成彩绘的山石，规则结构保留透明外形，避免整片覆盖背景"
     }
   ]
 }

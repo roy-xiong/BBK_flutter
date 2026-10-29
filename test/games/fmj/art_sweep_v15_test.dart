@@ -46,7 +46,9 @@ void main() {
             )
             as Map;
     expect(hd['artSweepV15']['maps'], hasLength(83));
-    expect(hd['artSweepV15']['legacyDefinitionsRedrawn'], 764);
+    expect(hd['artSweepV15']['legacyDefinitionsAudited'], 764);
+    expect(hd['artSweepV15']['legacyDefinitionsRedrawn'], greaterThan(0));
+    expect(hd['artSweepV15']['retainedDetailedPaintings'], hasLength(38));
     expect(
       (sources['frames'] as Map).values.where(
         (s) => s['transform'] == 'original-contour-native-material',
