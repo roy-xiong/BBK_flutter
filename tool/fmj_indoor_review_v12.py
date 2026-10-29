@@ -233,10 +233,10 @@ def main():
     labels={'sealed-jar':'封口陶坛','storage-sack':'麻布储物袋','herb-pot':'带盖药罐','pottery-bowl':'陶制碗盆','herb-rack':'器物储存架','kitchen-counter':'厨房案台','vase-stand':'花瓶与木花几','weapon-rack':'兵器陈列架','round-stool':'竹面木凳','bronze-scale':'铜制药秤','bookcase':'书架','screen-side':'纵向木屏风','screen-front':'横向木屏风','tea-table':'木茶案','cabinet':'储物柜','bench':'木长凳','window':'木格纸窗'}
     fixes={}
     for mid in changed:
-        names=sorted({labels.get(b['key'][len(PREFIX):],b['key'][len(PREFIX):])for b in hd['decorations'][mid]if b['key'].startswith(PREFIX)})
+        names=sorted({labels.get(b['key'][len(PREFIX):],b['key'][len(PREFIX):])for b in hd['decorations'][mid]if b['key'].startswith(PREFIX) and not b.get('floor')})
         notes=[]
         if names:notes.append('补齐本场景残留旧图：'+'、'.join(names)+'。')
-        if hd.get('tileOverrides',{}).get(mid):notes.append('补绘柜台侧板、面板与木作边沿，去除原点阵格栅和碎片。')
+        if hd.get('tileOverrides',{}).get(mid):notes.append('补绘柜台侧板、面板与木作边沿，去除原点阵格栅和碎片；瓶罐下方保留连续木质台面。')
         notes.append('原地图、碰撞、交互格及已有家具布局保留。')
         fixes[mid]=notes
     fixes['2:8']=['揭开后的隐藏入口改用与其他洞口一致的完整岩石洞口，保留原入口和剧情显隐规则。']
