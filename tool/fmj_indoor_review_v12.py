@@ -197,6 +197,19 @@ def main():
             for tile,name in {2:'counter-top',3:'counter-top',4:'counter-front',5:'counter-side',36:'counter-top'}.items():
                 if any(v&127==tile for v in m['cells']):
                     rules[str(tile)]=['indoor-stone','wood-counter',PREFIX+name+'/0']
+            # 瓶罐图块本身也含柜台木板。完整物件接管后仍需铺独立支承层，
+            # 否则 foregroundCovered 跳过旧图时会连木板一起清掉，露出地砖。
+            prop_cells={i for b in rows if b['key'].startswith(PREFIX)for i in b.get('cells',[])}
+            for i in sorted(prop_cells):
+                x,y=i%w,i//w;tile=m['cells'][i]&127
+                def cell(xx,yy):
+                    return m['cells'][yy*w+xx]&127 if 0<=xx<w and 0<=yy<h else -1
+                top=(cell(x,y+1)==4 or any(cell(xx,y)in {2,3,36}for xx in [x-1,x+1]))
+                side=not top and tile in {16,17,56,57} and any(cell(x,yy)==5 for yy in [y-2,y-1,y+1,y+2])
+                if not top and not side:
+                    continue
+                rows.append({'key':PREFIX+('counter-side'if side else'counter-top'),
+                             'x':x,'y':y,'width':1,'height':1,'cells':[i],'floor':True})
         if mid=='2:8':
             # 隐藏洞口继续只出现在剧情揭开后的地图；沿用相同入口格和下沿。
             passage=next((b for b in rows if b['key']=='furniture:hidden-passage'),None)

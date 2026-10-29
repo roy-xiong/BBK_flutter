@@ -391,7 +391,7 @@
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "b8dad447ee101e50cbb3975b831730f5968a5b0ab90a242444a27a9d2e60b8bf"
+      "importedSha256": "edea4331ed428796e47387cd69cedeaabaeaff2959492885a2920947d6b555ce"
     },
     {
       "game": "fmj",
@@ -3051,6 +3051,12 @@
       "previousImportedSha256": "abc77221903a5e452efdf8596a72b00900ac9f978fd5136068718a84abf1d6be",
       "currentSha256": "b8dad447ee101e50cbb3975b831730f5968a5b0ab90a242444a27a9d2e60b8bf",
       "reason": "整图复核修正坛口旧清空规则、客栈楼梯误归类、药铺墙面器物类别"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "b8dad447ee101e50cbb3975b831730f5968a5b0ab90a242444a27a9d2e60b8bf",
+      "currentSha256": "edea4331ed428796e47387cd69cedeaabaeaff2959492885a2920947d6b555ce",
+      "reason": "器物图与柜台木板拆为前景和支承底层，避免替换瓶罐时台面出现地砖缺口"
     }
   ]
 }

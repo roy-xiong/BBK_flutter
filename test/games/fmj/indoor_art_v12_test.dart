@@ -39,6 +39,18 @@ void main() {
       containsAll([136, 137, 156, 157]),
       reason: '坛口和坛身四片必须一起接管，不能裁掉上半部',
     );
+    for (final cell in [167, 168, 176, 245]) {
+      expect(
+        objects.any(
+          (b) =>
+              b['floor'] == true &&
+              b['key'] == 'interior-v12:counter-top' &&
+              (b['cells'] as List).contains(cell),
+        ),
+        isTrue,
+        reason: '器物格 $cell 必须保留独立木板底层，不能露出地砖',
+      );
+    }
     expect(
       (hd['decorations']['2:18'] as List).any(
         (b) => b['key'] == 'interior-v12:weapon-rack',
