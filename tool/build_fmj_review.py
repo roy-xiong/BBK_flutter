@@ -51,6 +51,7 @@ def main():
     for i,(label,key)in enumerate(frame_keys):
         t,x,y,w,h=hd['frames'][key]
         with Image.open(ART/hd['textures'][t])as page:im=page.convert('RGBA').crop((x,y,x+w,y+h))
+        im=im.resize((round(im.width*2.3),round(im.height*2.3)),Image.Resampling.LANCZOS)
         im.thumbnail((180,350),Image.Resampling.LANCZOS);canvas.alpha_composite(im,(i*200+(200-im.width)//2,370-im.height))
     entries.append({'id':'hero:liuqingfeng','name':'柳清风 · 四方向与战斗比例','kind':'人物/动效','width':canvas.width,'height':canvas.height,'tileSize':0,'image':encoded(canvas)})
     fall=ROOT/'build/validation/review-v23'
