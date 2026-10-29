@@ -113,9 +113,23 @@ final class GamepadInputRouter {
             (_direction == null ? .5 : .35)) {
           continue;
         }
-        next = pad.x.abs() > pad.y.abs()
+        // 保留当前主轴，另一轴超过0.15才切换，避免45度附近噪声反复触发第一步。
+        final horizontal =
+            pad.stickDirection == GamepadAction.left ||
+            pad.stickDirection == GamepadAction.right;
+        final vertical =
+            pad.stickDirection == GamepadAction.up ||
+            pad.stickDirection == GamepadAction.down;
+        final useX =
+            horizontal && pad.x.abs() >= .35 && pad.y.abs() < pad.x.abs() + .15
+            ? true
+            : vertical && pad.y.abs() >= .35 && pad.x.abs() < pad.y.abs() + .15
+            ? false
+            : pad.x.abs() > pad.y.abs();
+        next = useX
             ? (pad.x > 0 ? GamepadAction.right : GamepadAction.left)
             : (pad.y > 0 ? GamepadAction.up : GamepadAction.down);
+        pad.stickDirection = next;
         break;
       }
     }
@@ -273,6 +287,7 @@ final class _PadState {
   final buttons = <GamepadButton>{};
   double x = 0, y = 0;
   bool trigger = false;
+  GamepadAction? stickDirection;
 }
 
 /// 页面拥有订阅和生命周期。失焦时游戏可继续模拟，但实体手柄停止控制。

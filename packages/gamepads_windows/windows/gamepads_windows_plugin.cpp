@@ -72,7 +72,7 @@ class BbkGamepads final : public flutter::Plugin {
       {Value("type"), Value(connected ? "connected" : "disconnected")}}));
   }
   void Analog(DWORD i, const char* key, double before, double after) {
-    if (std::abs(before - after) > .002 || (before != 0 && after == 0)) Emit(i, key, after, true);
+    if (before != after) Emit(i, key, after, true);
   }
 
   /// 四个槽位固定上限；读取失败只清除该槽，所有输出结构在调用前初始化为零。

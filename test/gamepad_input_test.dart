@@ -119,6 +119,22 @@ void main() {
     router.dispose();
   });
 
+  testWidgets('45度附近摇杆噪声不切换主轴，不以重新按下形式连续多走', (tester) async {
+    final pulses = <GamepadAction>[];
+    final router = GamepadInputRouter(onInput: pulses.add, enabled: () => true);
+    router.handle(event(axis: GamepadAxis.leftStickX, value: .8));
+    for (var i = 0; i < 20; i++) {
+      router.handle(
+        event(axis: GamepadAxis.leftStickY, value: .81 + (i % 2) * .01),
+      );
+      router.handle(
+        event(axis: GamepadAxis.leftStickX, value: .8 + (i % 2) * .01),
+      );
+    }
+    expect(pulses, [GamepadAction.right]);
+    router.dispose();
+  });
+
   testWidgets('页面离开前清理输入；未提供原生插件时仍能正常打开页面', (tester) async {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
