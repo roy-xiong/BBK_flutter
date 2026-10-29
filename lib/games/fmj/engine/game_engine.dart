@@ -81,7 +81,6 @@ final class GameEngine {
     'portraitControls': false,
     'manualLayout': false,
     'wideView': true,
-    'smoothWalking': true,
     'hd': true,
     'runSpeed': 1,
     'autoBattle': false,

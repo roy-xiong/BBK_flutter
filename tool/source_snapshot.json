@@ -48,7 +48,7 @@
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "dc6aacde0579c22170a0751272793e5131dacc33869da5d501c8a7b80e67abc4"
+      "importedSha256": "c7cfa6c1a0c1d240fa9036f44894c4b2972a2575fd593c0f68b8ee28275cbf18"
     },
     {
       "game": "fmj",
@@ -293,7 +293,7 @@
       "source": "assets/modern/enhanced-00.png",
       "destination": "assets/fmj/modern/enhanced-00.png",
       "sourceSha256": "a23454a3f68d1fcd3083e623107dddb3b232db9fc622cee82bc8f81de294240b",
-      "importedSha256": "08c6765920bc6ed0ba8fcd9e408dfef748e18506c08a30b88d71631ba7e3a125"
+      "importedSha256": "97baad8e994b43215ee20ba072fb1e7ec2341d4b48d3defa369034f8d8128c78"
     },
     {
       "game": "fmj",
@@ -321,7 +321,7 @@
       "source": "assets/modern/enhanced-04.png",
       "destination": "assets/fmj/modern/enhanced-04.png",
       "sourceSha256": "1c29ad7b1e297216c27b2be2dc9d42ec290cc0829ad120dcf87a6e0bc96ad641",
-      "importedSha256": "ba41cdb234f8ceac4da5fc3c6ff66c0a4e1e653ee2d72c2ae3b79c390489fa73"
+      "importedSha256": "fba763631518a7632c9fa76293dc0a05885fa682825328eaeb5852fb5fedf629"
     },
     {
       "game": "fmj",
@@ -384,14 +384,14 @@
       "source": "assets/modern/enhanced-art-sources.json",
       "destination": "assets/fmj/modern/enhanced-art-sources.json",
       "sourceSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e",
-      "importedSha256": "b3c261c51732566aa50b652d8a1fee4d8575ec9964abe4afc03a6b26cc0ebe53"
+      "importedSha256": "01119d65e96256d8a18254033d852ca72078f71b9753228e31c0e15c8ab84f2c"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "609a70e32e5d2109b40ddcce74abaabcc9fc538641f01b54b34c10dfee8d2d3c"
+      "importedSha256": "da7a663babbf337441b739e6fee11b0dbfd984e2af71b4ede3d011a0659161b8"
     },
     {
       "game": "fmj",
@@ -3081,6 +3081,36 @@
       "previousImportedSha256": "9727b3c04d2d1d9b306cadee99d073f25f04044c7846281d56ffd1f16e94c470",
       "currentSha256": "08c6765920bc6ed0ba8fcd9e408dfef748e18506c08a30b88d71631ba7e3a125",
       "reason": "柜台支承层只保留连续木板，去除重复复制的算盘和账本，其他图集帧不变"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "dc6aacde0579c22170a0751272793e5131dacc33869da5d501c8a7b80e67abc4",
+      "currentSha256": "c7cfa6c1a0c1d240fa9036f44894c4b2972a2575fd593c0f68b8ee28275cbf18",
+      "reason": "按用户要求恢复b7da41b版本柳清风24个旧帧及逐格移动，移除平滑选项；其他角色与场景精灵像素保持原样"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-00.png",
+      "previousImportedSha256": "08c6765920bc6ed0ba8fcd9e408dfef748e18506c08a30b88d71631ba7e3a125",
+      "currentSha256": "97baad8e994b43215ee20ba072fb1e7ec2341d4b48d3defa369034f8d8128c78",
+      "reason": "按用户要求恢复b7da41b版本柳清风24个旧帧及逐格移动，移除平滑选项；其他角色与场景精灵像素保持原样"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-04.png",
+      "previousImportedSha256": "ba41cdb234f8ceac4da5fc3c6ff66c0a4e1e653ee2d72c2ae3b79c390489fa73",
+      "currentSha256": "fba763631518a7632c9fa76293dc0a05885fa682825328eaeb5852fb5fedf629",
+      "reason": "按用户要求恢复b7da41b版本柳清风24个旧帧及逐格移动，移除平滑选项；其他角色与场景精灵像素保持原样"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art-sources.json",
+      "previousImportedSha256": "b3c261c51732566aa50b652d8a1fee4d8575ec9964abe4afc03a6b26cc0ebe53",
+      "currentSha256": "01119d65e96256d8a18254033d852ca72078f71b9753228e31c0e15c8ab84f2c",
+      "reason": "按用户要求恢复b7da41b版本柳清风24个旧帧及逐格移动，移除平滑选项；其他角色与场景精灵像素保持原样"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "609a70e32e5d2109b40ddcce74abaabcc9fc538641f01b54b34c10dfee8d2d3c",
+      "currentSha256": "da7a663babbf337441b739e6fee11b0dbfd984e2af71b4ede3d011a0659161b8",
+      "reason": "按用户要求恢复b7da41b版本柳清风24个旧帧及逐格移动，移除平滑选项；其他角色与场景精灵像素保持原样"
     }
   ]
 }

@@ -788,7 +788,6 @@ final class _SettingsPanel extends StatelessWidget {
               for (final entry in [
                 ('controlsVisible', '屏幕按键', Icons.sports_esports),
                 ('hapticsEnabled', '按键震动', Icons.vibration),
-                ('smoothWalking', '平滑步行', Icons.motion_photos_on),
                 ('hd', '角色扮演游戏高清画质', Icons.hd),
               ])
                 SwitchListTile(

@@ -1,0 +1,245 @@
+{
+  "sourceCommit": "b7da41b",
+  "frames": {
+    "world:hero:1:1/0": {
+      "frame": [
+        8,
+        1657,
+        300,
+        192,
+        288
+      ],
+      "rgbaSha256": "5a93af800b58dcb3aa2279b501f32513cc16a305d7a92634f78a85a17dd5cd3c"
+    },
+    "world:hero:1:1/1": {
+      "frame": [
+        8,
+        352,
+        300,
+        192,
+        288
+      ],
+      "rgbaSha256": "84bf2ce490768f292800a9977d82d594aa1c3401414a0ee769bc04170eb84986"
+    },
+    "world:hero:1:1/2": {
+      "frame": [
+        8,
+        552,
+        312,
+        192,
+        288
+      ],
+      "rgbaSha256": "67a9bd907f65726d9a2ed8112931387530dd32c22cedd7421517d32da30e3364"
+    },
+    "world:hero:1:3/0": {
+      "frame": [
+        8,
+        4,
+        396,
+        192,
+        288
+      ],
+      "rgbaSha256": "707abcfec199896b9177c8e5f48afe12f727c7f76d3c0e9bc8c90c283f60dcf9"
+    },
+    "world:hero:1:3/1": {
+      "frame": [
+        8,
+        1230,
+        584,
+        192,
+        288
+      ],
+      "rgbaSha256": "627e0c90af37059289a2c74f2012635a6850cccec69a1264a47baa32523b232d"
+    },
+    "world:hero:1:3/2": {
+      "frame": [
+        8,
+        1430,
+        587,
+        192,
+        288
+      ],
+      "rgbaSha256": "23eb5326e15c455cdfb46db7e68e06cf65e1ac96c90c0139a6dfb8ac005e43b6"
+    },
+    "world:hero:1:4/0": {
+      "frame": [
+        8,
+        204,
+        596,
+        192,
+        288
+      ],
+      "rgbaSha256": "fd9bf8f850affbebae58b49a09eb82dbefa9511b7173c199be1a16f92d2c1d13"
+    },
+    "world:hero:1:4/1": {
+      "frame": [
+        8,
+        752,
+        596,
+        192,
+        288
+      ],
+      "rgbaSha256": "0d8aabd57b716dba4681c572895154c574f5ab1dd3f32b32adf4c6691b056092"
+    },
+    "world:hero:1:4/2": {
+      "frame": [
+        8,
+        952,
+        596,
+        192,
+        288
+      ],
+      "rgbaSha256": "16849bca334ed5ac6a82cc89e9666e828a14d8a90f18182965a0075c6ca84e94"
+    },
+    "world:hero:1:2/0": {
+      "frame": [
+        8,
+        1630,
+        596,
+        192,
+        288
+      ],
+      "rgbaSha256": "6254d41a4e88d642949479195242579b0e256f134b106133660a28644d97fd73"
+    },
+    "world:hero:1:2/1": {
+      "frame": [
+        8,
+        1830,
+        596,
+        192,
+        288
+      ],
+      "rgbaSha256": "518451bcbc54361cf429eec476a1dce3bf0cd4ed0a0bf6ff49f4e9647ce251c7"
+    },
+    "world:hero:1:2/2": {
+      "frame": [
+        8,
+        404,
+        608,
+        192,
+        288
+      ],
+      "rgbaSha256": "e7ec5657fa0c5d42ae331c0d666de6c7c284d7acc8568b4311ed066787cf5bc1"
+    },
+    "battle:hero:1/0": {
+      "frame": [
+        0,
+        676,
+        750,
+        512,
+        512
+      ],
+      "rgbaSha256": "3bb88501bc3ed8e05435f979aa6679eeb25c5171a2936cbe18ba27abccc953df"
+    },
+    "battle:hero:1/1": {
+      "frame": [
+        0,
+        4,
+        775,
+        512,
+        512
+      ],
+      "rgbaSha256": "82ea90726224220d8a53ad89f2889218b872a4ff72e1120b603cc13ceb950046"
+    },
+    "battle:hero:1/2": {
+      "frame": [
+        0,
+        4,
+        775,
+        512,
+        512
+      ],
+      "rgbaSha256": "82ea90726224220d8a53ad89f2889218b872a4ff72e1120b603cc13ceb950046"
+    },
+    "battle:hero:1/3": {
+      "frame": [
+        0,
+        1196,
+        1245,
+        512,
+        512
+      ],
+      "rgbaSha256": "8394746afd36b4b4f2a34d4e868bd95ae8f83f57e791f54cef5ba2a24511c94a"
+    },
+    "battle:hero:1/4": {
+      "frame": [
+        0,
+        1196,
+        1245,
+        512,
+        512
+      ],
+      "rgbaSha256": "8394746afd36b4b4f2a34d4e868bd95ae8f83f57e791f54cef5ba2a24511c94a"
+    },
+    "battle:hero:1/5": {
+      "frame": [
+        0,
+        676,
+        750,
+        512,
+        512
+      ],
+      "rgbaSha256": "3bb88501bc3ed8e05435f979aa6679eeb25c5171a2936cbe18ba27abccc953df"
+    },
+    "battle:hero:1/6": {
+      "frame": [
+        0,
+        524,
+        1270,
+        512,
+        512
+      ],
+      "rgbaSha256": "b5f8baa8c4a4106b47a6645c3d976219b8c5734b5da7743b6c1cd0ba690f79dc"
+    },
+    "battle:hero:1/7": {
+      "frame": [
+        0,
+        524,
+        1270,
+        512,
+        512
+      ],
+      "rgbaSha256": "b5f8baa8c4a4106b47a6645c3d976219b8c5734b5da7743b6c1cd0ba690f79dc"
+    },
+    "battle:hero:1/8": {
+      "frame": [
+        0,
+        524,
+        1270,
+        512,
+        512
+      ],
+      "rgbaSha256": "b5f8baa8c4a4106b47a6645c3d976219b8c5734b5da7743b6c1cd0ba690f79dc"
+    },
+    "battle:hero:1/9": {
+      "frame": [
+        0,
+        4,
+        1295,
+        512,
+        512
+      ],
+      "rgbaSha256": "343a806bb4ddabf1b2d0a06a4554b677267ff9259b6d365d69f7171fec29bab8"
+    },
+    "battle:hero:1/10": {
+      "frame": [
+        1,
+        4,
+        4,
+        512,
+        512
+      ],
+      "rgbaSha256": "990f46ebf73c17c15c05e2be31648bab6c90a022ffb9d14787e4b19e54524f3b"
+    },
+    "battle:hero:1/11": {
+      "frame": [
+        1,
+        524,
+        4,
+        512,
+        512
+      ],
+      "rgbaSha256": "7cee23769ca693e47fc1772a5afacbd71b94147d1621e3ce57359637755c2bfe"
+    }
+  }
+}

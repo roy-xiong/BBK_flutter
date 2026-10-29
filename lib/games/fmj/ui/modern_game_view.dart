@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:flutter/scheduler.dart';
 import 'modern_scene.dart';
 import 'modern_art.dart';
 import 'modern_battle_hud.dart';
@@ -150,49 +149,9 @@ final class _WorldInformation extends StatelessWidget {
 }
 
 /// 新版只消费同一会话的状态与输入命令；场景投影不参与碰撞或剧情判断。
-final class _ModernSceneView extends StatefulWidget {
+final class _ModernSceneView extends StatelessWidget {
   const _ModernSceneView({required this.model});
   final GameViewModel model;
-  @override
-  State<_ModernSceneView> createState() => _ModernSceneViewState();
-}
-
-final class _ModernSceneViewState extends State<_ModernSceneView>
-    with SingleTickerProviderStateMixin {
-  GameViewModel get model => widget.model;
-  late final Ticker _ticker;
-  void _motionChanged() {
-    if (model.worldMotion.moving && !_ticker.isActive) _ticker.start();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _ticker = createTicker((_) {
-      model.worldMotion.pulse();
-      if (!model.worldMotion.moving) _ticker.stop();
-    });
-    model.worldMotion.addListener(_motionChanged);
-    _motionChanged();
-  }
-
-  @override
-  void didUpdateWidget(covariant _ModernSceneView oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.model != model) {
-      oldWidget.model.worldMotion.removeListener(_motionChanged);
-      model.worldMotion.addListener(_motionChanged);
-      _motionChanged();
-    }
-  }
-
-  @override
-  void dispose() {
-    model.worldMotion.removeListener(_motionChanged);
-    _ticker.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     if (model.modernArt == null) unawaited(model.prepareModernArt());
@@ -250,7 +209,6 @@ final class _ModernSceneViewState extends State<_ModernSceneView>
                       game,
                       model.modernArt,
                       revision: model.sceneRevision,
-                      motion: model.worldMotion,
                       textStyle: DefaultTextStyle.of(context).style,
                     ),
                   ),

@@ -11,7 +11,6 @@ import 'package:bbk_flutter/games/fmj/ui/modern_scene.dart';
 import 'package:bbk_flutter/games/fmj/ui/system_font_layout.dart';
 import 'package:bbk_flutter/games/fmj/data/game_data.dart';
 import 'game_engine_test.dart' show loadData;
-import 'package:bbk_flutter/games/fmj/ui/world_motion.dart';
 import 'package:bbk_flutter/games/fmj/ui/modern_map_camera.dart';
 
 /// 固定菜单、作弊收拢、原落石及状态免疫不能只依赖静态资源存在。
@@ -92,44 +91,25 @@ void main() {
     }
   });
 
-  test('平滑步行在两格之间显示连续位置，镜头随之连续，原坐标和剧情不变', () {
-    var time = Duration.zero;
-    final g = create();
-    final motion = WorldMotion(clock: () => time);
-    final player = g.player!
-      ..x = 20
-      ..y = 12;
+  test('恢复逐格人物和镜头，新旧存档的平滑选项均不再启用', () {
+    final g = create(), player = create().player!;
+    expect(g.preferences.containsKey('smoothWalking'), false);
     g.setPreference('smoothWalking', true);
-    motion.capture(g);
-    player.x++;
-    motion.capture(g);
-    expect(motion.position(player).dx, 20);
-    time = const Duration(microseconds: 52500);
-    final p = motion.position(player);
-    expect(p.dx, closeTo(20.5, .001));
-    expect(player.x, 21);
-    final camera = ModernMapCamera(
+    expect(g.preferences.containsKey('smoothWalking'), false);
+    player.x = 20;
+    player.y = 12;
+    ModernMapCamera camera() => ModernMapCamera(
       mapWidth: 60,
       mapHeight: 40,
-      playerX: p.dx,
-      playerY: p.dy,
+      playerX: player.x,
+      playerY: player.y,
       wide: true,
     );
-    expect(camera.viewLeft, closeTo(10.5, .001));
-    expect(camera.paintColumns, 21);
-    expect(camera.point(p.dx, p.dy).dx, 320);
-    time = const Duration(milliseconds: 106);
-    expect(motion.position(player).dx, 21);
-    expect(motion.moving, false);
-    player.x = 40;
-    motion.capture(g);
-    expect(motion.position(player).dx, 40, reason: '传送与切图不能做跨地图滑动');
-    g.setPreference('smoothWalking', false);
-    motion.capture(g);
+    expect(camera().left, 10);
     player.x++;
-    motion.capture(g);
-    expect(motion.position(player).dx, 41);
-    motion.dispose();
+    expect(camera().left, 11);
+    expect(camera().columns, 20);
+    expect(camera().point(player.x, player.y), const Offset(320, 192));
   });
 
   testWidgets('取伏魔剑后的落石SRS叠帧出现在正式彩色场景', (tester) async {

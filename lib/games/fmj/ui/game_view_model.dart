@@ -11,7 +11,6 @@ import '../engine/pixel_surface.dart';
 import 'system_font_layout.dart';
 import 'modern_art.dart';
 import 'modern_map_camera.dart';
-import 'world_motion.dart';
 import 'game_keyboard_bindings.dart';
 
 /// 前台会话与 Flutter 帧桥接；同一时刻最多解码一张图片，销毁后及时释放 GPU 资源。
@@ -20,7 +19,6 @@ final class GameViewModel extends ChangeNotifier {
     : repository = repository ?? SaveRepository();
   final SaveRepository repository;
   GameEngine? engine;
-  final worldMotion = WorldMotion();
   GameKeyboardBindings keyboardBindings = GameKeyboardBindings.defaults;
 
   /// 与 BBK 保持相同的多键绑定、冲突迁移及即时保存行为。
@@ -235,18 +233,15 @@ final class GameViewModel extends ChangeNotifier {
         !(ui.Offset.zero & size).contains(position)) {
       return;
     }
-    final visual = classic ? null : worldMotion.position(player);
     final camera = ModernMapCamera(
       mapWidth: map.width,
       mapHeight: map.height,
-      playerX: visual?.dx ?? player.x,
-      playerY: visual?.dy ?? player.y,
+      playerX: player.x,
+      playerY: player.y,
       wide: game.wide,
     );
-    final x = (camera.viewLeft + position.dx / size.width * camera.columns)
-        .floor();
-    final y = (camera.viewTop + position.dy / size.height * camera.rows)
-        .floor();
+    final x = (camera.left + position.dx / size.width * camera.columns).floor();
+    final y = (camera.top + position.dy / size.height * camera.rows).floor();
     game.moneyFarm.stop();
     game.navigation.cancel();
     game.notice = game.walkTo(x, y, nearest: true)
@@ -257,7 +252,6 @@ final class GameViewModel extends ChangeNotifier {
 
   void setPaused(bool value) {
     paused = value;
-    if (value) worldMotion.settle();
     _held = null;
     if (value) unawaited(persist());
     notifyListeners();
@@ -305,7 +299,6 @@ final class GameViewModel extends ChangeNotifier {
   void _render({bool force = true}) {
     final game = engine;
     if (_disposed || game == null) return;
-    worldMotion.capture(game);
     if (_decoding) {
       _dirty = true;
       return;
@@ -403,7 +396,6 @@ final class GameViewModel extends ChangeNotifier {
     engine?.onSaveChanged = null;
     engine?.moneyFarm.stop();
     engine?.navigation.cancel();
-    worldMotion.dispose();
     image?.dispose();
     image = null;
     modernArt?.dispose();
