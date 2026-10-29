@@ -391,7 +391,7 @@
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "b2da188cb980d161d99e51c905ca722b51893dca5cc489cd1267d56767c71b23"
+      "importedSha256": "3e477e83fc7ccf6a479478e6b255a8e716704c4e25fbe87b3f1c023404097347"
     },
     {
       "game": "fmj",
@@ -3141,6 +3141,12 @@
       "previousImportedSha256": "b9a8d09c374a586c678fdfb84907a96089a59287492972fd524d9e664cc43d50",
       "currentSha256": "b2da188cb980d161d99e51c905ca722b51893dca5cc489cd1267d56767c71b23",
       "reason": "依照续审2导出的32张地图意见，补齐柱式四象、石灯井箱衣架及场景专用墙地底材；44项通过保持原样"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "b2da188cb980d161d99e51c905ca722b51893dca5cc489cd1267d56767c71b23",
+      "currentSha256": "3e477e83fc7ccf6a479478e6b255a8e716704c4e25fbe87b3f1c023404097347",
+      "reason": "按原四片谷仓组合定位，避免相邻两座谷仓被连通域合并"
     }
   ]
 }

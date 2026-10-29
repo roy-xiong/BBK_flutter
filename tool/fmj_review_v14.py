@@ -121,7 +121,11 @@ def main():
                 if v&127==50:add('review-v11:signpost',[i],1.4)
             notes.append('原路口提示格恢复完整木路牌，保留原坐标和脚本。')
         if mid=='1:41':
-            grouped('review-v11:granary',{120,121,122,123},2.6)
+            # 两座上下相邻的谷仓会共边，不能用连通域把它们合成一座高仓。
+            for i,v in enumerate(m['cells']):
+                if v&127==120 and i+w+1<len(m['cells']):
+                    assert [m['cells'][i+1]&127,m['cells'][i+w]&127,m['cells'][i+w+1]&127]==[121,122,123]
+                    add('review-v11:granary',[i,i+1,i+w,i+w+1],2.6)
             notes.append('六组仓身旧图恢复竹编茅草谷仓，覆盖完整顶盖与仓身。')
         if mid in ['1:43','1:44']:
             for i,v in enumerate(m['cells']):
