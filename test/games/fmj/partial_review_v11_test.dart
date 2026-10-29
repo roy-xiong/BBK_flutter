@@ -40,7 +40,14 @@ void main() {
       final art = await ModernArt.load();
       try {
         expect(art.tileOverrides['1:3']?[32]?.$1, 'earth');
-        expect(art.tileOverrides['1:3']?[86]?.$3, 'review-v11:edge-86/0');
+        expect(art.tileOverrides['1:3']?[86]?.$1, 'bamboo-forest');
+        expect(art.tileOverrides['1:3']?[86]?.$3, isNull);
+        expect(
+          art.decorations['1:3']!.any(
+            (b) => b.key == 'review-v11:rock-outcrop' && b.x == 16 && b.y == 2,
+          ),
+          true,
+        );
         expect(art.tileOverrides['1:13']?[19]?.$1, 'bamboo-forest');
         expect(art.tileOverrides['1:10'], isNull);
         for (final key in [

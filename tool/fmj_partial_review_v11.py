@@ -30,8 +30,11 @@ def native_tile(tileset,tile):
 def edge_tile(tile,rock):
     # 填平原16像素石壁内部的点阵孔隙，保留轮廓/转角；不再把石壁直接铺成矩形石板。
     mask=native_tile(2,tile).filter(ImageFilter.MaxFilter(3)).filter(ImageFilter.MinFilter(3)).resize((64,64),R)
-    texture=rock.crop((0,0,64,64)).convert('RGBA')
-    pixels=np.array(texture);yy,xx=np.mgrid[:64,:64];light=.74+.29*(1-xx/64)+.08*(1-yy/64);pixels[:,:,:3]=(pixels[:,:,:3]*light[:,:,None]).clip(0,255).astype('uint8');pixels[:,:,3]=np.array(mask)
+    # 小切片不能反复取同一块石砖纹理；低对比风化纹理避免在山壁上形成棋盘格。
+    yy,xx=np.mgrid[:64,:64]
+    grain=np.sin(xx*.17+yy*.11)*3+np.sin(xx*.61-yy*.27)*1.7+np.cos(yy*.43)*1.3
+    base=np.array([106,118,99]);light=.86+.16*(1-xx/64)+.06*(1-yy/64)
+    pixels=np.zeros((64,64,4),dtype='uint8');pixels[:,:,:3]=((base+grain[:,:,None])*light[:,:,None]).clip(0,255).astype('uint8');pixels[:,:,3]=np.array(mask)
     result=Image.fromarray(pixels)
     # 暗边与局部高光强调石壁体积，像素轮廓来自原图，留白显示同一泥土地。
     rim=Image.fromarray(np.maximum(0,np.array(mask,dtype='int16')-np.array(mask.filter(ImageFilter.MinFilter(3)),dtype='int16')).astype('uint8'))
@@ -108,7 +111,8 @@ def main():
         rules={}
         for t in[15,16,18,19]:rules[str(t)]=['bamboo-forest','floor',None]
         for t in[32,37]:rules[str(t)]=['earth','floor',None]
-        for t in[38,*range(43,66),*range(72,79),*range(86,94)]:rules[str(t)]=['earth','cliff-edge',f'review-v11:edge-{t}/0']
+        for t in[38,*range(43,66),*range(72,79),92,93]:rules[str(t)]=['earth','cliff-edge',f'review-v11:edge-{t}/0']
+        for t in range(86,92):rules[str(t)]=['bamboo-forest','floor',None]
         for t in range(79,86):rules[str(t)]=['earth','bridge',f'review-v11:wood-{t}/0']
         for t in[29,30,112,113,114]:rules[str(t)]=['earth','steps-rail',f'review-v11:stone-{t}/0']
         overrides[mid]=rules
@@ -117,6 +121,20 @@ def main():
         b={'key':key,'x':x,'y':y,'width':w,'height':h,'cells':cells}
         if visual:b['visualHeight']=visual
         rows.append(b)
+    hd['frames']['review-v11:rock-outcrop/0']=hd['frames']['plant:rock/0']
+    sources['frames']['review-v11:rock-outcrop/0']={'alias':'plant:rock/0','details':'完整原岩石组合，不逐格裁成散片'}
+    for mid in TERRAIN_MAPS:
+        m=maps[mid];w=m['width'];seen=set();candidates={i for i,v in enumerate(m['cells'])if v&127 in range(86,92)}
+        for start in sorted(candidates):
+            if start in seen:continue
+            todo=[start];component=[];seen.add(start)
+            while todo:
+                cell=todo.pop();component.append(cell);xx=cell%w;yy=cell//w
+                for nx,ny in[(xx-1,yy),(xx+1,yy),(xx,yy-1),(xx,yy+1)]:
+                    nxt=ny*w+nx
+                    if 0<=nx<w and 0<=ny<m['height']and nxt in candidates and nxt not in seen:seen.add(nxt);todo.append(nxt)
+            xx=min(c%w for c in component);yy=min(c//w for c in component);span=max(c%w for c in component)-xx+1;height=max(c//w for c in component)-yy+1
+            add(mid,'review-v11:rock-outcrop',xx,yy,span,height,component)
     for mid in ['1:1','1:20','1:25','1:30']:
         m=maps[mid];w=m['width']
         for i,value in enumerate(m['cells']):

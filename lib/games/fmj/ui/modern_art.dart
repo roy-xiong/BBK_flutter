@@ -113,6 +113,7 @@ final class ModernArt {
           'furniture:screen-front/0',
           'furniture:tea-table/0',
           'building:house-north/0',
+          'review-v11:rock-outcrop/0',
         }.contains(key) &&
         footprint.width / footprint.height >
             source.width / source.height * 1.35;

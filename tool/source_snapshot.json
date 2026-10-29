@@ -384,14 +384,14 @@
       "source": "assets/modern/enhanced-art-sources.json",
       "destination": "assets/fmj/modern/enhanced-art-sources.json",
       "sourceSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e",
-      "importedSha256": "1d4e91ed78e24dbf16951f95cd51e9726490d576a5cb97268c89732e09dfd4d9"
+      "importedSha256": "b18cb1f29ffc04977c254a32fe71297e18eca59169de8bca8f0be26dfa4f6320"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "caefa0ba8b17f82e51e20fa0b9939749978ec63212734303eb575a05d8b84ebe"
+      "importedSha256": "d099284010904dcab267a89ac3ce852d1101e950ec58a6e0d9b9764597dc181f"
     },
     {
       "game": "fmj",
@@ -2231,7 +2231,7 @@
     {
       "game": "fmj",
       "destination": "assets/fmj/modern/partial-review-v11.png",
-      "importedSha256": "5fdd61a768b85e5d18f301b3710bb431a273ead4f7dde428a200b6873ae3c407",
+      "importedSha256": "5dcb9e782f13a3a5375b1cedcd268c78a5a489e76c1dfd9d3a171557c3fe4ff5",
       "approval": "用户本轮已导出的19项局部审核意见"
     }
   ],
@@ -2997,6 +2997,24 @@
       "previousImportedSha256": "9be22dcb0822e2a944e25b80ce0a8176c48ecca4b6d8fb6634519a02775e446e",
       "currentSha256": "caefa0ba8b17f82e51e20fa0b9939749978ec63212734303eb575a05d8b84ebe",
       "reason": "只替换庭院两座审核香炉；压缩谷仓按原相邻片合并，避免重叠"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art-sources.json",
+      "previousImportedSha256": "1d4e91ed78e24dbf16951f95cd51e9726490d576a5cb97268c89732e09dfd4d9",
+      "currentSha256": "b18cb1f29ffc04977c254a32fe71297e18eca59169de8bca8f0be26dfa4f6320",
+      "reason": "渲染核对后合并完整岩块并统一竹林底色，避免岩石下方出现泥土方框或残片；边缘石壁去除重复棋盘纹理"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "caefa0ba8b17f82e51e20fa0b9939749978ec63212734303eb575a05d8b84ebe",
+      "currentSha256": "d099284010904dcab267a89ac3ce852d1101e950ec58a6e0d9b9764597dc181f",
+      "reason": "渲染核对后合并完整岩块并统一竹林底色，避免岩石下方出现泥土方框或残片；边缘石壁去除重复棋盘纹理"
+    },
+    {
+      "destination": "assets/fmj/modern/partial-review-v11.png",
+      "previousImportedSha256": "5fdd61a768b85e5d18f301b3710bb431a273ead4f7dde428a200b6873ae3c407",
+      "currentSha256": "5dcb9e782f13a3a5375b1cedcd268c78a5a489e76c1dfd9d3a171557c3fe4ff5",
+      "reason": "渲染核对后合并完整岩块并统一竹林底色，避免岩石下方出现泥土方框或残片；边缘石壁去除重复棋盘纹理"
     }
   ]
 }
