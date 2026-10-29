@@ -6,7 +6,7 @@ import 'package:bbk_flutter/games/fmj/ui/modern_art.dart';
 /// 审核补丁不能借共享图块改变已通过/未审核场景；所有新图必须真正接入生产加载。
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  test('64张未修改地图含4张已通过地图保持原布局且无场景图块覆写', () {
+  test('前轮保留地图除本轮明确补绘的室内场景外保持原布局', () {
     final hd = GameData.decodeObject(
       File('assets/fmj/modern/enhanced-art.json').readAsStringSync(),
     );
@@ -16,7 +16,9 @@ void main() {
       ).readAsStringSync(),
     );
     expect(original.length, 64);
+    final indoor = (hd['interiorReviewV12']?['maps'] as List? ?? []).toSet();
     for (final entry in original.entries) {
+      if (indoor.contains(entry.key)) continue;
       expect(
         hd['buildings'][entry.key] ?? [],
         entry.value['buildings'],

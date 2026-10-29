@@ -114,11 +114,18 @@ final class ModernArt {
           'furniture:tea-table/0',
           'building:house-north/0',
           'review-v11:rock-outcrop/0',
+          'interior-v12:bookcase/0',
+          'interior-v12:screen-front/0',
+          'interior-v12:tea-table/0',
         }.contains(key) &&
         footprint.width / footprint.height >
             source.width / source.height * 1.35;
     final vertical =
-        key == 'furniture:screen-side/0' &&
+        const {
+          'furniture:screen-side/0',
+          'interior-v12:screen-side/0',
+          'interior-v12:herb-rack/0',
+        }.contains(key) &&
         footprint.height / footprint.width >
             source.height / source.width * 1.35;
     if (!horizontal && !vertical) {
