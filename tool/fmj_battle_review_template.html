@@ -15,7 +15,7 @@ function toast(s){$('toast').textContent=s;$('toast').style.display='block';setT
 function progress(){const n=cases.filter(c=>review(c.id).status!=='未审核').length;$('progress').textContent=`已审核 ${n}/${cases.length}`;}
 function option(select,value,label=value){const o=document.createElement('option');o.value=value;o.textContent=label;select.append(o);}
 $('summary').textContent=`${cases.length}项案例 · 3名我方 · 63条敌人定义 · 107项技能 · 68套SRS`;
-$('revision').textContent=`当前版本 ${DATA.version} · 提交 ${DATA.revision.slice(0,12)} · 生成时间 ${DATA.createdAt} · 单文件离线文档`;
+$('revision').textContent=`当前版本 ${DATA.version} · 绘制来源 ${(DATA.renderRevision||DATA.revision).slice(0,12)} · 生成时间 ${DATA.createdAt} · 单文件离线文档`;
 for(const s of DATA.notes){const p=document.createElement('p');p.textContent=s;$('notes').append(p);}
 for(const group of Object.keys(DATA.summary.groups))option($('group'),group,`${group}（${DATA.summary.groups[group]}）`);
 for(const name of [...new Set(cases.map(c=>c.actorName))])option($('actor'),name);
