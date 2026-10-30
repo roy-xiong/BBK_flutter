@@ -40,6 +40,7 @@ jobs:
           name: battle-classic-${{ matrix.shard }}
           path: |
             build/battle-review/*-classic.webp
+            build/battle-review/*-classic.gif
             build/battle-review/classic-shard-*.json
           retention-days: 14
   document:

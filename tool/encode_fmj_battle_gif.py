@@ -8,6 +8,17 @@ def main():
     timeline=json.loads((a.input/'timeline.json').read_text())
     frames=[Image.open(a.input/r['file']).convert('RGB')for r in timeline]
     durations=[r['ms']for r in timeline]
+    if a.output.suffix.lower()=='.webp'and len(frames)==1:
+        # 黑白的虚弱/倒地等案例可能整段完全静止。单帧WebP不存动画时长，
+        # 改用带GCE时长的单帧GIF，不能篡改像素或伪造第二帧来凑动画。
+        out=a.output.with_suffix('.gif')
+        frames[0].save(out,format='GIF',duration=sum(durations),loop=0)
+        with Image.open(out)as image:
+            image.load()
+            assert image.info['duration']==sum(durations)
+            assert image.convert('RGB').tobytes()==frames[0].tobytes()
+        print(json.dumps({'frames':1,'durationMs':sum(durations),'bytes':out.stat().st_size,'extension':'gif'}))
+        return
     if a.output.suffix.lower()=='.webp':
         # 直接从正式PNG帧编码，避免先转GIF的256色限制损失细化动效的渐变细节。
         frames[0].save(a.output,format='WEBP',save_all=True,append_images=frames[1:],duration=durations,loop=0,lossless=True,method=4,minimize_size=True,exact=True)
@@ -18,7 +29,7 @@ def main():
                 animation.seek(i);animation.load();total+=animation.info.get('duration',0)
                 assert animation.convert('RGB').tobytes()==original.tobytes(),(i,'render pixels changed')
             assert total==sum(durations)
-            print(json.dumps({'frames':animation.n_frames,'durationMs':total,'bytes':a.output.stat().st_size}))
+            print(json.dumps({'frames':animation.n_frames,'durationMs':total,'bytes':a.output.stat().st_size,'extension':'webp'}))
         return
     # 从全过程取样，既包含背景/角色，也包含后来出现的技能色彩。
     samples=frames[::max(1,len(frames)//24)][:24]

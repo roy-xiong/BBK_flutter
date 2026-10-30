@@ -314,7 +314,7 @@ void main() {
               'gifFrames': info['frames'],
               'gifBytes': info['bytes'],
               'gifDurationMs': info['durationMs'],
-              if (format == 'webp') ...{
+              if (info['extension'] == 'webp') ...{
                 'webpFrames': info['frames'],
                 'webpBytes': info['bytes'],
                 'webpDurationMs': info['durationMs'],
