@@ -199,6 +199,14 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
       return;
     }
     switch (input) {
+      case GameControl.quickThrow:
+        model.action((g) => g.battle?.quickThrow());
+      case GameControl.chooseThrowWeapon:
+        model.action((g) => g.battle?.quickThrow(chooseWeapon: true));
+      case GameControl.quickMagic:
+        model.action((g) => g.battle?.quickMagic());
+      case GameControl.quickCoop:
+        model.action((g) => g.battle?.quickCoop());
       case GameControl.quickTravel:
         model.action((g) {
           g.moneyFarm.stop();
@@ -406,6 +414,9 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                           right: 0,
                           bottom: 0,
                           child: PortraitGameControlsPanel(
+                            showBattleButtons: game.battle != null,
+                            battleButtonsEnabled:
+                                game.battle?.canUseShortcuts == true,
                             isDarkTheme: dark,
                             onInput: _control,
                             hapticsEnabled:
@@ -419,6 +430,9 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                         ),
                       if (game != null && controlsVisible && !portrait)
                         GameControlsOverlay(
+                          showBattleButtons: game.battle != null,
+                          battleButtonsEnabled:
+                              game.battle?.canUseShortcuts == true,
                           onInput: _control,
                           hapticsEnabled:
                               game.preferences['hapticsEnabled'] != false,

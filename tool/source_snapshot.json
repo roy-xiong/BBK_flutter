@@ -41,14 +41,14 @@
       "source": "lib/engine/game_battle.dart",
       "destination": "lib/games/fmj/engine/game_battle.dart",
       "sourceSha256": "5375ae6aa517e1fc8de0296091ad7c2f8acf48eb93368643e773cb8f9167b071",
-      "importedSha256": "ea8e8e8a35abd520908792b336bea6dd1f769c3acdd51ad353f726a2fa661cb2"
+      "importedSha256": "bcc3d45b23f21b79123875053ed6cdbe6c2f941fc3bb26217e8043c11c2d5c6c"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "49fa7690a47b5ac15eafe07d75aad3bf90eb9b846d270b398b840b7fa16b6222"
+      "importedSha256": "16837024c1154dd195a1443e116c4150dcf945df512885fe01cb1555b8e78d07"
     },
     {
       "game": "fmj",
@@ -3514,6 +3514,18 @@
       "previousImportedSha256": "c7cfa6c1a0c1d240fa9036f44894c4b2972a2575fd593c0f68b8ee28275cbf18",
       "currentSha256": "f0160bc9a1a9003cddf4f30b3b8db601ac3a39bbdc2cb83504a8286fb2c276c0",
       "reason": "修复标题/开场页空存档菜单被主界面输入拦截，菜单优先接收返回和选择"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "49fa7690a47b5ac15eafe07d75aad3bf90eb9b846d270b398b840b7fa16b6222",
+      "currentSha256": "16837024c1154dd195a1443e116c4150dcf945df512885fe01cb1555b8e78d07",
+      "reason": "按用户要求新增战斗投掷、技能、合击快捷入口；长按选择备用武器，短按弯月刀优先，同回合预留库存及自动战斗保护；钨龙剑装备和投掷群攻，保存备用选择"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_battle.dart",
+      "previousImportedSha256": "ea8e8e8a35abd520908792b336bea6dd1f769c3acdd51ad353f726a2fa661cb2",
+      "currentSha256": "bcc3d45b23f21b79123875053ed6cdbe6c2f941fc3bb26217e8043c11c2d5c6c",
+      "reason": "按用户要求新增战斗投掷、技能、合击快捷入口；长按选择备用武器，短按弯月刀优先，同回合预留库存及自动战斗保护；钨龙剑装备和投掷群攻，保存备用选择"
     }
   ]
 }

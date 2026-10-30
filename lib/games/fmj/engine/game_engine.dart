@@ -71,6 +71,9 @@ final class GameEngine {
   final Set<int> flags = {};
   final List<int> variables = List.filled(240, 0);
   final Map<String, int> inventory = {};
+
+  /// 快捷投掷的备用武器；弯月刀优先级独立，不能覆盖玩家长按选择的备用项。
+  String? preferredThrowWeapon;
   final List<GameMenu> menus = [];
   final List<Map<String, dynamic>?> saves = List.filled(3, null);
 
@@ -213,6 +216,7 @@ final class GameEngine {
     npcs.clear();
     flags.clear();
     inventory.clear();
+    preferredThrowWeapon = null;
     menus.clear();
     variables.fillRange(0, variables.length, 0);
     money = 0;
@@ -1025,6 +1029,12 @@ final class GameEngine {
   }
 
   String goodsName(String id) => goods(id)?.text(6) ?? id;
+
+  /// 钨龙剑按用户指定同时支持装备群攻和投掷群攻；其他物品保留原ROM目标位。
+  /// 不改写ROM或角色数值，因此旧档装备钨龙剑也立即生效，卸下后立即恢复。
+  bool goodsTargetsAll(String id) =>
+      id == '7:9' || (goods(id)?.byte(28) ?? 0) & 16 != 0;
+
   String magicName(String id) => magic(id)?.text(6) ?? id;
   void addGoods(String id, [int count = 1]) {
     if (goods(id) != null) {
@@ -1123,6 +1133,7 @@ final class GameEngine {
     'players': players.map((p) => p.toJson()).toList(),
     'npcs': npcs.map((id, p) => MapEntry('$id', p.toJson())),
     'inventory': Map<String, int>.from(inventory),
+    'preferredThrowWeapon': preferredThrowWeapon,
     'script': cursor?.script.id,
     'timer': cursor?.timer ?? 0,
     'timerCounter': cursor?.timerCounter ?? 0,
@@ -1249,6 +1260,10 @@ final class GameEngine {
     inventory
       ..clear()
       ..addAll(nextInventory);
+    final preferred = j['preferredThrowWeapon'];
+    preferredThrowWeapon = preferred is String && goods(preferred)?.byte(0) == 7
+        ? preferred
+        : null;
     npcs
       ..clear()
       ..addAll(nextNpcs);

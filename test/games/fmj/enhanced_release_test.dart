@@ -564,7 +564,9 @@ void main() {
           find.byKey(const ValueKey('game-surface-layout')),
         );
         for (final label in [
-          '一键前往当前目标',
+          '投掷\n弯月刀',
+          '技能',
+          '合击',
           '选择关卡',
           '奔跑 1×',
           '自动战斗 关',
@@ -573,7 +575,13 @@ void main() {
           'B',
         ]) {
           expect(
-            viewport.overlaps(tester.getRect(find.text(label))),
+            viewport.overlaps(
+              tester.getRect(
+                label == '合击'
+                    ? find.byKey(const ValueKey('fmj-battle-coop'))
+                    : find.text(label),
+              ),
+            ),
             isFalse,
             reason: '新版画面不能被原版 $label 遮住',
           );

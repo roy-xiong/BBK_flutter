@@ -150,7 +150,7 @@ abstract final class ModernBattleEffects {
           record = item ? game.goods(resource) : game.magic(resource);
           name = item ? game.goodsName(resource) : game.magicName(resource);
           all = item
-              ? (record?.byte(28) ?? 0) & 16 != 0
+              ? game.goodsTargetsAll(resource)
               : (record?.byte(3) ?? 0) & 128 != 0;
         } else if (action.kind == 'coop') {
           final equipment = game.players.firstOrNull?.equipment.firstOrNull;

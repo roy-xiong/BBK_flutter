@@ -20,6 +20,10 @@ enum GameControl {
   search,
   help,
   toggleMoneyFarm,
+  quickThrow,
+  chooseThrowWeapon,
+  quickMagic,
+  quickCoop,
 }
 
 /// 按 BBK 原版尺寸、位置、配色和长按节奏保留的横屏悬浮控制区。
@@ -33,6 +37,8 @@ class GameControlsOverlay extends StatelessWidget {
     this.fmjAutoBattleEnabled = false,
     this.fmjRunSpeed = 1,
     this.fmjMoneyFarmActive = false,
+    this.showBattleButtons = false,
+    this.battleButtonsEnabled = false,
   });
   final bool hapticsEnabled,
       showFmjUtilityButtons,
@@ -40,6 +46,7 @@ class GameControlsOverlay extends StatelessWidget {
       fmjAutoBattleEnabled,
       fmjMoneyFarmActive;
   final int fmjRunSpeed;
+  final bool showBattleButtons, battleButtonsEnabled;
   final ValueChanged<GameControl> onInput;
 
   @override
@@ -71,6 +78,9 @@ class GameControlsOverlay extends StatelessWidget {
                   autoBattleEnabled: fmjAutoBattleEnabled,
                   runSpeed: fmjRunSpeed,
                   moneyFarmActive: fmjMoneyFarmActive,
+                  showBattleButtons: showBattleButtons,
+                  battleButtonsEnabled: battleButtonsEnabled,
+                  actionButtonSize: buttonSize,
                   onInput: onInput,
                 ),
               ),
@@ -107,6 +117,8 @@ class PortraitGameControlsPanel extends StatelessWidget {
     this.fmjAutoBattleEnabled = false,
     this.fmjRunSpeed = 1,
     this.fmjMoneyFarmActive = false,
+    this.showBattleButtons = false,
+    this.battleButtonsEnabled = false,
   });
   final bool isDarkTheme;
   final bool hapticsEnabled,
@@ -115,6 +127,7 @@ class PortraitGameControlsPanel extends StatelessWidget {
       fmjAutoBattleEnabled,
       fmjMoneyFarmActive;
   final int fmjRunSpeed;
+  final bool showBattleButtons, battleButtonsEnabled;
   final ValueChanged<GameControl> onInput;
 
   @override
@@ -154,6 +167,9 @@ class PortraitGameControlsPanel extends StatelessWidget {
                                   autoBattleEnabled: fmjAutoBattleEnabled,
                                   runSpeed: fmjRunSpeed,
                                   moneyFarmActive: fmjMoneyFarmActive,
+                                  showBattleButtons: showBattleButtons,
+                                  battleButtonsEnabled: battleButtonsEnabled,
+                                  actionButtonSize: actionButtonSize,
                                   onInput: onInput,
                                 ),
                                 const SizedBox(height: 14),
@@ -215,6 +231,9 @@ class _FmjUtilityButtons extends StatelessWidget {
     required this.runSpeed,
     required this.moneyFarmActive,
     required this.onInput,
+    this.showBattleButtons = false,
+    this.battleButtonsEnabled = false,
+    this.actionButtonSize = 68,
   });
 
   final bool hapticsEnabled;
@@ -223,6 +242,8 @@ class _FmjUtilityButtons extends StatelessWidget {
   final int runSpeed;
   final bool moneyFarmActive;
   final ValueChanged<GameControl> onInput;
+  final bool showBattleButtons, battleButtonsEnabled;
+  final double actionButtonSize;
 
   @override
   Widget build(BuildContext context) {
@@ -273,25 +294,40 @@ class _FmjUtilityButtons extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Tooltip(
-            message: '一键前往当前目标',
-            triggerMode: TooltipTriggerMode.manual,
-            child: _NesInputButton(
-              key: const ValueKey('fmj-quick-travel-large'),
-              width: 284,
-              height: 58,
-              color: const Color(0xFF23594E),
-              pressedColor: const Color(0xFF163C35),
-              borderRadius: BorderRadius.circular(9),
-              repeatable: true,
-              hapticsEnabled: hapticsEnabled,
-              label: '一键前往当前目标',
-              onPressed: () => onInput(GameControl.quickTravel),
-              child: const Text(
-                '一键前往当前目标',
-                style: TextStyle(color: Color(0xFFF0EEE8), fontSize: 15),
-              ),
-            ),
+          SizedBox(
+            key: const ValueKey('fmj-quick-travel-large'),
+            height: actionButtonSize.clamp(58.0, 76.0),
+            child: showBattleButtons
+                ? _BattleShortcutButtons(
+                    buttonSize: actionButtonSize,
+                    enabled: battleButtonsEnabled,
+                    hapticsEnabled: hapticsEnabled,
+                    onInput: onInput,
+                  )
+                : Center(
+                    child: Tooltip(
+                      message: '一键前往当前目标',
+                      triggerMode: TooltipTriggerMode.manual,
+                      child: _NesInputButton(
+                        width: 284,
+                        height: 58,
+                        color: const Color(0xFF23594E),
+                        pressedColor: const Color(0xFF163C35),
+                        borderRadius: BorderRadius.circular(9),
+                        repeatable: true,
+                        hapticsEnabled: hapticsEnabled,
+                        label: '一键前往当前目标',
+                        onPressed: () => onInput(GameControl.quickTravel),
+                        child: const Text(
+                          '一键前往当前目标',
+                          style: TextStyle(
+                            color: Color(0xFFF0EEE8),
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
           ),
           const SizedBox(height: 8),
           FittedBox(
@@ -328,6 +364,89 @@ class _FmjUtilityButtons extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// 战斗时使用辅助区首行，三个按钮与同布局A键同尺寸，保持普通/战斗操作区位置稳定。
+/// GestureDetector把长按与短按互斥：长按投掷只打开选择，不会在按下时先扔掉武器。
+class _BattleShortcutButtons extends StatelessWidget {
+  const _BattleShortcutButtons({
+    required this.buttonSize,
+    required this.enabled,
+    required this.hapticsEnabled,
+    required this.onInput,
+  });
+  final double buttonSize;
+  final bool enabled, hapticsEnabled;
+  final ValueChanged<GameControl> onInput;
+
+  @override
+  Widget build(BuildContext context) {
+    void send(GameControl input) {
+      if (!enabled) return;
+      if (hapticsEnabled) unawaited(HapticFeedback.selectionClick());
+      onInput(input);
+    }
+
+    Widget button(
+      String id,
+      String text,
+      String label,
+      GameControl input, {
+      GameControl? held,
+    }) => Semantics(
+      button: true,
+      enabled: enabled,
+      label: label,
+      child: Tooltip(
+        message: label,
+        triggerMode: TooltipTriggerMode.manual,
+        child: GestureDetector(
+          onTap: enabled ? () => send(input) : null,
+          onLongPress: enabled && held != null ? () => send(held) : null,
+          child: Container(
+            key: ValueKey('fmj-battle-$id'),
+            width: buttonSize,
+            height: buttonSize,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: enabled
+                  ? const Color(0xFF23594E)
+                  : const Color(0xFF45494B),
+              border: Border.all(color: const Color(0xFF10181B), width: 2),
+            ),
+            child: Text(
+              text,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              style: TextStyle(
+                color: const Color(0xFFF7F3EA),
+                fontSize: buttonSize * .19,
+                height: 1.2,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        button(
+          'throw',
+          '投掷\n弯月刀',
+          '短按投掷弯月刀或备用武器，长按选择背包武器',
+          GameControl.quickThrow,
+          held: GameControl.chooseThrowWeapon,
+        ),
+        const SizedBox(width: 8),
+        button('magic', '技能', '选择魔法技能', GameControl.quickMagic),
+        const SizedBox(width: 8),
+        button('coop', '合击', '选择合击目标', GameControl.quickCoop),
+      ],
     );
   }
 }

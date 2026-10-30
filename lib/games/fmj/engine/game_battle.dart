@@ -154,6 +154,10 @@ final class GameBattle {
   String? resource;
   bool auto = false, eventChecked = false, scriptPaused = false;
 
+  /// 快捷指令接管本轮余下选择，防止自动战斗在下一帧清空刚排入的投掷/技能。
+  /// 仅抑制当前选择阶段；回合开始后恢复偏好，不改玩家的自动战斗设置。
+  bool _manualShortcutSelection = false;
+
   /// 仅供彩色表现层保留本回合已执行的防御姿态；不参与原伤害或动作时序。
   /// 在原回合结束点统一清空，不能在动作完成后立即移除而让防御末帧消失。
   final Set<GameActor> defending = {};
@@ -170,6 +174,114 @@ final class GameBattle {
       : game.players[actorIndex.clamp(0, game.players.length - 1)];
   List<GameActor> get targets =>
       targetKind == 'help' || targetKind == 'item' ? game.players : monsters;
+
+  /// 快捷按钮只进入当前角色的指令选择阶段，不抢占剧情、弹窗或正在播放的动作。
+  bool get canUseShortcuts =>
+      identical(game.battle, this) &&
+      phase == 'select' &&
+      !scriptPaused &&
+      game.cursor?.running != true &&
+      game.operation == null &&
+      game.menus.isEmpty &&
+      selectedPlayer?.alive == true;
+
+  bool _attackAll(GameActor actor) =>
+      game.preferences['normalAttackAll'] == true ||
+      actor.attackStatus & 16 != 0 ||
+      actor.equipment[4] == '7:9';
+
+  /// 预留同回合尚未执行的投掷，避免两名队员同时使用背包里最后一把武器。
+  List<String> _throwWeapons() => game.inventory.keys.where((id) {
+    final reserved = queue
+        .where(
+          (a) => (a.kind == 'throw' || a.kind == 'item') && a.resource == id,
+        )
+        .length;
+    return game.allowTossArm &&
+        game.goods(id)?.byte(0) == 7 &&
+        (game.inventory[id] ?? 0) > reserved;
+  }).toList();
+
+  /// 短按：弯月刀、备用武器、打开选择；长按始终打开武器选择，不先触发短按。
+  /// 选择成功后沿用原回合队列，只在动作真正执行时消耗一把；取消不改库存或偏好。
+  void quickThrow({bool chooseWeapon = false}) {
+    if (!canUseShortcuts) return;
+    final available = _throwWeapons();
+    if (available.isEmpty) {
+      game.notice = game.allowTossArm ? '背包中没有可投掷的武器' : '当前不能投掷武器';
+      return;
+    }
+    auto = false;
+    _manualShortcutSelection = true;
+    if (!chooseWeapon) {
+      final preferred = game.preferredThrowWeapon;
+      final id = available.contains('7:19')
+          ? '7:19'
+          : preferred != null && available.contains(preferred)
+          ? preferred
+          : null;
+      if (id != null) {
+        _quickThrowWeapon(id);
+        return;
+      }
+    }
+    final actor = selectedPlayer;
+    game.openInventory(
+      mode: 'throw',
+      itemsProvider: _throwWeapons,
+      select: (id) {
+        if (!canUseShortcuts ||
+            !identical(actor, selectedPlayer) ||
+            !_throwWeapons().contains(id)) {
+          return;
+        }
+        game.preferredThrowWeapon = id;
+        _quickThrowWeapon(id);
+      },
+    );
+  }
+
+  void _quickThrowWeapon(String id) {
+    final actor = selectedPlayer;
+    final living = monsters.where((m) => m.alive).toList();
+    if (actor == null || living.isEmpty) return;
+    final focused = monsters.elementAtOrNull(targetIndex);
+    _select(
+      BattleAction(
+        actor,
+        game.goodsTargetsAll(id)
+            ? living
+            : [focused != null && focused.alive ? focused : living.first],
+        'throw',
+        resource: id,
+      ),
+    );
+  }
+
+  /// 技能、合击直接进入既有指令流程，继续使用原真气检查、选敌及回合消耗。
+  void quickMagic() {
+    if (!canUseShortcuts) return;
+    auto = false;
+    _manualShortcutSelection = true;
+    targetKind = '';
+    resource = null;
+    icon = 2;
+    key(GameKey.confirm, false);
+  }
+
+  void quickCoop() {
+    if (!canUseShortcuts) return;
+    if (game.players.where((p) => p.alive).length < 2) {
+      game.notice = '合击需要至少两名队员存活';
+      return;
+    }
+    auto = false;
+    _manualShortcutSelection = true;
+    targetKind = '';
+    resource = null;
+    icon = 4;
+    key(GameKey.confirm, false);
+  }
 
   void _positions() {
     const pp = [(76, 70), (108, 66), (140, 58)],
@@ -241,10 +353,11 @@ final class GameBattle {
           }
         }
       }
-      if (auto ||
-          game.preferences['autoBattle'] == true &&
-              targetKind.isEmpty &&
-              game.menus.isEmpty) {
+      if (!_manualShortcutSelection &&
+          (auto ||
+              game.preferences['autoBattle'] == true &&
+                  targetKind.isEmpty &&
+                  game.menus.isEmpty)) {
         _autoActions();
       }
     } else if (phase == 'perform') {
@@ -363,8 +476,7 @@ final class GameBattle {
       if (p == null) return;
       switch (icon) {
         case 1:
-          if (game.preferences['normalAttackAll'] == true ||
-              p.attackStatus & 16 != 0) {
+          if (_attackAll(p)) {
             _select(
               BattleAction(
                 p,
@@ -512,7 +624,10 @@ final class GameBattle {
                         resource = id;
                         final r = game.goods(id);
                         if (r == null) return;
-                        if (r.byte(28) & 16 != 0) {
+                        if (mode == 1 && r.byte(0) == 7) {
+                          game.preferredThrowWeapon = id;
+                        }
+                        if (game.goodsTargetsAll(id)) {
                           _select(
                             BattleAction(
                               p,
@@ -578,20 +693,14 @@ final class GameBattle {
     }
     for (final p in game.players.where((p) => p.alive)) {
       queue.add(
-        BattleAction(
-          p,
-          p.attackStatus & 16 != 0 ||
-                  game.preferences['normalAttackAll'] == true
-              ? living
-              : [living.first],
-          'attack',
-        ),
+        BattleAction(p, _attackAll(p) ? living : [living.first], 'attack'),
       );
     }
     _startTurn();
   }
 
   void _startTurn() {
+    _manualShortcutSelection = false;
     final alive = game.players.where((p) => p.alive).toList();
     if (alive.isNotEmpty) {
       for (final m in monsters.where((m) => m.alive)) {
@@ -1404,10 +1513,13 @@ final class GameBattle {
     final action = current;
     if (action != null && action.stage == 1 && action.movie != null) {
       final target = action.targets.isEmpty ? null : action.targets.first;
-      final record = action.resource == null
-          ? null
-          : game.magic(action.resource!);
-      final all = (record?.byte(3) ?? 0) & 128 != 0;
+      final resource = action.resource;
+      final item = action.kind == 'throw' || action.kind == 'item';
+      final all =
+          resource != null &&
+          (item
+              ? game.goodsTargetsAll(resource)
+              : (game.magic(resource)?.byte(3) ?? 0) & 128 != 0);
       final targetImage = target == null
           ? null
           : game.data.image(

@@ -40,6 +40,10 @@ class GameKeyboardBindings {
     GameControl.toggleWideView: '远视野',
     GameControl.selectFmjStage: '选择关卡',
     GameControl.toggleMoneyFarm: '开始 / 停止刷钱',
+    GameControl.quickThrow: '快捷投掷弯月刀 / 备用武器',
+    GameControl.chooseThrowWeapon: '选择投掷武器',
+    GameControl.quickMagic: '战斗技能',
+    GameControl.quickCoop: '战斗合击',
   };
   Map<String, String> get byCode => {
     for (final entry in bindings.entries)
