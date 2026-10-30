@@ -113,7 +113,10 @@ void main() {
         );
         await tester.pump();
         for (final text in ['属性', '魔法', '物品', '系统']) {
-          final target = find.text(text);
+          final target = find.descendant(
+            of: find.byKey(const ValueKey('fmj-native-menu')),
+            matching: find.text(text),
+          );
           expect(
             target.hitTestable(),
             findsOneWidget,
@@ -130,7 +133,12 @@ void main() {
             game.openMainMenu();
           });
           await tester.pump();
-          await tester.tap(find.text(item.$1));
+          await tester.tap(
+            find.descendant(
+              of: find.byKey(const ValueKey('fmj-native-menu')),
+              matching: find.text(item.$1),
+            ),
+          );
           await tester.pump();
           expect(find.text(item.$2).hitTestable(), findsWidgets);
         }

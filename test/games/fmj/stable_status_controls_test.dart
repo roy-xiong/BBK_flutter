@@ -295,7 +295,15 @@ void main() {
         expect(geometry(), before, reason: '$size 打开菜单时不能上下移动');
         checkMembers(3);
         for (final item in ['属性', '魔法', '物品', '系统']) {
-          expect(find.text(item).hitTestable(), findsOneWidget);
+          expect(
+            find
+                .descendant(
+                  of: find.byKey(const ValueKey('fmj-native-menu')),
+                  matching: find.text(item),
+                )
+                .hitTestable(),
+            findsOneWidget,
+          );
         }
         await capture('${size.width.toInt()}-menu');
         final others = game.players.skip(1).toList();

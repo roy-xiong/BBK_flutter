@@ -402,6 +402,7 @@ final class _ModernSceneView extends StatelessWidget {
                       maxHeight: constraints.maxHeight * .9,
                     ),
                     child: _NativeMenu(
+                      key: const ValueKey('fmj-native-menu'),
                       game: game,
                       menu: menu,
                       model: model,
@@ -705,6 +706,7 @@ final class _Dialogue extends StatelessWidget {
 /// 新版只消费原菜单对象和回调，完整展示原属性、物品说明、数量和价格。
 final class _NativeMenu extends StatefulWidget {
   const _NativeMenu({
+    super.key,
     required this.game,
     required this.menu,
     required this.model,
