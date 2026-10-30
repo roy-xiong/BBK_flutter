@@ -63,7 +63,7 @@ abstract final class ModernBattlePose {
         sprite.rect.isEmpty) {
       return false;
     }
-    _weak(canvas, art, sprite, actor.index, target, ticks, filterQuality);
+    _weak(canvas, art, sprite, actor.index, target, ticks);
     return true;
   }
 
@@ -79,7 +79,6 @@ abstract final class ModernBattlePose {
     int hero,
     ui.Rect target,
     int ticks,
-    ui.FilterQuality filterQuality,
   ) {
     final (hip, neck, drop) = switch (hero) {
       1 => (.83, .43, .055),
@@ -144,19 +143,77 @@ abstract final class ModernBattlePose {
       ui.TileMode.clamp,
       ui.TileMode.clamp,
       _identity,
-      filterQuality: filterQuality,
+      filterQuality: ui.FilterQuality.high,
     );
     try {
-      canvas.drawVertices(
-        vertices,
-        ui.BlendMode.srcOver,
-        ui.Paint()
-          ..shader = shader
-          ..filterQuality = filterQuality,
-      );
+      _drawWeakMesh(canvas, vertices, shader, target);
     } finally {
       shader.dispose();
       vertices.dispose();
+    }
+  }
+
+  /// 小画布先在受限临时层中采样，再以真正的图片缩小滤波合成回原位置。
+  ///
+  /// Skia 软件后端的显式纹理坐标会经过 SkTransformShader，将总矩阵标记为
+  /// 不可知；SkImageShader 因而只读取基础 MIP 层。512px 人物直接缩到手机
+  /// 画布的约 72px 时，即使 medium 也会跳过大量源像素，出现硬边与闪烁。
+  /// 参见官方源码 src/shaders/SkTransformShader.cpp 的 markTotalMatrixInvalid
+  /// 以及 src/shaders/SkImageShader.cpp 的 totalMatrixIsValid 分支：
+  /// https://github.com/google/skia/blob/main/src/shaders/SkTransformShader.cpp
+  /// https://github.com/google/skia/blob/main/src/shaders/SkImageShader.cpp
+  ///
+  /// 临时层按根 Canvas 变换计算采样倍率，目标约 320 物理像素、最高 4 倍。
+  /// 手机 DPR 较高时不再额外放大。只为本次弱态绘制分配小层，不 toImage、
+  /// 不做 GPU 缓存；缩回使用 medium 的 MIP 预滤波，不能用事后模糊代替采样。
+  static void _drawWeakMesh(
+    ui.Canvas canvas,
+    ui.Vertices vertices,
+    ui.ImageShader shader,
+    ui.Rect target,
+  ) {
+    final transform = canvas.getTransform();
+    final scale = math.max(
+      math.sqrt(transform[0] * transform[0] + transform[1] * transform[1]),
+      math.sqrt(transform[4] * transform[4] + transform[5] * transform[5]),
+    );
+    final physicalHeight = target.height * scale;
+    final samplingScale = physicalHeight.isFinite && physicalHeight > 0
+        ? (320 / physicalHeight).clamp(1.0, 4.0)
+        : 1.0;
+    final paint = ui.Paint()
+      ..shader = shader
+      ..filterQuality = ui.FilterQuality.high;
+    if (samplingScale <= 1) {
+      canvas.drawVertices(vertices, ui.BlendMode.srcOver, paint);
+      return;
+    }
+    final downsample = Float64List.fromList(_identity)
+      ..[0] = 1 / samplingScale
+      ..[5] = 1 / samplingScale;
+    final padding = target.height * .3;
+    canvas.save();
+    canvas.translate(target.left, target.top);
+    canvas.saveLayer(
+      ui.Rect.fromLTWH(
+        -padding * samplingScale,
+        -padding * samplingScale,
+        (target.width + padding * 2) * samplingScale,
+        (target.height + padding * 2) * samplingScale,
+      ),
+      ui.Paint()
+        ..imageFilter = ui.ImageFilter.matrix(
+          downsample,
+          filterQuality: ui.FilterQuality.medium,
+        ),
+    );
+    try {
+      canvas.scale(samplingScale);
+      canvas.translate(-target.left, -target.top);
+      canvas.drawVertices(vertices, ui.BlendMode.srcOver, paint);
+    } finally {
+      canvas.restore();
+      canvas.restore();
     }
   }
 
