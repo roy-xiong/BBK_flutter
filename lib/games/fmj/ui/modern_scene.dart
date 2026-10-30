@@ -7,6 +7,7 @@ import 'modern_art.dart';
 import 'modern_map_camera.dart';
 import 'modern_battle_layout.dart';
 import 'modern_battle_effects.dart';
+import 'modern_battle_pose.dart';
 import 'modern_terrain.dart';
 import 'modern_world_objects.dart';
 import 'modern_scene_effects.dart';
@@ -632,8 +633,18 @@ final class ModernScenePainter extends CustomPainter {
         height,
       );
       _paint.color = Colors.white;
-      if (!art.drawSprite(canvas, key, target, _paint)) {
-        art.draw(canvas, resource, phase, target, _paint);
+      if (!ModernBattlePose.draw(
+        canvas,
+        art,
+        actor,
+        target,
+        defending: battle.defending.contains(actor),
+        ticks: game.ticks,
+        filterQuality: _paint.filterQuality,
+      )) {
+        if (!art.drawSprite(canvas, key, target, _paint)) {
+          art.draw(canvas, resource, phase, target, _paint);
+        }
       }
       final statuses = [
         for (final bit in [(8, '毒'), (4, '乱'), (2, '封'), (1, '眠')])

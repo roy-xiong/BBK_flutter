@@ -10,7 +10,7 @@ import subprocess
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from PIL import Image
-from fmj_battle_review_groups import build_review_groups
+from fmj_battle_review_groups import build_review_groups, feedback_round
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -28,15 +28,15 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--render-revision')
     parser.add_argument('--classic-render-revision', help='复用原版黑白 raw 时记录其真实绘制提交')
-    parser.add_argument('--feedback', type=Path, default=ROOT / 'tool/fmj_battle_review_feedback_round1.json',
-                        help='内嵌上轮逐案例反馈；默认使用仓库固定反馈，CI 无需访问 Downloads')
+    parser.add_argument('--feedback', type=Path, default=ROOT / 'tool/fmj_battle_review_feedback_round2.json',
+                        help='内嵌上一轮共享组或逐案例反馈；默认使用仓库固定第二轮反馈')
     parser.add_argument('--require-classic', action='store_true')
     parser.add_argument('--input', type=Path, default=ROOT / 'build/battle-review')
     parser.add_argument('--output', type=Path, default=ROOT / 'build/battle-review/伏魔记-彩色战斗全案例动图审核.html')
     args = parser.parse_args()
     data = json.loads((args.input / 'catalog.json').read_text())
     feedback = json.loads(args.feedback.read_text())
-    assert feedback.get('documentType') == 'fmj-color-battle-review', '历史意见文件类型不正确'
+    assert feedback.get('documentType') in ('fmj-color-battle-review', 'fmj-color-battle-review-groups'), '历史意见文件类型不正确'
     assert data.get('speed') == 1 and data.get('stepMs') == 40, '审核仅接受原40ms时钟的1倍速raw'
     records = read_records(args.input, 'shard-*.json')
     originals = read_records(args.input, 'classic-shard-*.json')
@@ -71,6 +71,8 @@ def main():
 
     for source in data['cases']:
         case = {**records[source['id']], **source}
+        if records[source['id']].get('assetRenderRevision'):
+            case['assetRenderRevision'] = records[source['id']]['assetRenderRevision']
         case.update(animation(case))
         if originals:
             original = originals[source['id']]
@@ -78,14 +80,21 @@ def main():
                           'equipment', 'durationMs', 'simulationFrames', 'loopGapMs'):
                 assert original.get(field) == case.get(field), (case['id'], field, '黑白/彩色未对齐')
             case['classic'] = {**animation(original, '-classic'),
+                               'assetRenderRevision': original.get('assetRenderRevision') or args.classic_render_revision,
                                'durationMs': original['durationMs'],
                                'simulationFrames': original['simulationFrames'],
                                'loopGapMs': original['loopGapMs']}
         records[source['id']] = case
     data['cases'] = [records[case['id']] for case in data['cases']]
-    data['reviewSchema'] = 2
+    data['reviewSchema'] = 3
     data['reviewGroups'] = build_review_groups(data['cases'], feedback)
-    data['feedbackRound'] = {key: feedback.get(key) for key in ('version', 'revision', 'exportedAt')}
+    data['feedbackRound'] = feedback_round(feedback)
+    data['reviewRoundId'] = 'review-after:' + data['feedbackRound']['id']
+    feedback_groups = [group for group in data['reviewGroups'] if group['initialStatus'] == '已修改待复审']
+    data['reviewScope'] = dict(mode='written-feedback-only', feedbackId=data['feedbackRound']['id'],
+                               reviewRoundId=data['reviewRoundId'],
+                               groupIds=[group['id'] for group in feedback_groups],
+                               caseIds=[case_id for group in feedback_groups for case_id in group['caseIds']])
     # 分块储存大体积动画，只解压当前一对，避免浏览器单段JS字符串超限。
     data.update(gifs={key: 'fmj-animation-' + key for key in animations},
                 gifEncoding='gzip-base64', assetStorage='inert-script')
@@ -102,7 +111,11 @@ def main():
                            groups=dict(Counter(case['group'] for case in data['cases'])),
                            reviewGroups=len(data['reviewGroups']),
                            reviewGroupStates=dict(Counter(group['initialStatus'] for group in data['reviewGroups'])),
-                           historicalReviews=sum(len(group['historyReviews']) for group in data['reviewGroups']))
+                           historicalReviews=sum(len(group['historyReviews']) for group in data['reviewGroups']),
+                           latestFeedbackReviews=sum(row['roundId'] == data['feedbackRound']['id']
+                                                     for group in data['reviewGroups'] for row in group['historyReviews']),
+                           olderHistoricalReviews=sum(row['roundId'] != data['feedbackRound']['id']
+                                                      for group in data['reviewGroups'] for row in group['historyReviews']))
     payload = json.dumps(data, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
     template = (ROOT / 'tool/fmj_battle_review_template.html').read_text()
     before, after = template.replace('/*__DATA__*/', 'const DATA=' + payload + ';').split('<!--__ANIMATION_ASSETS__-->', 1)
@@ -113,6 +126,7 @@ def main():
             stream.write('<script type="text/plain" id="fmj-animation-' + key + '">' + encoded + '</script>\n')
         stream.write(after)
     manifest = {**data['summary'], 'revision': data['revision'], 'renderRevision': data['renderRevision'],
+                'reviewRoundId': data['reviewRoundId'], 'reviewScope': data['reviewScope'],
                 'classicRenderRevision': data['classicRenderRevision'], 'version': data['version'],
                 'createdAt': data['createdAt'], 'htmlBytes': args.output.stat().st_size,
                 'animationBytes': sum(case['imageBytes'] + case.get('classic', {}).get('imageBytes', 0) for case in records.values())}

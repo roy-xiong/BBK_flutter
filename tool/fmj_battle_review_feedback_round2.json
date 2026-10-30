@@ -1,0 +1,2546 @@
+{
+  "documentType": "fmj-color-battle-review-groups",
+  "schema": 2,
+  "version": "1.0.36+37",
+  "revision": "a255ab13b0b9cdcec59ec5b650d31b3309353c8f",
+  "renderRevision": "a255ab13b0b9cdcec59ec5b650d31b3309353c8f",
+  "exportedAt": "2026-10-30T15:37:52.349Z",
+  "speed": 1,
+  "feedbackRound": {
+    "version": "1.0.32+33",
+    "revision": "a9b568a31683dbbd0f19a63a1cb20d29838dabd8",
+    "exportedAt": "2026-10-30T14:24:19.894Z"
+  },
+  "caseCount": 712,
+  "groupReviews": {
+    "srs-2-1": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-1",
+      "primarySrs": "2:1",
+      "actionKind": null,
+      "caseIds": [
+        "case-0001",
+        "case-0022",
+        "case-0025",
+        "case-0038",
+        "case-0061",
+        "case-0068",
+        "case-0069",
+        "case-0076",
+        "case-0084",
+        "case-0087",
+        "case-0094",
+        "case-0097",
+        "case-0113",
+        "case-0124",
+        "case-0128",
+        "case-0137",
+        "case-0150",
+        "case-0154",
+        "case-0160",
+        "case-0164",
+        "case-0175",
+        "case-0213",
+        "case-0225",
+        "case-0233",
+        "case-0243",
+        "case-0248",
+        "case-0273",
+        "case-0285",
+        "case-0296",
+        "case-0299",
+        "case-0309",
+        "case-0311",
+        "case-0316",
+        "case-0321",
+        "case-0327",
+        "case-0579",
+        "case-0580",
+        "case-0581",
+        "case-0582",
+        "case-0583",
+        "case-0584",
+        "case-0588",
+        "case-0589",
+        "case-0590",
+        "case-0591",
+        "case-0592",
+        "case-0594",
+        "case-0595",
+        "case-0596",
+        "case-0597",
+        "case-0598",
+        "case-0599",
+        "case-0600",
+        "case-0601",
+        "case-0603",
+        "case-0604",
+        "case-0605",
+        "case-0645"
+      ],
+      "title": "SRS 2:1 · 培元术 / 命疗术 / 招魂咒 等27个名称",
+      "aliases": [
+        "培元术",
+        "命疗术",
+        "招魂咒",
+        "六祖战经",
+        "百火练金术",
+        "两面针",
+        "青阴君",
+        "玉蓝草",
+        "赤玉断续膏",
+        "紫竹符",
+        "九正墨玉丹",
+        "菊花酒",
+        "魔王甲",
+        "飘仙果",
+        "西域奇糯",
+        "紫荦杉",
+        "茶叶蛋",
+        "烤鹿肉",
+        "田七精",
+        "千里飘",
+        "雌雄葫芦",
+        "魔王须",
+        "天山盐",
+        "华山针树叶",
+        "菊黄散",
+        "清凉油",
+        "定心符"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0038",
+          "title": "慕容小梅 · 六祖战经",
+          "actor": "慕容小梅",
+          "resource": "2:7",
+          "status": "需修改",
+          "comment": "最后三个攻字",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-2": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-2",
+      "primarySrs": "2:2",
+      "actionKind": null,
+      "caseIds": [
+        "case-0002",
+        "case-0614",
+        "case-0622",
+        "case-0646"
+      ],
+      "title": "SRS 2:2 · 飞剑斩 / 金鍪 / 罗汉笑",
+      "aliases": [
+        "飞剑斩",
+        "金鍪",
+        "罗汉笑"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-4": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-4",
+      "primarySrs": "2:4",
+      "actionKind": null,
+      "caseIds": [
+        "case-0003",
+        "case-0536",
+        "case-0551",
+        "case-0648"
+      ],
+      "title": "SRS 2:4 · 降魔符法 / 莲花刀 / 降魔符",
+      "aliases": [
+        "降魔符法",
+        "莲花刀",
+        "降魔符"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0003",
+          "title": "柳清风 · 降魔符法",
+          "actor": "柳清风",
+          "resource": "1:8",
+          "status": "需修改",
+          "comment": "降魔符，看不清楚这个符篆，",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-43": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-43",
+      "primarySrs": "2:43",
+      "actionKind": null,
+      "caseIds": [
+        "case-0004",
+        "case-0027",
+        "case-0031",
+        "case-0034",
+        "case-0035",
+        "case-0043",
+        "case-0047",
+        "case-0079",
+        "case-0107",
+        "case-0136",
+        "case-0232",
+        "case-0308",
+        "case-0315",
+        "case-0558",
+        "case-0633",
+        "case-0687"
+      ],
+      "title": "SRS 2:43 · 凝神诀 / 马师皇针灸 / 净元咒 等9个名称",
+      "aliases": [
+        "凝神诀",
+        "马师皇针灸",
+        "净元咒",
+        "固若金汤",
+        "清心诀",
+        "华佗化封诀",
+        "五禽戏咒",
+        "冰咒",
+        "宇冰符"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-10": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-10",
+      "primarySrs": "2:10",
+      "actionKind": null,
+      "caseIds": [
+        "case-0005",
+        "case-0546",
+        "case-0637",
+        "case-0654"
+      ],
+      "title": "SRS 2:10 · 剑气术 / 阴阳双剑",
+      "aliases": [
+        "剑气术",
+        "阴阳双剑"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-53": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-53",
+      "primarySrs": "2:53",
+      "actionKind": null,
+      "caseIds": [
+        "case-0006",
+        "case-0010",
+        "case-0011",
+        "case-0039",
+        "case-0045",
+        "case-0053",
+        "case-0054",
+        "case-0143",
+        "case-0147",
+        "case-0170",
+        "case-0201",
+        "case-0231",
+        "case-0239",
+        "case-0254",
+        "case-0261",
+        "case-0280",
+        "case-0306",
+        "case-0697"
+      ],
+      "title": "SRS 2:53 · 卸劲诀 / 三清归心咒 / 灵虚战诀 等7个名称",
+      "aliases": [
+        "卸劲诀",
+        "三清归心咒",
+        "灵虚战诀",
+        "血魔破甲",
+        "朝圣诀",
+        "丹凤解甲",
+        "唤灵术"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0006",
+          "title": "柳清风 · 卸劲诀",
+          "actor": "柳清风",
+          "resource": "1:73",
+          "status": "需修改",
+          "comment": "最后是一个 攻 字",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-5": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-5",
+      "primarySrs": "2:5",
+      "actionKind": null,
+      "caseIds": [
+        "case-0007",
+        "case-0017",
+        "case-0023",
+        "case-0028",
+        "case-0030",
+        "case-0058",
+        "case-0073",
+        "case-0081",
+        "case-0089",
+        "case-0109",
+        "case-0117",
+        "case-0166",
+        "case-0183",
+        "case-0186",
+        "case-0195",
+        "case-0208",
+        "case-0267",
+        "case-0283",
+        "case-0323",
+        "case-0331",
+        "case-0649"
+      ],
+      "title": "SRS 2:5 · 金刚咒 / 老子回天术 / 铁骨铜皮 等6个名称",
+      "aliases": [
+        "金刚咒",
+        "老子回天术",
+        "铁骨铜皮",
+        "御风行",
+        "化气归元",
+        "疾风步"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0028",
+          "title": "慕容小梅 · 御风行",
+          "actor": "慕容小梅",
+          "resource": "2:5",
+          "status": "需修改",
+          "comment": "最后是一个速度的速字",
+          "markers": []
+        },
+        {
+          "caseId": "case-0058",
+          "title": "袁萍芷 · 疾风步",
+          "actor": "袁萍芷",
+          "resource": "2:4",
+          "status": "需修改",
+          "comment": "最后是一个 速 字",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-13": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-13",
+      "primarySrs": "2:13",
+      "actionKind": null,
+      "caseIds": [
+        "case-0008",
+        "case-0657"
+      ],
+      "title": "SRS 2:13 · 无双剑咒",
+      "aliases": [
+        "无双剑咒"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-12": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-12",
+      "primarySrs": "2:12",
+      "actionKind": null,
+      "caseIds": [
+        "case-0009",
+        "case-0656"
+      ],
+      "title": "SRS 2:12 · 万剑归一",
+      "aliases": [
+        "万剑归一"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-14": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-14",
+      "primarySrs": "2:14",
+      "actionKind": null,
+      "caseIds": [
+        "case-0012",
+        "case-0574",
+        "case-0658"
+      ],
+      "title": "SRS 2:14 · 太极符法 / 太极符",
+      "aliases": [
+        "太极符法",
+        "太极符"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0012",
+          "title": "柳清风 · 太极符法",
+          "actor": "柳清风",
+          "resource": "1:9",
+          "status": "需修改",
+          "comment": "中间应该有一个太极八卦的图案",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-201": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-201",
+      "primarySrs": "2:201",
+      "actionKind": null,
+      "caseIds": [
+        "case-0013",
+        "case-0702"
+      ],
+      "title": "SRS 2:201 · 人剑合一",
+      "aliases": [
+        "人剑合一"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-16": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-16",
+      "primarySrs": "2:16",
+      "actionKind": null,
+      "caseIds": [
+        "case-0014",
+        "case-0024",
+        "case-0134",
+        "case-0142",
+        "case-0156",
+        "case-0238",
+        "case-0660"
+      ],
+      "title": "SRS 2:16 · 御魔诀 / 苦口婆心 / 笑里藏刀",
+      "aliases": [
+        "御魔诀",
+        "苦口婆心",
+        "笑里藏刀"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0014",
+          "title": "柳清风 · 御魔诀",
+          "actor": "柳清风",
+          "resource": "1:10",
+          "status": "需修改",
+          "comment": "一样的应该是有一个 太极八卦的图案",
+          "markers": []
+        },
+        {
+          "caseId": "case-0024",
+          "title": "慕容小梅 · 苦口婆心",
+          "actor": "慕容小梅",
+          "resource": "1:65",
+          "status": "需修改",
+          "comment": "也是中间有一个太极图案",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-50": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-50",
+      "primarySrs": "2:50",
+      "actionKind": null,
+      "caseIds": [
+        "case-0015",
+        "case-0694"
+      ],
+      "title": "SRS 2:50 · 八门金锁",
+      "aliases": [
+        "八门金锁"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0015",
+          "title": "柳清风 · 八门金锁",
+          "actor": "柳清风",
+          "resource": "1:69",
+          "status": "需修改",
+          "comment": "应该有两排书法的汉字  休生伤杜，景死惊开\n",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-202": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-202",
+      "primarySrs": "2:202",
+      "actionKind": null,
+      "caseIds": [
+        "case-0016",
+        "case-0703"
+      ],
+      "title": "SRS 2:202 · 破天一剑",
+      "aliases": [
+        "破天一剑"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-203": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-203",
+      "primarySrs": "2:203",
+      "actionKind": null,
+      "caseIds": [
+        "case-0018",
+        "case-0704"
+      ],
+      "title": "SRS 2:203 · 神剑御魔",
+      "aliases": [
+        "神剑御魔"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0018",
+          "title": "柳清风 · 神剑御魔",
+          "actor": "柳清风",
+          "resource": "1:7",
+          "status": "需修改",
+          "comment": "最开始出现的是一个太极图案",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-205": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-205",
+      "primarySrs": "2:205",
+      "actionKind": null,
+      "caseIds": [
+        "case-0019",
+        "case-0642",
+        "case-0706"
+      ],
+      "title": "SRS 2:205 · 百虫欺天",
+      "aliases": [
+        "百虫欺天"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0019",
+          "title": "柳清风 · 百虫欺天",
+          "actor": "柳清风",
+          "resource": "1:11",
+          "status": "需修改",
+          "comment": "一群虫子爬过去的效果",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-11": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-11",
+      "primarySrs": "2:11",
+      "actionKind": null,
+      "caseIds": [
+        "case-0020",
+        "case-0037",
+        "case-0585",
+        "case-0593",
+        "case-0602",
+        "case-0655"
+      ],
+      "title": "SRS 2:11 · 泽伟补命术 / 佛光普照 / 地补符 等5个名称",
+      "aliases": [
+        "泽伟补命术",
+        "佛光普照",
+        "地补符",
+        "黑狐甲",
+        "净衣符"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-20": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-20",
+      "primarySrs": "2:20",
+      "actionKind": null,
+      "caseIds": [
+        "case-0021",
+        "case-0056",
+        "case-0664"
+      ],
+      "title": "SRS 2:20 · 妙手空空",
+      "aliases": [
+        "妙手空空"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0021",
+          "title": "柳清风 · 妙手空空",
+          "actor": "柳清风",
+          "resource": "5:1",
+          "status": "需修改",
+          "comment": "这个妙手空空，是一个手在抓东西的动画",
+          "markers": []
+        },
+        {
+          "caseId": "case-0056",
+          "title": "袁萍芷 · 妙手空空",
+          "actor": "袁萍芷",
+          "resource": "5:1",
+          "status": "未审核",
+          "comment": "同柳清风的修改意见",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-9": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-9",
+      "primarySrs": "2:9",
+      "actionKind": null,
+      "caseIds": [
+        "case-0026",
+        "case-0036",
+        "case-0044",
+        "case-0096",
+        "case-0118",
+        "case-0135",
+        "case-0153",
+        "case-0188",
+        "case-0286",
+        "case-0291",
+        "case-0328",
+        "case-0653"
+      ],
+      "title": "SRS 2:9 · 血魔噬主 / 御梦心经 / 破兵卸劲 等4个名称",
+      "aliases": [
+        "血魔噬主",
+        "御梦心经",
+        "破兵卸劲",
+        "催眠咒"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0044",
+          "title": "慕容小梅 · 破兵卸劲",
+          "actor": "慕容小梅",
+          "resource": "1:74",
+          "status": "需修改",
+          "comment": "最后是三个攻字",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-35": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-35",
+      "primarySrs": "2:35",
+      "actionKind": null,
+      "caseIds": [
+        "case-0029",
+        "case-0070",
+        "case-0114",
+        "case-0180",
+        "case-0205",
+        "case-0287",
+        "case-0335",
+        "case-0679"
+      ],
+      "title": "SRS 2:35 · 乌手术 / 瘴气 / 蚀骨毒咒",
+      "aliases": [
+        "乌手术",
+        "瘴气",
+        "蚀骨毒咒"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-52": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-52",
+      "primarySrs": "2:52",
+      "actionKind": null,
+      "caseIds": [
+        "case-0032",
+        "case-0696"
+      ],
+      "title": "SRS 2:52 · 定影神咒",
+      "aliases": [
+        "定影神咒"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0032",
+          "title": "慕容小梅 · 定影神咒",
+          "actor": "慕容小梅",
+          "resource": "1:79",
+          "status": "需修改",
+          "comment": "最后是一个 速 字",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-48": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-48",
+      "primarySrs": "2:48",
+      "actionKind": null,
+      "caseIds": [
+        "case-0033",
+        "case-0692"
+      ],
+      "title": "SRS 2:48 · 玄籁之音",
+      "aliases": [
+        "玄籁之音"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0033",
+          "title": "慕容小梅 · 玄籁之音",
+          "actor": "慕容小梅",
+          "resource": "1:66",
+          "status": "需修改",
+          "comment": "最后是一个乱字",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-51": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-51",
+      "primarySrs": "2:51",
+      "actionKind": null,
+      "caseIds": [
+        "case-0040",
+        "case-0041",
+        "case-0695"
+      ],
+      "title": "SRS 2:51 · 赦魂术 / 地气锁",
+      "aliases": [
+        "赦魂术",
+        "地气锁"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0041",
+          "title": "慕容小梅 · 地气锁",
+          "actor": "慕容小梅",
+          "resource": "1:80",
+          "status": "需修改",
+          "comment": "最后是三个速字",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-36": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-36",
+      "primarySrs": "2:36",
+      "actionKind": null,
+      "caseIds": [
+        "case-0042",
+        "case-0071",
+        "case-0103",
+        "case-0115",
+        "case-0181",
+        "case-0206",
+        "case-0219",
+        "case-0278",
+        "case-0288",
+        "case-0641",
+        "case-0680"
+      ],
+      "title": "SRS 2:36 · 万毒手 / 毒吞天下",
+      "aliases": [
+        "万毒手",
+        "毒吞天下"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0071",
+          "title": "蛇妖男〔5〕 · 毒吞天下",
+          "actor": "蛇妖男",
+          "resource": "1:38",
+          "status": "需修改",
+          "comment": "最后是个毒字",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-49": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-49",
+      "primarySrs": "2:49",
+      "actionKind": null,
+      "caseIds": [
+        "case-0046",
+        "case-0693"
+      ],
+      "title": "SRS 2:49 · 九天困乏咒",
+      "aliases": [
+        "九天困乏咒"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0046",
+          "title": "慕容小梅 · 九天困乏咒",
+          "actor": "慕容小梅",
+          "resource": "1:71",
+          "status": "需修改",
+          "comment": "最后是三个眠字",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-17": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-17",
+      "primarySrs": "2:17",
+      "actionKind": null,
+      "caseIds": [
+        "case-0048",
+        "case-0636",
+        "case-0661"
+      ],
+      "title": "SRS 2:17 · 双剑斩",
+      "aliases": [
+        "双剑斩"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-18": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-18",
+      "primarySrs": "2:18",
+      "actionKind": null,
+      "caseIds": [
+        "case-0049",
+        "case-0662"
+      ],
+      "title": "SRS 2:18 · 傲剑诀",
+      "aliases": [
+        "傲剑诀"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-21": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-21",
+      "primarySrs": "2:21",
+      "actionKind": null,
+      "caseIds": [
+        "case-0050",
+        "case-0665"
+      ],
+      "title": "SRS 2:21 · 剪刀剑气",
+      "aliases": [
+        "剪刀剑气"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0050",
+          "title": "慕容小梅 · 剪刀剑气",
+          "actor": "慕容小梅",
+          "resource": "1:14",
+          "status": "需修改",
+          "comment": "是一把飞出去的剪刀",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-204": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-204",
+      "primarySrs": "2:204",
+      "actionKind": null,
+      "caseIds": [
+        "case-0051",
+        "case-0705"
+      ],
+      "title": "SRS 2:204 · 凤舞九天",
+      "aliases": [
+        "凤舞九天"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0051",
+          "title": "慕容小梅 · 凤舞九天",
+          "actor": "慕容小梅",
+          "resource": "1:15",
+          "status": "需修改",
+          "comment": "一个凤凰飞上天，然后掉下很多羽毛",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-22": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-22",
+      "primarySrs": "2:22",
+      "actionKind": null,
+      "caseIds": [
+        "case-0052",
+        "case-0112",
+        "case-0666"
+      ],
+      "title": "SRS 2:22 · 独孤刀",
+      "aliases": [
+        "独孤刀"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0052",
+          "title": "袁萍芷 · 独孤刀",
+          "actor": "袁萍芷",
+          "resource": "1:16",
+          "status": "需修改",
+          "comment": "一把刀横着飞过",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-23": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-23",
+      "primarySrs": "2:23",
+      "actionKind": null,
+      "caseIds": [
+        "case-0055",
+        "case-0667"
+      ],
+      "title": "SRS 2:23 · 狂刀斩",
+      "aliases": [
+        "狂刀斩"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0055",
+          "title": "袁萍芷 · 狂刀斩",
+          "actor": "袁萍芷",
+          "resource": "1:17",
+          "status": "需修改",
+          "comment": "一把刀斩下来",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-24": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-24",
+      "primarySrs": "2:24",
+      "actionKind": null,
+      "caseIds": [
+        "case-0057",
+        "case-0075",
+        "case-0102",
+        "case-0123",
+        "case-0127",
+        "case-0131",
+        "case-0171",
+        "case-0185",
+        "case-0190",
+        "case-0197",
+        "case-0210",
+        "case-0211",
+        "case-0218",
+        "case-0257",
+        "case-0258",
+        "case-0266",
+        "case-0270",
+        "case-0277",
+        "case-0314",
+        "case-0530",
+        "case-0639",
+        "case-0668"
+      ],
+      "title": "SRS 2:24 · 霸王横刀 / 横刀斩 / 天崩地裂 等4个名称",
+      "aliases": [
+        "霸王横刀",
+        "横刀斩",
+        "天崩地裂",
+        "九龙道剑"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0057",
+          "title": "袁萍芷 · 霸王横刀",
+          "actor": "袁萍芷",
+          "resource": "1:18",
+          "status": "需修改",
+          "comment": "横着一刀砍到地都裂了的效果",
+          "markers": []
+        },
+        {
+          "caseId": "case-0075",
+          "title": "蛇妖男〔5〕 · 横刀斩",
+          "actor": "蛇妖男",
+          "resource": "1:34",
+          "status": "需修改",
+          "comment": "跟之前的一样",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-19": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-19",
+      "primarySrs": "2:19",
+      "actionKind": null,
+      "caseIds": [
+        "case-0059",
+        "case-0151",
+        "case-0176",
+        "case-0244",
+        "case-0300",
+        "case-0663"
+      ],
+      "title": "SRS 2:19 · 火旋灯",
+      "aliases": [
+        "火旋灯"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-25": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-25",
+      "primarySrs": "2:25",
+      "actionKind": null,
+      "caseIds": [
+        "case-0060",
+        "case-0152",
+        "case-0177",
+        "case-0245",
+        "case-0301",
+        "case-0638",
+        "case-0669"
+      ],
+      "title": "SRS 2:25 · 烈火旋灯",
+      "aliases": [
+        "烈火旋灯"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-7": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-7",
+      "primarySrs": "2:7",
+      "actionKind": null,
+      "caseIds": [
+        "case-0062",
+        "case-0080",
+        "case-0093",
+        "case-0108",
+        "case-0149",
+        "case-0174",
+        "case-0178",
+        "case-0242",
+        "case-0246",
+        "case-0298",
+        "case-0302",
+        "case-0560",
+        "case-0634",
+        "case-0651"
+      ],
+      "title": "SRS 2:7 · 天火击 / 火咒 / 狱火符",
+      "aliases": [
+        "天火击",
+        "火咒",
+        "狱火符"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-26": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-26",
+      "primarySrs": "2:26",
+      "actionKind": null,
+      "caseIds": [
+        "case-0063",
+        "case-0179",
+        "case-0247",
+        "case-0303",
+        "case-0670"
+      ],
+      "title": "SRS 2:26 · 天火烈焰",
+      "aliases": [
+        "天火烈焰"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-54": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-54",
+      "primarySrs": "2:54",
+      "actionKind": null,
+      "caseIds": [
+        "case-0064",
+        "case-0698"
+      ],
+      "title": "SRS 2:54 · 霸王狮子吼",
+      "aliases": [
+        "霸王狮子吼"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-27": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-27",
+      "primarySrs": "2:27",
+      "actionKind": null,
+      "caseIds": [
+        "case-0065",
+        "case-0249",
+        "case-0671"
+      ],
+      "title": "SRS 2:27 · 魔域炼火",
+      "aliases": [
+        "魔域炼火"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-28": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-28",
+      "primarySrs": "2:28",
+      "actionKind": null,
+      "caseIds": [
+        "case-0066",
+        "case-0250",
+        "case-0672"
+      ],
+      "title": "SRS 2:28 · 火雷破空",
+      "aliases": [
+        "火雷破空"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-29": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-29",
+      "primarySrs": "2:29",
+      "actionKind": null,
+      "caseIds": [
+        "case-0067",
+        "case-0251",
+        "case-0673"
+      ],
+      "title": "SRS 2:29 · 炎龙覆天",
+      "aliases": [
+        "炎龙覆天"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-40": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-40",
+      "primarySrs": "2:40",
+      "actionKind": null,
+      "caseIds": [
+        "case-0072",
+        "case-0092",
+        "case-0098",
+        "case-0116",
+        "case-0155",
+        "case-0169",
+        "case-0182",
+        "case-0187",
+        "case-0202",
+        "case-0207",
+        "case-0214",
+        "case-0264",
+        "case-0271",
+        "case-0289",
+        "case-0312",
+        "case-0326",
+        "case-0684"
+      ],
+      "title": "SRS 2:40 · 五煞齐出 / 罗煞咒 / 五鬼乱神",
+      "aliases": [
+        "五煞齐出",
+        "罗煞咒",
+        "五鬼乱神"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0072",
+          "title": "蛇妖男〔5〕 · 五煞齐出",
+          "actor": "蛇妖男",
+          "resource": "1:43",
+          "status": "需修改",
+          "comment": "是5个骷髅做的动画",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-31": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-31",
+      "primarySrs": "2:31",
+      "actionKind": null,
+      "caseIds": [
+        "case-0074",
+        "case-0101",
+        "case-0120",
+        "case-0126",
+        "case-0130",
+        "case-0133",
+        "case-0138",
+        "case-0148",
+        "case-0162",
+        "case-0184",
+        "case-0198",
+        "case-0209",
+        "case-0217",
+        "case-0227",
+        "case-0234",
+        "case-0255",
+        "case-0307",
+        "case-0310",
+        "case-0317",
+        "case-0675"
+      ],
+      "title": "SRS 2:31 · 龟裂天下 / 气剑指 / 天女散花",
+      "aliases": [
+        "龟裂天下",
+        "气剑指",
+        "天女散花"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-242": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-242",
+      "primarySrs": "2:242",
+      "actionKind": null,
+      "caseIds": [
+        "case-0077",
+        "case-0090",
+        "case-0095",
+        "case-0105",
+        "case-0167",
+        "case-0290",
+        "case-0324",
+        "case-0557",
+        "case-0631",
+        "case-0709"
+      ],
+      "title": "SRS 2:242 · 雷咒 / 召雷符",
+      "aliases": [
+        "雷咒",
+        "召雷符"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-32": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-32",
+      "primarySrs": "2:32",
+      "actionKind": null,
+      "caseIds": [
+        "case-0078",
+        "case-0106",
+        "case-0159",
+        "case-0224",
+        "case-0295",
+        "case-0556",
+        "case-0632",
+        "case-0676"
+      ],
+      "title": "SRS 2:32 · 风咒 / 唤风符",
+      "aliases": [
+        "风咒",
+        "唤风符"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0078",
+          "title": "李虎〔9〕 · 风咒",
+          "actor": "李虎",
+          "resource": "1:31",
+          "status": "需修改",
+          "comment": "一个龙卷风的效果",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-44": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-44",
+      "primarySrs": "2:44",
+      "actionKind": null,
+      "caseIds": [
+        "case-0082",
+        "case-0086",
+        "case-0110",
+        "case-0146",
+        "case-0253",
+        "case-0305",
+        "case-0559",
+        "case-0635",
+        "case-0688"
+      ],
+      "title": "SRS 2:44 · 飞岩术 / 囤土符",
+      "aliases": [
+        "飞岩术",
+        "囤土符"
+      ],
+      "status": "已修改待复审",
+      "historyReviews": [
+        {
+          "caseId": "case-0082",
+          "title": "李虎〔9〕 · 飞岩术",
+          "actor": "李虎",
+          "resource": "1:54",
+          "status": "需修改",
+          "comment": "一个岩石落下来的效果",
+          "markers": []
+        }
+      ]
+    },
+    "srs-2-243": {
+      "approved": true,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-243",
+      "primarySrs": "2:243",
+      "actionKind": null,
+      "caseIds": [
+        "case-0083",
+        "case-0111",
+        "case-0144",
+        "case-0196",
+        "case-0240",
+        "case-0265",
+        "case-0272",
+        "case-0292",
+        "case-0294",
+        "case-0710"
+      ],
+      "title": "SRS 2:243 · 五雷轰顶 / 五雷破空",
+      "aliases": [
+        "五雷轰顶",
+        "五雷破空"
+      ],
+      "status": "通过",
+      "historyReviews": []
+    },
+    "srs-2-30": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-30",
+      "primarySrs": "2:30",
+      "actionKind": null,
+      "caseIds": [
+        "case-0085",
+        "case-0091",
+        "case-0119",
+        "case-0125",
+        "case-0129",
+        "case-0145",
+        "case-0168",
+        "case-0252",
+        "case-0304",
+        "case-0325",
+        "case-0674"
+      ],
+      "title": "SRS 2:30 · 地裂术",
+      "aliases": [
+        "地裂术"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-2-41": {
+      "approved": false,
+      "comment": "是一组蜜蜂的动画",
+      "markers": [],
+      "groupId": "srs-2-41",
+      "primarySrs": "2:41",
+      "actionKind": null,
+      "caseIds": [
+        "case-0088",
+        "case-0165",
+        "case-0322",
+        "case-0685"
+      ],
+      "title": "SRS 2:41 · 御蜂咒",
+      "aliases": [
+        "御蜂咒"
+      ],
+      "status": "需修改",
+      "historyReviews": []
+    },
+    "srs-2-45": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-45",
+      "primarySrs": "2:45",
+      "actionKind": null,
+      "caseIds": [
+        "case-0099",
+        "case-0157",
+        "case-0194",
+        "case-0204",
+        "case-0215",
+        "case-0268",
+        "case-0282",
+        "case-0333",
+        "case-0689"
+      ],
+      "title": "SRS 2:45 · 血魔神功 / 神鬼乱舞",
+      "aliases": [
+        "血魔神功",
+        "神鬼乱舞"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-2-37": {
+      "approved": false,
+      "comment": "一条蛇的动画",
+      "markers": [],
+      "groupId": "srs-2-37",
+      "primarySrs": "2:37",
+      "actionKind": null,
+      "caseIds": [
+        "case-0100",
+        "case-0122",
+        "case-0216",
+        "case-0681"
+      ],
+      "title": "SRS 2:37 · 噬灵蛇咒",
+      "aliases": [
+        "噬灵蛇咒"
+      ],
+      "status": "需修改",
+      "historyReviews": []
+    },
+    "srs-2-46": {
+      "approved": false,
+      "comment": "从底下伸出来的手，",
+      "markers": [],
+      "groupId": "srs-2-46",
+      "primarySrs": "2:46",
+      "actionKind": null,
+      "caseIds": [
+        "case-0104",
+        "case-0141",
+        "case-0158",
+        "case-0220",
+        "case-0237",
+        "case-0256",
+        "case-0284",
+        "case-0320",
+        "case-0329",
+        "case-0690"
+      ],
+      "title": "SRS 2:46 · 地爪术 / 鬼哭神号",
+      "aliases": [
+        "地爪术",
+        "鬼哭神号"
+      ],
+      "status": "需修改",
+      "historyReviews": []
+    },
+    "srs-2-34": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-34",
+      "primarySrs": "2:34",
+      "actionKind": null,
+      "caseIds": [
+        "case-0121",
+        "case-0193",
+        "case-0222",
+        "case-0293",
+        "case-0678"
+      ],
+      "title": "SRS 2:34 · 魔音",
+      "aliases": [
+        "魔音"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-2-55": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-55",
+      "primarySrs": "2:55",
+      "actionKind": null,
+      "caseIds": [
+        "case-0132",
+        "case-0212",
+        "case-0229",
+        "case-0313",
+        "case-0699"
+      ],
+      "title": "SRS 2:55 · 玄月斩",
+      "aliases": [
+        "玄月斩"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-2-6": {
+      "approved": false,
+      "comment": "一个人龙抓手的样子的手，的动画",
+      "markers": [],
+      "groupId": "srs-2-6",
+      "primarySrs": "2:6",
+      "actionKind": null,
+      "caseIds": [
+        "case-0139",
+        "case-0235",
+        "case-0274",
+        "case-0318",
+        "case-0332",
+        "case-0524",
+        "case-0538",
+        "case-0650"
+      ],
+      "title": "SRS 2:6 · 幽冥鬼爪 / 龙吟剑 / 屠魔刀",
+      "aliases": [
+        "幽冥鬼爪",
+        "龙吟剑",
+        "屠魔刀"
+      ],
+      "status": "需修改",
+      "historyReviews": []
+    },
+    "srs-2-57": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-57",
+      "primarySrs": "2:57",
+      "actionKind": null,
+      "caseIds": [
+        "case-0140",
+        "case-0236",
+        "case-0319",
+        "case-0701"
+      ],
+      "title": "SRS 2:57 · 抽丝剥茧",
+      "aliases": [
+        "抽丝剥茧"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-2-33": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-33",
+      "primarySrs": "2:33",
+      "actionKind": null,
+      "caseIds": [
+        "case-0161",
+        "case-0163",
+        "case-0173",
+        "case-0189",
+        "case-0199",
+        "case-0223",
+        "case-0226",
+        "case-0228",
+        "case-0230",
+        "case-0241",
+        "case-0259",
+        "case-0281",
+        "case-0297",
+        "case-0640",
+        "case-0677"
+      ],
+      "title": "SRS 2:33 · 狂风术 / 飞沙走石 / 风云变色",
+      "aliases": [
+        "狂风术",
+        "飞沙走石",
+        "风云变色"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-2-39": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-39",
+      "primarySrs": "2:39",
+      "actionKind": null,
+      "caseIds": [
+        "case-0172",
+        "case-0191",
+        "case-0221",
+        "case-0279",
+        "case-0683"
+      ],
+      "title": "SRS 2:39 · 大火龙掌",
+      "aliases": [
+        "大火龙掌"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-2-42": {
+      "approved": false,
+      "comment": "虫子的动画",
+      "markers": [],
+      "groupId": "srs-2-42",
+      "primarySrs": "2:42",
+      "actionKind": null,
+      "caseIds": [
+        "case-0192",
+        "case-0200",
+        "case-0262",
+        "case-0276",
+        "case-0686"
+      ],
+      "title": "SRS 2:42 · 御虫咒",
+      "aliases": [
+        "御虫咒"
+      ],
+      "status": "需修改",
+      "historyReviews": []
+    },
+    "srs-2-56": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-56",
+      "primarySrs": "2:56",
+      "actionKind": null,
+      "caseIds": [
+        "case-0203",
+        "case-0700"
+      ],
+      "title": "SRS 2:56 · 大玄月斩",
+      "aliases": [
+        "大玄月斩"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-2-38": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-38",
+      "primarySrs": "2:38",
+      "actionKind": null,
+      "caseIds": [
+        "case-0260",
+        "case-0682"
+      ],
+      "title": "SRS 2:38 · 火龙掌",
+      "aliases": [
+        "火龙掌"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-2-47": {
+      "approved": false,
+      "comment": "铜钟掉下来的动画",
+      "markers": [],
+      "groupId": "srs-2-47",
+      "primarySrs": "2:47",
+      "actionKind": null,
+      "caseIds": [
+        "case-0263",
+        "case-0330",
+        "case-0643",
+        "case-0691"
+      ],
+      "title": "SRS 2:47 · 霸王钟",
+      "aliases": [
+        "霸王钟"
+      ],
+      "status": "需修改",
+      "historyReviews": []
+    },
+    "srs-2-15": {
+      "approved": false,
+      "comment": "太极旋转之后，出现的一组剑的动画",
+      "markers": [],
+      "groupId": "srs-2-15",
+      "primarySrs": "2:15",
+      "actionKind": null,
+      "caseIds": [
+        "case-0269",
+        "case-0528",
+        "case-0547",
+        "case-0659"
+      ],
+      "title": "SRS 2:15 · 御魔剑诀 / 七星剑 / 幽真双剑",
+      "aliases": [
+        "御魔剑诀",
+        "七星剑",
+        "幽真双剑"
+      ],
+      "status": "需修改",
+      "historyReviews": []
+    },
+    "srs-2-8": {
+      "approved": false,
+      "comment": "跟之前我说的爪子很类似，只是爪子要大一些",
+      "markers": [],
+      "groupId": "srs-2-8",
+      "primarySrs": "2:8",
+      "actionKind": null,
+      "caseIds": [
+        "case-0275",
+        "case-0334",
+        "case-0652"
+      ],
+      "title": "SRS 2:8 · 魔掌天下",
+      "aliases": [
+        "魔掌天下"
+      ],
+      "status": "需修改",
+      "historyReviews": []
+    },
+    "action-attack": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "action-attack",
+      "primarySrs": null,
+      "actionKind": "attack",
+      "caseIds": [
+        "case-0336",
+        "case-0337",
+        "case-0338",
+        "case-0339",
+        "case-0340",
+        "case-0341",
+        "case-0342",
+        "case-0343",
+        "case-0344",
+        "case-0345",
+        "case-0346",
+        "case-0347",
+        "case-0348",
+        "case-0349",
+        "case-0350",
+        "case-0351",
+        "case-0352",
+        "case-0353",
+        "case-0354",
+        "case-0355",
+        "case-0356",
+        "case-0357",
+        "case-0358",
+        "case-0359",
+        "case-0360",
+        "case-0361",
+        "case-0362",
+        "case-0363",
+        "case-0364",
+        "case-0365",
+        "case-0366",
+        "case-0367",
+        "case-0368",
+        "case-0369",
+        "case-0370",
+        "case-0371",
+        "case-0372",
+        "case-0373",
+        "case-0374",
+        "case-0375",
+        "case-0376",
+        "case-0377",
+        "case-0378",
+        "case-0379",
+        "case-0380",
+        "case-0381",
+        "case-0382",
+        "case-0383",
+        "case-0384",
+        "case-0385",
+        "case-0386",
+        "case-0387",
+        "case-0388",
+        "case-0389",
+        "case-0390",
+        "case-0391",
+        "case-0392",
+        "case-0393",
+        "case-0394",
+        "case-0395",
+        "case-0396",
+        "case-0397",
+        "case-0398",
+        "case-0399",
+        "case-0400",
+        "case-0401"
+      ],
+      "title": "普通攻击",
+      "aliases": [
+        "普通攻击"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "action-hit": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "action-hit",
+      "primarySrs": null,
+      "actionKind": "hit",
+      "caseIds": [
+        "case-0402",
+        "case-0417",
+        "case-0432"
+      ],
+      "title": "受击",
+      "aliases": [
+        "受击"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "action-weak": {
+      "approved": false,
+      "comment": "这个目前没有实现吧，",
+      "markers": [],
+      "groupId": "action-weak",
+      "primarySrs": null,
+      "actionKind": "weak",
+      "caseIds": [
+        "case-0403",
+        "case-0418",
+        "case-0433"
+      ],
+      "title": "濒危待机",
+      "aliases": [
+        "虚弱待机"
+      ],
+      "status": "需修改",
+      "historyReviews": []
+    },
+    "action-death": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "action-death",
+      "primarySrs": null,
+      "actionKind": "death",
+      "caseIds": [
+        "case-0404",
+        "case-0419",
+        "case-0434",
+        "case-0447",
+        "case-0448",
+        "case-0449",
+        "case-0450",
+        "case-0451",
+        "case-0452",
+        "case-0453",
+        "case-0454",
+        "case-0455",
+        "case-0456",
+        "case-0457",
+        "case-0458",
+        "case-0459",
+        "case-0460",
+        "case-0461",
+        "case-0462",
+        "case-0463",
+        "case-0464",
+        "case-0465",
+        "case-0466",
+        "case-0467",
+        "case-0468",
+        "case-0469",
+        "case-0470",
+        "case-0471",
+        "case-0472",
+        "case-0473",
+        "case-0474",
+        "case-0475",
+        "case-0476",
+        "case-0477",
+        "case-0478",
+        "case-0479",
+        "case-0480",
+        "case-0481",
+        "case-0482",
+        "case-0483",
+        "case-0484",
+        "case-0485",
+        "case-0486",
+        "case-0487",
+        "case-0488",
+        "case-0489",
+        "case-0490",
+        "case-0491",
+        "case-0492",
+        "case-0493",
+        "case-0494",
+        "case-0495",
+        "case-0496",
+        "case-0497",
+        "case-0498",
+        "case-0499",
+        "case-0500",
+        "case-0501",
+        "case-0502",
+        "case-0503",
+        "case-0504",
+        "case-0505",
+        "case-0506",
+        "case-0507",
+        "case-0508",
+        "case-0509"
+      ],
+      "title": "死亡退场",
+      "aliases": [
+        "倒地",
+        "受击与死亡退场"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "action-self": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "action-self",
+      "primarySrs": null,
+      "actionKind": "self",
+      "caseIds": [
+        "case-0405",
+        "case-0420",
+        "case-0435"
+      ],
+      "title": "自伤动作",
+      "aliases": [
+        "混乱自伤"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "action-defend": {
+      "approved": false,
+      "comment": "好像也没有实现",
+      "markers": [],
+      "groupId": "action-defend",
+      "primarySrs": null,
+      "actionKind": "defend",
+      "caseIds": [
+        "case-0406",
+        "case-0421",
+        "case-0436"
+      ],
+      "title": "防御",
+      "aliases": [
+        "防御"
+      ],
+      "status": "需修改",
+      "historyReviews": []
+    },
+    "action-flee-fail": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "action-flee-fail",
+      "primarySrs": null,
+      "actionKind": "flee-fail",
+      "caseIds": [
+        "case-0407",
+        "case-0422",
+        "case-0437"
+      ],
+      "title": "逃跑失败",
+      "aliases": [
+        "逃跑失败"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "action-flee-success": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "action-flee-success",
+      "primarySrs": null,
+      "actionKind": "flee-success",
+      "caseIds": [
+        "case-0408",
+        "case-0423",
+        "case-0438"
+      ],
+      "title": "逃跑成功",
+      "aliases": [
+        "逃跑成功"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "action-poison": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "action-poison",
+      "primarySrs": null,
+      "actionKind": "poison",
+      "caseIds": [
+        "case-0409",
+        "case-0424",
+        "case-0439"
+      ],
+      "title": "毒伤结算",
+      "aliases": [
+        "毒伤结算"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-1-246": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-1-246",
+      "primarySrs": "1:246",
+      "actionKind": null,
+      "caseIds": [
+        "case-0410",
+        "case-0425",
+        "case-0440",
+        "case-0510"
+      ],
+      "title": "SRS 1:246 · 眠",
+      "aliases": [
+        "眠"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-1-245": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-1-245",
+      "primarySrs": "1:245",
+      "actionKind": null,
+      "caseIds": [
+        "case-0411",
+        "case-0426",
+        "case-0441",
+        "case-0511"
+      ],
+      "title": "SRS 1:245 · 封",
+      "aliases": [
+        "封"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-1-244": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-1-244",
+      "primarySrs": "1:244",
+      "actionKind": null,
+      "caseIds": [
+        "case-0412",
+        "case-0427",
+        "case-0442",
+        "case-0512"
+      ],
+      "title": "SRS 1:244 · 乱",
+      "aliases": [
+        "乱"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-1-243": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-1-243",
+      "primarySrs": "1:243",
+      "actionKind": null,
+      "caseIds": [
+        "case-0413",
+        "case-0428",
+        "case-0443",
+        "case-0513"
+      ],
+      "title": "SRS 1:243 · 毒",
+      "aliases": [
+        "毒"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-1-240": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-1-240",
+      "primarySrs": "1:240",
+      "actionKind": null,
+      "caseIds": [
+        "case-0414",
+        "case-0429",
+        "case-0444",
+        "case-0514"
+      ],
+      "title": "SRS 1:240 · 攻击变化",
+      "aliases": [
+        "攻击变化"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-1-241": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-1-241",
+      "primarySrs": "1:241",
+      "actionKind": null,
+      "caseIds": [
+        "case-0415",
+        "case-0430",
+        "case-0445",
+        "case-0515"
+      ],
+      "title": "SRS 1:241 · 防御变化",
+      "aliases": [
+        "防御变化"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-1-242": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-1-242",
+      "primarySrs": "1:242",
+      "actionKind": null,
+      "caseIds": [
+        "case-0416",
+        "case-0431",
+        "case-0446",
+        "case-0516"
+      ],
+      "title": "SRS 1:242 · 速度变化",
+      "aliases": [
+        "速度变化"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "action-throw": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "action-throw",
+      "primarySrs": null,
+      "actionKind": "throw",
+      "caseIds": [
+        "case-0517",
+        "case-0518",
+        "case-0519",
+        "case-0520",
+        "case-0521",
+        "case-0522",
+        "case-0523",
+        "case-0525",
+        "case-0526",
+        "case-0527",
+        "case-0531",
+        "case-0532",
+        "case-0533",
+        "case-0534",
+        "case-0535",
+        "case-0539",
+        "case-0540",
+        "case-0541",
+        "case-0542",
+        "case-0543",
+        "case-0544",
+        "case-0545",
+        "case-0548",
+        "case-0554",
+        "case-0562"
+      ],
+      "title": "无独立SRS投掷",
+      "aliases": [
+        "木剑",
+        "铁剑",
+        "长剑",
+        "玄铁剑",
+        "青锋剑",
+        "龙泉剑",
+        "斩妖剑",
+        "钨龙剑",
+        "辟魔剑",
+        "催眠剑",
+        "匕首",
+        "砍刀",
+        "佩刀",
+        "旋风刀",
+        "弯月刀",
+        "移魂刀",
+        "双手剑",
+        "明目双剑",
+        "姐妹剑",
+        "碧玉双剑",
+        "芙蓉刀",
+        "无影双剑",
+        "尺骨双剑",
+        "穿心镖",
+        "童尸肉"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-2-168": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-168",
+      "primarySrs": "2:168",
+      "actionKind": null,
+      "caseIds": [
+        "case-0529"
+      ],
+      "title": "SRS 2:168 · 嗜血剑",
+      "aliases": [
+        "嗜血剑"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-2-3": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-3",
+      "primarySrs": "2:3",
+      "actionKind": null,
+      "caseIds": [
+        "case-0537",
+        "case-0549",
+        "case-0550",
+        "case-0552",
+        "case-0553",
+        "case-0555",
+        "case-0561",
+        "case-0563",
+        "case-0564",
+        "case-0565",
+        "case-0566",
+        "case-0567",
+        "case-0568",
+        "case-0569",
+        "case-0570",
+        "case-0571",
+        "case-0572",
+        "case-0573",
+        "case-0575",
+        "case-0576",
+        "case-0577",
+        "case-0578",
+        "case-0586",
+        "case-0587",
+        "case-0616",
+        "case-0647"
+      ],
+      "title": "SRS 2:3 · 魔哭刀 / 梅花镖 / 飞蝗石 等25个名称",
+      "aliases": [
+        "魔哭刀",
+        "梅花镖",
+        "飞蝗石",
+        "袖里剑",
+        "寒铁钉",
+        "旋魂铊",
+        "青蛇卵",
+        "红蝎卵",
+        "蜘蛛卵",
+        "毒铁菱",
+        "七步蛇毒",
+        "六毒蚀脏粉",
+        "蚀毒砂",
+        "勾魂散",
+        "迷君杉",
+        "缠魂丝",
+        "定魂旗",
+        "缚龙索",
+        "七杳草根",
+        "火毛虫",
+        "罗喉针",
+        "石矶珠",
+        "青仙果",
+        "回神丹",
+        "珠仙草"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "action-item": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "action-item",
+      "primarySrs": null,
+      "actionKind": "item",
+      "caseIds": [
+        "case-0606",
+        "case-0607",
+        "case-0608",
+        "case-0609",
+        "case-0610",
+        "case-0611",
+        "case-0612",
+        "case-0613",
+        "case-0615",
+        "case-0617",
+        "case-0618",
+        "case-0619",
+        "case-0620",
+        "case-0621",
+        "case-0623",
+        "case-0624",
+        "case-0625",
+        "case-0626",
+        "case-0627",
+        "case-0628",
+        "case-0629",
+        "case-0630"
+      ],
+      "title": "无独立SRS物品",
+      "aliases": [
+        "灵芝草",
+        "幽灵灯",
+        "悔罪汤",
+        "原始延命香",
+        "枸杞仙果",
+        "八仙石",
+        "霸王花",
+        "千年朱果",
+        "无忧仙丹",
+        "玄冥草",
+        "无妄草",
+        "佛天圆",
+        "天玉菩提",
+        "玉银杏宝",
+        "寒冰蛙",
+        "金毛虫",
+        "生龙活虎丹",
+        "龟甲散",
+        "飘飘香",
+        "战狂石",
+        "子金光符",
+        "飓行草"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-2-240": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-240",
+      "primarySrs": "2:240",
+      "actionKind": null,
+      "caseIds": [
+        "case-0644",
+        "case-0707"
+      ],
+      "title": "SRS 2:240 · 无指定饰品的默认效果",
+      "aliases": [
+        "无指定饰品的默认效果"
+      ],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-2-241": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-241",
+      "primarySrs": "2:241",
+      "actionKind": null,
+      "caseIds": [
+        "case-0708"
+      ],
+      "title": "SRS 2:241 · 独立资源预览",
+      "aliases": [],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-2-244": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-244",
+      "primarySrs": "2:244",
+      "actionKind": null,
+      "caseIds": [
+        "case-0711"
+      ],
+      "title": "SRS 2:244 · 独立资源预览",
+      "aliases": [],
+      "status": "未审核",
+      "historyReviews": []
+    },
+    "srs-2-245": {
+      "approved": false,
+      "comment": "",
+      "markers": [],
+      "groupId": "srs-2-245",
+      "primarySrs": "2:245",
+      "actionKind": null,
+      "caseIds": [
+        "case-0712"
+      ],
+      "title": "SRS 2:245 · 独立资源预览",
+      "aliases": [],
+      "status": "未审核",
+      "historyReviews": []
+    }
+  }
+}

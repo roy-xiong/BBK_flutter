@@ -28,6 +28,27 @@ void main() {
           ? 'webp'
           : 'gif';
       final classic = Platform.environment['FMJ_REVIEW_CLASSIC'] == '1';
+      final patch = Platform.environment['FMJ_REVIEW_PATCH'] == '1';
+      final selected = <String>{};
+      if (patch) {
+        final feedback =
+            jsonDecode(
+                  File(
+                    'tool/fmj_battle_review_feedback_round2.json',
+                  ).readAsStringSync(),
+                )
+                as Map;
+        for (final row
+            in (feedback['groupReviews'] as Map).values.cast<Map>()) {
+          final written =
+              (row['comment'] as String? ?? '').trim().isNotEmpty ||
+              (row['markers'] as List? ?? []).cast<Map>().any(
+                (m) => (m['comment'] as String? ?? '').trim().isNotEmpty,
+              );
+          if (written) selected.addAll((row['caseIds'] as List).cast<String>());
+        }
+        expect(selected, hasLength(48), reason: '本轮只重录有文字意见的10组、48个关联案例');
+      }
       final shard = int.parse(Platform.environment['FMJ_REVIEW_SHARD'] ?? '0');
       final shards = int.parse(
         Platform.environment['FMJ_REVIEW_SHARDS'] ?? '4',
@@ -49,6 +70,7 @@ void main() {
         final cases = catalog['cases'] as List;
         for (var index = shard; index < cases.length; index += shards) {
           final entry = Map<String, dynamic>.from(cases[index] as Map);
+          if (patch && !selected.contains(entry['id'])) continue;
           final game =
               GameEngine(
                   data,
@@ -330,7 +352,11 @@ void main() {
           }
         }
         File(
-          '${root.path}/${classic ? 'classic-' : ''}shard-$shard.json',
+          '${root.path}/${patch
+              ? 'patch-'
+              : classic
+              ? 'classic-'
+              : ''}shard-$shard.json',
         ).writeAsStringSync(jsonEncode(records));
         expect(records, isNotEmpty);
       } finally {

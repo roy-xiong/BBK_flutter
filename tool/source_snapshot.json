@@ -41,7 +41,7 @@
       "source": "lib/engine/game_battle.dart",
       "destination": "lib/games/fmj/engine/game_battle.dart",
       "sourceSha256": "5375ae6aa517e1fc8de0296091ad7c2f8acf48eb93368643e773cb8f9167b071",
-      "importedSha256": "939c4d45ebfc39b9d8290c99b0c4dff99bccb33ac80ac7014994d3dc19dfddad"
+      "importedSha256": "ea8e8e8a35abd520908792b336bea6dd1f769c3acdd51ad353f726a2fa661cb2"
     },
     {
       "game": "fmj",

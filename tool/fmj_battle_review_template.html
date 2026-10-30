@@ -9,14 +9,14 @@
 <h1>伏魔记 · 共享战斗动效复审</h1>
 <div class="bar"><span class="badge">固定 1× · 40ms 原时钟</span><span id="summary"></span><button id="export">导出本轮审核意见</button><button id="importButton">导入审核意见</button><input id="import" type="file" accept="application/json" hidden><span id="progress"></span></div>
 <p class="muted" id="revision"></p>
-<p class="note">按共用主 SRS 审核；同组保留所有人物、技能、全体及追加状态变体。默认收起已通过组。上轮意见已内嵌，只读保留；本轮填写任何非空文字或坐标意见，立即自动标为“需修改”。</p>
-<details><summary>覆盖范围与阅读说明</summary><div id="notes"></div><p>黑白和彩色使用同一人物、技能、目标和随机种子，动作时长一致。点击“从头同步重播”一起重播，动作保持原始1倍速，循环末尾另加600ms停顿。黑白调用原版渲染器，保留原始点阵。所有动图均分块内嵌在此单文件，无需联网，每次仅解压当前一对。点击任一画面可记录640×384坐标；坐标意见关联当前变体。</p><p>上轮有意见的共享组统一为“已修改待复审”，请检查组内相关变体。上轮某个变体通过且整组没有意见时，沿用对共同动画的认可；通过按钮针对整组。本轮有文字时无法用通过按钮掩盖意见；清空已处理文字后可标通过。审核自动保存在当前浏览器，跨文件或换浏览器请导出／导入 JSON；此页使用独立 v2 存储，不覆盖旧页逐案例记录。</p><p class="note">“当前AI不主动选用”表示原资源驱动预览；“普通攻击／实际技能”运行当前动作流程。独立SRS使用默认金色，实战配色请切换人物变体。普通攻击及无独立SRS案例按动作类型聚合，原始状态SRS单独成组；共用主SRS的不同追加状态仍可逐项查阅。</p></details>
+<p class="note">按共用主 SRS 审核；同组保留所有人物、技能、全体及追加状态变体。本次只复审上一轮明确填写文字／坐标意见的组，其余全部通过并收起。已处理意见按轮次只读保留；本轮填写任何非空文字或坐标意见，立即自动标为“需修改”。</p>
+<details><summary>覆盖范围与阅读说明</summary><div id="notes"></div><p>黑白和彩色使用同一人物、技能、目标和随机种子，动作时长一致。点击“从头同步重播”一起重播，动作保持原始1倍速，循环末尾另加600ms停顿。黑白调用原版渲染器，保留原始点阵。所有动图均分块内嵌在此单文件，无需联网，每次仅解压当前一对。点击任一画面可记录640×384坐标；坐标意见关联当前变体。</p><p>本次仅复审上一份导出中明确填写文字／坐标意见的共享组，其他组全部沿用认可结果，即使更早历史仍有文字也保持通过。请检查待复审组内的相关变体，通过按钮针对整组。本轮有文字时无法用通过按钮掩盖意见；清空已处理文字后可标通过。各轮审核在当前浏览器独立保存，跨文件或换浏览器请导出／导入 JSON。同轮文件恢复当前输入；旧轮次文件只补充只读历史，已处理文字不会再次填入本轮意见。</p><p class="note">“当前AI不主动选用”表示原资源驱动预览；“普通攻击／实际技能”运行当前动作流程。独立SRS使用默认金色，实战配色请切换人物变体。普通攻击及无独立SRS案例按动作类型聚合，原始状态SRS单独成组；共用主SRS的不同追加状态仍可逐项查阅。</p></details>
 </header>
 <main><aside>
 <input id="search" aria-label="搜索共享组及原案例" placeholder="人物、技能、SRS、case-0056…">
 <select id="group" aria-label="案例类别"><option value="">全部类别</option></select>
 <select id="actor" aria-label="施放者"><option value="">全部施放者</option></select>
-<select id="status" aria-label="审核状态"><option value="pending">待审核（收起通过）</option><option value="">全部（含通过）</option><option>已修改待复审</option><option>未审核</option><option>需修改</option><option>通过</option></select>
+<select id="status" aria-label="审核状态"><option value="pending">待审核（收起通过）</option><option value="">全部（含通过）</option><option>已修改待复审</option><option>需修改</option><option>通过</option></select>
 <div id="count" class="muted"></div><div id="list"></div>
 </aside><article>
 <div class="panel" id="preview">
@@ -28,7 +28,7 @@
 <div class="coordinates">点击任一画面添加当前变体坐标意见，坐标以640×384计算</div>
 <div class="bar"><button id="restart">从头同步重播（1×）</button><button id="stop" disabled>停止画面</button><a id="classicDownload" download hidden>下载黑白动图</a><a id="download" download>下载彩色动图</a></div>
 <dl class="detail" id="detail"></dl>
-<details class="history" id="historyPanel"><summary id="historySummary">上轮意见（只读）</summary><p id="historySource" class="muted"></p><div id="history"></div></details>
+<details class="history" id="historyPanel"><summary id="historySummary">已处理意见与更早历史（只读）</summary><p id="historySource" class="muted"></p><div id="history"></div></details>
 <div class="review"><div class="bar"><strong>本轮意见（全组共用）</strong><button id="approve">整组通过</button><button id="resetApproval">重新待审</button></div><textarea id="comment" aria-label="本轮意见" placeholder="本轮仍需调整的内容直接写在这里，无需手动选择状态。可注明人物／技能或原案例编号。上轮已处理意见请在上方只读区域查看。"></textarea><div id="markers" class="markers"></div><small id="reviewHint" aria-live="polite"></small></div>
 </div>
 <div id="empty" class="panel" hidden>没有匹配的组，请调整搜索，或将审核状态切换为“全部（含通过）”。</div>
@@ -49,7 +49,7 @@ const ReviewLogic = (() => {
   function effectiveStatus(review, group) {
     if (hasFeedback(review)) return '需修改';
     if (review?.approved === true) return '通过';
-    return group.initialStatus === '已修改待复审' || group.historyReviews?.length ? '已修改待复审' : '未审核';
+    return group.initialStatus === '已修改待复审' ? '已修改待复审' : '通过';
   }
   /** 坐标接受画面内有限数值，并保留 case 身份，避免切换变体后标错画面。 */
   function normalizeMarkers(markers, group, fallbackCase) {
@@ -72,43 +72,80 @@ const ReviewLogic = (() => {
     for (const source of [group.historyReviews || [], ...sources]) {
       if (!Array.isArray(source)) continue;
       for (const row of source) {
-        if (!object(row) || !group.caseIds.includes(row.caseId)) continue;
-        const item = {caseId:row.caseId, title:text(row.title), actor:text(row.actor), resource:text(row.resource),
-          status:text(row.status), comment:text(row.comment), markers:normalizeMarkers(row.markers, group, row.caseId)};
+        if (!object(row)) continue;
+        const isGroup=row.scope==='group';
+        if (!isGroup && !group.caseIds.includes(row.caseId)) continue;
+        const caseId=group.caseIds.includes(row.caseId) ? row.caseId : group.caseIds[0];
+        const round=object(row.round) ? row.round : {};
+        const item = {scope:isGroup?'group':'case',groupId:group.id,
+          caseIds:isGroup ? [...group.caseIds] : [caseId],caseId,round,roundId:text(row.roundId)||text(round.id)||'legacy',
+          title:text(row.title), actor:text(row.actor), resource:text(row.resource),
+          status:text(row.status), comment:text(row.comment), markers:normalizeMarkers(row.markers, group, caseId)};
         if (!hasFeedback(item)) continue;
-        const key = JSON.stringify([item.caseId,item.comment,item.markers]);
+        const key = JSON.stringify([item.roundId,item.scope,item.caseId,item.comment,item.markers]);
         if (!keys.has(key)) { keys.add(key); result.push(item); }
       }
     }
     return result;
   }
-  /** 导入新版组意见或旧逐案例格式；旧版未审核但有文字，同样迁为本轮需修改。 */
-  function importReviews(input, groups) {
+  /** 反馈身份来自导出快照；存储键不随文件名改变，也不会加载旧轮次的输入。 */
+  function roundOf(input) {
+    const round=object(input)?input:{};
+    return {id:text(round.id)||'fmj-feedback:'+(text(round.exportedAt)||text(round.revision)||'legacy'),
+      exportedAt:text(round.exportedAt),version:text(round.version),revision:text(round.revision),
+      documentType:text(round.documentType),schema:round.schema};
+  }
+  function roundId(data) { return text(data.reviewRoundId)||'review-after:'+(text(data.feedbackRound?.id)||text(data.feedbackRound?.exportedAt)||text(data.revision)||'legacy'); }
+  function scope(data) { return {mode:'written-feedback-only',feedbackId:text(data.reviewScope?.feedbackId)||roundOf(data.feedbackRound).id,reviewRoundId:roundId(data),
+    groupIds:Array.isArray(data.reviewScope?.groupIds)?[...data.reviewScope.groupIds]:[],
+    caseIds:Array.isArray(data.reviewScope?.caseIds)?[...data.reviewScope.caseIds]:[]}; }
+  function sameRound(input,data) {
+    const expected=scope(data);
+    return input.schema===3 && input.reviewRoundId===expected.reviewRoundId &&
+      input.reviewScope?.mode===expected.mode && input.reviewScope?.feedbackId===expected.feedbackId;
+  }
+  function storageKey(data) { return 'fmj-battle-review-groups-v3:'+encodeURIComponent(roundId(data)); }
+  function saveState(data,groups,reviews,histories) {
+    return {schema:3,reviewRoundId:roundId(data),reviewScope:scope(data),
+      reviews:Object.fromEntries(groups.map(g=>[g.id,normalizeReview(reviews[g.id],g)])),
+      histories:Object.fromEntries(groups.map(g=>[g.id,mergeHistory(g,histories[g.id])]))};
+  }
+  function restoreState(saved,data,groups) {
+    const valid=object(saved) && sameRound(saved,data);
+    return saveState(data,groups,valid && object(saved.reviews)?saved.reviews:{},valid && object(saved.histories)?saved.histories:{});
+  }
+  /** 同轮v3恢复本轮输入；旧v2／异轮意见只迁入历史，已处理文字不会重新进入textarea。 */
+  function importReviews(input, groups, data=null) {
     if (!object(input)) throw Error('文件内容不正确');
     const grouped = input.documentType === 'fmj-color-battle-review-groups' && object(input.groupReviews);
     const legacy = input.documentType === 'fmj-color-battle-review' && object(input.reviews);
     if (!grouped && !legacy) throw Error('不是伏魔记战斗审核意见文件');
-    const reviews = {}, histories = {};
+    const reviews = {}, histories = {},current=!data || sameRound(input,data);
     for (const group of groups) {
       if (grouped) {
         const row = input.groupReviews[group.id];
         if (!object(row)) continue;
-        reviews[group.id] = normalizeReview(row, group);
-        histories[group.id] = mergeHistory(group, row.historyReviews);
+        reviews[group.id] = normalizeReview(current?row:null, group);
+        const older=(row.historyReviews||[]).map(old=>({...old,round:old.round||roundOf(input.feedbackRound),
+          roundId:old.roundId||old.round?.id||roundOf(input.feedbackRound).id}));
+        const previous=hasFeedback(row)?[{...row,scope:'group',groupId:group.id,caseIds:[...group.caseIds],
+          caseId:group.caseIds[0],round:roundOf(input),roundId:roundOf(input).id}]:[];
+        histories[group.id] = current ? mergeHistory(group,row.historyReviews) : mergeHistory(group,older,previous);
       } else {
         const entries = group.caseIds.map(caseId => ({caseId,row:input.reviews[caseId]})).filter(e => object(e.row));
         if (!entries.length) continue;
         const comments = entries.filter(e => text(e.row.comment).trim()).map(e => `${e.caseId} · ${text(e.row.title)}\n${e.row.comment}`);
         const markers = entries.flatMap(e => normalizeMarkers(e.row.markers, group, e.caseId));
-        reviews[group.id] = normalizeReview({approved:entries.some(e => e.row.status === '通过'),comment:comments.join('\n\n'),markers}, group);
-        histories[group.id] = mergeHistory(group);
+        reviews[group.id] = normalizeReview(current?{approved:entries.some(e => e.row.status === '通过'),comment:comments.join('\n\n'),markers}:null, group);
+        const previous=entries.filter(e=>hasFeedback(e.row)).map(e=>({...e.row,caseId:e.caseId,scope:'case',round:roundOf(input),roundId:roundOf(input).id}));
+        histories[group.id] = current?mergeHistory(group):mergeHistory(group,previous);
       }
     }
     if (!Object.keys(reviews).length) throw Error('文件中没有能对应当前目录的组或案例');
-    return {reviews,histories};
+    return {reviews,histories,mode:current?'current':'history'};
   }
   function exportReviews(data, groups, reviews, histories) {
-    return {documentType:'fmj-color-battle-review-groups',schema:2,version:data.version,revision:data.revision,
+    return {documentType:'fmj-color-battle-review-groups',schema:3,reviewRoundId:roundId(data),reviewScope:scope(data),version:data.version,revision:data.revision,
       renderRevision:data.renderRevision,exportedAt:new Date().toISOString(),speed:1,
       feedbackRound:data.feedbackRound,caseCount:groups.reduce((n,g) => n + g.caseIds.length, 0),
       groupReviews:Object.fromEntries(groups.map(group => {
@@ -118,18 +155,18 @@ const ReviewLogic = (() => {
           status:effectiveStatus(current,{...group,historyReviews:history}),historyReviews:history}];
       }))};
   }
-  return {hasFeedback,effectiveStatus,normalizeReview,mergeHistory,importReviews,exportReviews};
+  return {hasFeedback,effectiveStatus,normalizeReview,mergeHistory,importReviews,exportReviews,storageKey,saveState,restoreState};
 })();
 </script>
 <script>
 'use strict';
-const $ = id => document.getElementById(id), KEY = 'fmj-battle-review-groups-v2';
+const $ = id => document.getElementById(id), KEY = ReviewLogic.storageKey(DATA);
 const cases = DATA.cases, groups = DATA.reviewGroups, casesById = new Map(cases.map(c => [c.id,c]));
 const groupByCase = new Map(groups.flatMap(g => g.caseIds.map(id => [id,g])));
 const reviews = {}, histories = {}, variants = new Map();
 let filtered = [], selected = null, selectedCase = null, objectUrls = [], playRequest = 0, toastTimer = 0;
 try {
-  const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+  const saved = ReviewLogic.restoreState(JSON.parse(localStorage.getItem(KEY) || '{}'),DATA,groups);
   for (const g of groups) {
     reviews[g.id] = ReviewLogic.normalizeReview(saved.reviews?.[g.id],g);
     histories[g.id] = ReviewLogic.mergeHistory(g,saved.histories?.[g.id]);
@@ -140,14 +177,14 @@ function history(g) { return histories[g.id] || g.historyReviews || []; }
 function state(g) { return ReviewLogic.effectiveStatus(review(g),{...g,historyReviews:history(g)}); }
 function toast(message) { $('toast').textContent=message; $('toast').style.display='block'; clearTimeout(toastTimer); toastTimer=setTimeout(() => $('toast').style.display='none',3600); }
 function save() {
-  try { localStorage.setItem(KEY,JSON.stringify({reviews,histories})); }
+  try { localStorage.setItem(KEY,JSON.stringify(ReviewLogic.saveState(DATA,groups,reviews,histories))); }
   catch { toast('浏览器无法保存，请及时导出审核意见'); }
   progress();
 }
 function progress() {
   const count = {};
   for (const group of groups) count[state(group)] = (count[state(group)] || 0) + 1;
-  $('progress').textContent=`通过 ${count['通过']||0}/${groups.length}组 · 待复审 ${count['已修改待复审']||0} · 需修改 ${count['需修改']||0} · 未审核 ${count['未审核']||0}`;
+  $('progress').textContent=`通过 ${count['通过']||0}/${groups.length}组 · 待复审 ${count['已修改待复审']||0} · 需修改 ${count['需修改']||0}`;
 }
 function option(select,value,label=value) { const node=document.createElement('option'); node.value=value; node.textContent=label; select.append(node); }
 function caseMatches(c) {
@@ -188,8 +225,8 @@ function updateReviewState() {
   const r=review(selected),hasText=ReviewLogic.hasFeedback(r);
   $('reviewState').textContent=state(selected); $('reviewState').classList.toggle('needs',hasText);
   $('approve').disabled=hasText; $('approve').title=hasText ? '本轮仍有文字或坐标意见，请处理并清空后再通过' : '认可此共享动画及其组内变体';
-  $('resetApproval').disabled=!r.approved;
-  $('reviewHint').textContent=hasText ? '本轮有非空文字／坐标意见，已自动标为需修改。' : r.approved ? '此共享组已通过，可继续检查其他组。' : '检查组内变体后可整组通过；有问题直接填写意见。';
+  $('resetApproval').disabled=!r.approved || selected.initialStatus!=='已修改待复审';
+  $('reviewHint').textContent=hasText ? '本轮有非空文字／坐标意见，已自动标为需修改。' : state(selected)==='通过' ? '此共享组已通过，可继续检查其他组。' : '检查组内变体后可整组通过；有问题直接填写意见。';
 }
 function show(g,caseId=null,updateList=true) {
   if (!g) return;
@@ -215,7 +252,8 @@ function show(g,caseId=null,updateList=true) {
   const c=selectedCase,fields={'施放者／观察对象':c.actorName,'原案例类别':c.group,'技能／物品资源':c.resource||'—',
     '本变体实际动画':c.observedMovies?.length ? c.observedMovies.join('、') : '无独立SRS；动作、待机或数值变化',
     '动作时长':`${c.durationMs}ms（每步40ms），循环间隔另加${c.loopGapMs}ms`,
-    '彩色资源':`${c.imageFrames||c.gifFrames}帧 · ${((c.imageBytes||c.gifBytes||0)/1024).toFixed(0)}KB · 640×384 · ${(c.imageExtension||'gif').toUpperCase()}`};
+    '彩色资源':`${c.imageFrames||c.gifFrames}帧 · ${((c.imageBytes||c.gifBytes||0)/1024).toFixed(0)}KB · 640×384 · ${(c.imageExtension||'gif').toUpperCase()}`,
+    '本变体彩色来源':c.assetRenderRevision||DATA.renderRevision||DATA.revision};
   $('detail').replaceChildren();
   for (const [key,value] of Object.entries(fields)) {const dt=document.createElement('dt'),dd=document.createElement('dd'); dt.textContent=key; dd.textContent=value; $('detail').append(dt,dd);}
   $('comment').value=review(g).comment; renderHistory(); markers(); updateReviewState();
@@ -226,16 +264,22 @@ function show(g,caseId=null,updateList=true) {
 }
 /** 导入文字只通过textContent展示，不作为HTML执行。 */
 function renderHistory() {
-  const rows=history(selected); $('history').replaceChildren(); $('historyPanel').hidden=!rows.length; $('historyPanel').open=!!rows.length;
-  $('historySummary').textContent=`上轮意见（只读，${rows.length}条原案例意见）`;
-  $('historySource').textContent=`来自 ${DATA.feedbackRound?.exportedAt||'上轮导出'} · 旧意见已保留，本轮输入独立记录`;
-  for (const row of rows) {
+  const rows=history(selected),latest=rows.filter(row=>row.roundId===DATA.feedbackRound?.id),older=rows.filter(row=>row.roundId!==DATA.feedbackRound?.id);
+  $('history').replaceChildren(); $('historyPanel').hidden=!rows.length; $('historyPanel').open=!!latest.length;
+  $('historySummary').textContent=`已处理意见（只读）：本次 ${latest.length}条 · 更早历史 ${older.length}条`;
+  $('historySource').textContent='历史内容按反馈轮次保留；本轮输入独立记录，较早历史不会改变已通过状态。';
+  for (const [label,entries] of [['本次已修改 · 请复审',latest],['更早反馈 · 已保留',older]]) {
+    if (!entries.length) continue;
+    const section=document.createElement('h3'); section.textContent=label; $('history').append(section);
+    for (const row of entries) {
     const box=document.createElement('div'); box.className='history-entry';
-    const heading=document.createElement('strong'); heading.textContent=`${row.caseId} · ${row.title||casesById.get(row.caseId)?.title||''}`;
+    const heading=document.createElement('strong'); heading.textContent=`${row.scope==='group'?'整组 '+row.groupId:row.caseId} · ${row.title||casesById.get(row.caseId)?.title||''}`;
     const jump=document.createElement('button'); jump.textContent='查看此变体'; jump.onclick=()=>show(selected,row.caseId);
-    const comment=document.createElement('p'); comment.textContent=row.comment; box.append(heading,jump,comment);
+    const round=document.createElement('small'); round.textContent=`反馈轮次：${row.round?.exportedAt||row.roundId||'较早记录'}`;
+    const comment=document.createElement('p'); comment.textContent=row.comment; box.append(heading,jump,document.createElement('br'),round,comment);
     for (const marker of row.markers||[]) {const p=document.createElement('p'); p.textContent=`${marker.view==='classic'?'黑白':'彩色'} (${marker.x}, ${marker.y}) ${marker.comment}`; box.append(p);}
     $('history').append(box);
+    }
   }
 }
 function markers() {
@@ -289,7 +333,7 @@ async function play(c) {
     $('stop').disabled=false;
   } catch (error) {if (request===playRequest) toast('动图载入失败，请使用新版 Chrome 打开：'+error.message);}
 }
-$('summary').textContent=`${groups.length}个共享组 · ${cases.length}原案例 · ${DATA.summary.historicalReviews}条上轮意见`;
+$('summary').textContent=`${groups.length}个共享组 · ${cases.length}原案例 · 本次 ${DATA.summary.latestFeedbackReviews}条已处理意见 · 更早 ${DATA.summary.olderHistoricalReviews}条历史`;
 $('revision').textContent=`版本 ${DATA.version} · 彩色 ${(DATA.renderRevision||DATA.revision).slice(0,12)} · 黑白 ${(DATA.classicRenderRevision||'未记录').slice(0,12)} · ${DATA.createdAt} · 离线单文件`;
 for (const note of DATA.notes||[]) {const p=document.createElement('p'); p.textContent=note; $('notes').append(p);}
 for (const category of Object.keys(DATA.summary.groups)) option($('group'),category,`${category}（${DATA.summary.groups[category]}原案例）`);
@@ -317,10 +361,10 @@ $('importButton').onclick=()=>$('import').click();
 $('import').onchange=async event=>{
   try {
     const file=event.target.files[0]; if (!file) return;
-    const imported=ReviewLogic.importReviews(JSON.parse(await file.text()),groups);
+    const imported=ReviewLogic.importReviews(JSON.parse(await file.text()),groups,DATA);
     Object.assign(reviews,imported.reviews);
     for (const g of groups) histories[g.id]=ReviewLogic.mergeHistory(g,history(g),imported.histories[g.id]);
-    save(); const current=selected,id=selectedCase?.id; list(); if (current && filtered.some(g=>g.id===current.id)) show(current,id); toast(`已导入 ${Object.keys(imported.reviews).length} 个共享组；非空意见自动视为需修改`);
+    save(); const current=selected,id=selectedCase?.id; list(); if (current && filtered.some(g=>g.id===current.id)) show(current,id); toast(imported.mode==='current'?`已恢复本轮 ${Object.keys(imported.reviews).length} 个共享组，非空意见自动需修改`:'旧轮次意见已迁入只读历史；本轮状态继续按当前反馈范围判断');
   } catch (error) {toast('导入失败：'+error.message);} finally {event.target.value='';}
 };
 function resetFilters() {$('search').value=''; $('group').value=''; $('actor').value=''; $('status').value='';}

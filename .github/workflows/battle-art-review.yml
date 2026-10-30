@@ -1,13 +1,7 @@
 name: 伏魔记战斗动图审核
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - test/games/fmj/battle_review_export_test.dart
-      - tool/*fmj_battle*
-      - tool/fmj_battle_review_template.html
-      - .github/workflows/battle-art-review.yml
+  # 完整动效库按需手动重录；逐轮复审使用battle-review-revision.yml，复用通过资源。
 permissions:
   contents: read
   actions: read

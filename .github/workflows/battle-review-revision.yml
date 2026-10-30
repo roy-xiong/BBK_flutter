@@ -1,0 +1,81 @@
+name: 定向修订战斗动效复审
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  patch:
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.4'
+          cache: true
+      - run: flutter pub get --enforce-lockfile
+      - run: python3 -m pip install Pillow
+      - run: python3 tool/export_fmj_battle_catalog.py
+      - name: 仅重录本轮10组48个关联案例
+        env:
+          FMJ_EXPORT_BATTLE_REVIEW: '1'
+          FMJ_REVIEW_FORMAT: webp
+          FMJ_REVIEW_PATCH: '1'
+          FMJ_REVIEW_SHARD: ${{ matrix.shard }}
+          FMJ_REVIEW_SHARDS: '4'
+        run: flutter test --no-pub test/games/fmj/battle_review_export_test.dart --reporter expanded
+      - uses: actions/upload-artifact@v4
+        with:
+          name: battle-patch-${{ matrix.shard }}
+          path: |
+            build/battle-review/*.webp
+            build/battle-review/*.gif
+            build/battle-review/patch-shard-*.json
+          retention-days: 30
+  document:
+    needs: patch
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: 已通过案例复用上轮彩色原文件
+        uses: actions/download-artifact@v4
+        with:
+          pattern: battle-gifs-*
+          run-id: '41074672827'
+          github-token: ${{ github.token }}
+          merge-multiple: true
+          path: build/battle-review
+      - name: 逐案例记录原文件摘要
+        run: python3 tool/merge_fmj_review_patch.py --record-base
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: battle-patch-*
+          merge-multiple: true
+          path: build/battle-review
+      - name: 仅合并授权的48个案例并校验其他664个文件不变
+        run: python3 tool/merge_fmj_review_patch.py
+      - name: 复用原版黑白对照
+        uses: actions/download-artifact@v4
+        with:
+          pattern: battle-classic-*
+          run-id: '41030865029'
+          github-token: ${{ github.token }}
+          merge-multiple: true
+          path: build/battle-review
+      - run: python3 -m pip install Pillow
+      - run: python3 tool/export_fmj_battle_catalog.py
+      - run: python3 tool/build_fmj_battle_review.py --require-classic --classic-render-revision a9b568a31683dbbd0f19a63a1cb20d29838dabd8
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fmj-battle-review-round3-document
+          path: |
+            build/battle-review/*.html
+            build/battle-review/*.manifest.json
+            build/battle-review/patch-verification.json
+          retention-days: 30

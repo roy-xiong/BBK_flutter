@@ -3,6 +3,8 @@ import 'dart:ui';
 import '../data/game_data.dart';
 import 'battle_calligraphy.dart';
 
+part 'modern_battle_motifs.dart';
+
 /// 本轮审核确认的招式语义图形。原SRS仍是唯一时钟和位置来源，绘制不写入会话。
 /// 共用SRS的所有人物、敌人和道具自动使用同一修订，不按角色另造分支。
 abstract final class ModernBattleSemantics {
@@ -32,6 +34,7 @@ abstract final class ModernBattleSemantics {
     '2:204',
     '2:205',
     ...statusLetters.keys,
+    ..._Round3Motifs.ids,
   };
   static final _timings = Expando<(List<int>, int)>();
   static Paint _paint(Color color, [double stroke = 0]) => Paint()
@@ -76,6 +79,7 @@ abstract final class ModernBattleSemantics {
     List<Color> colors,
   ) {
     if (movie.active.isEmpty) return false;
+    if (_Round3Motifs.composition(canvas, movie, anchor, colors)) return true;
     final t = progress(movie);
     switch (movie.id) {
       case '2:14':
@@ -136,6 +140,17 @@ abstract final class ModernBattleSemantics {
     int frame,
     List<Color> colors,
   ) {
+    if (_Round3Motifs.frame(
+      canvas,
+      id,
+      bitmapIndex,
+      size,
+      age,
+      frame,
+      colors,
+    )) {
+      return true;
+    }
     if (statusLetters.containsKey(id)) {
       glyph(canvas, statusLetters[id]!, Offset.zero & size, colors);
       return true;

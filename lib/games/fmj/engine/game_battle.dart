@@ -153,6 +153,9 @@ final class GameBattle {
   String phase = 'select', targetKind = '';
   String? resource;
   bool auto = false, eventChecked = false, scriptPaused = false;
+
+  /// 仅供彩色表现层保留本回合已执行的防御姿态；不参与原伤害或动作时序。
+  /// 在原回合结束点统一清空，不能在动作完成后立即移除而让防御末帧消失。
   final Set<GameActor> defending = {};
   final List<VictoryCard> victoryShown = [];
   final List<VictoryCard> _victoryPending = [];
@@ -658,7 +661,11 @@ final class GameBattle {
     action.started = true;
     action.originX = actor.combatX;
     action.originY = actor.combatY;
-    if (action.kind == 'defend' || action.kind == 'flee') return;
+    if (action.kind == 'defend') {
+      defending.add(actor);
+      return;
+    }
+    if (action.kind == 'flee') return;
     final id = action.resource;
     final record = id == null
         ? null
