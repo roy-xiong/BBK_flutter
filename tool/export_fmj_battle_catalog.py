@@ -15,7 +15,7 @@ def catalog():
         v=row((12,1,number));return [f'{v[3+i*2]}:{v[4+i*2]}'for i in range(v[2]if learned is None else min(v[2],learned))]
     skills={f'{k[1]}:{k[2]}':{'id':f'{k[1]}:{k[2]}','name':text(row(k),6),'type':row(k)[0],'all':bool(row(k)[3]&128),'movie':row(k)[5],'mp':row(k)[4],'status':row(k)[24]&15,'hp':int.from_bytes(row(k)[18:20],'little'),'detail':text(row(k),26)}for k in offsets if k[0]==4}
     heroes=[{'index':k[2],'name':text(row(k),10),'skills':chain(row(k)[23]),'side':'我方'}for k in offsets if k[:2]==(3,1)]
-    enemies=[{'index':k[2],'name':text(row(k),6),'sprite':row(k)[46],'skills':chain(row(k)[47],row(k)[2]),'side':'敌方'}for k in offsets if k[:2]==(3,3)]
+    enemies=[{'index':k[2],'name':text(row(k),6),'sprite':row(k)[46],'maxMp':min(999,int.from_bytes(row(k)[28:30],'little')),'skills':chain(row(k)[47],row(k)[2]),'side':'敌方'}for k in offsets if k[:2]==(3,3)]
     guide=json.loads((ROOT/'assets/fmj/game/FmjGuideData.json').read_text())
     for script in guide['scripts']:
         for command in script['commands']:
@@ -30,9 +30,9 @@ def catalog():
         for mid in hero['skills']:
             m=skills[mid];add('我方技能',f"{hero['name']} · {m['name']}",actor=hero['index'],kind='help'if m['type']not in(1,5)else'magic',resource=mid,movie=m['movie'],all=m['all'],actorName=hero['name'],availability='角色技能表／剧情学习',skill=m['name'])
     for enemy in enemies:
-        automatic={next((mid for mid in enemy['skills']if skills[mid]['type']==ty),None)for ty in(1,3)}
+        automatic={next((mid for mid in enemy['skills']if skills[mid]['type']==ty and skills[mid]['mp']<mp),None)for ty in(1,3)for mp in range(1,enemy['maxMp']+1)}-{None}
         for mid in enemy['skills']:
-            m=skills[mid];add('敌方技能',f"{enemy['name']}〔{enemy['index']}〕 · {m['name']}",actor_type=3,actor=enemy['index'],kind='help'if m['type']not in(1,5)else'magic',resource=mid,movie=m['movie'],all=m['all'],actorName=enemy['name'],availability='当前AI可选（首个同类技能，另受真气/概率条件限制）'if mid in automatic else'资源定义预览：当前AI不主动选用这项',skill=m['name'])
+            m=skills[mid];add('敌方技能',f"{enemy['name']}〔{enemy['index']}〕 · {m['name']}",actor_type=3,actor=enemy['index'],kind='help'if m['type']not in(1,5)else'magic',resource=mid,movie=m['movie'],all=m['all'],actorName=enemy['name'],availability='当前AI可选（真气筛选后的首个同类技能，另受血量/概率条件限制）'if mid in automatic else'资源定义预览：当前AI不主动选用这项',skill=m['name'])
     assigned={c['resource']for c in cases}
     for mid,m in skills.items():
         if mid not in assigned:add('未分配技能',f"未分配技能 · {m['name']}",kind='help'if m['type']not in(1,5)else'magic',resource=mid,movie=m['movie'],all=m['all'],actorName='柳清风（预览载体）',availability='当前角色/敌人技能表及学习脚本未分配；只展示资源',skill=m['name'])
