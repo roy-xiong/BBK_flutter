@@ -19,12 +19,7 @@ void main() {
     for (final id in scope['approved'] as List) {
       if (!maps.containsKey(id)) continue;
       for (final kind in ['buildings', 'decorations', 'tileOverrides']) {
-        final actual = kind == 'decorations' && hd['artSweepV15'] != null
-            ? (hd[kind][id] as List?)
-                  ?.where((b) => !(b['key'] as String).startsWith('sweep-v15:'))
-                  .toList()
-            : hd[kind][id];
-        expect(actual, baseline[kind][id], reason: '$id/$kind');
+        expect(hd[kind][id], baseline[kind][id], reason: '$id/$kind');
       }
       expect(hd['groundOverrides'][id], isNull, reason: '$id 已通过底图');
     }

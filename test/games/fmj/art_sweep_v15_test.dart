@@ -32,7 +32,7 @@ void main() {
     expect(cells, before, reason: '绘制轮廓不能修改逻辑地图');
   });
 
-  test('全83张地图已扫描，旧点阵轮廓定义已重绘或映射完整彩绘', () {
+  test('全量重绘已经撤回，既有帧恢复基线，仅保留明确提出的睡莲与坐客修改', () {
     final hd =
         jsonDecode(
               File('assets/fmj/modern/enhanced-art.json').readAsStringSync(),
@@ -45,13 +45,27 @@ void main() {
               ).readAsStringSync(),
             )
             as Map;
-    expect(hd['artSweepV15']['maps'], hasLength(83));
-    expect(hd['artSweepV15']['legacyDefinitionsAudited'], 764);
-    expect(hd['artSweepV15']['legacyDefinitionsRedrawn'], greaterThan(0));
-    expect(hd['artSweepV15']['retainedDetailedPaintings'], hasLength(38));
+    final proof =
+        jsonDecode(
+              File(
+                'tool/art_sources/art-rollback-v16/baseline-verification.json',
+              ).readAsStringSync(),
+            )
+            as Map;
+    expect(hd.containsKey('artSweepV15'), false);
+    expect(hd['targetedArtV15']['globalSweepReverted'], true);
+    expect(proof['unchangedFrameCount'], 2034);
+    expect(proof['decodedImageBytes'], lessThan(256 * 1024 * 1024));
     expect(
       (sources['frames'] as Map).values.where(
         (s) => s['transform'] == 'original-contour-native-material',
+      ),
+      isNotEmpty,
+      reason: '用户已取消全量重绘，原有花草、柱子等映射必须恢复',
+    );
+    expect(
+      (hd['frames'] as Map).keys.where(
+        (key) => (key as String).startsWith('sweep-v15:'),
       ),
       isEmpty,
     );

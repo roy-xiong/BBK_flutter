@@ -41,10 +41,6 @@ def main():
     if third:
         fixes=json.loads((ROOT/'tool/review_v14_fixes.json').read_text())
     revised=set((third or interior or hd.get('partialReviewV11',{})).get('maps',[]))
-    sweep=hd.get('artSweepV15')
-    if sweep:
-        revised=set(sweep.get('reviewMaps',sweep['maps']))
-        fixes=json.loads((ROOT/'tool/art_sweep_v15_fixes.json').read_text())
     for m in guide['maps']:
         if args.patch and m['id']not in revised:continue
         path=args.input/('map-'+m['id'].replace(':','-')+'.png')

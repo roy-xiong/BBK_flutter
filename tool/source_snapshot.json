@@ -293,84 +293,84 @@
       "source": "assets/modern/enhanced-00.png",
       "destination": "assets/fmj/modern/enhanced-00.png",
       "sourceSha256": "a23454a3f68d1fcd3083e623107dddb3b232db9fc622cee82bc8f81de294240b",
-      "importedSha256": "ffdf7d911b778c9ef74b13af214dad21508963c11838a8bd0dc8114267ec2f1b"
+      "importedSha256": "8842c775aa156378f29ca866326bf2f36856dc4ae2bb8185758e671aeebd6c3a"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-01.png",
       "destination": "assets/fmj/modern/enhanced-01.png",
       "sourceSha256": "858ff7001a89094388d608450f6b103e6a41e20de456d882dc3e9f5e10909b1a",
-      "importedSha256": "2e58d0b7727a81ce23bf0a5c86d86d14740dd284ac8eb1e701976786c2be4993"
+      "importedSha256": "3420770b4456bf023e517922dbc2327567be1a882f8173b896035798cfb7e999"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-02.png",
       "destination": "assets/fmj/modern/enhanced-02.png",
       "sourceSha256": "7c773e85c7558577489ec290c1784475a322489f40cfffe5a120528c5a15906a",
-      "importedSha256": "7d421b2f487d2cb1f42d0f643f57a3edbf34e1b42a1693110dca6b7dace15abc"
+      "importedSha256": "ab91ef80ab2e3b863cc7375e51825cec8ad80472b0c057e13d9427469f499f38"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-03.png",
       "destination": "assets/fmj/modern/enhanced-03.png",
       "sourceSha256": "7cd41907a10ec92b398d9e5a46dff8c1a33942771d3656021085865594a26d4c",
-      "importedSha256": "a7eb7a085cafcd37b42e0b80ffd85b4ab32c1adfc107d454500cade6bf90941f"
+      "importedSha256": "6c32924d41bf792a6de800c1bd92878a91fad085400a840e6b5893fbb0a9c2df"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-04.png",
       "destination": "assets/fmj/modern/enhanced-04.png",
       "sourceSha256": "1c29ad7b1e297216c27b2be2dc9d42ec290cc0829ad120dcf87a6e0bc96ad641",
-      "importedSha256": "ddf6447b28276c26a34668838ada4a5fe50214ff7e4384f79648710e6f673bcf"
+      "importedSha256": "fba763631518a7632c9fa76293dc0a05885fa682825328eaeb5852fb5fedf629"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-05.png",
       "destination": "assets/fmj/modern/enhanced-05.png",
       "sourceSha256": "f6b3135d409b967f1bc45af71e40d201ca444e0df647d0e29eeb7284ff8b92ba",
-      "importedSha256": "88c91260ba5cba4aa7a1333424ea4472aa6463881b95560b170d44d1125e5953"
+      "importedSha256": "d72a2f4b72b1ea130d44c61ea5bb76b83cbcc79c737e56af0b02c94c5c8e3766"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-06.png",
       "destination": "assets/fmj/modern/enhanced-06.png",
       "sourceSha256": "6f8ec480887060d00418f11181a7a22fa85f3fded4dda1c45bafc01869b4528d",
-      "importedSha256": "7da85b6fe556cb8c2a6c61f04a409c5e0c69ad48b55ea5af807179db1ee21ca8"
+      "importedSha256": "f7a7909012be55dced4e806391d1966c800a9aca03f8b7efba8ed98bffd27289"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-07.png",
       "destination": "assets/fmj/modern/enhanced-07.png",
       "sourceSha256": "eca46747531bb706e1ab5dccf4317e2e0ac69a47b26f22478e537157c7ee48e5",
-      "importedSha256": "b8c6970d0d478995a645380f46d6545447d628b954fd252cb3c3c5959645b16a"
+      "importedSha256": "d4679d92988c7df30d2959e60d7db51ebc874af988dddee556bf6d0fa78eca6d"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-08.png",
       "destination": "assets/fmj/modern/enhanced-08.png",
       "sourceSha256": "ef7cc8f00cbd4fe4258f6786ee37a321eb19931f4f7a58f56d597b23b987e1a8",
-      "importedSha256": "be8ff25ea0cdc3537fff78fc585e3a85544e05edd9bf5217a6894a062de51afd"
+      "importedSha256": "db2dcfdb2b05ee8ed1d117ac551829c7b980f5b62547f6deccf2d2571fa5216e"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-09.png",
       "destination": "assets/fmj/modern/enhanced-09.png",
       "sourceSha256": "1ce89330d66574640f0b490270faea4dce643b25819aaa8f498eafce7d72f21a",
-      "importedSha256": "89cd980f049eb5b69dc278827f584c407ac200168957c1e0efa499c07c6b08f7"
+      "importedSha256": "f048be4c113df12e41498cad585b69f8c51550702238d752f0d735ead37e75a9"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-10.png",
       "destination": "assets/fmj/modern/enhanced-10.png",
       "sourceSha256": "446ad1ac681ee0de6965ad4790df6c22572760e629fb8b5a20d5df7ec573b2b9",
-      "importedSha256": "9dbbf482c09444f9e3e6bceb556d60cea2325b78742be4e90f5672b6a1f09b41"
+      "importedSha256": "4356356655c0dacda2641dd989092ffc961fc3a1f1b03b57d5edcb4516484040"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-11.png",
       "destination": "assets/fmj/modern/enhanced-11.png",
       "sourceSha256": "f048f9fa743c0eaccc80794b7f1e9f84dc2665a194c518ffa79148faf35ceb84",
-      "importedSha256": "012f1970763e5ceca8ce2341fd86466679a76413e6350df427443ad425cbd89e"
+      "importedSha256": "f8351f3dc55fd6ead7f05dcb92e221c7aab63d7b336bfad0254740a0294eeb5f"
     },
     {
       "game": "fmj",
@@ -384,14 +384,14 @@
       "source": "assets/modern/enhanced-art-sources.json",
       "destination": "assets/fmj/modern/enhanced-art-sources.json",
       "sourceSha256": "cdf028d0afb5a68107a5b58af76d7e476a8beefe0cebfc42ab87ad78e33c5e2e",
-      "importedSha256": "6582134287773c5073fcd18c685934bc6e5d396c270c81038aab9ca6f2c785af"
+      "importedSha256": "b85ae46cece78a4f11296bfe89c5f7ecf3a5f59a7e0d8ef4cfd586950962445f"
     },
     {
       "game": "fmj",
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "4a31c3a94dc244aee32be84f1e4b7df7bf6d7ba653373769ce22a4c2e92513f2"
+      "importedSha256": "38fc528229ae134cd5bad2be33baa14fb2e941434853496f7d0ae9f893cb93ea"
     },
     {
       "game": "fmj",
@@ -2239,6 +2239,13 @@
       "destination": "assets/fmj/modern/opening-v15.png",
       "importedSha256": "73d48f754357a5881872e5b62e5f173273f5dd1c27a181813928c5d48e938670",
       "approval": "用户要求重新设计小蝴蝶及柳清风开场动画"
+    },
+    {
+      "game": "fmj",
+      "source": "tool/art_sources/art-sweep-v15/butterfly.png",
+      "destination": "assets/fmj/modern/opening-butterfly-v15.png",
+      "sourceSha256": "f9013cd6b24cce6f68dbce011132fc6925261598c868cb022279da0d327eb8a2",
+      "importedSha256": "09a65ceb629ae2038f23d7fe678b670b10c3fbc230e1665034ef357af116e04c"
     }
   ],
   "integrationRevisions": [
@@ -3345,6 +3352,90 @@
       "previousImportedSha256": "9a0bf22bec90d8be7b226e793def25eb9aecc01c6cb77ed4f7a5578071b4fe07",
       "currentSha256": "4a31c3a94dc244aee32be84f1e4b7df7bf6d7ba653373769ce22a4c2e92513f2",
       "reason": "整图渲染复核纠正过期元数据：保留38条已完成彩绘的山石，规则结构保留透明外形，避免整片覆盖背景"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-00.png",
+      "previousImportedSha256": "ffdf7d911b778c9ef74b13af214dad21508963c11838a8bd0dc8114267ec2f1b",
+      "currentSha256": "8842c775aa156378f29ca866326bf2f36856dc4ae2bb8185758e671aeebd6c3a",
+      "reason": "按用户要求撤回未逐项审核的全量重绘，恢复1.0.27贴图像素与映射，仅保留明确提出的开场及定向修复"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-01.png",
+      "previousImportedSha256": "2e58d0b7727a81ce23bf0a5c86d86d14740dd284ac8eb1e701976786c2be4993",
+      "currentSha256": "3420770b4456bf023e517922dbc2327567be1a882f8173b896035798cfb7e999",
+      "reason": "按用户要求撤回未逐项审核的全量重绘，恢复1.0.27贴图像素与映射，仅保留明确提出的开场及定向修复"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-02.png",
+      "previousImportedSha256": "7d421b2f487d2cb1f42d0f643f57a3edbf34e1b42a1693110dca6b7dace15abc",
+      "currentSha256": "ab91ef80ab2e3b863cc7375e51825cec8ad80472b0c057e13d9427469f499f38",
+      "reason": "按用户要求撤回未逐项审核的全量重绘，恢复1.0.27贴图像素与映射，仅保留明确提出的开场及定向修复"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-03.png",
+      "previousImportedSha256": "a7eb7a085cafcd37b42e0b80ffd85b4ab32c1adfc107d454500cade6bf90941f",
+      "currentSha256": "6c32924d41bf792a6de800c1bd92878a91fad085400a840e6b5893fbb0a9c2df",
+      "reason": "按用户要求撤回未逐项审核的全量重绘，恢复1.0.27贴图像素与映射，仅保留明确提出的开场及定向修复"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-04.png",
+      "previousImportedSha256": "ddf6447b28276c26a34668838ada4a5fe50214ff7e4384f79648710e6f673bcf",
+      "currentSha256": "fba763631518a7632c9fa76293dc0a05885fa682825328eaeb5852fb5fedf629",
+      "reason": "按用户要求撤回未逐项审核的全量重绘，恢复1.0.27贴图像素与映射，仅保留明确提出的开场及定向修复"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-05.png",
+      "previousImportedSha256": "88c91260ba5cba4aa7a1333424ea4472aa6463881b95560b170d44d1125e5953",
+      "currentSha256": "d72a2f4b72b1ea130d44c61ea5bb76b83cbcc79c737e56af0b02c94c5c8e3766",
+      "reason": "按用户要求撤回未逐项审核的全量重绘，恢复1.0.27贴图像素与映射，仅保留明确提出的开场及定向修复"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-06.png",
+      "previousImportedSha256": "7da85b6fe556cb8c2a6c61f04a409c5e0c69ad48b55ea5af807179db1ee21ca8",
+      "currentSha256": "f7a7909012be55dced4e806391d1966c800a9aca03f8b7efba8ed98bffd27289",
+      "reason": "按用户要求撤回未逐项审核的全量重绘，恢复1.0.27贴图像素与映射，仅保留明确提出的开场及定向修复"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-07.png",
+      "previousImportedSha256": "b8c6970d0d478995a645380f46d6545447d628b954fd252cb3c3c5959645b16a",
+      "currentSha256": "d4679d92988c7df30d2959e60d7db51ebc874af988dddee556bf6d0fa78eca6d",
+      "reason": "按用户要求撤回未逐项审核的全量重绘，恢复1.0.27贴图像素与映射，仅保留明确提出的开场及定向修复"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-08.png",
+      "previousImportedSha256": "be8ff25ea0cdc3537fff78fc585e3a85544e05edd9bf5217a6894a062de51afd",
+      "currentSha256": "db2dcfdb2b05ee8ed1d117ac551829c7b980f5b62547f6deccf2d2571fa5216e",
+      "reason": "按用户要求撤回未逐项审核的全量重绘，恢复1.0.27贴图像素与映射，仅保留明确提出的开场及定向修复"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-09.png",
+      "previousImportedSha256": "89cd980f049eb5b69dc278827f584c407ac200168957c1e0efa499c07c6b08f7",
+      "currentSha256": "f048be4c113df12e41498cad585b69f8c51550702238d752f0d735ead37e75a9",
+      "reason": "按用户要求撤回未逐项审核的全量重绘，恢复1.0.27贴图像素与映射，仅保留明确提出的开场及定向修复"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-10.png",
+      "previousImportedSha256": "9dbbf482c09444f9e3e6bceb556d60cea2325b78742be4e90f5672b6a1f09b41",
+      "currentSha256": "4356356655c0dacda2641dd989092ffc961fc3a1f1b03b57d5edcb4516484040",
+      "reason": "按用户要求撤回未逐项审核的全量重绘，恢复1.0.27贴图像素与映射，仅保留明确提出的开场及定向修复"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-11.png",
+      "previousImportedSha256": "012f1970763e5ceca8ce2341fd86466679a76413e6350df427443ad425cbd89e",
+      "currentSha256": "f8351f3dc55fd6ead7f05dcb92e221c7aab63d7b336bfad0254740a0294eeb5f",
+      "reason": "按用户要求撤回未逐项审核的全量重绘，恢复1.0.27贴图像素与映射，仅保留明确提出的开场及定向修复"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art-sources.json",
+      "previousImportedSha256": "6582134287773c5073fcd18c685934bc6e5d396c270c81038aab9ca6f2c785af",
+      "currentSha256": "b85ae46cece78a4f11296bfe89c5f7ecf3a5f59a7e0d8ef4cfd586950962445f",
+      "reason": "按用户要求撤回未逐项审核的全量重绘，恢复1.0.27贴图像素与映射，仅保留明确提出的开场及定向修复"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "4a31c3a94dc244aee32be84f1e4b7df7bf6d7ba653373769ce22a4c2e92513f2",
+      "currentSha256": "38fc528229ae134cd5bad2be33baa14fb2e941434853496f7d0ae9f893cb93ea",
+      "reason": "按用户要求撤回未逐项审核的全量重绘，恢复1.0.27贴图像素与映射，仅保留明确提出的开场及定向修复"
     }
   ]
 }
