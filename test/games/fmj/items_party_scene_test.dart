@@ -121,7 +121,11 @@ void main() {
   });
 
   test('只有经验改变时也刷新状态栏，不要求人物移动或再次打开菜单', () {
-    final game = engine();
+    final game = engine()
+      ..screen = 'play'
+      ..intro = null
+      ..map = data.maps['1:1'];
+    game.players.add(GameActor.load(data, 1, 1)!);
     final model = GameViewModel()
       ..engine = game
       ..loading = false;
