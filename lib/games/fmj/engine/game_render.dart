@@ -600,12 +600,14 @@ extension GameRendering on GameEngine {
       final loading = kind == 'load';
       final count = saves.length + (loading ? 1 : 0);
       for (var i = 0; i < count; i++) {
-        final y = wide ? 24 + i * 40 : 16 + i * 20;
+        final y = loading
+            ? (wide ? 24 + i * 40 : 16 + i * 20)
+            : (wide ? 36 + i * 50 : 20 + i * 24);
         surface.frame(
           wide ? 8 : 2,
           y,
           wide ? 312 : 158,
-          y + (wide ? 36 : 18),
+          y + (loading ? (wide ? 36 : 18) : (wide ? 44 : 22)),
           selected: i == menu.selected,
         );
         _text(
@@ -619,7 +621,11 @@ extension GameRendering on GameEngine {
             : saves[i - (loading ? 1 : 0)];
         _text(
           save?['scene'] as String? ?? '空档位',
-          wide ? 116 : 24,
+          wide
+              ? 116
+              : loading && i == 0
+              ? 40
+              : 24,
           y + (wide ? 14 : 3),
           selected: i == menu.selected,
           right: wide ? 308 : 156,

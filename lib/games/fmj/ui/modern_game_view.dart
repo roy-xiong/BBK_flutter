@@ -125,13 +125,9 @@ final class _WorldInformation extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Text(
               text,
+              textScaler: TextScaler.noScaling,
               maxLines: 1,
-              style: TextStyle(
-                color: color,
-                fontSize: font,
-                fontWeight: FontWeight.w400,
-                height: 1,
-              ),
+              style: style.copyWith(color: color),
             ),
           );
           Widget member(GameActor? p, int row) {
