@@ -407,10 +407,14 @@ void main() {
     );
     await tester.tap(find.widgetWithText(ListTile, game.goodsName('2:13')));
     await tester.pump();
-    expect(find.text(game.players.first.name), findsNothing);
-    expect(find.text(game.players[1].name), findsOneWidget);
-    expect(find.text(game.players[2].name), findsOneWidget);
-    await tester.tap(find.text(game.players[1].name));
+    // 常驻队伍栏也会显示姓名，性别筛选只检查实际“选择人物”菜单。
+    final menu = find.byKey(const ValueKey('fmj-native-menu'));
+    Finder candidate(String name) =>
+        find.descendant(of: menu, matching: find.text(name));
+    expect(candidate(game.players.first.name), findsNothing);
+    expect(candidate(game.players[1].name), findsOneWidget);
+    expect(candidate(game.players[2].name), findsOneWidget);
+    await tester.tap(candidate(game.players[1].name));
     await tester.pump();
     expect(game.players[1].equipment[5], '2:13');
     expect(find.text('没有物品'), findsOneWidget);
