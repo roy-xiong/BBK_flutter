@@ -21,6 +21,9 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   testWidgets('按40ms原时钟导出全部战斗动作，固定一倍速', (tester) async {
     await tester.runAsync(() async {
+      final format = Platform.environment['FMJ_REVIEW_FORMAT'] == 'webp'
+          ? 'webp'
+          : 'gif';
       final shard = int.parse(Platform.environment['FMJ_REVIEW_SHARD'] ?? '0');
       final shards = int.parse(
         Platform.environment['FMJ_REVIEW_SHARDS'] ?? '4',
@@ -257,7 +260,7 @@ void main() {
             File(
               '${folder.path}/timeline.json',
             ).writeAsStringSync(jsonEncode(timeline));
-            final output = '${root.path}/${entry['id']}.gif';
+            final output = '${root.path}/${entry['id']}.$format';
             final encoded = await Process.run('python3', [
               'tool/encode_fmj_battle_gif.py',
               folder.path,
@@ -279,6 +282,11 @@ void main() {
               'gifFrames': info['frames'],
               'gifBytes': info['bytes'],
               'gifDurationMs': info['durationMs'],
+              if (format == 'webp') ...{
+                'webpFrames': info['frames'],
+                'webpBytes': info['bytes'],
+                'webpDurationMs': info['durationMs'],
+              },
             });
           } finally {
             folder.deleteSync(recursive: true);

@@ -30,6 +30,7 @@ jobs:
       - name: 正式战斗状态机与Painter逐帧录制
         env:
           FMJ_EXPORT_BATTLE_REVIEW: '1'
+          FMJ_REVIEW_FORMAT: 'webp'
           FMJ_REVIEW_SHARD: ${{ matrix.shard }}
           FMJ_REVIEW_SHARDS: '4'
         run: flutter test --no-pub test/games/fmj/battle_review_export_test.dart --reporter expanded
@@ -38,6 +39,7 @@ jobs:
           name: battle-gifs-${{ matrix.shard }}
           path: |
             build/battle-review/*.gif
+            build/battle-review/*.webp
             build/battle-review/shard-*.json
           retention-days: 14
   document:
