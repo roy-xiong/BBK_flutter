@@ -144,81 +144,102 @@ void main() {
     expect(hd['frames']['mechanism:31/0'], isNotNull);
   });
 
-  test('一键刷钱连续完成三轮真实战斗和出售，仅卖富贵珠，取消后停止', () async {
-    final g = create();
-    final stage = Map<String, dynamic>.from(
-      data.stages.firstWhere((s) => s['scriptId'] == '7:1'),
-    );
-    g.selectStage(stage);
-    for (var i = 0; i < 200; i++) {
-      g.update();
-      if (const {'timed', 'dialogue', 'message'}.contains(g.operation?.kind)) {
-        g.press(GameKey.confirm);
+  test(
+    '归还钱包且主线已关闭客栈后仍能刷钱，20次战斗后只进一次当铺出售20珠',
+    () async {
+      final g = create();
+      final stage = Map<String, dynamic>.from(
+        data.stages.firstWhere((s) => s['scriptId'] == '7:1'),
+      );
+      g.selectStage(stage);
+      for (var i = 0; i < 200; i++) {
+        g.update();
+        if (const {
+          'timed',
+          'dialogue',
+          'message',
+        }.contains(g.operation?.kind)) {
+          g.press(GameKey.confirm);
+        }
+        if (g.cursor?.running != true && g.operation == null) break;
       }
-      if (g.cursor?.running != true && g.operation == null) break;
-    }
-    g.flags
-      ..remove(221)
-      ..add(1117);
-    g.preferences.addAll({
-      'modernUi': true,
-      'invincible': true,
-      'oneHitKill': true,
-      'normalAttackAll': true,
-      'randomBattleDisabled': true,
-      'runSpeed': 4,
-    });
-    g.inventory['9:1'] = 7;
-    final startMoney = g.money;
-    final dynamic farm = (g as dynamic).moneyFarm;
-    farm.toggle();
-    final visited = <String>{};
-    var sawBattle = false;
-    for (var i = 0; i < 45000 && farm.rounds < 3; i++) {
-      g.update();
-      visited.add(g.cursor?.script.id ?? '');
-      sawBattle |= g.battle != null;
-      if (g.navigation.planning) {
-        await Future<void>.delayed(const Duration(milliseconds: 1));
-      } else if (i % 20 == 0) {
-        await Future<void>.delayed(Duration.zero);
+      g.flags
+        ..add(221)
+        ..removeAll([1117, 1118]);
+      g.preferences.addAll({
+        'modernUi': true,
+        'invincible': true,
+        'oneHitKill': true,
+        'normalAttackAll': true,
+        'randomBattleDisabled': true,
+        'runSpeed': 4,
+      });
+      g.inventory['9:1'] = 7;
+      final startMoney = g.money;
+      final dynamic farm = (g as dynamic).moneyFarm;
+      farm.toggle();
+      final visited = <String>{};
+      var sawBattle = false;
+      var pawnEntries = 0;
+      String? previousScript;
+      for (var i = 0; i < 100000 && farm.batches < 1; i++) {
+        g.update();
+        final script = g.cursor?.script.id;
+        visited.add(script ?? '');
+        if (script == '7:5' && previousScript != script) {
+          pawnEntries++;
+          expect(g.inventory['6:12'], 20);
+        }
+        previousScript = script;
+        expect(g.flags.contains(221), true, reason: '作弊刷钱不能删除真实主线旗标');
+        sawBattle |= g.battle != null;
+        if (g.navigation.planning) {
+          await Future<void>.delayed(const Duration(milliseconds: 1));
+        } else if (i % 20 == 0) {
+          await Future<void>.delayed(Duration.zero);
+        }
+        expect(g.error, isEmpty);
+        expect(farm.active, true, reason: g.notice);
       }
-      expect(g.error, isEmpty);
-      expect(farm.active, true, reason: g.notice);
-    }
-    expect(farm.rounds, 3);
-    expect(sawBattle, true);
-    expect(visited, containsAll(['7:1', '7:2', '7:5']));
-    expect(g.inventory['6:12'] ?? 0, 0);
-    expect(g.inventory['9:1'], 7);
-    expect(g.money - startMoney, 31950 * 3);
-    farm.toggle();
-    expect(farm.active, false);
-    expect(g.navigation.active, isNull);
-    expect(g.route, isEmpty);
-    final after = g.money;
-    for (var i = 0; i < 30; i++) {
-      g.update();
-    }
-    expect(g.money, after);
-    g.navigation.cancel();
-  }, timeout: const Timeout(Duration(minutes: 3)));
+      expect(farm.rounds, 20);
+      expect(farm.batches, 1);
+      expect(pawnEntries, 1);
+      expect(g.flags.contains(1117), true);
+      expect(sawBattle, true);
+      expect(visited, containsAll(['7:1', '7:2', '7:5']));
+      expect(g.inventory['6:12'] ?? 0, 0);
+      expect(g.inventory['9:1'], 7);
+      expect(g.money - startMoney, 31950 * 20);
+      farm.toggle();
+      expect(farm.active, false);
+      expect(g.navigation.active, isNull);
+      expect(g.route, isEmpty);
+      final after = g.money;
+      for (var i = 0; i < 30; i++) {
+        g.update();
+      }
+      expect(g.money, after);
+      g.navigation.cancel();
+    },
+    timeout: const Timeout(Duration(minutes: 3)),
+  );
 
-  test('关闭条件存在时不刷写剧情旗标；普通方向输入立即中断刷钱', () {
+  test('保留拒还钱袋限制与剧情旗标，普通方向输入立即中断并保留珠子', () {
     final g = create();
-    g.flags.add(221);
+    g.flags.addAll([221, 1118]);
     final dynamic farm = (g as dynamic).moneyFarm;
     farm.toggle();
     expect(farm.active, false);
     expect(g.flags.contains(221), true);
-    expect(g.notice, contains('剧情'));
-    g.flags
-      ..remove(221)
-      ..add(1117);
+    expect(g.notice, contains('钱袋'));
+    g.flags.add(1117);
+    g.inventory['6:12'] = 3;
     farm.toggle();
     expect(farm.active, true);
     g.press(GameKey.left);
     expect(farm.active, false);
+    expect(g.flags.contains(221), true);
+    expect(g.inventory['6:12'], 3);
     g.navigation.cancel();
   });
 }

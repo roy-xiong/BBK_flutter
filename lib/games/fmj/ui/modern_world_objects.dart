@@ -17,7 +17,44 @@ final class ModernWorldObjects {
     double tile,
     TextStyle? textStyle,
   ) {
+    // 酆都剧情复用了“天道手下3”的NPC定义来扮演白无常，不能全局替换该编号。
+    if (usesWhiteImpermanenceIdentity(game, actor)) {
+      return art.drawObject(
+        canvas,
+        'battle:monster:32/0',
+        Rect.fromLTWH(
+          point.dx - tile * .28,
+          point.dy - tile * .9,
+          tile * 1.56,
+          tile * 1.9,
+        ),
+        Paint()..filterQuality = FilterQuality.medium,
+      );
+    }
     if (actor.type != 4) return false;
+    if (actor.sprite == 19 || actor.sprite == 20) {
+      final building = (art.buildings[game.map?.id] ?? const <SceneBuilding>[])
+          .where(
+            (b) =>
+                b.key.startsWith('building:') &&
+                b.contains(actor.x + .5, actor.y + .5),
+          )
+          .firstOrNull;
+      final named =
+          building != null &&
+          (art.landmarks[game.map?.id] ?? const <SceneLandmark>[]).any(
+            (label) => building.contains(label.x, label.y),
+          );
+      if (named && actor.sprite == 20) return true; // 使用完整建筑名牌，避免再叠一块旧点阵招牌。
+      if (building != null && actor.sprite == 19) {
+        _entrance(
+          canvas,
+          closedEntranceBounds(point, tile),
+          closed: [0, 1, 2, 1][actor.step % 4] == 1,
+        );
+        return true;
+      }
+    }
     final original = game.data.image(8, 4, actor.sprite);
     if (original == null) return false;
     final target = Rect.fromLTWH(
@@ -148,6 +185,77 @@ final class ModernWorldObjects {
         ? 'mechanism:${actor.sprite}/$phase'
         : 'mechanism:${actor.sprite}/0';
     return art.drawSprite(canvas, key, target, paint);
+  }
+
+  /// 场景限定的身份映射；普通天道手下在其他地图继续使用原形象。
+  static bool usesWhiteImpermanenceIdentity(GameEngine game, GameActor actor) =>
+      game.map?.id == '1:43' && actor.type == 2 && actor.index == 30;
+
+  /// 门限定在房屋正面的入口区域，不能扩大到屋顶或上方的店铺名牌。
+  static Rect closedEntranceBounds(Offset point, double tile) => Rect.fromLTWH(
+    point.dx + tile * .14,
+    point.dy - tile * .04,
+    tile * .72,
+    tile * .84,
+  );
+
+  static void _entrance(Canvas canvas, Rect target, {required bool closed}) {
+    canvas.save();
+    canvas.translate(target.left, target.top);
+    canvas.scale(target.width / 100, target.height / 120);
+    final p = Paint()..isAntiAlias = true;
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        const Rect.fromLTWH(0, 0, 100, 120),
+        const Radius.circular(3),
+      ),
+      p..color = const Color(0xff49372a),
+    );
+    canvas.drawRect(
+      const Rect.fromLTWH(7, 7, 86, 110),
+      p..color = const Color(0xff172322),
+    );
+    if (closed) {
+      p.shader = const LinearGradient(
+        colors: [Color(0xff896646), Color(0xff4b3829), Color(0xff9c7651)],
+      ).createShader(const Rect.fromLTWH(8, 8, 84, 106));
+      canvas.drawRect(const Rect.fromLTWH(8, 8, 84, 106), p);
+      p.shader = null;
+      p
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.2
+        ..color = const Color(0xff372b22);
+      for (var x = 12.0; x < 90; x += 10) {
+        canvas.drawLine(Offset(x, 10), Offset(x, 111), p);
+      }
+      p
+        ..strokeWidth = 3
+        ..color = const Color(0xffc0a06a);
+      for (final r in [
+        const Rect.fromLTWH(14, 17, 29, 40),
+        const Rect.fromLTWH(57, 17, 29, 40),
+        const Rect.fromLTWH(14, 74, 29, 29),
+        const Rect.fromLTWH(57, 74, 29, 29),
+      ]) {
+        canvas.drawRect(r, p);
+      }
+      p
+        ..strokeWidth = 2
+        ..color = const Color(0xffe0bd78);
+      canvas.drawCircle(const Offset(42, 64), 4, p);
+      canvas.drawCircle(const Offset(58, 64), 4, p);
+      canvas.drawLine(
+        const Offset(50, 8),
+        const Offset(50, 113),
+        p..color = const Color(0xff241f1a),
+      );
+      p.style = PaintingStyle.fill;
+    }
+    canvas.drawRect(
+      const Rect.fromLTWH(-3, 113, 106, 7),
+      p..color = const Color(0xff929586),
+    );
+    canvas.restore();
   }
 
   /// 无极乾坤剑：直身双刃、中央剑脊、青玉剑格和青铜剑台，不使用旧放大点阵。

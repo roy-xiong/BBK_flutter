@@ -457,6 +457,13 @@ final class ModernScenePainter extends CustomPainter {
                       camera.tileSize *
                       (building.key == 'building:house-north'
                           ? .25
+                          : game.npcs.values.any(
+                              (a) =>
+                                  a.type == 4 &&
+                                  (a.sprite == 19 || a.sprite == 20) &&
+                                  building.contains(a.x + .5, a.y + .5),
+                            )
+                          ? .4
                           : building.key == 'building:cave-mouth'
                           ? .27
                           : .6),

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../../core/game_typography.dart';
 import '../../../core/desktop_window_service.dart';
+import '../../../core/game_screen_awake.dart';
 import '../../../../domain/models/library_game.dart';
 import '../../../../games/fmj/data/save_repository.dart' as fmj_data;
 import '../../../../games/fmj/ui/game_page.dart' as fmj;
@@ -171,7 +172,7 @@ final class _NativeGamePageState extends State<NativeGamePage> {
       onPopInvokedWithResult: (didPop, _) {
         if (!didPop) unawaited(_requestLeave());
       },
-      child: game,
+      child: GameScreenAwake(child: game),
     );
   }
 

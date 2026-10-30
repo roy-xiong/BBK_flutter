@@ -4,11 +4,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import '../../domain/models/game_definition.dart';
+import 'package:bbk_flutter/ui/core/game_screen_awake.dart';
 
 /// 平台工具服务，仅处理Android摇杆消息及窗口常亮，不处理游戏状态。
 final class GamePlatformService {
   static const _events = EventChannel('sgby_flutter/controller');
-  static const _methods = MethodChannel('sgby_flutter/platform');
+  final _awake = GameScreenAwakeController();
   StreamSubscription<dynamic>? _subscription;
   bool _disposed = false;
   bool get _android =>
@@ -29,14 +30,8 @@ final class GamePlatformService {
   }
 
   Future<void> setScreenAwake(bool enabled) async {
-    if (!_android || (_disposed && enabled)) return;
-    try {
-      await _methods.invokeMethod<void>('setScreenAwake', {'enabled': enabled});
-    } on MissingPluginException {
-      // 非标准宿主或测试环境没有平台注册时，不影响纯Dart游戏状态。
-    } on PlatformException {
-      // 窗口已经销毁的迟到调用不能影响退出流程。
-    }
+    if (_disposed && enabled) return;
+    await _awake.setEnabled(enabled);
   }
 
   Future<void> dispose() async {

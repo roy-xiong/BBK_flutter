@@ -97,14 +97,14 @@
       "source": "lib/ui/game_cheat_panel.dart",
       "destination": "lib/games/fmj/ui/game_cheat_panel.dart",
       "sourceSha256": "0699e303a640209e28415727608ed1ae7d73aa9448c6770c7930f79151029e1c",
-      "importedSha256": "0699e303a640209e28415727608ed1ae7d73aa9448c6770c7930f79151029e1c"
+      "importedSha256": "8a8ef1a38d711b41d1ebe2ed496b2b653c1f4631b64c8af059ba40f1cd1de4d6"
     },
     {
       "game": "fmj",
       "source": "lib/ui/game_controls.dart",
       "destination": "lib/games/fmj/ui/game_controls.dart",
       "sourceSha256": "f1003f2779a30e5e6f5cbd05b1220a837b1fe47d6144d6423fd0e935395a7b68",
-      "importedSha256": "a9845fb10b3112711c1e1438b75ef08df06f498d7e400d6f3a4f4089fb436e88"
+      "importedSha256": "820b63112e6bb15bf8c1dab21b0a6e58fc46f31964070e4f59af24da156a9044"
     },
     {
       "game": "fmj",
@@ -125,7 +125,7 @@
       "source": "lib/ui/game_page.dart",
       "destination": "lib/games/fmj/ui/game_page.dart",
       "sourceSha256": "63257197b764f9b0a967dd0105050b443fb5c5b8b1a356ac8cc39fd9077b02ee",
-      "importedSha256": "99b95c7b99c518485656d088a23438c3a52e50c7e855c2784a62a9558a45ac56"
+      "importedSha256": "14b0044663ebb7065b3b3cbd48ba6c7373a590a82c2e578fbbc69288e8ff92ff"
     },
     {
       "game": "fmj",
@@ -160,7 +160,7 @@
       "source": "lib/ui/modern_game_view.dart",
       "destination": "lib/games/fmj/ui/modern_game_view.dart",
       "sourceSha256": "7fead2e2d569c14ca9d2d9c012124c82b450b5e1e0c75310b0bc47eb495d45c0",
-      "importedSha256": "00e44714d4f6e79145737cf375c9f9fbc733ddce8bf26e4ea7849a88552d1e8f"
+      "importedSha256": "73e8e0e80f7411fab7a1ec2a6e502d5139955db924515354fe429bb82cd006e5"
     },
     {
       "game": "fmj",
@@ -174,7 +174,7 @@
       "source": "lib/ui/modern_scene.dart",
       "destination": "lib/games/fmj/ui/modern_scene.dart",
       "sourceSha256": "0ca7e7194f78502f1fc560c83b6a82701c4082b531bfc9e57d50dd480af0ba15",
-      "importedSha256": "3a0e300457e1b60626f4ee7d716f4683f7a28ec4b02bd69ec735971d4f8ae662"
+      "importedSha256": "6044e44e4cf0e9115ed7231b16fb96d83c6bce6420a4ddb8e7921fc1ace50372"
     },
     {
       "game": "fmj",
@@ -188,7 +188,7 @@
       "source": "lib/ui/modern_world_objects.dart",
       "destination": "lib/games/fmj/ui/modern_world_objects.dart",
       "sourceSha256": "85eaba354c8b9d6094bf0540b7cf52a9094a88f1051e35c7414fd139a7342613",
-      "importedSha256": "b97d61c0b3a12fa43dbe04a46a21c3dc2b0567c271d4433f6edc29c524149628"
+      "importedSha256": "924afece514fc79a4eaff0e3f6eed7b825655849602a9f275d85131c4a5a0cec"
     },
     {
       "game": "fmj",
@@ -699,7 +699,7 @@
       "source": "lib/data/services/game_platform_service.dart",
       "destination": "lib/games/sgby/data/services/game_platform_service.dart",
       "sourceSha256": "78a415c9247fc43ff05083c98c9c1ec2abaf3ec74732c3f730b6e341b38aec83",
-      "importedSha256": "78a415c9247fc43ff05083c98c9c1ec2abaf3ec74732c3f730b6e341b38aec83"
+      "importedSha256": "9868b0089870c39c9e777c9789f6e5efa2abe9ef07812e32073f435b894e90db"
     },
     {
       "game": "sgby",
@@ -2219,7 +2219,7 @@
     {
       "game": "fmj",
       "destination": "lib/games/fmj/engine/game_money_farm.dart",
-      "importedSha256": "db1968ab49fa56ad4342da6724b1ff6b0ee6739d2990fd1744f5c2c036ed3028",
+      "importedSha256": "5270cf425002466b6f9b3a4df54353eba088fc7142058b728fea49204a1de0f2",
       "approval": "用户本轮要求：统一人物与可取消刷钱循环"
     },
     {
@@ -3436,6 +3436,54 @@
       "previousImportedSha256": "4a31c3a94dc244aee32be84f1e4b7df7bf6d7ba653373769ce22a4c2e92513f2",
       "currentSha256": "38fc528229ae134cd5bad2be33baa14fb2e941434853496f7d0ae9f893cb93ea",
       "reason": "按用户要求撤回未逐项审核的全量重绘，恢复1.0.27贴图像素与映射，仅保留明确提出的开场及定向修复"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_cheat_panel.dart",
+      "previousImportedSha256": "0699e303a640209e28415727608ed1ae7d73aa9448c6770c7930f79151029e1c",
+      "currentSha256": "8a8ef1a38d711b41d1ebe2ed496b2b653c1f4631b64c8af059ba40f1cd1de4d6",
+      "reason": "定向反馈修订：细化战斗效果、20珠批量刷钱、关闭门面和白无常身份、跨平台常亮及小屏状态/控制布局"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_controls.dart",
+      "previousImportedSha256": "a9845fb10b3112711c1e1438b75ef08df06f498d7e400d6f3a4f4089fb436e88",
+      "currentSha256": "820b63112e6bb15bf8c1dab21b0a6e58fc46f31964070e4f59af24da156a9044",
+      "reason": "定向反馈修订：细化战斗效果、20珠批量刷钱、关闭门面和白无常身份、跨平台常亮及小屏状态/控制布局"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_page.dart",
+      "previousImportedSha256": "99b95c7b99c518485656d088a23438c3a52e50c7e855c2784a62a9558a45ac56",
+      "currentSha256": "14b0044663ebb7065b3b3cbd48ba6c7373a590a82c2e578fbbc69288e8ff92ff",
+      "reason": "定向反馈修订：细化战斗效果、20珠批量刷钱、关闭门面和白无常身份、跨平台常亮及小屏状态/控制布局"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_game_view.dart",
+      "previousImportedSha256": "00e44714d4f6e79145737cf375c9f9fbc733ddce8bf26e4ea7849a88552d1e8f",
+      "currentSha256": "73e8e0e80f7411fab7a1ec2a6e502d5139955db924515354fe429bb82cd006e5",
+      "reason": "定向反馈修订：细化战斗效果、20珠批量刷钱、关闭门面和白无常身份、跨平台常亮及小屏状态/控制布局"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_scene.dart",
+      "previousImportedSha256": "3a0e300457e1b60626f4ee7d716f4683f7a28ec4b02bd69ec735971d4f8ae662",
+      "currentSha256": "6044e44e4cf0e9115ed7231b16fb96d83c6bce6420a4ddb8e7921fc1ace50372",
+      "reason": "定向反馈修订：细化战斗效果、20珠批量刷钱、关闭门面和白无常身份、跨平台常亮及小屏状态/控制布局"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_world_objects.dart",
+      "previousImportedSha256": "b97d61c0b3a12fa43dbe04a46a21c3dc2b0567c271d4433f6edc29c524149628",
+      "currentSha256": "924afece514fc79a4eaff0e3f6eed7b825655849602a9f275d85131c4a5a0cec",
+      "reason": "定向反馈修订：细化战斗效果、20珠批量刷钱、关闭门面和白无常身份、跨平台常亮及小屏状态/控制布局"
+    },
+    {
+      "destination": "lib/games/sgby/data/services/game_platform_service.dart",
+      "previousImportedSha256": "78a415c9247fc43ff05083c98c9c1ec2abaf3ec74732c3f730b6e341b38aec83",
+      "currentSha256": "9868b0089870c39c9e777c9789f6e5efa2abe9ef07812e32073f435b894e90db",
+      "reason": "定向反馈修订：细化战斗效果、20珠批量刷钱、关闭门面和白无常身份、跨平台常亮及小屏状态/控制布局"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_money_farm.dart",
+      "previousImportedSha256": "db1968ab49fa56ad4342da6724b1ff6b0ee6739d2990fd1744f5c2c036ed3028",
+      "currentSha256": "5270cf425002466b6f9b3a4df54353eba088fc7142058b728fea49204a1de0f2",
+      "reason": "定向反馈修订：细化战斗效果、20珠批量刷钱、关闭门面和白无常身份、跨平台常亮及小屏状态/控制布局"
     }
   ]
 }

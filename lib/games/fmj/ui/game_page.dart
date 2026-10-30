@@ -281,16 +281,32 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                   final portrait = game?.preferences['manualLayout'] == true
                       ? game?.preferences['portraitControls'] == true
                       : constraints.maxHeight >= constraints.maxWidth;
+                  double informationHeight(double width) =>
+                      ModernGameView.informationHeight(
+                        width,
+                        members: game?.battle == null
+                            ? (game?.players.length ?? 0)
+                            : 0,
+                      );
                   final sceneHeight = math.min(
-                    constraints.maxWidth * 3 / 5,
-                    constraints.maxHeight * .48,
+                    math.min(
+                      constraints.maxWidth * 3 / 5,
+                      constraints.maxHeight * .48,
+                    ),
+                    portrait && controlsVisible
+                        ? math.max(
+                            64.0,
+                            constraints.maxHeight -
+                                (modern
+                                    ? informationHeight(constraints.maxWidth)
+                                    : 0) -
+                                300,
+                          )
+                        : double.infinity,
                   );
                   final gameWidth = sceneHeight * 5 / 3;
                   final gameHeight =
-                      sceneHeight +
-                      (modern
-                          ? ModernGameView.informationHeight(gameWidth)
-                          : 0);
+                      sceneHeight + (modern ? informationHeight(gameWidth) : 0);
                   // 原版悬浮按键占地不变；新版画面在横屏时避开两侧输入区，避免血条和
                   // 目标被十字键、A/B 及辅助按钮遮住。关闭屏幕按键后恢复完整画面。
                   final sideButton = (constraints.biggest.shortestSide * .14)
@@ -308,8 +324,7 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                       constraints.maxWidth - leftInputWidth - rightInputWidth;
                   final modernHeight = math.min(
                     constraints.maxHeight,
-                    modernWidth * 3 / 5 +
-                        ModernGameView.informationHeight(modernWidth),
+                    modernWidth * 3 / 5 + informationHeight(modernWidth),
                   );
                   Widget surface;
                   if (model.loading) {
@@ -333,9 +348,7 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                                 math.max(
                                       0.0,
                                       available.maxHeight -
-                                          ModernGameView.informationHeight(
-                                            available.maxWidth,
-                                          ),
+                                          informationHeight(available.maxWidth),
                                     ) *
                                     5 /
                                     3,
@@ -344,8 +357,7 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                                 child: SizedBox(
                                   width: width,
                                   height:
-                                      width * 3 / 5 +
-                                      ModernGameView.informationHeight(width),
+                                      width * 3 / 5 + informationHeight(width),
                                   child: RepaintBoundary(
                                     child: ModernGameView(model: model),
                                   ),

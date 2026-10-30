@@ -1,20 +1,20 @@
 part of 'game_engine.dart';
 
-/// 建业富贵珠循环只驱动正式输入、导航和交易；不写金钱、不发奖励、不改剧情旗标。
-///
-/// 生命周期跟随GameEngine的固定帧，既无独立定时器，也不捕获界面。关闭、读档、
-/// 手动方向输入均取消路线；已开始的战斗和已成交奖励保留在真实游戏会话中。
+/// 作弊入口只驱动原钱袋、客栈战斗和当铺交易，不生成奖励、不改剧情旗标。
+/// 每批凑齐20个富贵珠才出售；中断时保留已取得物品和真实战斗进度。
 final class GameMoneyFarm {
   GameMoneyFarm(this.game);
+  static const batchSize = 20;
   final GameEngine game;
   bool active = false;
-  int rounds = 0;
+  int rounds = 0, batches = 0;
   String phase = '';
-  int _idle = 0;
+  int _idle = 0, _lastPearls = 0;
   String _progress = '';
   bool _travelPending = false;
   GameBattle? _controlledBattle;
   bool _previousAuto = false;
+  int get pearls => game.inventory['6:12'] ?? 0;
 
   void toggle() {
     if (active) {
@@ -25,26 +25,40 @@ final class GameMoneyFarm {
       game.notice = '进入游戏后才能一键刷钱';
       return;
     }
-    if (game.flags.contains(221) ||
-        game.flags.contains(1118) && !game.flags.contains(1117)) {
-      game.notice = '当前剧情已关闭建业客栈循环；需要归还钱袋且尚未完成钟山赤血剧情';
+    if (game.flags.contains(1118) && !game.flags.contains(1117)) {
+      game.notice = '钱袋选择了留下，无法进入归还钱袋后的客栈刷钱分支';
       return;
     }
-    if (game.operation != null ||
-        game.battle != null ||
+    // 钱袋的最后一段对白可能仍在播放。仅允许接管这条已确定的归还流程。
+    final wallet =
+        game.cursor?.script.id == '7:1' &&
+        (game.operation == null ||
+            const {
+              'dialogue',
+              'message',
+              'timed',
+              'choice',
+            }.contains(game.operation?.kind));
+    if (game.battle != null ||
         game.menus.isNotEmpty ||
-        game.cursor?.running == true) {
+        (!wallet && (game.operation != null || game.cursor?.running == true))) {
       game.notice = '先完成当前对话、菜单或战斗，再开始刷钱';
       return;
     }
     game.navigation.cancel();
     active = true;
     rounds = 0;
-    phase = (game.inventory['6:12'] ?? 0) > 0 ? 'sell' : 'fight';
+    batches = 0;
+    _lastPearls = pearls;
+    phase = pearls >= batchSize
+        ? 'sell'
+        : game.cursor?.script.id == '7:2'
+        ? 'leave'
+        : 'fight';
     _idle = 0;
     _progress = '';
     _travelPending = false;
-    game.notice = '刷钱已开始：建业客栈战斗 → 当铺出售富贵珠；再次点击取消';
+    game.notice = '刷钱已开始：每批收集20个富贵珠，再去当铺一次出售；再次点击取消';
   }
 
   void stop([String? message]) {
@@ -65,6 +79,13 @@ final class GameMoneyFarm {
     game.key(GameKey.confirm, down: false, automatic: true);
   }
 
+  void _setPhase(String next) {
+    if (phase == next) return;
+    phase = next;
+    _travelPending = false;
+    game.navigation.cancel();
+  }
+
   void _go(GameGoal goal) {
     if (game.navigation.active != null ||
         game.navigation.planning ||
@@ -81,17 +102,22 @@ final class GameMoneyFarm {
 
   void tick() {
     if (!active) return;
-    if (game.screen != 'play' ||
-        game.ended ||
-        game.error.isNotEmpty ||
-        game.flags.contains(221)) {
-      stop('刷钱停止：当前剧情或游戏状态已变化');
+    if (game.screen != 'play' || game.ended || game.error.isNotEmpty) {
+      stop('刷钱停止：当前游戏状态已变化');
       return;
     }
+    final id = game.cursor?.script.id;
+    if (id == '7:2' && pearls > _lastPearls) {
+      rounds += pearls - _lastPearls;
+      _lastPearls = pearls;
+      _setPhase(pearls >= batchSize ? 'sell' : 'leave');
+      game.notice =
+          '本批富贵珠 ${math.min(pearls, batchSize)}/$batchSize，已完成$rounds场；再次点击取消';
+    }
+    if (phase == 'leave' && id != '7:2') _setPhase('fight');
     final progress =
-        '$phase/${game.cursor?.script.id}/${game.cursor?.pointer}/'
-        '${game.player?.x},${game.player?.y}/${game.operation?.start}/'
-        '${game.battle?.phase},${game.battle?.round}/${game.inventory["6:12"]}/${game.money}';
+        '$phase/$id/${game.cursor?.pointer}/${game.player?.x},${game.player?.y}/'
+        '${game.operation?.start}/${game.battle?.phase},${game.battle?.round}/$pearls/${game.money}';
     if (progress != _progress || game.navigation.planning) {
       _progress = progress;
       _idle = 0;
@@ -132,59 +158,66 @@ final class GameMoneyFarm {
     _controlledBattle = null;
     if (game.menus.isNotEmpty) {
       final menu = game.menus.last;
-      if (phase != 'sell' || game.cursor?.script.id != '7:5') {
+      if (phase != 'sell' || id != '7:5') {
         stop('刷钱已停止：遇到其他菜单');
         return;
       }
       if (menu.kind == 'inventory' && menu.mode == 'sell') {
         final index = menu.ids.indexOf('6:12');
-        if (index < 0) {
-          stop('没有可出售的富贵珠');
+        if (index < 0 || pearls < batchSize) {
+          stop('没有凑齐20个可出售的富贵珠');
           return;
         }
         game.selectMenu(menu, index, expectedId: '6:12');
       } else if (menu.kind == 'sell-quantity' && menu.purchase?.id == '6:12') {
-        final count = game.inventory['6:12'] ?? 0;
-        if ((menu.purchase?.limit ?? 0) < count) {
+        if ((menu.purchase?.limit ?? 0) < batchSize) {
           stop('金钱已达上限，停止刷钱');
           return;
         }
-        game.changePurchaseQuantity(menu, count);
+        final before = pearls;
+        // 数量入口接收增量；从当前数量调整到20，不能把20当成增量而出售21个。
+        game.changePurchaseQuantity(
+          menu,
+          batchSize - (menu.purchase?.quantity ?? 0),
+        );
         game.selectMenu(menu, 0);
-        if ((game.inventory['6:12'] ?? 0) == 0) {
-          rounds++;
-          phase = 'fight';
+        if (pearls == before - batchSize) {
+          batches++;
           _travelPending = false;
           game.navigation.cancel();
-          // 成交后只退出本循环打开的出售列表，按原当铺出口返回客栈。
+          _lastPearls = pearls;
+          _setPhase(pearls >= batchSize ? 'sell' : 'fight');
           if (game.menus.lastOrNull?.kind == 'inventory' &&
               game.menus.lastOrNull?.mode == 'sell') {
             game.menus.removeLast();
           }
-          game.notice = '刷钱第$rounds轮完成，继续前往建业客栈；再次点击取消';
+          game.notice = '已集中出售20个富贵珠，完成$batches批；继续收集下一批，再次点击取消';
         }
       } else {
         stop('刷钱已停止：交易界面发生变化');
       }
       return;
     }
-    if (game.cursor?.running == true) return;
-    if ((game.inventory['6:12'] ?? 0) > 0 && phase != 'sell') {
-      phase = 'sell';
-      _travelPending = false;
-      game.navigation.cancel();
+    // 一键直达的钱袋支线可在主线221之后完成。作弊循环只略过原客栈入口的
+    // 关闭检查，随后仍执行114起的原三人战斗、奖励和离场脚本，不删改221。
+    final cursor = game.cursor;
+    if (phase == 'fight' &&
+        id == '7:2' &&
+        game.flags.contains(1117) &&
+        game.flags.contains(221) &&
+        cursor?.running == true &&
+        cursor!.script.commands.elementAtOrNull(cursor.pointer)?.address ==
+            103) {
+      game.jump(114);
     }
-    final id = game.cursor?.script.id;
+    if (cursor?.running == true) return;
     if (phase == 'sell') {
-      _go(const GameGoal('当铺出售富贵珠', '7:5', 42));
+      _go(const GameGoal('当铺集中出售20个富贵珠', '7:5', 42));
+    } else if (phase == 'leave') {
+      _go(const GameGoal('离开客栈后再次挑战', '7:2', 40));
     } else if (!game.flags.contains(1117)) {
       _go(const GameGoal('建业钱袋：归还后去客栈', '7:1', 21));
-      if (game.flags.contains(1117)) {
-        _travelPending = false;
-        game.navigation.cancel();
-      }
     } else {
-      // 钱袋剧情完成会停在城内；切换目标时丢弃已经完成的入场目标。
       if (game.navigation.active?.scriptId == '7:1' ||
           _travelPending && id == '7:1' && game.navigation.active == null) {
         _travelPending = false;

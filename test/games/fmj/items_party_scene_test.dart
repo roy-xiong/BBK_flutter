@@ -120,7 +120,7 @@ void main() {
     }
   });
 
-  testWidgets('三人队伍窄屏及桌面完整显示地点、姓名、等级、气血', (tester) async {
+  testWidgets('三人队伍窄屏及桌面完整显示地点、等级、气血、魔法和经验', (tester) async {
     final game = engine()
       ..screen = 'play'
       ..intro = null
@@ -156,12 +156,14 @@ void main() {
           find.byKey(const ValueKey('world-information-band')),
         );
         for (final p in game.players) {
-          final label = find.text('${p.name}  Lv.50   气血 888/999');
+          final label = find.text('${p.name}  Lv.50');
           expect(label, findsOneWidget);
           final rect = tester.getRect(label);
           expect(band.inflate(.5).contains(rect.topLeft), isTrue);
           expect(band.inflate(.5).contains(rect.bottomRight), isTrue);
         }
+        expect(find.textContaining('魔法 '), findsNWidgets(3));
+        expect(find.textContaining('经验 '), findsNWidgets(3));
         expect(tester.takeException(), isNull);
       }
     } finally {

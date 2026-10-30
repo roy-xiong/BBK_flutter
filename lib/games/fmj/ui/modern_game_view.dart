@@ -18,8 +18,14 @@ final class ModernGameView extends StatelessWidget {
   final GameViewModel model;
 
   /// 手机保留可读字号，桌面适度增高；GamePage 同步增加整个游戏区域的高度。
-  static double informationHeight(double width) =>
-      (width * .075).clamp(36.0, 48.0);
+  static double informationHeight(double width, {int members = 1}) =>
+      members == 0
+      ? 36
+      : members == 1
+      ? 60
+      : width < 560
+      ? 82
+      : 76;
 
   @override
   Widget build(BuildContext context) => LayoutBuilder(
@@ -27,8 +33,11 @@ final class ModernGameView extends StatelessWidget {
       final game = model.engine;
       if (game == null) return const SizedBox.shrink();
       final infoHeight = math.min(
-        informationHeight(constraints.maxWidth),
-        constraints.maxHeight * .25,
+        informationHeight(
+          constraints.maxWidth,
+          members: game.battle == null ? game.players.length : 0,
+        ),
+        math.max(0.0, constraints.maxHeight - 64),
       );
       return Column(
         children: [
@@ -69,76 +78,72 @@ final class _WorldInformation extends StatelessWidget {
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
-          Widget member(GameActor p) => FittedBox(
+          final members = game.players;
+          final narrow = constraints.maxWidth < 560;
+          final font = narrow && members.length > 1 ? 10.0 : 11.5;
+          Widget line(String text, {Color color = _paper}) => FittedBox(
             fit: BoxFit.scaleDown,
-            alignment: Alignment.centerRight,
+            alignment: Alignment.centerLeft,
             child: Text(
-              '${p.name}  Lv.${p.level}   气血 ${p.hp}/${p.maxHp}',
+              text,
               maxLines: 1,
               style: TextStyle(
-                color: _paper,
-                fontSize: constraints.maxWidth < 500 && game.players.length > 1
-                    ? 10.5
-                    : 12,
-                height: 1.1,
+                color: color,
+                fontSize: font,
+                fontWeight: FontWeight.w400,
+                height: 1.14,
               ),
             ),
           );
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
-            child: Row(
+          Widget member(GameActor p) {
+            final chain = game.data.record(12, 2, p.index);
+            final maxLevel = chain?.byte(2) ?? p.level;
+            final next = p.level < maxLevel
+                ? chain?.word(4 + (p.level - 1) * 20 + 14)
+                : null;
+            final experience = next == null
+                ? '经验 ${p.exp}（满级）'
+                : '经验 ${p.exp}/$next';
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(
-                  width: (constraints.maxWidth * .25).clamp(62.0, 150.0),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.place_outlined, size: 14, color: _gold),
-                      const SizedBox(width: 4),
-                      Expanded(
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            location,
-                            maxLines: 1,
-                            style: const TextStyle(color: _gold, fontSize: 12),
-                          ),
-                        ),
-                      ),
-                    ],
+                line('${p.name}  Lv.${p.level}'),
+                if (narrow && members.length > 1) ...[
+                  line('气血 ${p.hp}/${p.maxHp}'),
+                  line('魔法 ${p.mp}/${p.maxMp}'),
+                ] else
+                  line('气血 ${p.hp}/${p.maxHp}   魔法 ${p.mp}/${p.maxMp}'),
+                line(experience, color: const Color(0xffc4d3bd)),
+              ],
+            );
+          }
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    const Icon(Icons.place_outlined, size: 13, color: _gold),
+                    const SizedBox(width: 4),
+                    Expanded(child: line(location, color: _gold)),
+                    if (battle != null) line('战斗 · 第 ${battle.round + 1} 回合'),
+                  ],
+                ),
+                if (battle == null && members.isNotEmpty)
+                  Expanded(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        for (var i = 0; i < members.length; i++) ...[
+                          if (i > 0) const SizedBox(width: 9),
+                          Expanded(child: member(members[i])),
+                        ],
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: battle != null
-                      ? Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            '战斗 · 第 ${battle.round + 1} 回合',
-                            style: const TextStyle(color: _paper, fontSize: 12),
-                          ),
-                        )
-                      : constraints.maxWidth >= 960
-                      ? Row(
-                          children: [
-                            for (final p in game.players)
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 8),
-                                  child: member(p),
-                                ),
-                              ),
-                          ],
-                        )
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            for (final p in game.players)
-                              Flexible(child: member(p)),
-                          ],
-                        ),
-                ),
               ],
             ),
           );

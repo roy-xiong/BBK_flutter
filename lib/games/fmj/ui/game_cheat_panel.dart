@@ -49,8 +49,8 @@ final class GameCheatPanel extends StatelessWidget {
             title: Text(game.moneyFarm.active ? '停止刷钱' : '一键刷钱'),
             subtitle: Text(
               game.moneyFarm.active
-                  ? '已完成${game.moneyFarm.rounds}轮；点击停止，保留当前进度'
-                  : '建业客栈战斗 → 当铺出售富贵珠 → 循环；再次点击或方向输入取消',
+                  ? '本批${game.moneyFarm.pearls.clamp(0, 20)}/20个，已完成${game.moneyFarm.batches}批；点击停止，保留物品'
+                  : '连续挑战客栈收集20个富贵珠 → 当铺一次卖20个 → 循环；再次点击或方向输入取消',
             ),
             trailing: Icon(
               game.moneyFarm.active

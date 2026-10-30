@@ -249,54 +249,76 @@ class _FmjUtilityButtons extends StatelessWidget {
           hapticsEnabled: hapticsEnabled,
           label: label,
           onPressed: () => onInput(action),
-          child: Text(
-            text,
-            style: const TextStyle(color: Color(0xFFF0EEE8), fontSize: 12),
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              text,
+              maxLines: 1,
+              style: const TextStyle(color: Color(0xFFF0EEE8), fontSize: 12),
+            ),
           ),
         ),
       );
     }
 
-    // 两行布局保证竖屏不把所有功能缩到难以点击，横屏沿用同一输入入口。
-    return FittedBox(
-      fit: BoxFit.scaleDown,
+    // 快捷前往保持至少56dp真实触控高度；只有次要按钮可缩放。
+    return SizedBox(
+      width: 284,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              button(
+          Tooltip(
+            message: '一键前往当前目标',
+            triggerMode: TooltipTriggerMode.manual,
+            child: _NesInputButton(
+              key: const ValueKey('fmj-quick-travel-large'),
+              width: 284,
+              height: 58,
+              color: const Color(0xFF23594E),
+              pressedColor: const Color(0xFF163C35),
+              borderRadius: BorderRadius.circular(9),
+              repeatable: true,
+              hapticsEnabled: hapticsEnabled,
+              label: '一键前往当前目标',
+              onPressed: () => onInput(GameControl.quickTravel),
+              child: const Text(
                 '一键前往当前目标',
-                '一键前往当前目标',
-                GameControl.quickTravel,
-                width: 180,
-                active: true,
+                style: TextStyle(color: Color(0xFFF0EEE8), fontSize: 15),
               ),
-              const SizedBox(width: 8),
-              button('选择关卡', '选择关卡', GameControl.selectFmjStage, width: 88),
-            ],
+            ),
           ),
-          const SizedBox(height: 6),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              button('切换自动跑路倍速', '奔跑 $runSpeed×', GameControl.cycleFmjRunSpeed),
-              const SizedBox(width: 8),
-              button(
-                autoBattleEnabled ? '关闭自动战斗' : '开启自动战斗',
-                autoBattleEnabled ? '自动战斗 开' : '自动战斗 关',
-                GameControl.toggleFmjAutoBattle,
-                active: autoBattleEnabled,
-              ),
-              const SizedBox(width: 8),
-              button(
-                wideViewEnabled ? '切换原视野' : '切换远视野',
-                wideViewEnabled ? '远视野 2×' : '原视野 1×',
-                GameControl.toggleWideView,
-                active: wideViewEnabled,
-              ),
-            ],
+          const SizedBox(height: 8),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                button('选择关卡', '选择关卡', GameControl.selectFmjStage, width: 62),
+                const SizedBox(width: 5),
+                button(
+                  '切换自动跑路倍速',
+                  '奔跑 $runSpeed×',
+                  GameControl.cycleFmjRunSpeed,
+                  width: 67,
+                ),
+                const SizedBox(width: 5),
+                button(
+                  autoBattleEnabled ? '关闭自动战斗' : '开启自动战斗',
+                  autoBattleEnabled ? '自动战斗 开' : '自动战斗 关',
+                  GameControl.toggleFmjAutoBattle,
+                  width: 78,
+                  active: autoBattleEnabled,
+                ),
+                const SizedBox(width: 5),
+                button(
+                  wideViewEnabled ? '切换原视野' : '切换远视野',
+                  wideViewEnabled ? '远视野 2×' : '原视野 1×',
+                  GameControl.toggleWideView,
+                  width: 62,
+                  active: wideViewEnabled,
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -499,6 +521,7 @@ class _NesActionButtons extends StatelessWidget {
 
 class _NesInputButton extends StatefulWidget {
   const _NesInputButton({
+    super.key,
     required this.width,
     required this.height,
     required this.color,
