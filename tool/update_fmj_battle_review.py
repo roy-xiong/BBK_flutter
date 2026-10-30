@@ -38,6 +38,7 @@ def main():
         data,script=payload(staged)
         assert data['renderRevision']==args.render_revision,'绘制来源不是本轮最新提交'
         assert data['stepMs']==40 and data['speed']==1
+        assert len(data['cases'])==len(previous) and len({c['id']for c in data['cases']})==len(previous),'案例数量或唯一编号发生变化'
         assert {c['id']for c in data['cases']}==set(previous),'案例编号有增删'
         for case in data['cases']:
             old=previous[case['id']]
