@@ -41,7 +41,7 @@
       "source": "lib/engine/game_battle.dart",
       "destination": "lib/games/fmj/engine/game_battle.dart",
       "sourceSha256": "5375ae6aa517e1fc8de0296091ad7c2f8acf48eb93368643e773cb8f9167b071",
-      "importedSha256": "bcc3d45b23f21b79123875053ed6cdbe6c2f941fc3bb26217e8043c11c2d5c6c"
+      "importedSha256": "0ade419bffa5298566f4da1d06b2a07678bcba46f227f1f98296a5fb699e569a"
     },
     {
       "game": "fmj",
@@ -3526,6 +3526,12 @@
       "previousImportedSha256": "ea8e8e8a35abd520908792b336bea6dd1f769c3acdd51ad353f726a2fa661cb2",
       "currentSha256": "bcc3d45b23f21b79123875053ed6cdbe6c2f941fc3bb26217e8043c11c2d5c6c",
       "reason": "按用户要求新增战斗投掷、技能、合击快捷入口；长按选择备用武器，短按弯月刀优先，同回合预留库存及自动战斗保护；钨龙剑装备和投掷群攻，保存备用选择"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_battle.dart",
+      "previousImportedSha256": "bcc3d45b23f21b79123875053ed6cdbe6c2f941fc3bb26217e8043c11c2d5c6c",
+      "currentSha256": "0ade419bffa5298566f4da1d06b2a07678bcba46f227f1f98296a5fb699e569a",
+      "reason": "按本轮要求，投掷首次选择武器，之后只复用上次选择且仍有库存的武器；取消自动优先弯月刀，保留长按更换与库存预留"
     }
   ]
 }

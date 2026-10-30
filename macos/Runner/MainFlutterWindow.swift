@@ -7,6 +7,7 @@ class MainFlutterWindow: NSWindow {
   private var gameActivity: NSObjectProtocol?
   private var windowChannel: FlutterMethodChannel?
   private var hidGamepad: BbkHidGamepadBridge?
+  private var layoutExitObserver: NSObjectProtocol?
 
   override func awakeFromNib() {
     let flutterViewController = FlutterViewController()
@@ -19,13 +20,22 @@ class MainFlutterWindow: NSWindow {
     let channel = FlutterMethodChannel(
       name: "bbk_flutter/window", binaryMessenger: flutterViewController.engine.binaryMessenger)
     channel.setMethodCallHandler { [weak self] call, result in
-      guard call.method == "minimize" else {
-        result(FlutterMethodNotImplemented)
-        return
-      }
       // Flutter平台消息在主线程处理；弱引用不延长窗口及其引擎的生命周期。
-      self?.miniaturize(nil)
-      result(nil)
+      switch call.method {
+      case "minimize":
+        self?.miniaturize(nil)
+        result(nil)
+      case "setGameLayout":
+        guard let arguments = call.arguments as? [String: Any],
+              let portrait = arguments["portrait"] as? Bool else {
+          result(FlutterError(code: "invalid_layout", message: "缺少屏幕方向", details: nil))
+          return
+        }
+        self?.applyGameLayout(portrait: portrait)
+        result(nil)
+      default:
+        result(FlutterMethodNotImplemented)
+      }
     }
     windowChannel = channel
 
@@ -43,11 +53,49 @@ class MainFlutterWindow: NSWindow {
   }
 
   deinit {
+    if let observer = layoutExitObserver { NotificationCenter.default.removeObserver(observer) }
     hidGamepad?.dispose()
     windowChannel?.setMethodCallHandler(nil)
     if let activity = gameActivity {
       ProcessInfo.processInfo.endActivity(activity)
     }
+  }
+
+  /// 竖屏退出全屏后才调整窗口，避免在全屏动画中写入错误frame并污染自动记忆尺寸。
+  private func applyGameLayout(portrait: Bool) {
+    if let observer = layoutExitObserver {
+      NotificationCenter.default.removeObserver(observer)
+      layoutExitObserver = nil
+    }
+    if portrait {
+      if styleMask.contains(.fullScreen) {
+        layoutExitObserver = NotificationCenter.default.addObserver(
+          forName: NSWindow.didExitFullScreenNotification, object: self, queue: .main
+        ) { [weak self] _ in
+          guard let window = self else { return }
+          if let observer = window.layoutExitObserver {
+            NotificationCenter.default.removeObserver(observer)
+            window.layoutExitObserver = nil
+          }
+          window.resizeForPortrait()
+        }
+        toggleFullScreen(nil)
+      } else {
+        resizeForPortrait()
+      }
+    } else if !styleMask.contains(.fullScreen) {
+      collectionBehavior.remove(.fullScreenAuxiliary)
+      collectionBehavior.insert(.fullScreenPrimary)
+      toggleFullScreen(nil)
+    }
+  }
+
+  private func resizeForPortrait() {
+    let available = (screen ?? NSScreen.main)?.visibleFrame.height ?? 900
+    let height = max(460, min(contentLayoutRect.height, available * 0.9))
+    let width = max(340, min(height * 9 / 16, 520))
+    setContentSize(NSSize(width: width, height: height))
+    center()
   }
 }
 

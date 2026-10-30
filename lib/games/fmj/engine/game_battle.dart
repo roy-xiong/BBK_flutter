@@ -202,7 +202,7 @@ final class GameBattle {
         (game.inventory[id] ?? 0) > reserved;
   }).toList();
 
-  /// 短按：弯月刀、备用武器、打开选择；长按始终打开武器选择，不先触发短按。
+  /// 短按投掷上次选择的武器；首次或库存用尽时打开选择，长按随时更换武器。
   /// 选择成功后沿用原回合队列，只在动作真正执行时消耗一把；取消不改库存或偏好。
   void quickThrow({bool chooseWeapon = false}) {
     if (!canUseShortcuts) return;
@@ -215,9 +215,7 @@ final class GameBattle {
     _manualShortcutSelection = true;
     if (!chooseWeapon) {
       final preferred = game.preferredThrowWeapon;
-      final id = available.contains('7:19')
-          ? '7:19'
-          : preferred != null && available.contains(preferred)
+      final id = preferred != null && available.contains(preferred)
           ? preferred
           : null;
       if (id != null) {

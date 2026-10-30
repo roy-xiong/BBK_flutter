@@ -39,6 +39,7 @@ class GameControlsOverlay extends StatelessWidget {
     this.fmjMoneyFarmActive = false,
     this.showBattleButtons = false,
     this.battleButtonsEnabled = false,
+    this.throwWeaponName,
   });
   final bool hapticsEnabled,
       showFmjUtilityButtons,
@@ -47,6 +48,7 @@ class GameControlsOverlay extends StatelessWidget {
       fmjMoneyFarmActive;
   final int fmjRunSpeed;
   final bool showBattleButtons, battleButtonsEnabled;
+  final String? throwWeaponName;
   final ValueChanged<GameControl> onInput;
 
   @override
@@ -70,15 +72,18 @@ class GameControlsOverlay extends StatelessWidget {
             ),
             if (showFmjUtilityButtons)
               Positioned(
-                right: 18 + buttonSize + gap,
-                bottom: buttonSize * 2.8 + gap * 3,
+                right: 18,
+                bottom: buttonSize * 2.5 + gap * 2,
                 child: _FmjUtilityButtons(
                   hapticsEnabled: hapticsEnabled,
                   wideViewEnabled: fmjWideViewEnabled,
                   autoBattleEnabled: fmjAutoBattleEnabled,
                   runSpeed: fmjRunSpeed,
                   moneyFarmActive: fmjMoneyFarmActive,
+                  showBattleButtons: showBattleButtons,
+                  battleButtonsEnabled: battleButtonsEnabled,
                   actionButtonSize: buttonSize,
+                  throwWeaponName: throwWeaponName,
                   onInput: onInput,
                 ),
               ),
@@ -86,8 +91,6 @@ class GameControlsOverlay extends StatelessWidget {
               right: 18,
               bottom: 18,
               child: _ActionPad(
-                showBattleButtons: showBattleButtons,
-                battleButtonsEnabled: battleButtonsEnabled,
                 buttonSize: buttonSize,
                 gap: gap,
                 hapticsEnabled: hapticsEnabled,
@@ -119,6 +122,7 @@ class PortraitGameControlsPanel extends StatelessWidget {
     this.fmjMoneyFarmActive = false,
     this.showBattleButtons = false,
     this.battleButtonsEnabled = false,
+    this.throwWeaponName,
   });
   final bool isDarkTheme;
   final bool hapticsEnabled,
@@ -128,6 +132,7 @@ class PortraitGameControlsPanel extends StatelessWidget {
       fmjMoneyFarmActive;
   final int fmjRunSpeed;
   final bool showBattleButtons, battleButtonsEnabled;
+  final String? throwWeaponName;
   final ValueChanged<GameControl> onInput;
 
   @override
@@ -154,64 +159,55 @@ class PortraitGameControlsPanel extends StatelessWidget {
                       constraints: const BoxConstraints(maxWidth: 560),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: SizedBox(
-                            width: contentWidth - 24,
-                            child: Transform.translate(
-                              // 功能区首行不能平移到父容器之外，否则按钮上半部可见却无法点击。
-                              offset: Offset(
-                                0,
-                                showFmjUtilityButtons ? 0 : -24,
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
+                        child: Transform.translate(
+                          // 功能区首行不能平移到父容器之外，否则按钮上半部可见却无法点击。
+                          offset: Offset(0, showFmjUtilityButtons ? 0 : -24),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (showFmjUtilityButtons) ...[
+                                _FmjUtilityButtons(
+                                  hapticsEnabled: hapticsEnabled,
+                                  wideViewEnabled: fmjWideViewEnabled,
+                                  autoBattleEnabled: fmjAutoBattleEnabled,
+                                  runSpeed: fmjRunSpeed,
+                                  moneyFarmActive: fmjMoneyFarmActive,
+                                  showBattleButtons: showBattleButtons,
+                                  battleButtonsEnabled: battleButtonsEnabled,
+                                  actionButtonSize: actionButtonSize,
+                                  throwWeaponName: throwWeaponName,
+                                  onInput: onInput,
+                                ),
+                                const SizedBox(height: 14),
+                              ],
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  if (showFmjUtilityButtons) ...[
-                                    _FmjUtilityButtons(
-                                      hapticsEnabled: hapticsEnabled,
-                                      wideViewEnabled: fmjWideViewEnabled,
-                                      autoBattleEnabled: fmjAutoBattleEnabled,
-                                      runSpeed: fmjRunSpeed,
-                                      moneyFarmActive: fmjMoneyFarmActive,
-                                      actionButtonSize: actionButtonSize,
-                                      onInput: onInput,
+                                  _NesDirectionPad(
+                                    buttonSize: directionButtonSize,
+                                    hapticsEnabled: hapticsEnabled,
+                                    onInput: onInput,
+                                  ),
+                                  Flexible(
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: _NesSystemButtons(
+                                        isDarkTheme: isDarkTheme,
+                                        hapticsEnabled: hapticsEnabled,
+                                        onInput: onInput,
+                                      ),
                                     ),
-                                    const SizedBox(height: 14),
-                                  ],
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      _NesDirectionPad(
-                                        buttonSize: directionButtonSize,
-                                        hapticsEnabled: hapticsEnabled,
-                                        onInput: onInput,
-                                      ),
-                                      Flexible(
-                                        child: FittedBox(
-                                          fit: BoxFit.scaleDown,
-                                          child: _NesSystemButtons(
-                                            isDarkTheme: isDarkTheme,
-                                            hapticsEnabled: hapticsEnabled,
-                                            onInput: onInput,
-                                          ),
-                                        ),
-                                      ),
-                                      _NesActionButtons(
-                                        showBattleButtons: showBattleButtons,
-                                        battleButtonsEnabled:
-                                            battleButtonsEnabled,
-                                        buttonSize: actionButtonSize,
-                                        hapticsEnabled: hapticsEnabled,
-                                        onInput: onInput,
-                                      ),
-                                    ],
+                                  ),
+                                  _NesActionButtons(
+                                    buttonSize: actionButtonSize,
+                                    hapticsEnabled: hapticsEnabled,
+                                    onInput: onInput,
                                   ),
                                 ],
                               ),
-                            ),
+                            ],
                           ),
                         ),
                       ),
@@ -241,6 +237,9 @@ class _FmjUtilityButtons extends StatelessWidget {
     required this.runSpeed,
     required this.moneyFarmActive,
     required this.onInput,
+    this.showBattleButtons = false,
+    this.battleButtonsEnabled = false,
+    this.throwWeaponName,
     this.actionButtonSize = 68,
   });
 
@@ -250,6 +249,8 @@ class _FmjUtilityButtons extends StatelessWidget {
   final int runSpeed;
   final bool moneyFarmActive;
   final ValueChanged<GameControl> onInput;
+  final bool showBattleButtons, battleButtonsEnabled;
+  final String? throwWeaponName;
   final double actionButtonSize;
 
   @override
@@ -264,7 +265,9 @@ class _FmjUtilityButtons extends StatelessWidget {
       return Tooltip(
         message: label,
         // 快捷前往的长按用于连发，不能让Tooltip的LongPress识别器抢走指针。
-        triggerMode: action == GameControl.quickTravel
+        triggerMode:
+            action == GameControl.quickTravel ||
+                action == GameControl.selectFmjStage
             ? TooltipTriggerMode.manual
             : null,
         child: _NesInputButton(
@@ -277,6 +280,7 @@ class _FmjUtilityButtons extends StatelessWidget {
           pressedColor: const Color(0xFF163C35),
           borderRadius: BorderRadius.circular(7),
           repeatable: action == GameControl.quickTravel,
+          longPressOnly: action == GameControl.selectFmjStage,
           hapticsEnabled: hapticsEnabled,
           label: label,
           onPressed: () => onInput(action),
@@ -297,32 +301,20 @@ class _FmjUtilityButtons extends StatelessWidget {
 
     // 快捷前往保持至少56dp真实触控高度；只有次要按钮可缩放。
     return SizedBox(
-      width: 284,
+      width: (actionButtonSize * 4 + 24).clamp(284.0, double.infinity),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-            key: const ValueKey('fmj-quick-travel-large'),
             height: actionButtonSize.clamp(58.0, 76.0),
             child: Center(
-              child: Tooltip(
-                message: '一键前往当前目标',
-                triggerMode: TooltipTriggerMode.manual,
-                child: _NesInputButton(
-                  width: 284,
-                  height: 58,
-                  color: const Color(0xFF23594E),
-                  pressedColor: const Color(0xFF163C35),
-                  borderRadius: BorderRadius.circular(9),
-                  repeatable: true,
-                  hapticsEnabled: hapticsEnabled,
-                  label: '一键前往当前目标',
-                  onPressed: () => onInput(GameControl.quickTravel),
-                  child: const Text(
-                    '一键前往当前目标',
-                    style: TextStyle(color: Color(0xFFF0EEE8), fontSize: 15),
-                  ),
-                ),
+              child: _BattleShortcutButtons(
+                buttonSize: actionButtonSize,
+                enabled: battleButtonsEnabled,
+                showBattleButtons: showBattleButtons,
+                throwWeaponName: throwWeaponName,
+                hapticsEnabled: hapticsEnabled,
+                onInput: onInput,
               ),
             ),
           ),
@@ -332,7 +324,7 @@ class _FmjUtilityButtons extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                button('选择关卡', '选择关卡', GameControl.selectFmjStage, width: 62),
+                button('长按选择关卡', '选择关卡', GameControl.selectFmjStage, width: 62),
                 const SizedBox(width: 5),
                 button(
                   '切换自动跑路倍速',
@@ -365,7 +357,7 @@ class _FmjUtilityButtons extends StatelessWidget {
   }
 }
 
-/// 三个战斗按钮独立竖排在A键上方；灰色表示战斗功能不可用，点击仍作为A键确认。
+/// 一键直达与三个战斗按钮固定横排；灰色战斗按钮仍可作为A键确认。
 /// GestureDetector把长按与短按互斥：长按投掷只打开选择，不会在按下时先扔掉武器。
 class _BattleShortcutButtons extends StatelessWidget {
   const _BattleShortcutButtons({
@@ -373,9 +365,12 @@ class _BattleShortcutButtons extends StatelessWidget {
     required this.enabled,
     required this.hapticsEnabled,
     required this.onInput,
+    required this.showBattleButtons,
+    this.throwWeaponName,
   });
   final double buttonSize;
-  final bool enabled, hapticsEnabled;
+  final bool enabled, hapticsEnabled, showBattleButtons;
+  final String? throwWeaponName;
   final ValueChanged<GameControl> onInput;
 
   @override
@@ -413,35 +408,66 @@ class _BattleShortcutButtons extends StatelessWidget {
                   : const Color(0xFF45494B),
               border: Border.all(color: const Color(0xFF10181B), width: 2),
             ),
-            child: Text(
-              text,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              style: TextStyle(
-                color: const Color(0xFFF7F3EA),
-                fontSize: buttonSize * .19,
-                height: 1.2,
-                fontWeight: FontWeight.w700,
+            child: Padding(
+              padding: const EdgeInsets.all(5),
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  style: TextStyle(
+                    color: const Color(0xFFF7F3EA),
+                    fontSize: buttonSize * .19,
+                    height: 1.2,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ),
           ),
         ),
       ),
     );
-    return Column(
+    return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        button(
-          'throw',
-          '投掷\n弯月刀',
-          '短按投掷弯月刀或备用武器，长按选择背包武器',
-          GameControl.quickThrow,
-          held: GameControl.chooseThrowWeapon,
+        _NesInputButton(
+          key: const ValueKey('fmj-quick-travel-large'),
+          width: buttonSize,
+          height: buttonSize,
+          color: const Color(0xFF23594E),
+          pressedColor: const Color(0xFF163C35),
+          borderRadius: BorderRadius.circular(buttonSize / 2),
+          repeatable: true,
+          hapticsEnabled: hapticsEnabled,
+          label: '一键前往当前目标',
+          onPressed: () => onInput(GameControl.quickTravel),
+          child: const Text(
+            '一键\n直达',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Color(0xFFF7F3EA),
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
-        const SizedBox(height: 8),
-        button('magic', '技能', '选择魔法技能', GameControl.quickMagic),
-        const SizedBox(height: 8),
-        button('coop', '合击', '选择合击目标', GameControl.quickCoop),
+        if (showBattleButtons) ...[
+          const SizedBox(width: 8),
+          button(
+            'throw',
+            throwWeaponName == null ? '投掷' : '投掷\n$throwWeaponName',
+            throwWeaponName == null ? '选择投掷武器' : '投掷$throwWeaponName；长按更换武器',
+            GameControl.quickThrow,
+            held: GameControl.chooseThrowWeapon,
+          ),
+          const SizedBox(width: 8),
+          button('magic', '技能', '选择魔法技能', GameControl.quickMagic),
+          const SizedBox(width: 8),
+          button('coop', '合击', '选择合击目标', GameControl.quickCoop),
+        ] else
+          SizedBox(width: buttonSize * 3 + 24),
       ],
     );
   }
@@ -594,13 +620,10 @@ class _NesActionButtons extends StatelessWidget {
     required this.buttonSize,
     required this.hapticsEnabled,
     required this.onInput,
-    this.showBattleButtons = false,
-    this.battleButtonsEnabled = false,
   });
 
   final double buttonSize;
   final bool hapticsEnabled;
-  final bool showBattleButtons, battleButtonsEnabled;
   final ValueChanged<GameControl> onInput;
 
   @override
@@ -626,9 +649,8 @@ class _NesActionButtons extends StatelessWidget {
       );
     }
 
-    // 预留三枚快捷键的空间，战斗、对白和普通场景切换时A/B基线保持不动。
-    return SizedBox(
-      height: buttonSize * 4.28 + 24,
+    return Transform.rotate(
+      angle: -0.12,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -636,21 +658,7 @@ class _NesActionButtons extends StatelessWidget {
           const SizedBox(width: 10),
           Padding(
             padding: EdgeInsets.only(bottom: buttonSize * 0.28),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (showBattleButtons) ...[
-                  _BattleShortcutButtons(
-                    buttonSize: buttonSize,
-                    enabled: battleButtonsEnabled,
-                    hapticsEnabled: hapticsEnabled,
-                    onInput: onInput,
-                  ),
-                  const SizedBox(height: 8),
-                ],
-                button('A', GameControl.confirm, '确认'),
-              ],
-            ),
+            child: button('A', GameControl.confirm, '确认'),
           ),
         ],
       ),
@@ -671,6 +679,7 @@ class _NesInputButton extends StatefulWidget {
     required this.onPressed,
     required this.child,
     this.repeatable = false,
+    this.longPressOnly = false,
   });
 
   final double width;
@@ -682,7 +691,7 @@ class _NesInputButton extends StatefulWidget {
   final String label;
   final VoidCallback onPressed;
   final Widget child;
-  final bool repeatable;
+  final bool repeatable, longPressOnly;
 
   @override
   State<_NesInputButton> createState() => _NesInputButtonState();
@@ -704,6 +713,12 @@ class _NesInputButtonState extends State<_NesInputButton> {
     if (_pressed) return;
     setState(() => _pressed = true);
     if (widget.hapticsEnabled) unawaited(HapticFeedback.selectionClick());
+    if (widget.longPressOnly) {
+      _delayTimer = Timer(const Duration(milliseconds: 600), () {
+        if (mounted && _pressed) widget.onPressed();
+      });
+      return;
+    }
     widget.onPressed();
     if (widget.repeatable) {
       _delayTimer = Timer(const Duration(milliseconds: 320), () {
@@ -827,78 +842,66 @@ class _DirectionPad extends StatelessWidget {
   }
 }
 
-/// 翻页/B位于左列，三枚战斗快捷键与A位于右列；两列互不遮挡。
 class _ActionPad extends StatelessWidget {
   const _ActionPad({
     required this.buttonSize,
     required this.gap,
     required this.hapticsEnabled,
     required this.onInput,
-    this.showBattleButtons = false,
-    this.battleButtonsEnabled = false,
   });
-  final double buttonSize, gap;
-  final bool hapticsEnabled, showBattleButtons, battleButtonsEnabled;
+
+  final double buttonSize;
+  final double gap;
+  final bool hapticsEnabled;
   final ValueChanged<GameControl> onInput;
 
   @override
   Widget build(BuildContext context) {
-    Widget button(
-      GameControl input,
-      String label,
-      Widget child, {
-      bool page = false,
-    }) => _HoldButton(
-      size: buttonSize * (page ? .8 : 1),
-      label: label,
-      repeatable: page,
-      hapticsEnabled: hapticsEnabled,
-      onPressed: () => onInput(input),
-      child: child,
-    );
-    return SizedBox(
-      height: buttonSize * 4 + 24,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              button(
-                GameControl.pageUp,
-                '上翻页',
-                const Icon(Icons.keyboard_double_arrow_up),
-                page: true,
-              ),
-              SizedBox(height: gap),
-              button(
-                GameControl.pageDown,
-                '下翻页',
-                const Icon(Icons.keyboard_double_arrow_down),
-                page: true,
-              ),
-              SizedBox(height: gap * 1.5),
-              button(GameControl.cancel, '返回', const Text('B')),
-            ],
-          ),
-          SizedBox(width: gap),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (showBattleButtons) ...[
-                _BattleShortcutButtons(
-                  buttonSize: buttonSize,
-                  enabled: battleButtonsEnabled,
-                  hapticsEnabled: hapticsEnabled,
-                  onInput: onInput,
-                ),
-                const SizedBox(height: 8),
-              ],
-              button(GameControl.confirm, '确认', const Text('A')),
-            ],
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Row(
+          children: [
+            _HoldButton(
+              size: buttonSize * 0.8,
+              label: '上翻页',
+              repeatable: true,
+              hapticsEnabled: hapticsEnabled,
+              onPressed: () => onInput(GameControl.pageUp),
+              child: const Icon(Icons.keyboard_double_arrow_up),
+            ),
+            SizedBox(width: gap),
+            _HoldButton(
+              size: buttonSize * 0.8,
+              label: '下翻页',
+              repeatable: true,
+              hapticsEnabled: hapticsEnabled,
+              onPressed: () => onInput(GameControl.pageDown),
+              child: const Icon(Icons.keyboard_double_arrow_down),
+            ),
+          ],
+        ),
+        SizedBox(height: gap * 1.5),
+        Row(
+          children: [
+            _HoldButton(
+              size: buttonSize,
+              label: '返回',
+              hapticsEnabled: hapticsEnabled,
+              onPressed: () => onInput(GameControl.cancel),
+              child: const Text('B'),
+            ),
+            SizedBox(width: gap),
+            _HoldButton(
+              size: buttonSize,
+              label: '确认',
+              hapticsEnabled: hapticsEnabled,
+              onPressed: () => onInput(GameControl.confirm),
+              child: const Text('A'),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

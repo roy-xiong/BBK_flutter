@@ -29,11 +29,18 @@ final class GamePage extends StatefulWidget {
 final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   late final GameViewModel model;
   bool _sheetOpen = false, _foreground = true;
+  bool _displayInitialized = false, _landscapeToolsVisible = false;
+  bool? _appliedPortrait;
+  int _displayGeneration = 0;
+  Offset _swipeDelta = Offset.zero;
+  GameKey? _swipeKey;
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     model = widget.viewModel ?? GameViewModel();
+    model.addListener(_syncDisplayLayout);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _syncDisplayLayout());
     if (widget.viewModel == null) unawaited(model.initialize());
   }
 
@@ -42,6 +49,7 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
     _foreground = DesktopWindowService.runsIn(state);
     if (state != AppLifecycleState.resumed) {
       _stopQuickTravel();
+      _endScreenSwipe();
       model.releaseHeldKeys();
     }
     model.setPaused(!_foreground || _sheetOpen);
@@ -52,16 +60,78 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
 
   @override
   void dispose() {
+    _displayGeneration++;
+    model.removeListener(_syncDisplayLayout);
     _stopQuickTravel();
+    _endScreenSwipe();
     WidgetsBinding.instance.removeObserver(this);
     unawaited(model.persist());
     if (widget.viewModel == null) model.dispose();
     super.dispose();
   }
 
+  /// 进入游戏后解除首页方向锁，读入偏好或手动切换时同步系统窗口。
+  void _syncDisplayLayout() {
+    final game = model.engine;
+    if (!mounted || model.loading || game == null) return;
+    final bool? portrait = game.preferences['manualLayout'] == true
+        ? game.preferences['portraitControls'] == true
+        : null;
+    if (_displayInitialized && _appliedPortrait == portrait) return;
+    _displayInitialized = true;
+    _appliedPortrait = portrait;
+    final generation = ++_displayGeneration;
+    unawaited(
+      DesktopWindowService.applyGameLayout(
+        portrait: portrait,
+        isCurrent: () => mounted && generation == _displayGeneration,
+      ),
+    );
+  }
+
+  void _toggleDisplayLayout() {
+    final game = model.engine;
+    if (game == null) return;
+    final portrait = game.preferences['manualLayout'] == true
+        ? game.preferences['portraitControls'] == true
+        : MediaQuery.sizeOf(context).height >= MediaQuery.sizeOf(context).width;
+    _stopQuickTravel();
+    _endScreenSwipe();
+    _landscapeToolsVisible = false;
+    model.action((g) {
+      g.setPreference('manualLayout', true);
+      g.setPreference('portraitControls', !portrait);
+      if (portrait) g.notice = '横屏：长按直达，滑动行走，双击呼出工具栏';
+    });
+    _syncDisplayLayout();
+  }
+
+  /// 滑动超过12逻辑像素才按下方向；长按节奏仍由原方向键处理，避免抖动多走。
+  void _screenSwipe(DragUpdateDetails details) {
+    if (_sheetOpen || model.paused) return;
+    _swipeDelta += details.delta;
+    if (_swipeDelta.distance < 12) return;
+    final key = _swipeDelta.dx.abs() >= _swipeDelta.dy.abs()
+        ? (_swipeDelta.dx > 0 ? GameKey.right : GameKey.left)
+        : (_swipeDelta.dy > 0 ? GameKey.down : GameKey.up);
+    _swipeDelta = Offset.zero;
+    if (_swipeKey == key) return;
+    _endScreenSwipe();
+    _swipeKey = key;
+    model.down(key);
+  }
+
+  void _endScreenSwipe() {
+    final key = _swipeKey;
+    _swipeKey = null;
+    _swipeDelta = Offset.zero;
+    if (key != null) model.up(key);
+  }
+
   Future<void> _sheet(Widget child, {bool compact = false}) async {
     if (_sheetOpen) return;
     _stopQuickTravel();
+    _endScreenSwipe();
     _sheetOpen = true;
     model.setPaused(true);
     try {
@@ -108,6 +178,7 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   Future<void> _keyMapping() async {
     if (_sheetOpen) return;
     _stopQuickTravel();
+    _endScreenSwipe();
     _sheetOpen = true;
     model.setPaused(true);
     try {
@@ -120,8 +191,10 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
 
   Future<void> _leaveGame() async {
     _stopQuickTravel();
+    _endScreenSwipe();
     final returnToLibrary = widget.onReturnToLibrary;
     if (returnToLibrary != null) {
+      _displayGeneration++;
       await returnToLibrary();
       return;
     }
@@ -237,6 +310,7 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
         });
       case GameControl.toggleMoneyFarm:
         _stopQuickTravel();
+        _endScreenSwipe();
         model.action((g) => g.moneyFarm.toggle());
       case GameControl.selectFmjStage:
         _sheet(_StagePanel(model: model));
@@ -293,29 +367,33 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
         builder: (context, _) {
           final game = model.engine,
               modern = game?.preferences['modernUi'] == true,
-              dark = game?.preferences['darkControls'] != false,
-              controlsVisible = game?.preferences['controlsVisible'] != false;
+              dark = game?.preferences['darkControls'] != false;
+          final portraitLayout = game?.preferences['manualLayout'] == true
+              ? game?.preferences['portraitControls'] == true
+              : MediaQuery.sizeOf(context).height >=
+                    MediaQuery.sizeOf(context).width;
+          final controlsVisible =
+              portraitLayout && game?.preferences['controlsVisible'] != false;
+          final throwWeapon = game?.preferredThrowWeapon;
+          final throwWeaponName = throwWeapon == null
+              ? null
+              : game?.goodsName(throwWeapon);
           return Scaffold(
             backgroundColor: Colors.black,
-            appBar: game == null ? null : _fixedMenu(game, modern, dark),
+            appBar: game == null || !portraitLayout
+                ? null
+                : _fixedMenu(game, modern, dark),
             body: SafeArea(
+              top: portraitLayout,
+              bottom: portraitLayout,
+              left: portraitLayout,
+              right: portraitLayout,
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  final portrait = game?.preferences['manualLayout'] == true
-                      ? game?.preferences['portraitControls'] == true
-                      : constraints.maxHeight >= constraints.maxWidth;
+                  final portrait = portraitLayout;
                   double informationHeight(double width) =>
                       ModernGameView.informationHeight(width);
-                  final portraitActionSize =
-                      (constraints.maxWidth.clamp(280.0, 560.0) * .16).clamp(
-                        52.0,
-                        76.0,
-                      );
-                  // 始终为A键上方三枚快捷键留位，不因进入战斗而挤动整个操作区。
-                  final portraitControlsHeight =
-                      portraitActionSize.clamp(58.0, 76.0) +
-                      portraitActionSize * 4.28 +
-                      128;
+                  const portraitControlsHeight = 300.0;
                   final sceneHeight = math.min(
                     math.min(
                       constraints.maxWidth * 3 / 5,
@@ -342,7 +420,7 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                   final sideGap = (sideButton * .12).clamp(6.0, 10.0);
                   final leftInputWidth = 18 + sideButton * 3 + sideGap * 2 + 12;
                   final rightInputWidth =
-                      18 + 284.0 + sideButton + sideGap + 12;
+                      18 + math.max(284.0, sideButton * 4 + 24) + 12;
                   final insetModern =
                       modern &&
                       !portrait &&
@@ -403,47 +481,95 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                             ),
                           );
                   }
-                  return Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      ColoredBox(
-                        color: dark
-                            ? const Color(0xff1b1e22)
-                            : const Color(0xffd8d5cd),
-                      ),
-                      Positioned(
-                        key: const ValueKey('game-surface-layout'),
-                        left: portrait
-                            ? (constraints.maxWidth - gameWidth) / 2
-                            : insetModern
-                            ? leftInputWidth
-                            : 0,
-                        top: insetModern
-                            ? (constraints.maxHeight - modernHeight) / 2
-                            : 0,
-                        width: portrait
-                            ? gameWidth
-                            : insetModern
-                            ? modernWidth
-                            : constraints.maxWidth,
-                        height: portrait
-                            ? gameHeight
-                            : insetModern
-                            ? modernHeight
-                            : constraints.maxHeight,
-                        child: ColoredBox(color: Colors.black, child: surface),
-                      ),
-                      if (game != null && controlsVisible && portrait)
+                  return GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onLongPressStart: portrait
+                        ? null
+                        : (_) {
+                            _endScreenSwipe();
+                            _startQuickTravel();
+                          },
+                    onLongPressEnd: portrait ? null : (_) => _stopQuickTravel(),
+                    onLongPressCancel: portrait ? null : _stopQuickTravel,
+                    onPanStart: portrait
+                        ? null
+                        : (_) {
+                            _stopQuickTravel();
+                            _swipeDelta = Offset.zero;
+                          },
+                    onPanUpdate: portrait ? null : _screenSwipe,
+                    onPanEnd: portrait ? null : (_) => _endScreenSwipe(),
+                    onPanCancel: portrait ? null : _endScreenSwipe,
+                    onDoubleTap: portrait
+                        ? null
+                        : () {
+                            if (mounted)
+                              setState(
+                                () => _landscapeToolsVisible =
+                                    !_landscapeToolsVisible,
+                              );
+                          },
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        ColoredBox(
+                          color: dark
+                              ? const Color(0xff1b1e22)
+                              : const Color(0xffd8d5cd),
+                        ),
                         Positioned(
-                          top: gameHeight,
-                          left: 0,
-                          right: 0,
-                          bottom: 0,
-                          child: PortraitGameControlsPanel(
+                          key: const ValueKey('game-surface-layout'),
+                          left: portrait
+                              ? (constraints.maxWidth - gameWidth) / 2
+                              : insetModern
+                              ? leftInputWidth
+                              : 0,
+                          top: insetModern
+                              ? (constraints.maxHeight - modernHeight) / 2
+                              : 0,
+                          width: portrait
+                              ? gameWidth
+                              : insetModern
+                              ? modernWidth
+                              : constraints.maxWidth,
+                          height: portrait
+                              ? gameHeight
+                              : insetModern
+                              ? modernHeight
+                              : constraints.maxHeight,
+                          child: ColoredBox(
+                            color: Colors.black,
+                            child: surface,
+                          ),
+                        ),
+                        if (game != null && controlsVisible && portrait)
+                          Positioned(
+                            top: gameHeight,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            child: PortraitGameControlsPanel(
+                              throwWeaponName: throwWeaponName,
+                              showBattleButtons: game.battle != null,
+                              battleButtonsEnabled:
+                                  game.battle?.canUseShortcuts == true,
+                              isDarkTheme: dark,
+                              onInput: _control,
+                              hapticsEnabled:
+                                  game.preferences['hapticsEnabled'] != false,
+                              fmjWideViewEnabled: game.wide,
+                              fmjAutoBattleEnabled:
+                                  game.preferences['autoBattle'] == true,
+                              fmjRunSpeed:
+                                  game.preferences['runSpeed'] as int? ?? 1,
+                            ),
+                          ),
+                        if (game != null && controlsVisible && !portrait)
+                          GameControlsOverlay(
+                            throwWeaponName: throwWeaponName,
                             showBattleButtons: game.battle != null,
                             battleButtonsEnabled:
                                 game.battle?.canUseShortcuts == true,
-                            isDarkTheme: dark,
                             onInput: _control,
                             hapticsEnabled:
                                 game.preferences['hapticsEnabled'] != false,
@@ -453,53 +579,52 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                             fmjRunSpeed:
                                 game.preferences['runSpeed'] as int? ?? 1,
                           ),
-                        ),
-                      if (game != null && controlsVisible && !portrait)
-                        GameControlsOverlay(
-                          showBattleButtons: game.battle != null,
-                          battleButtonsEnabled:
-                              game.battle?.canUseShortcuts == true,
-                          onInput: _control,
-                          hapticsEnabled:
-                              game.preferences['hapticsEnabled'] != false,
-                          fmjWideViewEnabled: game.wide,
-                          fmjAutoBattleEnabled:
-                              game.preferences['autoBattle'] == true,
-                          fmjRunSpeed:
-                              game.preferences['runSpeed'] as int? ?? 1,
-                        ),
-                      if (game?.notice.isNotEmpty == true)
-                        Positioned(
-                          left: 12,
-                          right: 12,
-                          bottom: 4,
-                          child: IgnorePointer(
-                            child: Center(
-                              child: DecoratedBox(
-                                decoration: BoxDecoration(
-                                  color: const Color(0xb3000000),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                    vertical: 3,
+                        if (!portrait && _landscapeToolsVisible && game != null)
+                          Positioned(
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            child: SafeArea(
+                              bottom: false,
+                              child: SizedBox(
+                                height: 44,
+                                child: _fixedMenu(game, modern, dark),
+                              ),
+                            ),
+                          ),
+                        if (game?.notice.isNotEmpty == true)
+                          Positioned(
+                            left: 12,
+                            right: 12,
+                            bottom: 4,
+                            child: IgnorePointer(
+                              child: Center(
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xb3000000),
+                                    borderRadius: BorderRadius.circular(4),
                                   ),
-                                  child: Text(
-                                    game?.notice ?? '',
-                                    textAlign: TextAlign.center,
-                                    maxLines: 2,
-                                    style: const TextStyle(
-                                      fontSize: 11,
-                                      color: Color(0xffe0ce9a),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                      vertical: 3,
+                                    ),
+                                    child: Text(
+                                      game?.notice ?? '',
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                      style: const TextStyle(
+                                        fontSize: 11,
+                                        color: Color(0xffe0ce9a),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                    ],
+                      ],
+                    ),
                   );
                 },
               ),
@@ -568,14 +693,7 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                     ),
                   );
                 case 'orientation':
-                  model.action((g) {
-                    final portrait = g.preferences['manualLayout'] == true
-                        ? g.preferences['portraitControls'] == true
-                        : MediaQuery.sizeOf(context).height >=
-                              MediaQuery.sizeOf(context).width;
-                    g.setPreference('manualLayout', true);
-                    g.setPreference('portraitControls', !portrait);
-                  });
+                  _toggleDisplayLayout();
               }
             },
             itemBuilder: (_) => [
