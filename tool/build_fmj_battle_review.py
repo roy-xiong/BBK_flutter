@@ -15,13 +15,15 @@ def main():
     assert set(records)=={c['id']for c in data['cases']},'案例缺失，不能生成不完整文档'
     gifs={};identities={};total_frames=0;total_duration=0
     for c in data['cases']:
-        item={**records[c['id']],**c};records[c['id']]=item;raw=(a.input/(c['id']+'.gif')).read_bytes();digest=hashlib.sha256(raw).hexdigest()
-        with Image.open(a.input/(c['id']+'.gif'))as im:
+        item={**records[c['id']],**c};records[c['id']]=item
+        ext='webp'if(a.input/(c['id']+'.webp')).exists()else'gif';path=a.input/(c['id']+'.'+ext);raw=path.read_bytes();digest=hashlib.sha256(raw).hexdigest()
+        item.update(imageExtension=ext,imageMime='image/'+ext,imageBytes=len(raw),imageFrames=item.get('webpFrames',item['gifFrames']))
+        with Image.open(path)as im:
             assert im.size==(640,384)
             ms=0
-            for frame in range(im.n_frames):im.seek(frame);ms+=im.info.get('duration',0)
+            for frame in range(im.n_frames):im.seek(frame);im.load();ms+=im.info.get('duration',0)
             assert ms==item['durationMs']+item['loopGapMs'],c['id']
-            assert im.n_frames==item['gifFrames']
+            assert im.n_frames==item['imageFrames']
         identity=identities.setdefault(digest,c['id'])
         if identity not in gifs:gifs[identity]=base64.b64encode(gzip.compress(raw,compresslevel=9,mtime=0)).decode()
         item['gif']=identity;item['sha256']=digest;total_frames+=item['simulationFrames'];total_duration+=item['durationMs']
@@ -33,7 +35,7 @@ def main():
     data['summary']={'cases':len(records),'uniqueGifs':len(gifs),'heroes':len(data['heroes']),'enemyDefinitions':len(data['enemies']),'skills':len(data['skills']),'movies':len(data['movies']),'simulationFrames':total_frames,'durationMs':total_duration,'groups':dict(Counter(c['group']for c in data['cases']))}
     template=(ROOT/'tool/fmj_battle_review_template.html').read_text();payload=json.dumps(data,ensure_ascii=False,separators=(',',':')).replace('</','<\\/')
     a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(template.replace('/*__DATA__*/','const DATA='+payload+';'))
-    manifest={**data['summary'],'revision':data['revision'],'renderRevision':data['renderRevision'],'version':data['version'],'createdAt':data['createdAt'],'htmlBytes':a.output.stat().st_size,'gifBytes':sum((a.input/(c['id']+'.gif')).stat().st_size for c in data['cases'])}
+    manifest={**data['summary'],'revision':data['revision'],'renderRevision':data['renderRevision'],'version':data['version'],'createdAt':data['createdAt'],'htmlBytes':a.output.stat().st_size,'animationBytes':sum(c['imageBytes']for c in data['cases'])}
     a.output.with_suffix('.manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(manifest,ensure_ascii=False))
 if __name__=='__main__':main()

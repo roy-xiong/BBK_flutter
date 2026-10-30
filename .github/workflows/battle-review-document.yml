@@ -1,0 +1,68 @@
+name: 汇总战斗动图离线文档
+on:
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: 已完成的战斗录制 Run ID
+        required: true
+        default: '41001417348'
+        type: string
+permissions:
+  contents: read
+  actions: read
+jobs:
+  compact:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: battle-gifs-${{ matrix.shard }}
+          run-id: ${{ inputs.source_run_id }}
+          github-token: ${{ github.token }}
+          path: build/battle-review
+      - run: python3 -m pip install Pillow
+      - run: python3 tool/compact_fmj_battle_review.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: battle-webp-${{ matrix.shard }}
+          path: |
+            build/battle-review/*.webp
+            build/battle-review/shard-*.json
+          retention-days: 14
+  document:
+    needs: compact
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: battle-webp-*
+          merge-multiple: true
+          path: build/battle-review
+      - run: python3 -m pip install Pillow
+      - run: python3 tool/export_fmj_battle_catalog.py
+      - name: 保留原录制提交
+        env:
+          SOURCE_RUN_ID: ${{ inputs.source_run_id }}
+        run: |
+          python3 - <<'PY'
+          import json,os,urllib.request
+          url='https://api.github.com/repos/'+os.environ['GITHUB_REPOSITORY']+'/actions/runs/'+os.environ['SOURCE_RUN_ID']
+          data=json.load(urllib.request.urlopen(url))
+          with open(os.environ['GITHUB_ENV'],'a')as stream:stream.write('FMJ_RENDER_REVISION='+data['head_sha']+'\n')
+          PY
+      - run: python3 tool/build_fmj_battle_review.py --render-revision "$FMJ_RENDER_REVISION"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fmj-battle-review-document-compact
+          path: |
+            build/battle-review/*.html
+            build/battle-review/*.manifest.json
+          retention-days: 30
