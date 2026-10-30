@@ -21,7 +21,8 @@ jobs:
       - run: flutter pub get --enforce-lockfile
       - run: python3 -m pip install Pillow
       - run: python3 tool/export_fmj_battle_catalog.py
-      - name: 仅重录本轮10组48个关联案例
+      - run: python3 tool/export_fmj_battle_review_scope.py --output build/battle-review/review-scope.json
+      - name: 仅重录本轮剑体造型与轨迹的23个关联案例
         env:
           FMJ_EXPORT_BATTLE_REVIEW: '1'
           FMJ_REVIEW_FORMAT: webp
@@ -53,13 +54,31 @@ jobs:
           path: build/battle-review
       - name: 逐案例记录原文件摘要
         run: python3 tool/merge_fmj_review_patch.py --record-base
+      - name: 恢复上一轮已经修订的48个原文件
+        uses: actions/download-artifact@v4
+        with:
+          pattern: battle-patch-*
+          run-id: '41089701112'
+          github-token: ${{ github.token }}
+          merge-multiple: true
+          path: build/battle-review
+      - name: 重建V3基线并保持上一轮真实来源
+        run: |
+          python3 tool/merge_fmj_review_patch.py --feedback tool/fmj_battle_review_feedback_round2.json --render-revision 97d5ad7fd465a59bcdcf1d096427cfa16361f215 --report base-v3-verification.json
+          python3 - <<'PY'
+          from pathlib import Path
+          for path in Path('build/battle-review').glob('patch-shard-*.json'):path.unlink()
+          PY
+          python3 tool/merge_fmj_review_patch.py --record-base
+          python3 tool/export_fmj_battle_catalog.py
+          python3 tool/export_fmj_battle_review_scope.py --output build/battle-review/review-scope.json
       - uses: actions/download-artifact@v4
         with:
           pattern: battle-patch-*
           merge-multiple: true
           path: build/battle-review
-      - name: 仅合并授权的48个案例并校验其他664个文件不变
-        run: python3 tool/merge_fmj_review_patch.py
+      - name: 仅合并授权的23个案例并校验其他689个文件不变
+        run: python3 tool/merge_fmj_review_patch.py --scope build/battle-review/review-scope.json
       - name: 复用原版黑白对照
         uses: actions/download-artifact@v4
         with:
@@ -73,7 +92,7 @@ jobs:
       - run: python3 tool/build_fmj_battle_review.py --require-classic --classic-render-revision a9b568a31683dbbd0f19a63a1cb20d29838dabd8
       - uses: actions/upload-artifact@v4
         with:
-          name: fmj-battle-review-round3-document
+          name: fmj-battle-review-round4-document
           path: |
             build/battle-review/*.html
             build/battle-review/*.manifest.json

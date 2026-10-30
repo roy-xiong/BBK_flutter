@@ -212,6 +212,7 @@ abstract final class ModernBattleEffects {
     if (ModernBattleSemantics.drawComposition(canvas, movie, anchor, palette)) {
       return;
     }
+    ModernBattleSwords.drawPrelude(canvas, movie, anchor, fullScreen, palette);
     for (final item in movie.active) {
       final header = movie.headers[item[0]], index = header[4];
       if (index < 0 || index >= movie.bitmaps.length) continue;
@@ -221,7 +222,14 @@ abstract final class ModernBattleEffects {
       if (shape.bounds.isEmpty) continue;
       final full = fullScreen || bitmap.width == 160 && bitmap.height == 96;
       const scale = 4.0;
-      final origin = full
+      final origin = ModernBattleSwords.movieIds.contains(movie.id)
+          ? ModernBattleSwords.frameOrigin(
+              movie,
+              item[0],
+              anchor,
+              fullScreen: full,
+            )
+          : full
           ? Offset(header[0] * scale, header[1] * scale)
           : anchor +
                 Offset(

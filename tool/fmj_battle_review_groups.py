@@ -16,6 +16,11 @@ ACTION_NAMES = {
     'item': '无独立SRS物品',
 }
 
+# 原状态位与1号SRS库的固定对应。静态catalog在渲染前尚无observedMovies，
+# scope导出仍须使用与实际状态动画相同的身份；渲染记录存在时优先采用实测SRS。
+STATUS_SRS_BY_MASK = {1: '1:246', 2: '1:245', 4: '1:244', 8: '1:243',
+                      32: '1:240', 64: '1:241', 128: '1:242'}
+
 
 def _unique(values):
     """按首次出现顺序去重，保留原目录的阅读顺序。"""
@@ -26,7 +31,7 @@ def _identity(case):
     """只依据主资源或动作类型建组，追加状态不参与主动画身份。"""
     if case['kind'] == 'status':
         movies = case.get('observedMovies', [])
-        primary = next((value for value in movies if value.startswith('1:')), None)
+        primary = next((value for value in movies if value.startswith('1:')), STATUS_SRS_BY_MASK.get(case.get('mask')))
         if primary is None:
             raise ValueError(f"状态案例缺少原始 SRS：{case['id']}")
         return 'srs-' + primary.replace(':', '-'), primary, None
@@ -71,16 +76,19 @@ def _history_entry(group, review, source_round, case=None):
         # 组意见适用于全部变体；代表case只用于“查看变体”，不缩小意见范围。
         entry.update(caseId=group['caseIds'][0],title=review.get('title') or group['title'])
     entry.pop('historyReviews', None)
+    entry.pop('globalInstructions', None)
     return entry
 
 
-def build_review_groups(cases, feedback):
+def build_review_groups(cases, feedback, scope=None):
     """将原 case 无损映射为共享动效组，并生成只读历史意见及初始审核状态。
 
     Args:
         cases: 原始目录案例列表；每个 id 必须唯一，函数不会修改列表或案例。
         feedback: 旧逐案例或新版共享组导出。仅当前comment／带字marker决定待复审；
             approved、status与更早historyReviews不影响本轮初始认可范围。
+        scope: 可选的聊天补充要求；只有feedbackExportedAt与当前导出精确一致才启用。
+            指令独立保留来源，不伪装成输入框意见，也不会跨轮重新打开已通过组。
 
     Returns:
         可直接嵌入离线 HTML 的组列表，caseIds 可完整恢复原始案例集合。
@@ -101,7 +109,7 @@ def build_review_groups(cases, feedback):
         group_id, primary, action = _identity(case)
         group = grouped.setdefault(group_id, dict(
             id=group_id, primarySrs=primary, actionKind=action, caseIds=[],
-            aliases=[], actorNames=[], categories=[], observedMovies=[], historyReviews=[],
+            aliases=[], actorNames=[], categories=[], observedMovies=[], historyReviews=[], globalInstructions=[],
         ))
         group['caseIds'].append(case['id'])
         alias = case.get('skill')
@@ -150,6 +158,20 @@ def build_review_groups(cases, feedback):
                     group['historyReviews'].append(_history_entry(group, previous, current_round, by_id[case_id]))
         group['pendingFeedbackRoundId'] = current_round['id'] if pending else None
         group['initialStatus'] = '已修改待复审' if pending else '通过'
+    if scope and scope.get('feedbackExportedAt') == feedback.get('exportedAt') and feedback.get('exportedAt'):
+        if scope.get('source') != 'user-message' or not str(scope.get('text') or '').strip():
+            raise ValueError('统一要求必须保留user-message来源和非空原话')
+        group_ids = scope.get('groupIds')
+        if not isinstance(group_ids, list) or not group_ids or len(set(group_ids)) != len(group_ids):
+            raise ValueError('统一要求必须提供不重复的共享组ID')
+        unknown_instructions = set(group_ids) - set(grouped)
+        if unknown_instructions:
+            raise ValueError(f'统一要求存在无法对应的共享组：{sorted(unknown_instructions)}')
+        instruction = {key: scope.get(key) for key in ('id', 'source', 'text', 'feedbackExportedAt')}
+        instruction['groupIds'] = list(group_ids)
+        for group_id in group_ids:
+            grouped[group_id]['globalInstructions'] = [instruction]
+            grouped[group_id]['initialStatus'] = '已修改待复审'
     groups = list(grouped.values())
     indexed = [case_id for group in groups for case_id in group['caseIds']]
     assert Counter(indexed) == Counter(by_id.keys()), '分组不能丢失或重复任何案例'
@@ -163,3 +185,28 @@ def build_review_groups(cases, feedback):
         expected_history = sum(_has_feedback(review) for review in reviews.values())
     assert sum(len(group['historyReviews']) for group in groups) == expected_history, '分组不能丢失任何一轮文字或坐标意见'
     return groups
+
+
+def build_review_scope(groups, feedback):
+    """生成文档与定向渲染共同使用的范围，文字与聊天要求分别保留来源。
+
+    调用者先用同一catalog、feedback及可选scope构建groups，再使用此结果选择case。
+    历史记录、旧导出中的globalInstructions均不参与本轮范围。
+    """
+    source = feedback_round(feedback)
+    affected = [group for group in groups if group['initialStatus'] == '已修改待复审']
+    written = [group['id'] for group in groups if group['pendingFeedbackRoundId'] is not None]
+    global_groups = [group['id'] for group in groups if group.get('globalInstructions')]
+    instructions, seen = [], set()
+    for group in groups:
+        for instruction in group.get('globalInstructions', []):
+            identity = json.dumps(instruction, ensure_ascii=False, sort_keys=True)
+            if identity not in seen:
+                seen.add(identity)
+                instructions.append(instruction)
+    return dict(mode='written-feedback-and-instructions' if instructions else 'written-feedback-only',
+                feedbackId=source['id'], reviewRoundId='review-after:' + source['id'],
+                groupIds=[group['id'] for group in affected],
+                caseIds=[case_id for group in affected for case_id in group['caseIds']],
+                writtenFeedbackGroupIds=written, globalInstructionGroupIds=global_groups,
+                globalInstructions=instructions)

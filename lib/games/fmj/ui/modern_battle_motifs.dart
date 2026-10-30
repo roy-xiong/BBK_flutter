@@ -15,43 +15,6 @@ abstract final class _Round3Motifs {
   static Paint p(Color color, [double stroke = 0]) =>
       ModernBattleSemantics._paint(color, stroke);
 
-  static bool composition(
-    Canvas canvas,
-    GameMovie movie,
-    Offset anchor,
-    List<Color> colors,
-  ) {
-    if (movie.id != '2:15' || movie.active.isEmpty) return false;
-    final t = ModernBattleSemantics.progress(movie),
-        center = anchor + const Offset(0, -12);
-    if (t < .42) {
-      ModernBattleSemantics._taiji(canvas, center, 64, t * math.pi * 5, colors);
-    }
-    if (t > .32) {
-      final launch = ((t - .32) / .68).clamp(0.0, 1.0);
-      for (var i = 0; i < 7; i++) {
-        final phase = (launch * 1.5 - i * .055).clamp(0.0, 1.0);
-        if (phase == 0) continue;
-        final angle = (i - 3) * .23,
-            start = center + Offset((i - 3) * 25.0, -91 + (i - 3).abs() * 8);
-        final end = center + Offset((i - 3) * 9.0, 28);
-        final point = Offset.lerp(start, end, phase)!;
-        canvas.drawLine(
-          point + Offset(-math.sin(angle) * 30, -math.cos(angle) * 45),
-          point,
-          p(colors[1].withValues(alpha: .3), 2),
-        );
-        canvas.save();
-        canvas.translate(point.dx, point.dy);
-        canvas.rotate(angle);
-        canvas.scale(.7);
-        _sword(canvas, colors);
-        canvas.restore();
-      }
-    }
-    return true;
-  }
-
   static bool frame(
     Canvas canvas,
     String id,

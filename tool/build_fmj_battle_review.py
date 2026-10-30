@@ -10,7 +10,7 @@ import subprocess
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from PIL import Image
-from fmj_battle_review_groups import build_review_groups, feedback_round
+from fmj_battle_review_groups import build_review_groups, build_review_scope, feedback_round
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -28,14 +28,18 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--render-revision')
     parser.add_argument('--classic-render-revision', help='复用原版黑白 raw 时记录其真实绘制提交')
-    parser.add_argument('--feedback', type=Path, default=ROOT / 'tool/fmj_battle_review_feedback_round2.json',
-                        help='内嵌上一轮共享组或逐案例反馈；默认使用仓库固定第二轮反馈')
+    parser.add_argument('--feedback', type=Path, default=ROOT / 'tool/fmj_battle_review_feedback_round3.json',
+                        help='内嵌上一轮共享组或逐案例反馈；默认使用仓库固定第三轮反馈')
+    parser.add_argument('--scope', type=Path, default=ROOT / 'tool/fmj_battle_review_scope_round4.json',
+                        help='补充统一要求；仅在绑定的feedbackExportedAt匹配时启用')
+    parser.add_argument('--no-scope', action='store_true', help='不附加统一要求，仅按文字／坐标意见确定范围')
     parser.add_argument('--require-classic', action='store_true')
     parser.add_argument('--input', type=Path, default=ROOT / 'build/battle-review')
     parser.add_argument('--output', type=Path, default=ROOT / 'build/battle-review/伏魔记-彩色战斗全案例动图审核.html')
     args = parser.parse_args()
     data = json.loads((args.input / 'catalog.json').read_text())
     feedback = json.loads(args.feedback.read_text())
+    instruction = None if args.no_scope else json.loads(args.scope.read_text())
     assert feedback.get('documentType') in ('fmj-color-battle-review', 'fmj-color-battle-review-groups'), '历史意见文件类型不正确'
     assert data.get('speed') == 1 and data.get('stepMs') == 40, '审核仅接受原40ms时钟的1倍速raw'
     records = read_records(args.input, 'shard-*.json')
@@ -86,15 +90,11 @@ def main():
                                'loopGapMs': original['loopGapMs']}
         records[source['id']] = case
     data['cases'] = [records[case['id']] for case in data['cases']]
-    data['reviewSchema'] = 3
-    data['reviewGroups'] = build_review_groups(data['cases'], feedback)
+    data['reviewSchema'] = 4
+    data['reviewGroups'] = build_review_groups(data['cases'], feedback, instruction)
     data['feedbackRound'] = feedback_round(feedback)
-    data['reviewRoundId'] = 'review-after:' + data['feedbackRound']['id']
-    feedback_groups = [group for group in data['reviewGroups'] if group['initialStatus'] == '已修改待复审']
-    data['reviewScope'] = dict(mode='written-feedback-only', feedbackId=data['feedbackRound']['id'],
-                               reviewRoundId=data['reviewRoundId'],
-                               groupIds=[group['id'] for group in feedback_groups],
-                               caseIds=[case_id for group in feedback_groups for case_id in group['caseIds']])
+    data['reviewScope'] = build_review_scope(data['reviewGroups'], feedback)
+    data['reviewRoundId'] = data['reviewScope']['reviewRoundId']
     # 分块储存大体积动画，只解压当前一对，避免浏览器单段JS字符串超限。
     data.update(gifs={key: 'fmj-animation-' + key for key in animations},
                 gifEncoding='gzip-base64', assetStorage='inert-script')
@@ -110,6 +110,9 @@ def main():
                            durationMs=sum(case['durationMs'] for case in records.values()),
                            groups=dict(Counter(case['group'] for case in data['cases'])),
                            reviewGroups=len(data['reviewGroups']),
+                           writtenFeedbackGroups=len(data['reviewScope']['writtenFeedbackGroupIds']),
+                           globalInstructionGroups=len(data['reviewScope']['globalInstructionGroupIds']),
+                           globalInstructionCount=len(data['reviewScope']['globalInstructions']),
                            reviewGroupStates=dict(Counter(group['initialStatus'] for group in data['reviewGroups'])),
                            historicalReviews=sum(len(group['historyReviews']) for group in data['reviewGroups']),
                            latestFeedbackReviews=sum(row['roundId'] == data['feedbackRound']['id']

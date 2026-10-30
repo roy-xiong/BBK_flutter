@@ -15,6 +15,8 @@ ROOT = Path(__file__).resolve().parents[2]
 MODULE_PATH = ROOT / 'tool/fmj_battle_review_groups.py'
 FEEDBACK_PATH = ROOT / 'tool/fmj_battle_review_feedback_round1.json'
 ROUND2_PATH = ROOT / 'tool/fmj_battle_review_feedback_round2.json'
+ROUND3_PATH = ROOT / 'tool/fmj_battle_review_feedback_round3.json'
+ROUND4_SCOPE_PATH = ROOT / 'tool/fmj_battle_review_scope_round4.json'
 
 
 class BattleReviewGroupsTest(unittest.TestCase):
@@ -86,6 +88,14 @@ class BattleReviewGroupsTest(unittest.TestCase):
         self.assertNotEqual(old['roundId'],current['roundId'])
         self.assertEqual(current['scope'],'group')
 
+    def test_status_group_identity_is_available_before_render(self):
+        module=self.require_module()
+        expected={1:'1:246',2:'1:245',4:'1:244',8:'1:243',32:'1:240',64:'1:241',128:'1:242'}
+        static=[dict(id=str(mask),title='状态',actorName='主角',kind='status',group='状态',mask=mask) for mask in expected]
+        recorded=[dict(**case,observedMovies=[expected[case['mask']]]) for case in static]
+        self.assertEqual({g['id']:g['caseIds'] for g in module.build_review_groups(static,{'reviews':{}})},
+                         {g['id']:g['caseIds'] for g in module.build_review_groups(recorded,{'reviews':{}})})
+
     def test_round2_real_catalog_is_10_pending_77_approved_and_38_history(self):
         module = self.require_module()
         path = ROOT / 'build/battle-review/previous-catalog.json'
@@ -138,6 +148,62 @@ assert.equal(Object.values(restored.histories).reduce((n,rows)=>n+rows.length,0)
         result=subprocess.run(['node','-'],input=script,text=True,capture_output=True)
         self.assertEqual(result.returncode,0,result.stdout+result.stderr)
         print('第二轮真实目录：87组/712案例，10组待复审（48变体）/77组通过，旧28+新10历史均保留')
+
+    def test_round4_sword_scope_is_bound_to_feedback_without_faking_comments(self):
+        module = self.require_module()
+        path=ROOT/'build/battle-review/previous-catalog.json'
+        if not path.exists():
+            self.skipTest('本地未提供渲染catalog')
+        self.assertTrue(ROUND3_PATH.exists(),'缺少第三轮用户原始反馈副本')
+        self.assertTrue(ROUND4_SCOPE_PATH.exists(),'缺少聊天指令来源与轮次绑定')
+        cases=json.loads(path.read_text())['cases']
+        feedback=json.loads(ROUND3_PATH.read_text())
+        instruction=json.loads(ROUND4_SCOPE_PATH.read_text())
+        groups=module.build_review_groups(cases,feedback,instruction)
+        pending=[group for group in groups if group['initialStatus']=='已修改待复审']
+        expected={f'srs-2-{movie}' for movie in [2,12,13,15,17,18,201,202,203]}
+        self.assertEqual({group['id'] for group in pending},expected)
+        self.assertEqual(len(groups),87)
+        self.assertEqual(sum(group['initialStatus']=='通过' for group in groups),78)
+        self.assertEqual(sum(len(group['caseIds']) for group in pending),23)
+        self.assertEqual(len({case_id for group in groups for case_id in group['caseIds']}),712)
+        self.assertEqual(sum(len(group['historyReviews']) for group in groups),39)
+        self.assertEqual(sum(bool(group['globalInstructions']) for group in groups),9)
+        self.assertEqual(sum(group['pendingFeedbackRoundId'] is not None for group in groups),1)
+        for group in pending:
+            self.assertEqual(group['globalInstructions'][0]['source'],'user-message')
+            self.assertEqual(group['globalInstructions'][0]['text'],'其他的原来的剑相关的，我期望都改成跟这次的剑一样的造型')
+            self.assertEqual(group['globalInstructions'][0]['feedbackExportedAt'],feedback['exportedAt'])
+            self.assertFalse(any(row['comment']==instruction['text'] for row in group['historyReviews']))
+        scope=module.build_review_scope(groups,feedback)
+        self.assertEqual(scope['mode'],'written-feedback-and-instructions')
+        self.assertEqual(set(scope['groupIds']),expected)
+        self.assertEqual(len(scope['caseIds']),23)
+        self.assertEqual(scope['writtenFeedbackGroupIds'],['srs-2-15'])
+        self.assertEqual(len(scope['globalInstructionGroupIds']),9)
+        self.assertEqual(len(scope['globalInstructions']),1)
+        future=json.loads(json.dumps(feedback))
+        future['exportedAt']='2026-10-31T12:00:00.000Z'
+        for row in future['groupReviews'].values():
+            row['comment']='';row['markers']=[];row['globalInstructions']=[instruction]
+        later=module.build_review_groups(cases,future,instruction)
+        self.assertEqual(sum(group['initialStatus']=='通过' for group in later),87)
+        self.assertFalse(any(group['globalInstructions'] for group in later))
+        self.assertEqual(module.build_review_scope(later,future)['groupIds'],[])
+        # 不传scope仍兼容旧轮次，仅实际文字组待复审。
+        plain=module.build_review_groups(cases,feedback)
+        self.assertEqual(sum(group['initialStatus']=='已修改待复审' for group in plain),1)
+        command=[sys.executable,str(ROOT/'tool/export_fmj_battle_review_scope.py'),
+                 '--catalog',str(path),'--feedback',str(ROUND3_PATH),'--scope',str(ROUND4_SCOPE_PATH)]
+        result=subprocess.run(command,capture_output=True,text=True)
+        self.assertEqual(result.returncode,0,result.stderr)
+        self.assertEqual(json.loads(result.stdout),scope)
+        with tempfile.TemporaryDirectory() as directory:
+            output=Path(directory)/'review-scope.json'
+            result=subprocess.run(command+['--output',str(output)],capture_output=True,text=True)
+            self.assertEqual(result.returncode,0,result.stderr)
+            self.assertEqual(json.loads(output.read_text()),scope)
+        print('第四轮真实目录：9待复审/78通过、23变体、39历史；1文字组+9聊天要求组，未来轮次不误用')
 
     def test_real_catalog_preserves_all_712_cases_and_28_comments(self):
         module = self.require_module()
@@ -235,6 +301,34 @@ const v3again=ReviewLogic.importReviews(v3,[approvedGroup],data);
 assert.equal(v3again.mode,'current');
 assert.equal(v3again.reviews[group.id].comment,'本轮新的问题');
 assert.equal(ReviewLogic.effectiveStatus(v3again.reviews[group.id],approvedGroup),'需修改');
+// v4把聊天统一要求与输入框分开，旧v3只迁历史，同轮v4恢复current。
+const instruction={id:'swords',source:'user-message',text:'其他的原来的剑相关的，我期望都改成跟这次的剑一样的造型',feedbackExportedAt:'round3',groupIds:[group.id]};
+const v4data={...data,reviewSchema:4,reviewRoundId:'review-after:round3',feedbackRound:{id:'round3',exportedAt:'round3'},
+  reviewScope:{mode:'written-feedback-and-instructions',feedbackId:'round3',groupIds:[group.id],caseIds:group.caseIds,
+    writtenFeedbackGroupIds:[],globalInstructionGroupIds:[group.id],globalInstructions:[instruction]}};
+const v4group={...group,globalInstructions:[instruction]};
+const oldV3=ReviewLogic.importReviews(v3,[v4group],v4data);
+assert.equal(oldV3.mode,'history');
+assert.equal(oldV3.reviews[group.id].comment,'');
+assert.equal(ReviewLogic.effectiveStatus(oldV3.reviews[group.id],v4group),'已修改待复审');
+const v4out=ReviewLogic.exportReviews(v4data,[v4group],{[group.id]:{approved:false,comment:'剑的新问题',markers:[]}},{});
+assert.equal(v4out.schema,4);
+assert.equal(v4out.reviewScope.mode,'written-feedback-and-instructions');
+assert.equal(v4out.groupReviews[group.id].comment,'剑的新问题');
+assert.equal(v4out.groupReviews[group.id].globalInstructions[0].source,'user-message');
+assert.equal(v4out.groupReviews[group.id].historyReviews.length,1);
+const v4again=ReviewLogic.importReviews(v4out,[v4group],v4data);
+assert.equal(v4again.mode,'current');
+assert.equal(v4again.reviews[group.id].comment,'剑的新问题');
+assert.equal(ReviewLogic.effectiveStatus(v4again.reviews[group.id],v4group),'需修改');
+const v4empty=ReviewLogic.exportReviews(v4data,[v4group],{},{});
+assert.equal(v4empty.groupReviews[group.id].comment,'');
+assert.equal(v4empty.groupReviews[group.id].globalInstructions[0].text,instruction.text);
+const v4saved=ReviewLogic.saveState(v4data,[v4group],v4again.reviews,{});
+assert.equal(ReviewLogic.restoreState(v4saved,v4data,[v4group]).reviews[group.id].comment,'剑的新问题');
+assert.notEqual(ReviewLogic.storageKey(data),ReviewLogic.storageKey(v4data));
+assert.match(ReviewLogic.storageKey(v4data),/groups-v4:/);
+assert.equal(ReviewLogic.importReviews(v4out,[v4group],{...v4data,reviewRoundId:'future'}).mode,'history');
 console.log('浏览器规则：文字/坐标优先、case-0056旧导入、分组导出往返均通过');
 '''
         result = subprocess.run(['node', '-'], input=script, text=True, capture_output=True)
@@ -290,7 +384,7 @@ console.log('浏览器规则：文字/坐标优先、case-0056旧导入、分组
             self.assertEqual(payload['reviewGroups'][0]['caseIds'], ['case-0001', 'case-0002'])
             self.assertEqual(payload['reviewGroups'][0]['initialStatus'], '已修改待复审')
             self.assertEqual(payload['cases'][0]['assetRenderRevision'],'raw-new')
-            self.assertEqual(payload['reviewSchema'],3)
+            self.assertEqual(payload['reviewSchema'],4)
             self.assertEqual(payload['reviewScope']['mode'],'written-feedback-only')
             # 新版共享组反馈也走同一真实素材打包链，较早历史不会将无字组重新打开。
             grouped_feedback = dict(documentType='fmj-color-battle-review-groups',schema=2,
@@ -305,6 +399,22 @@ console.log('浏览器规则：文字/坐标优先、case-0056旧导入、分组
             self.assertEqual(grouped_payload['reviewGroups'][0]['initialStatus'],'通过')
             self.assertEqual(grouped_payload['summary']['latestFeedbackReviews'],0)
             self.assertEqual(grouped_payload['summary']['olderHistoricalReviews'],1)
+            scope_path=folder/'scope.json'
+            scope_path.write_text(json.dumps(dict(id='synthetic-instruction',source='user-message',
+                text='统一剑体造型',feedbackExportedAt='round2',groupIds=['srs-2-16'])))
+            scoped_result=subprocess.run(command+['--scope',str(scope_path)],capture_output=True,text=True)
+            self.assertEqual(scoped_result.returncode,0,scoped_result.stdout+scoped_result.stderr)
+            scoped_payload=json.loads(re.search(r'<script>const DATA=(.*?);</script>',output.read_text()).group(1))
+            self.assertEqual(scoped_payload['reviewGroups'][0]['initialStatus'],'已修改待复审')
+            self.assertEqual(scoped_payload['summary']['historicalReviews'],1)
+            self.assertEqual(scoped_payload['summary']['latestFeedbackReviews'],0)
+            self.assertEqual(scoped_payload['summary']['writtenFeedbackGroups'],0)
+            self.assertEqual(scoped_payload['summary']['globalInstructionGroups'],1)
+            helper=subprocess.run([sys.executable,str(ROOT/'tool/export_fmj_battle_review_scope.py'),
+                '--catalog',str(folder/'catalog.json'),'--feedback',str(feedback_path),
+                '--scope',str(scope_path)],capture_output=True,text=True)
+            self.assertEqual(helper.returncode,0,helper.stderr)
+            self.assertEqual(json.loads(helper.stdout),scoped_payload['reviewScope'])
             # 同帧数但时长错误仍必须拒绝，避免“1×”仅有标签而未校验实际素材。
             frames = [Image.new('RGB', (640, 384), color) for color in ('red', 'blue')]
             frames[0].save(folder / 'case-0001.webp', format='WEBP', save_all=True,

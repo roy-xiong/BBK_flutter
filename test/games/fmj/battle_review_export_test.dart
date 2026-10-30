@@ -31,23 +31,15 @@ void main() {
       final patch = Platform.environment['FMJ_REVIEW_PATCH'] == '1';
       final selected = <String>{};
       if (patch) {
-        final feedback =
+        final scope =
             jsonDecode(
                   File(
-                    'tool/fmj_battle_review_feedback_round2.json',
+                    'build/battle-review/review-scope.json',
                   ).readAsStringSync(),
                 )
                 as Map;
-        for (final row
-            in (feedback['groupReviews'] as Map).values.cast<Map>()) {
-          final written =
-              (row['comment'] as String? ?? '').trim().isNotEmpty ||
-              (row['markers'] as List? ?? []).cast<Map>().any(
-                (m) => (m['comment'] as String? ?? '').trim().isNotEmpty,
-              );
-          if (written) selected.addAll((row['caseIds'] as List).cast<String>());
-        }
-        expect(selected, hasLength(48), reason: '本轮只重录有文字意见的10组、48个关联案例');
+        selected.addAll((scope['caseIds'] as List).cast<String>());
+        expect(selected, isNotEmpty, reason: '仅重录当前文字及补充统一要求所选的案例');
       }
       final shard = int.parse(Platform.environment['FMJ_REVIEW_SHARD'] ?? '0');
       final shards = int.parse(

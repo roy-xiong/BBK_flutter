@@ -20,7 +20,7 @@ class PatchMergeTest(unittest.TestCase):
         for shard in range(4):(folder/f'patch-shard-{shard}.json').write_text(json.dumps(patch[shard::4]))
         return selected,patch
     def run_command(self,folder,*args,success):
-        result=subprocess.run(['python3',str(ROOT/'tool/merge_fmj_review_patch.py'),'--input',str(folder),*args],cwd=ROOT,capture_output=True,text=True)
+        result=subprocess.run(['python3',str(ROOT/'tool/merge_fmj_review_patch.py'),'--input',str(folder),'--feedback',str(ROOT/'tool/fmj_battle_review_feedback_round2.json'),*args],cwd=ROOT,capture_output=True,text=True)
         self.assertEqual(result.returncode==0,success,result.stderr)
         return result
     def test_only_48_written_cases_replace_and_other_664_keep_bytes(self):
@@ -45,4 +45,21 @@ class PatchMergeTest(unittest.TestCase):
             shard=0;p=folder/f'patch-shard-{shard}.json';rows=json.loads(p.read_text());rows[0]=row;p.write_text(json.dumps(rows))
             result=self.run_command(folder,success=False)
             self.assertIn('原案例身份或时序变化',result.stderr)
+    def test_next_round_preserves_previously_approved_patch_and_revision(self):
+        with tempfile.TemporaryDirectory()as tmp:
+            folder=Path(tmp);previous,_=self.setup_files(folder)
+            self.run_command(folder,'--render-revision','previous-approved-render',success=True)
+            self.run_command(folder,'--record-base',success=True)
+            base=MODULE.records(folder,'shard-*.json')
+            for path in folder.glob('patch-shard-*.json'):path.unlink()
+            selected='case-0002';scope=folder/'scope.json';scope.write_text(json.dumps({'caseIds':[selected]}))
+            (folder/(selected+'.webp')).write_bytes(b'new sword appearance')
+            (folder/'patch-shard-0.json').write_text(json.dumps([base[selected]]))
+            self.run_command(folder,'--scope',str(scope),'--render-revision','current-sword-render',success=True)
+            merged=MODULE.records(folder,'shard-*.json')
+            for id in previous:
+                self.assertEqual(merged[id]['assetRenderRevision'],'previous-approved-render')
+                self.assertEqual((folder/(id+'.webp')).read_bytes(),('new:'+id).encode())
+            self.assertEqual(merged[selected]['assetRenderRevision'],'current-sword-render')
+            self.assertEqual(json.loads((folder/'patch-verification.json').read_text())['reusedCases'],711)
 if __name__=='__main__':unittest.main()

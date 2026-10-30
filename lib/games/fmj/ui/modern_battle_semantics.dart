@@ -4,6 +4,7 @@ import '../data/game_data.dart';
 import 'battle_calligraphy.dart';
 
 part 'modern_battle_motifs.dart';
+part 'modern_battle_swords.dart';
 
 /// 本轮审核确认的招式语义图形。原SRS仍是唯一时钟和位置来源，绘制不写入会话。
 /// 共用SRS的所有人物、敌人和道具自动使用同一修订，不按角色另造分支。
@@ -35,6 +36,7 @@ abstract final class ModernBattleSemantics {
     '2:205',
     ...statusLetters.keys,
     ..._Round3Motifs.ids,
+    ...ModernBattleSwords.movieIds,
   };
   static final _timings = Expando<(List<int>, int)>();
   static Paint _paint(Color color, [double stroke = 0]) => Paint()
@@ -79,7 +81,6 @@ abstract final class ModernBattleSemantics {
     List<Color> colors,
   ) {
     if (movie.active.isEmpty) return false;
-    if (_Round3Motifs.composition(canvas, movie, anchor, colors)) return true;
     final t = progress(movie);
     switch (movie.id) {
       case '2:14':
@@ -113,13 +114,6 @@ abstract final class ModernBattleSemantics {
           }
         }
         return true;
-      case '2:203':
-        if (t < .28) {
-          _taiji(canvas, const Offset(172, 170), 85, t * 1.2, colors);
-          return true;
-        }
-        // 初始太极之后继续原神剑SRS，已经认可的飞剑阶段沿用现有绘制。
-        return false;
       case '2:204':
         _phoenixFlight(canvas, t);
         return true;
@@ -140,6 +134,9 @@ abstract final class ModernBattleSemantics {
     int frame,
     List<Color> colors,
   ) {
+    if (ModernBattleSwords.drawFrame(canvas, id, bitmapIndex, size)) {
+      return true;
+    }
     if (_Round3Motifs.frame(
       canvas,
       id,
