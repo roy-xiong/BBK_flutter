@@ -9,6 +9,14 @@ def main():
         records=json.loads(metadata.read_text())
         for i,c in enumerate(records):
             src=a.input/(c['id']+'.gif');out=src.with_suffix('.webp')
+            if not src.exists()and out.exists():
+                # 新版录制已直接输出无损WebP，保持原文件，不再经过GIF调色板。
+                with Image.open(out)as animation:
+                    total=0
+                    for frame in range(animation.n_frames):animation.seek(frame);animation.load();total+=animation.info.get('duration',0)
+                    assert total==c['durationMs']+c['loopGapMs'],c['id']
+                    c.update(webpFrames=animation.n_frames,webpDurationMs=total,webpBytes=out.stat().st_size)
+                continue
             with Image.open(src)as gif:
                 frames=[];durations=[]
                 for index in range(gif.n_frames):

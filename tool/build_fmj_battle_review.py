@@ -27,14 +27,22 @@ def main():
         identity=identities.setdefault(digest,c['id'])
         if identity not in gifs:gifs[identity]=base64.b64encode(gzip.compress(raw,compresslevel=9,mtime=0)).decode()
         item['gif']=identity;item['sha256']=digest;total_frames+=item['simulationFrames'];total_duration+=item['durationMs']
-    data['cases']=[records[c['id']]for c in data['cases']];data['gifs']=gifs;data['gifEncoding']='gzip-base64'
+    data['cases']=[records[c['id']]for c in data['cases']]
+    # 动图各自放在惰性数据块中，避免几百MB的单段JS源码超过浏览器字符串限制。
+    data['gifs']={key:'fmj-animation-'+key for key in gifs};data['gifEncoding']='gzip-base64';data['assetStorage']='inert-script'
     data['revision']=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     data['renderRevision']=a.render_revision or data['revision']
     data['version']=next(l.split(':',1)[1].strip()for l in(ROOT/'pubspec.yaml').read_text().splitlines()if l.startswith('version:'))
     data['createdAt']=datetime.now(ZoneInfo('Asia/Shanghai')).isoformat(timespec='seconds')
     data['summary']={'cases':len(records),'uniqueGifs':len(gifs),'heroes':len(data['heroes']),'enemyDefinitions':len(data['enemies']),'skills':len(data['skills']),'movies':len(data['movies']),'simulationFrames':total_frames,'durationMs':total_duration,'groups':dict(Counter(c['group']for c in data['cases']))}
     template=(ROOT/'tool/fmj_battle_review_template.html').read_text();payload=json.dumps(data,ensure_ascii=False,separators=(',',':')).replace('</','<\\/')
-    a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(template.replace('/*__DATA__*/','const DATA='+payload+';'))
+    a.output.parent.mkdir(parents=True,exist_ok=True)
+    document=template.replace('/*__DATA__*/','const DATA='+payload+';')
+    before,after=document.split('<!--__ANIMATION_ASSETS__-->',1)
+    with a.output.open('w')as stream:
+        stream.write(before)
+        for key,encoded in gifs.items():stream.write('<script type="text/plain" id="fmj-animation-'+key+'">'+encoded+'</script>\n')
+        stream.write(after)
     manifest={**data['summary'],'revision':data['revision'],'renderRevision':data['renderRevision'],'version':data['version'],'createdAt':data['createdAt'],'htmlBytes':a.output.stat().st_size,'animationBytes':sum(c['imageBytes']for c in data['cases'])}
     a.output.with_suffix('.manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(manifest,ensure_ascii=False))

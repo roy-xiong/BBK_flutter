@@ -51,11 +51,13 @@ jobs:
       - name: 保留原录制提交
         env:
           SOURCE_RUN_ID: ${{ inputs.source_run_id }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           python3 - <<'PY'
           import json,os,urllib.request
           url='https://api.github.com/repos/'+os.environ['GITHUB_REPOSITORY']+'/actions/runs/'+os.environ['SOURCE_RUN_ID']
-          data=json.load(urllib.request.urlopen(url))
+          request=urllib.request.Request(url,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN']})
+          data=json.load(urllib.request.urlopen(request))
           with open(os.environ['GITHUB_ENV'],'a')as stream:stream.write('FMJ_RENDER_REVISION='+data['head_sha']+'\n')
           PY
       - run: python3 tool/build_fmj_battle_review.py --render-revision "$FMJ_RENDER_REVISION"
