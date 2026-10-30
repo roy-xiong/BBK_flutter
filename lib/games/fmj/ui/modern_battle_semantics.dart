@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'dart:ui';
+import 'dart:typed_data';
 import '../data/game_data.dart';
 import 'battle_calligraphy.dart';
 

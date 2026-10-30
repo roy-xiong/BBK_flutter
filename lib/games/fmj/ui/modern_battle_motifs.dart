@@ -486,15 +486,25 @@ abstract final class _Round3Motifs {
     );
   }
 
+  static Path get _swordBlade => Path()
+    ..moveTo(0, -62)
+    ..lineTo(9, -41)
+    ..lineTo(6, 7)
+    ..lineTo(0, 17)
+    ..lineTo(-6, 7)
+    ..lineTo(-9, -41)
+    ..close();
+
+  static Path get _swordGuard => Path()
+    ..moveTo(-19, 15)
+    ..quadraticBezierTo(0, 4, 19, 15)
+    ..lineTo(15, 21)
+    ..lineTo(0, 17)
+    ..lineTo(-15, 21)
+    ..close();
+
   static void _sword(Canvas canvas, List<Color> colors) {
-    final blade = Path()
-      ..moveTo(0, -62)
-      ..lineTo(9, -41)
-      ..lineTo(6, 7)
-      ..lineTo(0, 17)
-      ..lineTo(-6, 7)
-      ..lineTo(-9, -41)
-      ..close();
+    final blade = _swordBlade;
     canvas.drawPath(
       blade,
       p(const Color(0xffe5f0e8))
@@ -511,16 +521,7 @@ abstract final class _Round3Motifs {
       const Offset(0, 10),
       p(const Color(0xffffffff), 1),
     );
-    canvas.drawPath(
-      Path()
-        ..moveTo(-19, 15)
-        ..quadraticBezierTo(0, 4, 19, 15)
-        ..lineTo(15, 21)
-        ..lineTo(0, 17)
-        ..lineTo(-15, 21)
-        ..close(),
-      p(const Color(0xffb99c59)),
-    );
+    canvas.drawPath(_swordGuard, p(const Color(0xffb99c59)));
     canvas.drawRRect(
       RRect.fromRectAndRadius(
         const Rect.fromLTWH(-4, 17, 8, 25),

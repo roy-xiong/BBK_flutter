@@ -21,7 +21,17 @@ abstract final class ModernBattleSwords {
     Color(0xffe6bf73),
     Color(0xffa26c45),
   ];
-  static const _body = Rect.fromLTRB(-19, -62, 19, 49);
+  static final _outline = Path()
+    ..addPath(_Round3Motifs._swordBlade, Offset.zero)
+    ..addPath(_Round3Motifs._swordGuard, Offset.zero)
+    ..addRRect(
+      RRect.fromRectAndRadius(
+        const Rect.fromLTWH(-4, 17, 8, 25),
+        const Radius.circular(2),
+      ),
+    )
+    ..addOval(const Rect.fromCircle(center: Offset(0, 44), radius: 5));
+  static final Map<double, Rect> _rotatedBounds = {};
   static const _diagonal = -math.pi / 4;
 
   /// 原图的八方向和剑阵倾角。角度以剑尖向上为零，随原bitmap切换，不自行旋转。
@@ -138,20 +148,33 @@ abstract final class ModernBattleSwords {
   }
 
   static void _drawBody(Canvas canvas, Size size, double rotation) {
-    final cosine = math.cos(rotation), sine = math.sin(rotation);
-    final corners =
-        [_body.topLeft, _body.topRight, _body.bottomLeft, _body.bottomRight]
-            .map(
-              (p) => Offset(
-                p.dx * cosine - p.dy * sine,
-                p.dx * sine + p.dy * cosine,
-              ),
-            )
-            .toList();
-    var bounds = Rect.fromPoints(corners.first, corners.first);
-    for (final point in corners.skip(1)) {
-      bounds = bounds.expandToInclude(Rect.fromPoints(point, point));
-    }
+    // 按真实剑轮廓旋转后的边界适配，不能旋转外接矩形后再缩放，
+    // 否则斜剑会被额外缩小，剑柄与剑尖也会偏离原位图的中心。
+    final bounds = _rotatedBounds.putIfAbsent(rotation, () {
+      final cosine = math.cos(rotation), sine = math.sin(rotation);
+      return _outline
+          .transform(
+            Float64List.fromList([
+              cosine,
+              sine,
+              0,
+              0,
+              -sine,
+              cosine,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+            ]),
+          )
+          .getBounds();
+    });
     // 沿原位图轮廓尺寸适配，同一套造型保留原本大剑/小剑和不同方向的占地。
     const inset = .25;
     canvas.save();
