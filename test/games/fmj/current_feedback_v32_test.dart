@@ -9,6 +9,7 @@ import 'package:bbk_flutter/games/fmj/engine/game_engine.dart';
 import 'package:bbk_flutter/games/fmj/ui/game_controls.dart';
 import 'package:bbk_flutter/games/fmj/ui/modern_art.dart';
 import 'package:bbk_flutter/games/fmj/ui/modern_battle_effects.dart';
+import 'package:bbk_flutter/games/fmj/ui/modern_battle_layout.dart';
 import 'package:bbk_flutter/games/fmj/ui/modern_effect_shape.dart';
 import 'package:bbk_flutter/games/fmj/ui/modern_scene.dart';
 import 'package:bbk_flutter/games/fmj/ui/modern_world_objects.dart';
@@ -151,6 +152,41 @@ void main() {
         picture.dispose();
       }
     });
+  });
+
+  test('普通攻击刀光和受击火花在实际绘制入口可用', () async {
+    final data = await loadData();
+    final game = GameEngine(data, textLayout: FlutterSystemFontLayout())
+      ..screen = 'play'
+      ..intro = null;
+    game.players.add(GameActor.load(data, 1, 3)!);
+    final battle = GameBattle(
+      game,
+      monsters: [44],
+      background: [2, 2, 2],
+      randomFight: true,
+    );
+    game.battle = battle;
+    final action = BattleAction(game.players.first, battle.monsters, 'attack')
+      ..started = true
+      ..frame = 3;
+    battle.current = action;
+    final recorder = ui.PictureRecorder();
+    final actualCanvas = Canvas(recorder);
+    ModernBattleEffects.draw(actualCanvas, game, ModernBattleLayout(battle));
+    action.frame = 6;
+    action.raises.add(
+      BattleRaise(
+        data,
+        battle.monsters.first.combatX,
+        battle.monsters.first.combatY,
+        -10,
+        0,
+        actor: battle.monsters.first,
+      ),
+    );
+    ModernBattleEffects.draw(actualCanvas, game, ModernBattleLayout(battle));
+    recorder.endRecording().dispose();
   });
 
   testWidgets('南北村门和名牌分层，白无常仅在酆都复用战斗身份', (tester) async {

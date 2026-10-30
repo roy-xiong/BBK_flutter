@@ -440,11 +440,16 @@ abstract final class ModernBattleEffects {
       ..close();
     final p = Paint()
       ..isAntiAlias = true
-      ..shader = Gradient.linear(const Offset(-35, -35), const Offset(43, 30), [
-        const Color(0x00e4e8ff),
-        const Color(0xfff5f5df).withValues(alpha: progress),
-        const Color(0xff83c9de),
-      ]);
+      ..shader = Gradient.linear(
+        const Offset(-35, -35),
+        const Offset(43, 30),
+        [
+          const Color(0x00e4e8ff),
+          const Color(0xfff5f5df).withValues(alpha: progress),
+          const Color(0xff83c9de),
+        ],
+        const [0, .55, 1],
+      );
     canvas.drawPath(path, p);
     p.shader = null;
     canvas.drawPath(
