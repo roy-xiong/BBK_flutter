@@ -237,6 +237,13 @@ extension GameMenus on GameEngine {
     menus.add(menu);
   }
 
+  /// 读档列表首项固定为自动档；手动保存列表仍只允许写入原三个手动档位。
+  List<String> saveSlotLabels({required bool load}) => [
+    if (load) '自动存档  ${automaticSave?['scene'] ?? '暂无自动存档'}',
+    for (var i = 0; i < saves.length; i++)
+      '档位 ${i + 1}  ${saves[i]?['scene'] ?? '空档位'}',
+  ];
+
   void openSaveMenu({bool load = false, bool force = false}) {
     if (!load &&
         !force &&
@@ -252,10 +259,16 @@ extension GameMenus on GameEngine {
     menus.add(
       GameMenu(
         load ? 'load' : 'save',
-        ['1', '2', '3'],
+        saveSlotLabels(load: load),
+        onRefresh: (menu) {
+          menu.items
+            ..clear()
+            ..addAll(saveSlotLabels(load: load));
+        },
         onSelect: (i) {
           if (load) {
-            final save = saves[i];
+            if (i < 0 || i > saves.length) return;
+            final save = i == 0 ? automaticSave : saves[i - 1];
             if (save == null) {
               notice = '这是空档位';
               return;
@@ -267,6 +280,7 @@ extension GameMenus on GameEngine {
               notice = '读档失败：$e';
             }
           } else {
+            if (i < 0 || i >= saves.length) return;
             saves[i] = GameData.decodeObject(jsonEncode(snapshot()));
             menus.removeLast();
             notice = '已保存到档位 ${i + 1}';

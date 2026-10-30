@@ -60,7 +60,6 @@ final class GameViewModel extends ChangeNotifier {
 
   List<SystemTextRun> textRuns = const [];
   String? failure;
-  Map<String, dynamic>? _lastAutosave;
   bool loading = true,
       paused = false,
       _disposed = false,
@@ -70,6 +69,8 @@ final class GameViewModel extends ChangeNotifier {
   Timer? _timer;
   GameKey? _held;
   int _heldElapsed = 0, _autosaveTicks = 0;
+  bool _wasSaveable = false;
+  String? _autosaveMap;
   bool _heldRepeating = false;
   Uint32List? _previous;
   bool? _previousHd;
@@ -120,11 +121,9 @@ final class GameViewModel extends ChangeNotifier {
         }
         final autosave = saved['autosave'];
         if (autosave is Map) {
-          _lastAutosave = Map<String, dynamic>.from(autosave);
-        }
-        if (autosave is Map) {
           try {
             game.restore(Map<String, dynamic>.from(autosave));
+            game.automaticSave = Map<String, dynamic>.from(autosave);
           } catch (_) {
             game.notice = '自动存档不可用，可尝试读取手动档位';
           }
@@ -178,10 +177,19 @@ final class GameViewModel extends ChangeNotifier {
     }
     game.update();
     if (_windowVisible) _render(force: false);
-    if (++_autosaveTicks >= 125) {
+    if (_autosaveTicks < 125) _autosaveTicks++;
+    final saveable = game.canSave;
+    // 周期到期时若处于剧情/战斗，保留待存请求；回到安全状态立刻写盘，
+    // 不能每隔5秒重新错过一次短暂安全窗口。换地图及战斗/剧情结束也立即保存。
+    if (saveable &&
+        (_autosaveTicks >= 125 ||
+            !_wasSaveable ||
+            _autosaveMap != game.map?.id)) {
       _autosaveTicks = 0;
-      if (game.canSave) unawaited(persist());
+      _autosaveMap = game.map?.id;
+      unawaited(persist());
     }
+    _wasSaveable = saveable;
   }
 
   void down(GameKey key) {
@@ -277,14 +285,14 @@ final class GameViewModel extends ChangeNotifier {
     if (game == null) return;
     try {
       if (game.canSave) {
-        _lastAutosave = GameData.decodeObject(jsonEncode(game.snapshot()));
+        game.automaticSave = GameData.decodeObject(jsonEncode(game.snapshot()));
       }
       await repository.write({
         'schema': 1,
         'keyboardBindings': keyboardBindings.toJson(),
         'preferences': Map<String, dynamic>.from(game.preferences),
         'slots': game.saves,
-        'autosave': _lastAutosave,
+        'autosave': game.automaticSave,
         'stageBackup': game.stageBackup,
       });
     } catch (e) {

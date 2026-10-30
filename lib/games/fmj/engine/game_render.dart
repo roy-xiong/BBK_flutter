@@ -597,22 +597,26 @@ extension GameRendering on GameEngine {
     } else if (kind == 'save' || kind == 'load') {
       surface.clear();
       _text(kind == 'save' ? '存储进度' : '读入进度', wide ? 128 : 48, wide ? 8 : 0);
-      for (var i = 0; i < 3; i++) {
-        final y = wide ? 36 + i * 50 : 20 + i * 24;
+      final loading = kind == 'load';
+      final count = saves.length + (loading ? 1 : 0);
+      for (var i = 0; i < count; i++) {
+        final y = wide ? 24 + i * 40 : 16 + i * 20;
         surface.frame(
           wide ? 8 : 2,
           y,
           wide ? 312 : 158,
-          y + (wide ? 44 : 22),
+          y + (wide ? 36 : 18),
           selected: i == menu.selected,
         );
         _text(
-          '${i + 1}',
+          loading && i == 0 ? '自动' : '${i + (loading ? 0 : 1)}',
           wide ? 16 : 6,
           y + (wide ? 14 : 3),
           selected: i == menu.selected,
         );
-        final save = saves[i];
+        final save = loading && i == 0
+            ? automaticSave
+            : saves[i - (loading ? 1 : 0)];
         _text(
           save?['scene'] as String? ?? '空档位',
           wide ? 116 : 24,
@@ -620,7 +624,7 @@ extension GameRendering on GameEngine {
           selected: i == menu.selected,
           right: wide ? 308 : 156,
         );
-        if (wide && save != null) {
+        if (wide && save != null && !(loading && i == 0)) {
           final ps = save['players'];
           if (ps is List) {
             for (var j = 0; j < math.min(3, ps.length); j++) {

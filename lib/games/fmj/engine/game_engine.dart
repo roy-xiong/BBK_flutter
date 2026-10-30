@@ -73,6 +73,9 @@ final class GameEngine {
   final Map<String, int> inventory = {};
   final List<GameMenu> menus = [];
   final List<Map<String, dynamic>?> saves = List.filled(3, null);
+
+  /// 独立自动档；不占用、不覆盖三个手动档位，由会话持久化层在安全节点更新。
+  Map<String, dynamic>? automaticSave;
   final Map<String, dynamic> preferences = {
     'modernUi': false,
     'darkControls': true,

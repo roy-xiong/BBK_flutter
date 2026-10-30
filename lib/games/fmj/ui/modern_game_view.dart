@@ -10,6 +10,7 @@ import '../engine/game_actor.dart';
 import 'game_view_model.dart';
 import 'goods_icon.dart';
 import 'party_resource_color.dart';
+import '../../../ui/core/game_typography.dart';
 
 const _gold = Color(0xffd8b875), _paper = Color(0xffece3cb);
 
@@ -54,6 +55,31 @@ final class ModernGameView extends StatelessWidget {
 final class _WorldInformation extends StatelessWidget {
   const _WorldInformation({required this.game});
   final GameEngine game;
+
+  /// 预留字符宽度使用随包字体的实际排版结果；仅缓存固定样本，避免每帧重复排版。
+  static final Map<(String, double), double> _measured = {};
+  static TextStyle _style(double font) => TextStyle(
+    inherit: false,
+    fontFamily: GameTypography.family,
+    color: _paper,
+    fontSize: font,
+    fontWeight: FontWeight.w400,
+    height: 1,
+    letterSpacing: 0,
+    wordSpacing: 0,
+    fontFeatures: const [FontFeature.tabularFigures()],
+  );
+  static double _width(String sample, double font) =>
+      _measured.putIfAbsent((sample, font), () {
+        final painter = TextPainter(
+          text: TextSpan(text: sample, style: _style(font)),
+          textDirection: TextDirection.ltr,
+          maxLines: 1,
+        )..layout();
+        final width = painter.width.ceilToDouble() + 2;
+        painter.dispose();
+        return width;
+      });
   @override
   Widget build(BuildContext context) {
     final battle = game.battle;
@@ -71,22 +97,20 @@ final class _WorldInformation extends StatelessWidget {
       child: LayoutBuilder(
         builder: (context, constraints) {
           final members = game.players;
-          final available = math.max(0.0, constraints.maxWidth - 18);
-          // 列宽只由窗口决定，不能用当前名字、位数、队伍人数或内容宽度反推。
-          // 依次预留四字姓名、三位等级、三位气血/真气、十位累计经验与满级标记。
-          const columns = [4.6, 3.6, 6.5, 6.5, 12.8];
-          const total = 34.0;
-          final font = math.min(
-            constraints.maxWidth < 960 ? 10.5 : 12.0,
-            available / total,
-          );
-          final style = TextStyle(
-            color: _paper,
-            fontSize: font,
-            fontWeight: FontWeight.w400,
-            height: 1,
-            fontFeatures: const [FontFeature.tabularFigures()],
-          );
+          final font = constraints.maxWidth < 960 ? 10.5 : 12.0;
+          final style = _style(font);
+          double width(String sample) => _width(sample, font);
+          final resourceWidth = width('气血') + width('999') * 2 + width('/');
+          final columns = [
+            width('慕容小梅') + 4,
+            width('Lv.') + width('255') + 4,
+            resourceWidth + 4,
+            resourceWidth + 4,
+            width('经验') +
+                width('2147483647') +
+                math.max(width('/65535'), width('（满级）')),
+          ];
+          final total = columns.reduce((a, b) => a + b);
           Widget text(String value, {Color? color, bool right = false}) => Text(
             value,
             textScaler: TextScaler.noScaling,
@@ -94,8 +118,8 @@ final class _WorldInformation extends StatelessWidget {
             textAlign: right ? TextAlign.right : TextAlign.left,
             style: color == null ? style : style.copyWith(color: color),
           );
-          Widget slot(double units, Widget child) =>
-              SizedBox(width: units * font, child: child);
+          Widget slot(String sample, Widget child) =>
+              SizedBox(width: width(sample), child: child);
           Widget line(String text, {Color color = _paper}) => FittedBox(
             fit: BoxFit.scaleDown,
             alignment: Alignment.centerLeft,
@@ -113,7 +137,7 @@ final class _WorldInformation extends StatelessWidget {
           Widget member(GameActor? p, int row) {
             Widget cell(int column, String field, Widget child) => SizedBox(
               key: ValueKey('world-row-$row-$field'),
-              width: available * columns[column] / total,
+              width: columns[column],
               child: child,
             );
             if (p == null) {
@@ -137,10 +161,10 @@ final class _WorldInformation extends StatelessWidget {
               final color = partyResourceColor(current, maximum);
               return Row(
                 children: [
-                  slot(2.4, text(label)),
-                  slot(1.7, text('$current', color: color, right: true)),
-                  slot(.5, text('/', color: color)),
-                  slot(1.7, text('$maximum', color: color, right: true)),
+                  slot('气血', text(label)),
+                  slot('999', text('$current', color: color, right: true)),
+                  slot('/', text('/', color: color)),
+                  slot('999', text('$maximum', color: color, right: true)),
                 ],
               );
             }
@@ -155,8 +179,8 @@ final class _WorldInformation extends StatelessWidget {
                     'level',
                     Row(
                       children: [
-                        slot(1.7, text('Lv.')),
-                        slot(1.7, text('${p.level}', right: true)),
+                        slot('Lv.', text('Lv.')),
+                        slot('255', text('${p.level}', right: true)),
                       ],
                     ),
                   ),
@@ -167,9 +191,9 @@ final class _WorldInformation extends StatelessWidget {
                     'exp',
                     Row(
                       children: [
-                        slot(2.4, text('经验')),
-                        slot(6, text('${p.exp}', right: true)),
-                        slot(4.4, text(next == null ? '（满级）' : '/$next')),
+                        slot('经验', text('经验')),
+                        slot('2147483647', text('${p.exp}', right: true)),
+                        Expanded(child: text(next == null ? '（满级）' : '/$next')),
                       ],
                     ),
                   ),
@@ -200,24 +224,36 @@ final class _WorldInformation extends StatelessWidget {
                     SizedBox(
                       key: const ValueKey('world-money'),
                       width: 9 * font,
-                      child: Row(
-                        children: [
-                          slot(2.4, text('金钱', color: _gold)),
-                          Expanded(
-                            child: text(
-                              '${game.money}',
-                              color: _gold,
-                              right: true,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.centerRight,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            slot('金钱', text('金钱', color: _gold)),
+                            slot(
+                              '2147483647',
+                              text('${game.money}', color: _gold, right: true),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
                 // 留空的队员行同样占位，入队、离队、战斗和菜单均保持相同几何布局。
                 for (var i = 0; i < 3; i++)
-                  Expanded(child: member(members.elementAtOrNull(i), i)),
+                  Expanded(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: SizedBox(
+                        width: total,
+                        height: font * 1.3,
+                        child: member(members.elementAtOrNull(i), i),
+                      ),
+                    ),
+                  ),
               ],
             ),
           );
@@ -832,10 +868,7 @@ final class _NativeMenuState extends State<_NativeMenu> {
         return '${slots[i]}  ${id == null ? '未装备' : game.goodsName(id)}';
       });
     } else if (menu.kind == 'save' || menu.kind == 'load') {
-      items = List.generate(
-        3,
-        (i) => '档位 ${i + 1}  ${game.saves[i]?['scene'] ?? '空档位'}',
-      );
+      items = game.saveSlotLabels(load: menu.kind == 'load');
     } else {
       items = menu.items;
     }

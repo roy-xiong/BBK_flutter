@@ -181,6 +181,29 @@ void main() {
         }
       }
       expect(fonts, hasLength(1), reason: '每一行必须共用字号，不能按内容分别缩放');
+      final band = find.byKey(const ValueKey('world-information-band'));
+      for (final element
+          in find
+              .descendant(of: band, matching: find.byType(RichText))
+              .evaluate()) {
+        final paragraph = element.renderObject! as RenderParagraph;
+        expect(
+          paragraph.didExceedMaxLines,
+          false,
+          reason: paragraph.text.toPlainText(),
+        );
+        final content = paragraph.text.toPlainText();
+        for (final box in paragraph.getBoxesForSelection(
+          TextSelection(baseOffset: 0, extentOffset: content.length),
+        )) {
+          expect(box.left, greaterThanOrEqualTo(-.1), reason: content);
+          expect(
+            box.right,
+            lessThanOrEqualTo(paragraph.size.width + .1),
+            reason: '$content 的末位不能被裁切',
+          );
+        }
+      }
     }
 
     Future<void> capture(String name) async {
@@ -239,8 +262,8 @@ void main() {
             g.players[i]
               ..name = ['清', '慕容小梅', '柳清风'][i]
               ..level = [1, 25, 255][i]
-              ..hp = [1, 20, 999][i]
-              ..mp = [0, 201, 999][i]
+              ..hp = [190, 20, 999][i]
+              ..mp = [0, 190, 999][i]
               ..exp = [1, 99999, 2147483647][i];
           }
           g.money = 2147483647;
