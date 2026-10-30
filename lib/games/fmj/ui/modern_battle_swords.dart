@@ -30,7 +30,7 @@ abstract final class ModernBattleSwords {
         const Radius.circular(2),
       ),
     )
-    ..addOval(const Rect.fromCircle(center: Offset(0, 44), radius: 5));
+    ..addOval(Rect.fromCircle(center: const Offset(0, 44), radius: 5));
   static final Map<double, Rect> _rotatedBounds = {};
   static const _diagonal = -math.pi / 4;
 
