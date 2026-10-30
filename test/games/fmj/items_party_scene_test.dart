@@ -120,6 +120,22 @@ void main() {
     }
   });
 
+  test('只有经验改变时也刷新状态栏，不要求人物移动或再次打开菜单', () {
+    final game = engine();
+    final model = GameViewModel()
+      ..engine = game
+      ..loading = false;
+    var notifications = 0;
+    model.addListener(() => notifications++);
+    model.advanceFrame();
+    final before = notifications, sceneRevision = model.sceneRevision;
+    game.players.first.exp++;
+    model.advanceFrame();
+    expect(notifications, before + 1);
+    expect(model.sceneRevision, sceneRevision, reason: '经验变化不应重新绘制整张地图');
+    model.dispose();
+  });
+
   testWidgets('三人队伍窄屏及桌面完整显示地点、等级、气血、魔法和经验', (tester) async {
     final game = engine()
       ..screen = 'play'
