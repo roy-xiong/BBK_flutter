@@ -200,13 +200,28 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
     }
     switch (input) {
       case GameControl.quickThrow:
-        model.action((g) => g.battle?.quickThrow());
       case GameControl.chooseThrowWeapon:
-        model.action((g) => g.battle?.quickThrow(chooseWeapon: true));
       case GameControl.quickMagic:
-        model.action((g) => g.battle?.quickMagic());
       case GameControl.quickCoop:
-        model.action((g) => g.battle?.quickCoop());
+        model.action((g) {
+          final battle = g.battle;
+          if (battle == null || !battle.canUseShortcuts) {
+            g.press(GameKey.confirm);
+            return;
+          }
+          switch (input) {
+            case GameControl.quickThrow:
+              battle.quickThrow();
+            case GameControl.chooseThrowWeapon:
+              battle.quickThrow(chooseWeapon: true);
+            case GameControl.quickMagic:
+              battle.quickMagic();
+            case GameControl.quickCoop:
+              battle.quickCoop();
+            default:
+              break;
+          }
+        });
       case GameControl.quickTravel:
         model.action((g) {
           g.moneyFarm.stop();
@@ -291,6 +306,16 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                       : constraints.maxHeight >= constraints.maxWidth;
                   double informationHeight(double width) =>
                       ModernGameView.informationHeight(width);
+                  final portraitActionSize =
+                      (constraints.maxWidth.clamp(280.0, 560.0) * .16).clamp(
+                        52.0,
+                        76.0,
+                      );
+                  // 始终为A键上方三枚快捷键留位，不因进入战斗而挤动整个操作区。
+                  final portraitControlsHeight =
+                      portraitActionSize.clamp(58.0, 76.0) +
+                      portraitActionSize * 4.28 +
+                      128;
                   final sceneHeight = math.min(
                     math.min(
                       constraints.maxWidth * 3 / 5,
@@ -303,7 +328,7 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                                 (modern
                                     ? informationHeight(constraints.maxWidth)
                                     : 0) -
-                                300,
+                                portraitControlsHeight,
                           )
                         : double.infinity,
                   );
@@ -316,7 +341,8 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                       .clamp(46.0, 68.0);
                   final sideGap = (sideButton * .12).clamp(6.0, 10.0);
                   final leftInputWidth = 18 + sideButton * 3 + sideGap * 2 + 12;
-                  const rightInputWidth = 18 + 280.0 + 12;
+                  final rightInputWidth =
+                      18 + 284.0 + sideButton + sideGap + 12;
                   final insetModern =
                       modern &&
                       !portrait &&
