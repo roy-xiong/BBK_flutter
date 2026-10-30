@@ -182,8 +182,8 @@ void main() {
           expect(band.inflate(.5).contains(rect.topLeft), isTrue);
           expect(band.inflate(.5).contains(rect.bottomRight), isTrue);
         }
-        expect(find.textContaining('魔法 '), findsNWidgets(3));
-        expect(find.textContaining('经验 '), findsNWidgets(3));
+        expect(find.text('魔法'), findsNWidgets(3));
+        expect(find.text('经验'), findsNWidgets(3));
         expect(tester.takeException(), isNull);
       }
     } finally {

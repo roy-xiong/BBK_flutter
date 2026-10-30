@@ -5,6 +5,7 @@ import '../engine/game_engine.dart';
 import 'game_view_model.dart';
 import 'modern_art.dart';
 import 'modern_scene.dart';
+import 'party_resource_color.dart';
 
 const _ink = Color(0xff183431),
     _gold = Color(0xffd6bb79),
@@ -294,9 +295,9 @@ final class _PartyCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                _bar('气血', actor.hp, actor.maxHp, const Color(0xff8bb57a)),
+                _bar('气血', actor.hp, actor.maxHp),
                 const SizedBox(height: 4),
-                _bar('真气', actor.mp, actor.maxMp, const Color(0xff78b9bd)),
+                _bar('真气', actor.mp, actor.maxMp),
               ],
             ),
           ),
@@ -304,36 +305,39 @@ final class _PartyCard extends StatelessWidget {
       ),
     ),
   );
-  Widget _bar(String label, int current, int max, Color color) => Column(
-    children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: const TextStyle(fontSize: 14, height: 1, color: _paper),
-          ),
-          Text(
-            '${math.max(0, current)}/$max',
-            style: const TextStyle(
-              fontSize: 15,
-              height: 1,
-              color: _paper,
-              fontFeatures: [FontFeature.tabularFigures()],
+  Widget _bar(String label, int current, int max) {
+    final color = partyResourceColor(current, max);
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              label,
+              style: const TextStyle(fontSize: 14, height: 1, color: _paper),
             ),
-          ),
-        ],
-      ),
-      const SizedBox(height: 1),
-      ClipRRect(
-        borderRadius: BorderRadius.circular(2),
-        child: LinearProgressIndicator(
-          value: (current / math.max(1, max)).clamp(0.0, 1.0),
-          minHeight: 3,
-          color: color,
-          backgroundColor: Colors.black38,
+            Text(
+              '${math.max(0, current)}/$max',
+              style: TextStyle(
+                fontSize: 15,
+                height: 1,
+                color: color,
+                fontFeatures: const [FontFeature.tabularFigures()],
+              ),
+            ),
+          ],
         ),
-      ),
-    ],
-  );
+        const SizedBox(height: 1),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(2),
+          child: LinearProgressIndicator(
+            value: (current / math.max(1, max)).clamp(0.0, 1.0),
+            minHeight: 3,
+            color: color,
+            backgroundColor: Colors.black38,
+          ),
+        ),
+      ],
+    );
+  }
 }

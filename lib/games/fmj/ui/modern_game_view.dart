@@ -9,6 +9,7 @@ import '../engine/game_engine.dart';
 import '../engine/game_actor.dart';
 import 'game_view_model.dart';
 import 'goods_icon.dart';
+import 'party_resource_color.dart';
 
 const _gold = Color(0xffd8b875), _paper = Color(0xffece3cb);
 
@@ -70,7 +71,31 @@ final class _WorldInformation extends StatelessWidget {
       child: LayoutBuilder(
         builder: (context, constraints) {
           final members = game.players;
-          final font = constraints.maxWidth < 960 ? 10.5 : 12.0;
+          final available = math.max(0.0, constraints.maxWidth - 18);
+          // 列宽只由窗口决定，不能用当前名字、位数、队伍人数或内容宽度反推。
+          // 依次预留四字姓名、三级数、三位气血/魔法、十位累计经验与满级标记。
+          const columns = [4.6, 3.6, 6.5, 6.5, 12.8];
+          const total = 34.0;
+          final font = math.min(
+            constraints.maxWidth < 960 ? 10.5 : 12.0,
+            available / total,
+          );
+          final style = TextStyle(
+            color: _paper,
+            fontSize: font,
+            fontWeight: FontWeight.w400,
+            height: 1,
+            fontFeatures: const [FontFeature.tabularFigures()],
+          );
+          Widget text(String value, {Color? color, bool right = false}) => Text(
+            value,
+            textScaler: TextScaler.noScaling,
+            maxLines: 1,
+            textAlign: right ? TextAlign.right : TextAlign.left,
+            style: color == null ? style : style.copyWith(color: color),
+          );
+          Widget slot(double units, Widget child) =>
+              SizedBox(width: units * font, child: child);
           Widget line(String text, {Color color = _paper}) => FittedBox(
             fit: BoxFit.scaleDown,
             alignment: Alignment.centerLeft,
@@ -85,20 +110,70 @@ final class _WorldInformation extends StatelessWidget {
               ),
             ),
           );
-          Widget member(GameActor p) {
+          Widget member(GameActor? p, int row) {
+            Widget cell(int column, String field, Widget child) => SizedBox(
+              key: ValueKey('world-row-$row-$field'),
+              width: available * columns[column] / total,
+              child: child,
+            );
+            if (p == null) {
+              return Row(
+                children: [
+                  for (var column = 0; column < columns.length; column++)
+                    cell(
+                      column,
+                      ['name', 'level', 'hp', 'mp', 'exp'][column],
+                      const SizedBox.shrink(),
+                    ),
+                ],
+              );
+            }
             final chain = game.data.record(12, 2, p.index);
             final maxLevel = chain?.byte(2) ?? p.level;
             final next = p.level < maxLevel
                 ? chain?.word(4 + (p.level - 1) * 20 + 14)
                 : null;
-            final experience = next == null
-                ? '经验 ${p.exp}（满级）'
-                : '经验 ${p.exp}/$next';
+            Widget resource(String label, int current, int maximum) {
+              final color = partyResourceColor(current, maximum);
+              return Row(
+                children: [
+                  slot(2.4, text(label)),
+                  slot(1.7, text('$current', color: color, right: true)),
+                  slot(.5, text('/', color: color)),
+                  slot(1.7, text('$maximum', color: color, right: true)),
+                ],
+              );
+            }
+
             return KeyedSubtree(
               key: ValueKey('world-member-${p.index}'),
-              child: line(
-                '${p.name}  Lv.${p.level}   气血 ${p.hp}/${p.maxHp}   '
-                '魔法 ${p.mp}/${p.maxMp}   $experience',
+              child: Row(
+                children: [
+                  cell(0, 'name', text(p.name)),
+                  cell(
+                    1,
+                    'level',
+                    Row(
+                      children: [
+                        slot(1.7, text('Lv.')),
+                        slot(1.7, text('${p.level}', right: true)),
+                      ],
+                    ),
+                  ),
+                  cell(2, 'hp', resource('气血', p.hp, p.maxHp)),
+                  cell(3, 'mp', resource('魔法', p.mp, p.maxMp)),
+                  cell(
+                    4,
+                    'exp',
+                    Row(
+                      children: [
+                        slot(2.4, text('经验')),
+                        slot(6, text('${p.exp}', right: true)),
+                        slot(4.4, text(next == null ? '（满级）' : '/$next')),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             );
           }
@@ -113,16 +188,36 @@ final class _WorldInformation extends StatelessWidget {
                     const Icon(Icons.place_outlined, size: 13, color: _gold),
                     const SizedBox(width: 4),
                     Expanded(child: line(location, color: _gold)),
-                    if (battle != null) line('战斗 · 第 ${battle.round + 1} 回合'),
+                    // 回合位在非战斗中留空，地点、共享金钱和全部队员列均不会移位。
+                    SizedBox(
+                      key: const ValueKey('world-round-slot'),
+                      width: 8.8 * font,
+                      child: battle == null
+                          ? null
+                          : line('战斗 · 第 ${battle.round + 1} 回合'),
+                    ),
+                    const SizedBox(width: 6),
+                    SizedBox(
+                      key: const ValueKey('world-money'),
+                      width: 9 * font,
+                      child: Row(
+                        children: [
+                          slot(2.4, text('金钱', color: _gold)),
+                          Expanded(
+                            child: text(
+                              '${game.money}',
+                              color: _gold,
+                              right: true,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
                 // 留空的队员行同样占位，入队、离队、战斗和菜单均保持相同几何布局。
                 for (var i = 0; i < 3; i++)
-                  Expanded(
-                    child: i < members.length
-                        ? member(members[i])
-                        : const SizedBox.expand(),
-                  ),
+                  Expanded(child: member(members.elementAtOrNull(i), i)),
               ],
             ),
           );
