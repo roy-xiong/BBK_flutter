@@ -73,7 +73,7 @@ final class _WorldInformation extends StatelessWidget {
           final members = game.players;
           final available = math.max(0.0, constraints.maxWidth - 18);
           // 列宽只由窗口决定，不能用当前名字、位数、队伍人数或内容宽度反推。
-          // 依次预留四字姓名、三级数、三位气血/魔法、十位累计经验与满级标记。
+          // 依次预留四字姓名、三位等级、三位气血/真气、十位累计经验与满级标记。
           const columns = [4.6, 3.6, 6.5, 6.5, 12.8];
           const total = 34.0;
           final font = math.min(
@@ -161,7 +161,7 @@ final class _WorldInformation extends StatelessWidget {
                     ),
                   ),
                   cell(2, 'hp', resource('气血', p.hp, p.maxHp)),
-                  cell(3, 'mp', resource('魔法', p.mp, p.maxMp)),
+                  cell(3, 'mp', resource('真气', p.mp, p.maxMp)),
                   cell(
                     4,
                     'exp',

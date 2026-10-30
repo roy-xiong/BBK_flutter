@@ -140,7 +140,7 @@ void main() {
     model.dispose();
   });
 
-  testWidgets('三人队伍窄屏及桌面完整显示地点、等级、气血、魔法和经验', (tester) async {
+  testWidgets('三人队伍窄屏及桌面完整显示地点、等级、气血、真气和经验', (tester) async {
     final game = engine()
       ..screen = 'play'
       ..intro = null
@@ -182,7 +182,7 @@ void main() {
           expect(band.inflate(.5).contains(rect.topLeft), isTrue);
           expect(band.inflate(.5).contains(rect.bottomRight), isTrue);
         }
-        expect(find.text('魔法'), findsNWidgets(3));
+        expect(find.text('真气'), findsNWidgets(3));
         expect(find.text('经验'), findsNWidgets(3));
         expect(tester.takeException(), isNull);
       }

@@ -7,6 +7,10 @@ on:
         type: choice
         default: macos
         options: [macos, android, ios, windows, android-ios-macos, all]
+      skip_validation:
+        description: 本次跳过游戏回归与静态校验，直接构建
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -39,6 +43,7 @@ jobs:
           echo "revision=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
   validate:
     needs: version
+    if: ${{ !inputs.skip_validation }}
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -74,7 +79,7 @@ jobs:
           retention-days: 14
   macos:
     needs: [version, validate]
-    if: ${{ inputs.platform == 'macos' || inputs.platform == 'android-ios-macos' || inputs.platform == 'all' }}
+    if: ${{ !cancelled() && needs.version.result == 'success' && (needs.validate.result == 'success' || (inputs.skip_validation && needs.validate.result == 'skipped')) && (inputs.platform == 'macos' || inputs.platform == 'android-ios-macos' || inputs.platform == 'all') }}
     runs-on: macos-26
     timeout-minutes: 45
     steps:
@@ -101,7 +106,7 @@ jobs:
           retention-days: 30
   android:
     needs: [version, validate]
-    if: ${{ inputs.platform == 'android' || inputs.platform == 'android-ios-macos' || inputs.platform == 'all' }}
+    if: ${{ !cancelled() && needs.version.result == 'success' && (needs.validate.result == 'success' || (inputs.skip_validation && needs.validate.result == 'skipped')) && (inputs.platform == 'android' || inputs.platform == 'android-ios-macos' || inputs.platform == 'all') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
@@ -141,7 +146,7 @@ jobs:
           retention-days: 30
   ios:
     needs: [version, validate]
-    if: ${{ inputs.platform == 'ios' || inputs.platform == 'android-ios-macos' || inputs.platform == 'all' }}
+    if: ${{ !cancelled() && needs.version.result == 'success' && (needs.validate.result == 'success' || (inputs.skip_validation && needs.validate.result == 'skipped')) && (inputs.platform == 'ios' || inputs.platform == 'android-ios-macos' || inputs.platform == 'all') }}
     runs-on: macos-26
     timeout-minutes: 45
     steps:
@@ -173,7 +178,7 @@ jobs:
           retention-days: 30
   windows:
     needs: [version, validate]
-    if: ${{ inputs.platform == 'windows' || inputs.platform == 'all' }}
+    if: ${{ !cancelled() && needs.version.result == 'success' && (needs.validate.result == 'success' || (inputs.skip_validation && needs.validate.result == 'skipped')) && (inputs.platform == 'windows' || inputs.platform == 'all') }}
     runs-on: windows-2022
     timeout-minutes: 45
     steps:
@@ -186,15 +191,19 @@ jobs:
           cache: true
       - run: flutter pub get --enforce-lockfile
       - uses: actions/download-artifact@v4
+        if: ${{ !inputs.skip_validation }}
         with:
           name: bbk-validation
           path: build/validation/story
       - name: 发布前验证原生窗口响应与全部剧情检查点
+        if: ${{ !inputs.skip_validation }}
         shell: pwsh
         run: ./tool/run_windows_integration.ps1
       - run: flutter build windows --release --dart-define=BBK_VERSION=${{ needs.version.outputs.version }}+${{ needs.version.outputs.build }}
       - name: 打包 Windows 便携版
         shell: pwsh
+        env:
+          BBK_SKIP_VALIDATION: ${{ inputs.skip_validation }}
         run: |
           $bundle = 'build/windows/x64/runner/Release'
           Rename-Item "$bundle/bbk_flutter.exe" '步步高经典游戏2.exe'
@@ -207,11 +216,13 @@ jobs:
           data目录、flutter_windows.dll和其他DLL需要保留在EXE旁。
           键盘方向键短按走一格，长按连续移动；可在游戏内查看或修改键盘映射。
           '@ | Set-Content -Encoding utf8 "$bundle/开始游戏.txt"
-          New-Item -ItemType Directory -Force "$bundle/验证记录" | Out-Null
-          Copy-Item build/validation/windows-window-probe.json "$bundle/验证记录/"
-          Copy-Item build/validation/windows-integration.json "$bundle/验证记录/"
-          Copy-Item build/validation/windows-font-line.png "$bundle/验证记录/"
-          Copy-Item build/validation/story/full-story-navigation.json "$bundle/验证记录/"
+          if ($env:BBK_SKIP_VALIDATION -ne 'true') {
+            New-Item -ItemType Directory -Force "$bundle/验证记录" | Out-Null
+            Copy-Item build/validation/windows-window-probe.json "$bundle/验证记录/"
+            Copy-Item build/validation/windows-integration.json "$bundle/验证记录/"
+            Copy-Item build/validation/windows-font-line.png "$bundle/验证记录/"
+            Copy-Item build/validation/story/full-story-navigation.json "$bundle/验证记录/"
+          }
           python tool/verify_windows_bundle.py "$bundle" '${{ needs.version.outputs.version }}' '${{ needs.version.outputs.build }}'
           if ($LASTEXITCODE -ne 0) { throw 'Windows包校验未通过' }
           New-Item -ItemType Directory -Force dist | Out-Null

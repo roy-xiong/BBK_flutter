@@ -16,7 +16,7 @@ import 'game_engine_test.dart' show loadData;
 /// 通过真实游戏页切换场景状态，防止摘要高度改变后再次挤动屏幕按键。
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  test('气血与魔法的五档颜色包含边界，异常上限不除零', () {
+  test('气血与真气的五档颜色包含边界，异常上限不除零', () {
     for (final sample in <(int, int, Color)>[
       (-1, 100, const Color(0xffff7b78)),
       (0, 0, const Color(0xffff7b78)),
@@ -96,7 +96,7 @@ void main() {
             'Lv.',
             '${player.level}',
             '气血',
-            '魔法',
+            '真气',
             '经验',
             '${player.exp}',
           ]),
