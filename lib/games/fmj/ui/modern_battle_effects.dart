@@ -4,6 +4,7 @@ import '../data/game_data.dart';
 import '../engine/game_engine.dart';
 import 'modern_battle_layout.dart';
 import 'modern_effect_shape.dart';
+import 'modern_battle_semantics.dart';
 
 /// 彩色战斗以连续曲线、多层材质、流光和碎屑重绘原动画，原SRS仍决定时序与落点。
 /// 绘制只读取动作和叠帧，不推进伤害、随机数或剧情；不为每一帧生成新纹理。
@@ -22,17 +23,17 @@ abstract final class ModernBattleEffects {
     11: 'heal',
     12: 'blade',
     13: 'blade',
-    14: 'seal',
+    14: 'taiji',
     15: 'blade',
-    16: 'curse',
+    16: 'taiji',
     17: 'blade',
     18: 'blade',
     19: 'fire',
-    20: 'threads',
-    21: 'blade',
+    20: 'grasp',
+    21: 'scissors',
     22: 'blade',
     23: 'blade',
-    24: 'blade',
+    24: 'fracture',
     25: 'fire',
     26: 'fire',
     27: 'fire',
@@ -48,7 +49,7 @@ abstract final class ModernBattleEffects {
     37: 'serpent',
     38: 'fire',
     39: 'dragon',
-    40: 'spirit',
+    40: 'skull',
     41: 'swarm',
     42: 'swarm',
     43: 'ice',
@@ -208,6 +209,9 @@ abstract final class ModernBattleEffects {
     if (movie.headers.isEmpty) return;
     final first = movie.headers.first, family = visualFamily(movie.id);
     final palette = colors ?? _palette('', false, family);
+    if (ModernBattleSemantics.drawComposition(canvas, movie, anchor, palette)) {
+      return;
+    }
     for (final item in movie.active) {
       final header = movie.headers[item[0]], index = header[4];
       if (index < 0 || index >= movie.bitmaps.length) continue;
@@ -232,6 +236,18 @@ abstract final class ModernBattleEffects {
       canvas.save();
       canvas.translate(origin.dx, origin.dy);
       canvas.scale(scale);
+      if (ModernBattleSemantics.drawFrame(
+        canvas,
+        movie.id,
+        index,
+        Size(bitmap.width.toDouble(), bitmap.height.toDouble()),
+        age,
+        item[0],
+        palette,
+      )) {
+        canvas.restore();
+        continue;
+      }
       final bounds = shape.bounds, p = Paint()..isAntiAlias = true;
       canvas.drawPath(
         shape.path.shift(const Offset(.25, .45)),

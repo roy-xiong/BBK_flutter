@@ -10,6 +10,7 @@ on:
       - .github/workflows/battle-art-review.yml
 permissions:
   contents: read
+  actions: read
 jobs:
   render:
     strategy:
@@ -53,9 +54,17 @@ jobs:
           pattern: battle-gifs-*
           merge-multiple: true
           path: build/battle-review
+      - name: 复用同一原版黑白对照帧
+        uses: actions/download-artifact@v4
+        with:
+          pattern: battle-classic-*
+          run-id: '41030865029'
+          github-token: ${{ github.token }}
+          merge-multiple: true
+          path: build/battle-review
       - run: python3 -m pip install Pillow
       - run: python3 tool/export_fmj_battle_catalog.py
-      - run: python3 tool/build_fmj_battle_review.py
+      - run: python3 tool/build_fmj_battle_review.py --require-classic --classic-render-revision a9b568a31683dbbd0f19a63a1cb20d29838dabd8
       - uses: actions/upload-artifact@v4
         with:
           name: fmj-battle-review-document

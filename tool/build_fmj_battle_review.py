@@ -10,6 +10,7 @@ import subprocess
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from PIL import Image
+from fmj_battle_review_groups import build_review_groups
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -26,11 +27,17 @@ def read_records(folder, pattern):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--render-revision')
+    parser.add_argument('--classic-render-revision', help='复用原版黑白 raw 时记录其真实绘制提交')
+    parser.add_argument('--feedback', type=Path, default=ROOT / 'tool/fmj_battle_review_feedback_round1.json',
+                        help='内嵌上轮逐案例反馈；默认使用仓库固定反馈，CI 无需访问 Downloads')
     parser.add_argument('--require-classic', action='store_true')
     parser.add_argument('--input', type=Path, default=ROOT / 'build/battle-review')
     parser.add_argument('--output', type=Path, default=ROOT / 'build/battle-review/伏魔记-彩色战斗全案例动图审核.html')
     args = parser.parse_args()
     data = json.loads((args.input / 'catalog.json').read_text())
+    feedback = json.loads(args.feedback.read_text())
+    assert feedback.get('documentType') == 'fmj-color-battle-review', '历史意见文件类型不正确'
+    assert data.get('speed') == 1 and data.get('stepMs') == 40, '审核仅接受原40ms时钟的1倍速raw'
     records = read_records(args.input, 'shard-*.json')
     originals = read_records(args.input, 'classic-shard-*.json')
     ids = {case['id'] for case in data['cases']}
@@ -45,7 +52,8 @@ def main():
         path = args.input / (name + '.' + extension)
         raw = path.read_bytes()
         digest = hashlib.sha256(raw).hexdigest()
-        frames = case.get('webpFrames', case['gifFrames'])
+        frames = case.get('webpFrames') if extension == 'webp' else case.get('gifFrames')
+        assert isinstance(frames, int) and frames > 0, (name, '缺少有效帧数')
         with Image.open(path) as image:
             assert image.size == (640, 384), name
             duration = 0
@@ -66,7 +74,8 @@ def main():
         case.update(animation(case))
         if originals:
             original = originals[source['id']]
-            for field in ('id', 'actorType', 'actor', 'kind', 'resource', 'durationMs', 'simulationFrames', 'loopGapMs'):
+            for field in ('id', 'actorType', 'actor', 'kind', 'resource', 'movie', 'all', 'mask',
+                          'equipment', 'durationMs', 'simulationFrames', 'loopGapMs'):
                 assert original.get(field) == case.get(field), (case['id'], field, '黑白/彩色未对齐')
             case['classic'] = {**animation(original, '-classic'),
                                'durationMs': original['durationMs'],
@@ -74,12 +83,15 @@ def main():
                                'loopGapMs': original['loopGapMs']}
         records[source['id']] = case
     data['cases'] = [records[case['id']] for case in data['cases']]
+    data['reviewSchema'] = 2
+    data['reviewGroups'] = build_review_groups(data['cases'], feedback)
+    data['feedbackRound'] = {key: feedback.get(key) for key in ('version', 'revision', 'exportedAt')}
     # 分块储存大体积动画，只解压当前一对，避免浏览器单段JS字符串超限。
     data.update(gifs={key: 'fmj-animation-' + key for key in animations},
                 gifEncoding='gzip-base64', assetStorage='inert-script')
     data['revision'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     data['renderRevision'] = args.render_revision or data['revision']
-    data['classicRenderRevision'] = data['revision'] if originals else None
+    data['classicRenderRevision'] = (args.classic_render_revision or data['revision']) if originals else None
     data['version'] = next(line.split(':', 1)[1].strip() for line in (ROOT / 'pubspec.yaml').read_text().splitlines() if line.startswith('version:'))
     data['createdAt'] = datetime.now(ZoneInfo('Asia/Shanghai')).isoformat(timespec='seconds')
     data['summary'] = dict(cases=len(records), classicCases=len(originals), uniqueGifs=len(animations),
@@ -87,7 +99,10 @@ def main():
                            skills=len(data['skills']), movies=len(data['movies']),
                            simulationFrames=sum(case['simulationFrames'] for case in records.values()),
                            durationMs=sum(case['durationMs'] for case in records.values()),
-                           groups=dict(Counter(case['group'] for case in data['cases'])))
+                           groups=dict(Counter(case['group'] for case in data['cases'])),
+                           reviewGroups=len(data['reviewGroups']),
+                           reviewGroupStates=dict(Counter(group['initialStatus'] for group in data['reviewGroups'])),
+                           historicalReviews=sum(len(group['historyReviews']) for group in data['reviewGroups']))
     payload = json.dumps(data, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
     template = (ROOT / 'tool/fmj_battle_review_template.html').read_text()
     before, after = template.replace('/*__DATA__*/', 'const DATA=' + payload + ';').split('<!--__ANIMATION_ASSETS__-->', 1)
