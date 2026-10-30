@@ -941,6 +941,11 @@ final class _NativeMenuState extends State<_NativeMenu> {
                   ),
                 ),
                 IconButton(
+                  // Material 3 默认仍会把小图标的触控区域撑到48dp；菜单已提供
+                  // 整行点击入口，这里必须使用指定尺寸，避免挤掉第四个菜单项。
+                  style: const ButtonStyle(
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
                   constraints: BoxConstraints.tightFor(
                     width: 28 * scale,
                     height: _titleHeight,
