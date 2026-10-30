@@ -176,7 +176,7 @@ void main() {
           find.byKey(const ValueKey('world-information-band')),
         );
         for (final p in game.players) {
-          final label = find.text('${p.name}  Lv.50');
+          final label = find.byKey(ValueKey('world-member-${p.index}'));
           expect(label, findsOneWidget);
           final rect = tester.getRect(label);
           expect(band.inflate(.5).contains(rect.topLeft), isTrue);

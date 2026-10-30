@@ -240,6 +240,9 @@ class _FmjUtilityButtons extends StatelessWidget {
             ? TooltipTriggerMode.manual
             : null,
         child: _NesInputButton(
+          key: action == GameControl.toggleWideView
+              ? const ValueKey('fmj-wide-view-button')
+              : null,
           width: width,
           height: 40,
           color: active ? const Color(0xFF23594E) : const Color(0xFF354D6A),
@@ -249,12 +252,15 @@ class _FmjUtilityButtons extends StatelessWidget {
           hapticsEnabled: hapticsEnabled,
           label: label,
           onPressed: () => onInput(action),
-          child: FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Text(
-              text,
-              maxLines: 1,
-              style: const TextStyle(color: Color(0xFFF0EEE8), fontSize: 12),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                text,
+                maxLines: 1,
+                style: const TextStyle(color: Color(0xFFF0EEE8), fontSize: 12),
+              ),
             ),
           ),
         ),
@@ -314,7 +320,7 @@ class _FmjUtilityButtons extends StatelessWidget {
                   wideViewEnabled ? '切换原视野' : '切换远视野',
                   wideViewEnabled ? '远视野 2×' : '原视野 1×',
                   GameControl.toggleWideView,
-                  width: 62,
+                  width: 78,
                   active: wideViewEnabled,
                 ),
               ],

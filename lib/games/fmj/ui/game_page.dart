@@ -282,13 +282,7 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                       ? game?.preferences['portraitControls'] == true
                       : constraints.maxHeight >= constraints.maxWidth;
                   double informationHeight(double width) =>
-                      ModernGameView.informationHeight(
-                        width,
-                        members:
-                            game?.battle == null && game?.menus.isEmpty == true
-                            ? (game?.players.length ?? 0)
-                            : 0,
-                      );
+                      ModernGameView.informationHeight(width);
                   final sceneHeight = math.min(
                     math.min(
                       constraints.maxWidth * 3 / 5,

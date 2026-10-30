@@ -17,15 +17,9 @@ final class ModernGameView extends StatelessWidget {
   const ModernGameView({super.key, required this.model});
   final GameViewModel model;
 
-  /// 手机保留可读字号，桌面适度增高；GamePage 同步增加整个游戏区域的高度。
-  static double informationHeight(double width, {int members = 1}) =>
-      members == 0
-      ? 36
-      : members == 1
-      ? 60
-      : width < 560
-      ? 82
-      : 76;
+  /// 高度只取决于窗口宽度；战斗、菜单及队伍人数变化不能挤动地图或操作区。
+  /// 固定预留地点栏和三名队员的单行摘要，GamePage 复用同一尺寸计算。
+  static double informationHeight(double width) => width < 960 ? 56 : 64;
 
   @override
   Widget build(BuildContext context) => LayoutBuilder(
@@ -33,12 +27,7 @@ final class ModernGameView extends StatelessWidget {
       final game = model.engine;
       if (game == null) return const SizedBox.shrink();
       final infoHeight = math.min(
-        informationHeight(
-          constraints.maxWidth,
-          members: game.battle == null && game.menus.isEmpty
-              ? game.players.length
-              : 0,
-        ),
+        informationHeight(constraints.maxWidth),
         math.max(0.0, constraints.maxHeight - 64),
       );
       return Column(
@@ -81,8 +70,7 @@ final class _WorldInformation extends StatelessWidget {
       child: LayoutBuilder(
         builder: (context, constraints) {
           final members = game.players;
-          final narrow = constraints.maxWidth < 560;
-          final font = narrow && members.length > 1 ? 10.0 : 11.5;
+          final font = constraints.maxWidth < 960 ? 10.5 : 12.0;
           Widget line(String text, {Color color = _paper}) => FittedBox(
             fit: BoxFit.scaleDown,
             alignment: Alignment.centerLeft,
@@ -93,7 +81,7 @@ final class _WorldInformation extends StatelessWidget {
                 color: color,
                 fontSize: font,
                 fontWeight: FontWeight.w400,
-                height: 1.14,
+                height: 1,
               ),
             ),
           );
@@ -106,18 +94,12 @@ final class _WorldInformation extends StatelessWidget {
             final experience = next == null
                 ? '经验 ${p.exp}（满级）'
                 : '经验 ${p.exp}/$next';
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                line('${p.name}  Lv.${p.level}'),
-                if (narrow && members.length > 1) ...[
-                  line('气血 ${p.hp}/${p.maxHp}'),
-                  line('魔法 ${p.mp}/${p.maxMp}'),
-                ] else
-                  line('气血 ${p.hp}/${p.maxHp}   魔法 ${p.mp}/${p.maxMp}'),
-                line(experience, color: const Color(0xffc4d3bd)),
-              ],
+            return KeyedSubtree(
+              key: ValueKey('world-member-${p.index}'),
+              child: line(
+                '${p.name}  Lv.${p.level}   气血 ${p.hp}/${p.maxHp}   '
+                '魔法 ${p.mp}/${p.maxMp}   $experience',
+              ),
             );
           }
 
@@ -134,17 +116,12 @@ final class _WorldInformation extends StatelessWidget {
                     if (battle != null) line('战斗 · 第 ${battle.round + 1} 回合'),
                   ],
                 ),
-                if (battle == null && game.menus.isEmpty && members.isNotEmpty)
+                // 留空的队员行同样占位，入队、离队、战斗和菜单均保持相同几何布局。
+                for (var i = 0; i < 3; i++)
                   Expanded(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        for (var i = 0; i < members.length; i++) ...[
-                          if (i > 0) const SizedBox(width: 9),
-                          Expanded(child: member(members[i])),
-                        ],
-                      ],
-                    ),
+                    child: i < members.length
+                        ? member(members[i])
+                        : const SizedBox.expand(),
                   ),
               ],
             ),
@@ -654,18 +631,23 @@ final class _NativeMenuState extends State<_NativeMenu> {
   GameMenu? _observed;
   int _selected = -1, _page = 0, _revision = -1;
   bool get _detailed => ['inventory', 'magic'].contains(widget.menu.kind);
+  bool get _compact => widget.maxHeight < 200;
+  double get _titleHeight => (_compact ? 24 : 28) * widget.scale;
 
   /// 每行高度由菜单实际可用高度决定；主菜单四项完整可见，长列表继续滚动。
   double get _extent {
     if (widget.menu.kind == 'state') return 152.0 * widget.scale;
+    // 与下方标题、金钱和外框的实际高度保持一致，不能借缩短状态栏隐藏菜单溢出。
     final header =
-        (widget.menu.kind == 'main' ? 50.0 : 28.0) * widget.scale + 18;
+        _titleHeight +
+        18 +
+        (widget.menu.kind == 'main' ? 14.4 * widget.scale + 4 : 0);
     final count = widget.menu.kind == 'equipment'
         ? 8
         : widget.menu.items.length;
     final visibleRows = widget.menu.kind == 'main' ? 4 : count.clamp(1, 5);
     return ((widget.maxHeight - header) / visibleRows).clamp(
-      22.0,
+      18.0,
       42.0 * widget.scale,
     );
   }
@@ -880,7 +862,7 @@ final class _NativeMenuState extends State<_NativeMenu> {
                       GoodsIcon(
                         id: id,
                         art: widget.model.modernArt,
-                        size: 30 * scale,
+                        size: (_compact ? 24 : 30) * scale,
                       ),
                       SizedBox(width: 5 * scale),
                     ],
@@ -903,16 +885,20 @@ final class _NativeMenuState extends State<_NativeMenu> {
                     ),
                   ],
                 ),
-                SizedBox(height: 4 * scale),
-                Text(
-                  meta,
-                  style: TextStyle(
-                    color: _paper,
-                    fontSize: 10.5 * scale,
-                    height: 1.25,
+                SizedBox(height: (_compact ? 3 : 4) * scale),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    _compact ? meta.replaceAll('\n', '  ') : meta,
+                    style: TextStyle(
+                      color: _paper,
+                      fontSize: 10.5 * scale,
+                      height: 1.25,
+                    ),
                   ),
                 ),
-                SizedBox(height: 5 * scale),
+                SizedBox(height: (_compact ? 3 : 5) * scale),
                 Expanded(
                   child: SingleChildScrollView(
                     controller: _details,
@@ -957,7 +943,7 @@ final class _NativeMenuState extends State<_NativeMenu> {
                 IconButton(
                   constraints: BoxConstraints.tightFor(
                     width: 28 * scale,
-                    height: 28 * scale,
+                    height: _titleHeight,
                   ),
                   padding: EdgeInsets.zero,
                   onPressed: () => widget.model.action((g) {
@@ -972,12 +958,16 @@ final class _NativeMenuState extends State<_NativeMenu> {
             ),
             if (menu.kind == 'main')
               Padding(
-                padding: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.only(bottom: 4),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     '金钱：${game.money}',
-                    style: TextStyle(color: _paper, fontSize: 12 * scale),
+                    style: TextStyle(
+                      color: _paper,
+                      fontSize: 12 * scale,
+                      height: 1.2,
+                    ),
                   ),
                 ),
               ),
