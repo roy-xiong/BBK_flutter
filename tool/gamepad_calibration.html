@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>北通手柄 · Xbox 布局校准</title>
+<style>
+:root{color-scheme:dark;--bg:#0d1219;--panel:#171f2a;--edge:#2b3849;--ink:#e8edf5;--muted:#9eafc3;--green:#7bddad;--gold:#f3c46c;--red:#ff8e94}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% 0,#1a2a35,transparent 65%),var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,select,input{font:inherit}button,select{border:1px solid var(--edge);border-radius:10px;background:#223041;color:var(--ink);padding:9px 14px}button{cursor:pointer}button:hover:not(:disabled){border-color:var(--green);background:#2a4050}button:focus-visible,select:focus-visible{outline:3px solid var(--gold);outline-offset:3px}button:disabled{opacity:.45;cursor:default}button.primary{background:#256448;border-color:#39845e}button.danger{color:var(--red)}main{max-width:1350px;margin:auto;padding:28px 24px 60px}h1{font-size:28px;line-height:1.3;margin:0 0 8px}h2{font-size:17px;margin:0 0 12px}p{margin:6px 0}.muted{color:var(--muted)}.top,.toolbar,.statusline,.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.top{justify-content:space-between}.pill{border:1px solid var(--edge);padding:4px 12px;border-radius:40px;font-size:13px;color:var(--muted)}.pill.good{color:var(--green);border-color:#427a5b}.panel{border:1px solid var(--edge);border-radius:17px;background:var(--panel);padding:20px}.instructions{display:flex;gap:24px;flex-wrap:wrap;margin:20px 0;color:var(--muted)}.instructions b{color:var(--ink);margin-right:7px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 325px;gap:18px;margin-top:18px}.signal{padding:14px 18px;border:1px solid #46725e;background:#18392d;border-radius:12px;margin-bottom:8px;min-height:85px}.signal strong{font-size:19px;display:block;color:var(--green)}.signal.wait{border-color:#705c35;background:#312b1d}.signal.wait strong{color:var(--gold)}.controller{position:relative;width:100%;aspect-ratio:800/490;margin:6px auto 0;max-width:850px}.body-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.pad-key{position:absolute;transform:translate(-50%,-50%);padding:0;border-radius:50%;display:flex;align-items:center;justify-content:center;width:7.5%;aspect-ratio:1;min-width:29px;background:linear-gradient(#354353,#212b38);border:2px solid #111a25;box-shadow:0 4px 5px #0008;font-size:clamp(12px,1.65vw,21px);font-weight:700;line-height:1.15;z-index:1;touch-action:manipulation}.pad-key.face{width:8%;font-size:clamp(15px,2vw,26px)}.pad-key.face[data-id=a]{color:#8ce3aa}.pad-key.face[data-id=b]{color:#ff8993}.pad-key.face[data-id=x]{color:#8eb9ff}.pad-key.face[data-id=y]{color:#f5d175}.pad-key.shoulder{width:15%;aspect-ratio:3.1;border-radius:16px;font-size:clamp(11px,1.5vw,18px)}.pad-key.trigger{width:10%;aspect-ratio:1.8;border-radius:15px}.pad-key.small{width:5.5%;font-size:clamp(10px,1.25vw,16px)}.pad-key.stick{width:9%;font-size:clamp(10px,1.25vw,16px)}.pad-key.arrow{width:5.8%;font-size:clamp(13px,1.5vw,21px)}.pad-key.assigned{border-color:#568d70}.pad-key.assigned:after{content:"";position:absolute;right:0;bottom:0;width:9px;height:9px;border-radius:100%;background:var(--green);border:2px solid #182830}.pad-key.armed{outline:3px solid var(--gold);outline-offset:4px}.pad-key.live{background:#3c986b!important;box-shadow:0 0 22px #7bddad80;transform:translate(-50%,-50%) scale(1.07)}.stick-label{position:absolute;transform:translate(-50%,-50%);font-size:12px;color:var(--muted);white-space:nowrap;pointer-events:none}.legend{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:13px}.legend i{display:inline-block;width:9px;height:9px;background:var(--green);border-radius:50%;margin-right:6px}.legend i.gold{background:var(--gold)}#mapping{max-height:555px;overflow:auto;scrollbar-width:thin}.map-row{display:flex;align-items:center;gap:9px;padding:8px 2px;border-bottom:1px solid #283341;font-size:13px}.map-row strong{width:94px;flex-shrink:0}.map-row code{flex:1;color:var(--green);overflow-wrap:anywhere;font:12px ui-monospace,monospace}.map-row button{padding:0 6px;border:0;background:transparent;color:var(--muted);font-size:19px}.progress{height:5px;border-radius:3px;background:#2b394b;margin:10px 0 12px;overflow:hidden}.progress>span{display:block;height:100%;background:var(--green);transition:width .15s}.actions{margin-top:18px}.raw{display:grid;grid-template-columns:1fr 1fr;gap:16px}.readouts{display:flex;gap:5px;flex-wrap:wrap}.readout{border:1px solid var(--edge);border-radius:7px;padding:4px 7px;font:12px ui-monospace,monospace;color:var(--muted)}.readout.on{color:var(--green);border-color:#568d70}.axis-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;font:12px ui-monospace,monospace}.axis-track{height:8px;background:#2b394b;flex:1;border-radius:5px;position:relative}.axis-track:before{content:"";position:absolute;left:50%;height:100%;border-left:1px solid #8796a6}.axis-dot{position:absolute;top:-2px;width:12px;height:12px;background:var(--green);border-radius:50%;transform:translateX(-50%)}details{margin-top:18px}summary{cursor:pointer;color:var(--muted);padding:8px 0}.raw-meta{overflow-wrap:anywhere;font:12px/1.8 ui-monospace,monospace;color:var(--muted);margin:10px 0}#log{white-space:pre-wrap;max-height:160px;overflow:auto;color:var(--muted);font:12px/1.6 ui-monospace,monospace}#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#304b40;padding:10px 18px;border:1px solid #6aa581;border-radius:10px;max-width:90vw;z-index:10}#toast:empty{display:none}a{color:var(--green)}label.check{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:13px}.footnote{margin-top:20px;font-size:12px;color:var(--muted)}.empty{color:var(--muted);padding:15px 0}.candidate{padding:5px 10px;margin:4px 5px 0 0;font:12px ui-monospace,monospace}
+@media(max-width:1000px){.layout{grid-template-columns:1fr}.controller{max-width:800px}.pad-key{font-size:18px}.pad-key.face{font-size:24px}.pad-key.shoulder,.pad-key.small,.pad-key.stick{font-size:13px}#mapping{max-height:300px;display:grid;grid-template-columns:1fr 1fr;column-gap:20px}.raw{grid-template-columns:1fr}}@media(max-width:520px){main{padding:18px 10px 35px}.panel{padding:12px}.pad-key{border-width:1px;min-width:20px;font-size:13px}.pad-key.face{font-size:17px}.pad-key.shoulder,.pad-key.small,.pad-key.stick{font-size:10px}.stick-label{font-size:9px}.instructions{gap:6px}.signal strong{font-size:16px}#mapping{display:block}h1{font-size:23px}}
+</style></head><body><main>
+<div class="top"><div><h1>北通手柄 · Xbox 布局校准</h1><p class="muted">按一下实体按键，再点图上对应的位置。摇杆请一次只推一个方向。</p></div><span id="connection" class="pill">等待手柄</span></div>
+<div class="instructions"><span><b>① 按</b>手柄上的某个键</span><span><b>② 点</b>下图对应位置</span><span><b>③ 导出</b>校准文件给我</span></div>
+<div class="panel"><div class="toolbar"><select id="devices" aria-label="选择手柄"><option value="">尚未发现手柄，请先按一下 A 再松开</option></select><button id="center">摇杆 / 扳机回中校准</button><button id="cancel" disabled>取消等待</button><label class="check"><input type="checkbox" id="keyboard">同时检测键盘模式</label></div><p id="device-hint" class="muted">保持此网页在前台，连接手柄后按一下 A。网页收到信号后会显示在下方。</p></div>
+<div class="layout"><section class="panel"><div id="signal" class="signal wait" role="status" aria-live="polite"><strong id="signal-title">还没有收到按键信号</strong><span id="signal-detail">也可以先点图上某个位置，再按手柄对应的键。</span><div id="candidates"></div></div>
+<div id="controller" class="controller" aria-label="Xbox 手柄正面布局">
+<svg class="body-svg" viewBox="0 0 800 490" aria-hidden="true"><defs><linearGradient id="body" x2="0" y2="1"><stop stop-color="#344454"/><stop offset="1" stop-color="#1a2532"/></linearGradient><radialGradient id="stick"><stop stop-color="#17222f"/><stop offset="1" stop-color="#253647"/></radialGradient></defs><path d="M196 106 Q164 116 143 154 C121 200 85 309 86 375 Q84 437 136 439 Q177 442 216 371 L254 325 Q400 352 546 325 L584 371 Q623 442 664 439 Q716 437 714 375 C715 309 679 200 657 154 Q636 116 604 106 L540 94 Q400 73 260 94Z" fill="url(#body)" stroke="#526172" stroke-width="3"/><path d="M207 121 Q400 94 593 121" fill="none" stroke="#748195" stroke-opacity=".3" stroke-width="2"/><circle cx="233" cy="190" r="65" fill="url(#stick)" stroke="#415267"/><circle cx="491" cy="313" r="66" fill="url(#stick)" stroke="#415267"/><circle cx="304" cy="313" r="56" fill="#202d3b" stroke="#415267"/><circle cx="400" cy="146" r="31" fill="#152c24" stroke="#4d8061"/><path d="M382 129 L400 142 L418 129 M385 163 L400 146 L415 163" stroke="#80d7a6" stroke-width="5" fill="none"/><path d="M257 351 Q401 375 542 351" stroke="#111b25" fill="none" stroke-width="3"/></svg>
+<span class="stick-label" style="left:29%;top:58%">左摇杆：方向 / 按下 L3</span><span class="stick-label" style="left:62%;top:84%">右摇杆：方向 / 按下 R3</span><span class="stick-label" style="left:38%;top:82%">十字键</span>
+</div><div class="legend"><span><i></i>绿点：已记录；亮起：正在按</span><span><i class="gold"></i>金圈：等待对应实体键</span></div><div class="actions"><button class="primary" id="export" disabled>导出校准文件</button><button id="undo" disabled>撤销上一次</button><button id="import">导入之前的校准</button><input id="import-file" type="file" accept=".json,application/json" hidden><button class="danger" id="clear">清空当前手柄</button></div><p class="footnote">进度自动保存在此浏览器。无需每个位置都填满；额外功能键、摇杆按下可按实际需要补充。</p></section>
+<aside class="panel"><div class="statusline"><h2 style="margin:0">已记录的对应关系</h2><span class="pill" id="count">0 / 25</span></div><div class="progress"><span id="progress" style="width:0"></span></div><div id="mapping"></div></aside></div>
+<details class="panel"><summary>实时原始输入与连接信息（用于排查不响应）</summary><div id="metadata" class="raw-meta">等待连接</div><div class="raw"><div><h2>原始按键</h2><div id="raw-buttons" class="readouts"></div></div><div><h2>原始轴</h2><div id="raw-axes"></div></div></div><h2 style="margin-top:16px">最近输入记录</h2><pre id="log">尚无输入</pre></details>
+<p class="footnote">此页用于记录实体布局和浏览器原始输入。完成后导出文件，再将对应关系适配到伏魔记、三国霸业；浏览器编号与原生插件编号会分别核对。<a href="https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API" target="_blank" rel="noreferrer">浏览器手柄接口说明</a></p>
+</main><div id="toast" role="status"></div>
+<script id="calibration-core">
+'use strict';
+/** 与DOM无关的校准状态机。记录按下边沿，忽略松开、漂移和非有限值。 */
+const CalibrationCore=(()=>{
+ const controls=[
+  ['lt','LT',25,9,'trigger'],['rt','RT',75,9,'trigger'],['lb','LB',27,19,'shoulder'],['rb','RB',73,19,'shoulder'],
+  ['a','A',72,46,'face'],['b','B',79,35,'face'],['x','X',65,35,'face'],['y','Y',72,24,'face'],
+  ['back','View / Back',43,39,'small'],['start','Menu / Start',57,39,'small'],['home','Xbox / Home',50,30,'small'],
+  ['l3','L3',29,39,'stick'],['lsUp','左摇杆 ↑',29,26,'arrow'],['lsDown','左摇杆 ↓',29,52,'arrow'],['lsLeft','左摇杆 ←',21,39,'arrow'],['lsRight','左摇杆 →',37,39,'arrow'],
+  ['r3','R3',61.5,64,'stick'],['rsUp','右摇杆 ↑',61.5,51,'arrow'],['rsDown','右摇杆 ↓',61.5,77,'arrow'],['rsLeft','右摇杆 ←',53.5,64,'arrow'],['rsRight','右摇杆 →',69.5,64,'arrow'],
+  ['dpadUp','十字键 ↑',38,55,'arrow'],['dpadDown','十字键 ↓',38,73,'arrow'],['dpadLeft','十字键 ←',32.5,64,'arrow'],['dpadRight','十字键 →',43.5,64,'arrow']];
+ const allowed=new Set(controls.map(c=>c[0]));
+ const finite=v=>typeof v==='number'&&Number.isFinite(v);
+ const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+ const key=b=>b.kind==='button'?`button:${b.index}`:b.kind==='axis'?`axis:${b.index}:${b.sign}`:`keyboard:${b.code}`;
+ function validBinding(b,device){
+  if(!b||typeof b!=='object'||Array.isArray(b))return false;
+  if(b.kind==='button')return Number.isInteger(b.index)&&b.index>=0&&b.index<device.buttonCount;
+  if(b.kind==='axis')return Number.isInteger(b.index)&&b.index>=0&&b.index<device.axisCount&&[-1,1].includes(b.sign)&&finite(b.center)&&Math.abs(b.center)<=1;
+  return b.kind==='keyboard'&&typeof b.code==='string'&&/^(Key[A-Z]|Digit\d|Arrow(Up|Down|Left|Right)|Enter|Escape|Space|Tab|Backspace|F\d{1,2}|Numpad\w+|Shift(Left|Right)|Control(Left|Right)|Alt(Left|Right))$/.test(b.code);
+ }
+ function cleanBinding(b){return b.kind==='button'?{kind:'button',index:b.index}:b.kind==='axis'?{kind:'axis',index:b.index,sign:b.sign,center:b.center,pressThreshold:.6,releaseThreshold:.28}:{kind:'keyboard',code:b.code};}
+ function assign(bindings,id,binding,device){
+  if(!allowed.has(id)||!validBinding(binding,device))throw Error('对应关系无效');
+  const next={...bindings};const duplicates=[];
+  for(const [other,b]of Object.entries(next))if(other!==id&&key(b)===key(binding)){delete next[other];duplicates.push(other);}
+  next[id]=cleanBinding(binding);return{bindings:next,duplicates};
+ }
+ function sanitize(input){
+  if(input?.documentType!=='bbk-gamepad-calibration'||input.schema!==1)throw Error('不是本工具的校准文件');
+  const source=input.device;
+  if(!source||typeof source.id!=='string'||source.id.length>512||!Number.isInteger(source.buttonCount)||source.buttonCount<0||source.buttonCount>256||!Number.isInteger(source.axisCount)||source.axisCount<0||source.axisCount>64)throw Error('手柄信息无效');
+  const device={id:source.id,mapping:typeof source.mapping==='string'?source.mapping.slice(0,32):'',buttonCount:source.buttonCount,axisCount:source.axisCount};
+  const bindings={};const used=new Set();
+  if(!input.bindings||typeof input.bindings!=='object'||Array.isArray(input.bindings))throw Error('缺少对应关系');
+  for(const [id,b]of Object.entries(input.bindings)){
+   if(!allowed.has(id)||!validBinding(b,device)||used.has(key(b)))throw Error('对应关系含未知位置、重复信号或无效轴');
+   used.add(key(b));bindings[id]=cleanBinding(b);
+  }
+  return{device,bindings};
+ }
+ function fingerprint(d){return JSON.stringify([d.id,d.mapping,d.buttonCount,d.axisCount]);}
+ /** 非标准手柄的扳机可停在-1/+1；以校准中位的剩余行程归一化，不能按零点猜测。 */
+ function travel(value,center,sign){const span=sign>0?1-center:1+center;return span>.01?clamp((value-center)*sign/span,0,1):0;}
+ class Detector{
+  constructor(){this.centers=[];this.buttons=[];this.axes=[];this.initialized=false;}
+  calibrate(pad){this.centers=pad.axes.map(v=>finite(v)?clamp(v,-1,1):0);this.buttons=pad.buttons.map(b=>(b?.value??0)>.55);this.axes=pad.axes.map(()=>0);this.initialized=true;}
+  sample(pad){
+   if(!this.initialized||this.buttons.length!==pad.buttons.length||this.axes.length!==pad.axes.length){this.calibrate(pad);return[];}
+   const found=[];
+   pad.buttons.forEach((b,index)=>{const value=b?.value;if(!finite(value))return;const pressed=value>(this.buttons[index]?.28:.55);if(pressed&&!this.buttons[index])found.push({binding:{kind:'button',index},value});this.buttons[index]=pressed;});
+   pad.axes.forEach((value,index)=>{
+    if(!finite(value))return;const center=this.centers[index];const old=this.axes[index]||0;
+    const pos=travel(value,center,1),neg=travel(value,center,-1);const sign=pos>=neg?1:-1,amount=Math.max(pos,neg);
+    if(amount<.28)this.axes[index]=0;
+    else if(amount>=.6&&old!==sign){this.axes[index]=sign;found.push({binding:{kind:'axis',index,sign,center},value});}
+   });
+   return found;
+  }
+ }
+ function describe(b){return b.kind==='button'?`按键 B${b.index}`:b.kind==='axis'?`轴 ${b.index} ${b.sign>0?'+':'−'}`:`键盘 ${b.code}`;}
+ return{controls,key,assign,sanitize,fingerprint,travel,Detector,describe};
+})();
+</script>
+<script>
+'use strict';
+const $=id=>document.getElementById(id),C=CalibrationCore,STORE='bbk-gamepad-calibration-v1';
+const labels=new Map(C.controls.map(c=>[c[0],c[1]])),keys=new Map();
+let detector=new C.Detector(),selectedIndex=null,device=null,bindings={},pending=null,armed=null,undo=[],logs=[],samples=[],activePad=null,toastTimer=null,lastPaint=0,inventoryKey='',connected=false,rawSignature='',frames=0,profiles={},keyboardHeld=new Set(),ambiguous=[];
+try{const value=JSON.parse(localStorage.getItem(STORE)||'{}');if(value&&typeof value==='object'&&!Array.isArray(value))profiles=value;}catch{/* 存储不可用时仍可以导出文件。 */}
+function toast(text){$('toast').textContent=text;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').textContent='',3500);}
+function log(text){logs.unshift(new Date().toLocaleTimeString()+'  '+text);logs=logs.slice(0,40);$('log').textContent=logs.join('\n');}
+function signal(title,detail,waiting=false){$('signal-title').textContent=title;$('signal-detail').textContent=detail;$('signal').classList.toggle('wait',waiting);}
+function persist(){if(!device)return;profiles[C.fingerprint(device)]={documentType:'bbk-gamepad-calibration',schema:1,device,bindings};try{localStorage.setItem(STORE,JSON.stringify(profiles));}catch{toast('浏览器无法保存进度，请用导出文件保存');}}
+function setPending(candidate){pending=candidate;ambiguous=[];$('candidates').replaceChildren();signal('收到：'+C.describe(candidate.binding),'现在点图上你刚才按的位置。松开实体键也可以，信号会保留。');log(C.describe(candidate.binding)+'  值 '+candidate.value.toFixed(3));if(armed)assign(armed);}
+function accept(found){
+ if(!found.length)return;
+ samples.push({time:new Date().toISOString(),signals:found.map(f=>({binding:f.binding,value:f.value})),buttons:activePad?activePad.buttons.map(b=>Number(b.value.toFixed(4))):[],axes:activePad?activePad.axes.map(v=>Number(v.toFixed(4))):[]});samples=samples.slice(-64);
+ if(found.length===1){setPending(found[0]);return;}
+ pending=null;ambiguous=found;
+ signal('同时收到 '+found.length+' 个信号','请一次只按一个键，或在下面选中对应的原始信号。',true);
+ $('candidates').replaceChildren(...found.map(f=>{const b=document.createElement('button');b.className='candidate';b.textContent=C.describe(f.binding);b.onclick=()=>setPending(f);return b;}));
+}
+function render(){
+ const count=Object.keys(bindings).length;$('count').textContent=count+' / '+C.controls.length;$('progress').style.width=(count/C.controls.length*100)+'%';$('export').disabled=!count;$('undo').disabled=!undo.length;$('cancel').disabled=!armed&&!pending&&!ambiguous.length;
+ for(const[id,node]of keys){node.classList.toggle('assigned',!!bindings[id]);node.classList.toggle('armed',armed===id);node.title=labels.get(id)+(bindings[id]?' · '+C.describe(bindings[id]):' · 未记录');}
+ const rows=C.controls.map(([id,label])=>{const row=document.createElement('div');row.className='map-row';const name=document.createElement('strong');name.textContent=label;const value=document.createElement('code');value.textContent=bindings[id]?C.describe(bindings[id]):'未记录';row.append(name,value);if(bindings[id]){const remove=document.createElement('button');remove.textContent='×';remove.setAttribute('aria-label','移除 '+label);remove.onclick=()=>{undo.push({...bindings});delete bindings[id];persist();render();};row.append(remove);}return row;});$('mapping').replaceChildren(...rows);
+}
+function assign(id){
+ if(!connected||!device){armed=id;signal('等待：'+labels.get(id),'先按一下手柄 A，让浏览器发现设备；松开后再按要校准的实体键。',true);render();return;}
+ if(!pending){armed=id;signal('等待：'+labels.get(id),'现在按手柄上对应的实体键；摇杆请沿这个方向直推。',true);render();return;}
+ undo.push({...bindings});undo=undo.slice(-30);
+ const result=C.assign(bindings,id,pending.binding,device);bindings=result.bindings;pending=null;armed=null;$('candidates').replaceChildren();persist();render();
+ signal('已记录：'+labels.get(id),'继续按下一个实体键，再点它在图上的位置。已记录的位置会随实体键亮起。');
+ toast(result.duplicates.length?'已将 '+result.duplicates.map(id=>labels.get(id)).join('、')+' 的信号改绑到 '+labels.get(id):'已记录 '+labels.get(id));
+}
+for(const[id,label,x,y,style]of C.controls){const b=document.createElement('button');b.className='pad-key '+style;b.dataset.id=id;b.style.left=x+'%';b.style.top=y+'%';b.textContent=id==='back'?'▱':id==='start'?'☰':id==='home'?'X':id.startsWith('ls')||id.startsWith('rs')||id.startsWith('dpad')?label.slice(-1):label;b.setAttribute('aria-label',label);b.onclick=()=>assign(id);$('controller').append(b);keys.set(id,b);}
+function adopt(pad){
+ device={id:pad.id,mapping:pad.mapping||'',buttonCount:pad.buttons.length,axisCount:pad.axes.length};selectedIndex=pad.index;detector=new C.Detector();detector.calibrate(pad);connected=true;pending=null;undo=[];samples=[];rawSignature='';
+ const saved=profiles[C.fingerprint(device)];try{bindings=saved?C.sanitize(saved).bindings:{};}catch{bindings={};}
+ $('connection').textContent='手柄已连接';$('connection').classList.add('good');$('metadata').textContent=JSON.stringify({...device,index:pad.index,browser:navigator.userAgent},null,2);
+ $('device-hint').textContent=pad.id+' · '+pad.buttons.length+' 个按键 / '+pad.axes.length+' 个轴。先松开摇杆和扳机，再点“回中校准”。';
+ signal('已发现手柄，先松开所有按键','点“摇杆 / 扳机回中校准”后开始。第一个用于唤醒浏览器的按键不会自动绑定。',true);log('连接：'+pad.id);render();
+}
+function disconnect(){connected=false;activePad=null;pending=null;armed=null;ambiguous=[];keyboardHeld.clear();$('candidates').replaceChildren();for(const n of keys.values())n.classList.remove('live');$('connection').textContent='手柄已断开';$('connection').classList.remove('good');signal('手柄连接已断开','已记录的进度仍保留。重新连接并按一下 A 后继续。',true);render();}
+function live(binding,pad){if(binding.kind==='keyboard')return keyboardHeld.has(binding.code);if(!pad)return false;if(binding.kind==='button')return(pad.buttons[binding.index]?.value??0)>.5;return C.travel(pad.axes[binding.index]??binding.center,binding.center,binding.sign)>.5;}
+function paintRaw(pad){
+ const signature=pad.buttons.length+':'+pad.axes.length;if(rawSignature!==signature){rawSignature=signature;$('raw-buttons').replaceChildren(...pad.buttons.map((_,i)=>{const e=document.createElement('span');e.id='button-'+i;e.className='readout';return e;}));$('raw-axes').replaceChildren(...pad.axes.map((_,i)=>{const row=document.createElement('div');row.className='axis-row';const label=document.createElement('span');label.id='axis-value-'+i;const track=document.createElement('div');track.className='axis-track';const dot=document.createElement('span');dot.className='axis-dot';dot.id='axis-dot-'+i;track.append(dot);row.append(label,track);return row;}));}
+ pad.buttons.forEach((b,i)=>{const node=$('button-'+i);node.textContent='B'+i+' '+b.value.toFixed(2);node.classList.toggle('on',b.value>.5);});pad.axes.forEach((v,i)=>{$('axis-value-'+i).textContent='Axis '+i+' '+v.toFixed(3);$('axis-dot-'+i).style.left=((Math.max(-1,Math.min(1,v))+1)*50)+'%';});
+}
+function poll(time){
+ if(document.hidden){requestAnimationFrame(poll);return;}
+ try{
+  const pads=Array.from(navigator.getGamepads?.()||[]).filter(p=>p&&p.connected);
+  const inventory=JSON.stringify(pads.map(p=>[p.index,p.id]));if(inventory!==inventoryKey){inventoryKey=inventory;$('devices').replaceChildren(...(pads.length?pads.map(p=>{const o=document.createElement('option');o.value=p.index;o.textContent=p.id+(pads.length>1?' #'+p.index:'');return o;}):[new Option('尚未发现手柄，请先按一下 A 再松开','')]));}
+  const pad=pads.find(p=>p.index===selectedIndex)||pads[0];
+  if(pad){if(!connected||selectedIndex!==pad.index||C.fingerprint(device)!==C.fingerprint({id:pad.id,mapping:pad.mapping||'',buttonCount:pad.buttons.length,axisCount:pad.axes.length}))adopt(pad);$('devices').value=String(pad.index);activePad=pad;const found=detector.sample(pad);accept(found);if(time-lastPaint>50){paintRaw(pad);for(const[id,node]of keys)node.classList.toggle('live',!!bindings[id]&&live(bindings[id],pad));lastPaint=time;}if(found.length)render();}
+  else if(connected&&device?.id!=='keyboard-mode')disconnect();
+ }catch(error){$('device-hint').textContent='浏览器暂时无法读取手柄：'+error.message+'。请用 Chrome 打开本机页面。';}
+ requestAnimationFrame(poll);
+}
+$('devices').onchange=()=>{selectedIndex=Number($('devices').value);connected=false;armed=null;pending=null;};
+$('center').onclick=()=>{if(!activePad){toast('请先按一下手柄 A，让浏览器发现设备');return;}detector.calibrate(activePad);pending=null;armed=null;ambiguous=[];$('candidates').replaceChildren();signal('中位已校准，可以开始','按一下实体键，再点图上的对应位置。已绑定的轴会保留原校准中位。');log('摇杆 / 扳机中位：'+detector.centers.map(v=>v.toFixed(3)).join(', '));render();};
+$('cancel').onclick=()=>{pending=null;armed=null;ambiguous=[];$('candidates').replaceChildren();signal('已取消等待','按实体键后再点图上的位置，或先点位置再按键。',true);render();};
+$('undo').onclick=()=>{if(!undo.length)return;bindings=undo.pop();persist();render();toast('已撤销上一次修改');};
+$('clear').onclick=()=>{if(!Object.keys(bindings).length)return;undo.push({...bindings});bindings={};persist();render();toast('已清空当前手柄，误点可撤销');};
+$('export').onclick=()=>{if(!device||!Object.keys(bindings).length)return;const output={documentType:'bbk-gamepad-calibration',schema:1,exportedAt:new Date().toISOString(),layout:'xbox',source:'browser-gamepad',device,bindings,axisCenters:detector.centers,browser:{userAgent:navigator.userAgent,platform:navigator.platform},recentSamples:samples,unmapped:C.controls.filter(c=>!bindings[c[0]]).map(c=>c[0])};const url=URL.createObjectURL(new Blob([JSON.stringify(output,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='BBK-北通手柄校准-'+new Date().toLocaleDateString('sv-SE')+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('已导出校准文件，告诉我“已导出”即可');};
+$('import').onclick=()=>$('import-file').click();
+$('import-file').onchange=async event=>{try{const file=event.target.files?.[0];if(!file)return;if(file.size>2*1024*1024)throw Error('文件过大');const value=C.sanitize(JSON.parse(await file.text()));if(device&&C.fingerprint(device)!==C.fingerprint(value.device))throw Error('文件中的手柄与当前设备不同，请连接对应手柄后再导入');device=value.device;undo.push({...bindings});bindings=value.bindings;persist();render();toast('已导入对应关系，重新连接同一手柄即可继续验证');}catch(error){toast('导入失败：'+error.message);}finally{event.target.value='';}};
+window.addEventListener('keydown',event=>{if(!$('keyboard').checked||event.repeat||event.metaKey||event.target.matches('input,select,textarea'))return;const b={kind:'keyboard',code:event.code};const d=device||{id:'keyboard-mode',mapping:'keyboard',buttonCount:0,axisCount:0};try{C.assign({},'a',b,d);}catch{return;}event.preventDefault();if(!device){device=d;bindings={};connected=true;$('connection').textContent='键盘模式';render();}keyboardHeld.add(event.code);accept([{binding:b,value:1}]);render();});
+window.addEventListener('keyup',event=>keyboardHeld.delete(event.code));
+window.addEventListener('blur',()=>{keyboardHeld.clear();pending=null;armed=null;ambiguous=[];$('candidates').replaceChildren();for(const n of keys.values())n.classList.remove('live');signal('页面已暂停接收','切回此页后，请重新按一次实体键；不会使用失焦前的旧信号。',true);render();});
+window.addEventListener('gamepaddisconnected',event=>{if(event.gamepad.index===selectedIndex)disconnect();});
+render();if(!navigator.getGamepads)$('device-hint').textContent='此浏览器没有提供手柄接口，请用 Chrome 打开本页。';requestAnimationFrame(poll);
+</script></body></html>
