@@ -1,0 +1,84 @@
+name: 黑白彩色战斗对比文档
+on:
+  workflow_dispatch:
+    inputs:
+      color_run_id:
+        description: 已完成的彩色战斗录制 Run ID
+        required: true
+        default: '41022737454'
+        type: string
+permissions:
+  contents: read
+  actions: read
+jobs:
+  classic:
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.4'
+          cache: true
+      - run: flutter pub get --enforce-lockfile
+      - run: python3 -m pip install Pillow
+      - run: python3 tool/export_fmj_battle_catalog.py
+      - name: 同一案例与时钟录制原版黑白渲染器
+        env:
+          FMJ_EXPORT_BATTLE_REVIEW: '1'
+          FMJ_REVIEW_CLASSIC: '1'
+          FMJ_REVIEW_FORMAT: webp
+          FMJ_REVIEW_SHARD: ${{ matrix.shard }}
+          FMJ_REVIEW_SHARDS: '4'
+        run: flutter test --no-pub test/games/fmj/battle_review_export_test.dart --reporter expanded
+      - uses: actions/upload-artifact@v4
+        with:
+          name: battle-classic-${{ matrix.shard }}
+          path: |
+            build/battle-review/*-classic.webp
+            build/battle-review/classic-shard-*.json
+          retention-days: 14
+  document:
+    needs: classic
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: battle-classic-*
+          merge-multiple: true
+          path: build/battle-review
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: battle-gifs-*
+          run-id: ${{ inputs.color_run_id }}
+          github-token: ${{ github.token }}
+          merge-multiple: true
+          path: build/battle-review
+      - run: python3 -m pip install Pillow
+      - run: python3 tool/export_fmj_battle_catalog.py
+      - name: 记录彩色绘制来源
+        env:
+          SOURCE_RUN_ID: ${{ inputs.color_run_id }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import json,os,urllib.request
+          url='https://api.github.com/repos/'+os.environ['GITHUB_REPOSITORY']+'/actions/runs/'+os.environ['SOURCE_RUN_ID']
+          request=urllib.request.Request(url,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN']})
+          data=json.load(urllib.request.urlopen(request))
+          with open(os.environ['GITHUB_ENV'],'a')as stream:stream.write('FMJ_RENDER_REVISION='+data['head_sha']+'\n')
+          PY
+      - run: python3 tool/build_fmj_battle_review.py --require-classic --render-revision "$FMJ_RENDER_REVISION"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fmj-battle-review-comparison-document
+          path: |
+            build/battle-review/*.html
+            build/battle-review/*.manifest.json
+          retention-days: 30

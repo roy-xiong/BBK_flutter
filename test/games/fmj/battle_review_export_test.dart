@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
@@ -11,6 +12,8 @@ import 'package:bbk_flutter/games/fmj/engine/game_actor.dart';
 import 'package:bbk_flutter/games/fmj/engine/game_engine.dart';
 import 'package:bbk_flutter/games/fmj/ui/modern_art.dart';
 import 'package:bbk_flutter/games/fmj/ui/modern_scene.dart';
+import 'package:bbk_flutter/games/fmj/ui/game_page.dart'
+    show ClassicFramePainter;
 import 'package:bbk_flutter/games/fmj/ui/system_font_layout.dart';
 import 'game_engine_test.dart' show loadData;
 
@@ -24,6 +27,7 @@ void main() {
       final format = Platform.environment['FMJ_REVIEW_FORMAT'] == 'webp'
           ? 'webp'
           : 'gif';
+      final classic = Platform.environment['FMJ_REVIEW_CLASSIC'] == '1';
       final shard = int.parse(Platform.environment['FMJ_REVIEW_SHARD'] ?? '0');
       final shards = int.parse(
         Platform.environment['FMJ_REVIEW_SHARDS'] ?? '4',
@@ -59,7 +63,7 @@ void main() {
             'autoBattle': false,
             'invincible': false,
             'oneHitKill': false,
-            'modernUi': true,
+            'modernUi': !classic,
           });
           for (var id = 1; id <= 3; id++) {
             final hero = GameActor.load(data, 1, id)!;
@@ -199,11 +203,37 @@ void main() {
           final states = <String>{};
           Future<void> capture() async {
             final recorder = ui.PictureRecorder();
-            ModernScenePainter(
-              game,
-              art,
-              textStyle: const TextStyle(fontFamily: 'BBK CJK'),
-            ).paint(Canvas(recorder), const Size(640, 384));
+            if (classic) {
+              // 使用正式黑白渲染入口和同一动作时钟，不能把彩色帧去色冒充原版。
+              game.render();
+              final surface = game.surface;
+              final decoded = Completer<ui.Image>();
+              ui.decodeImageFromPixels(
+                surface.pixels.buffer.asUint8List(),
+                surface.width,
+                surface.height,
+                ui.PixelFormat.bgra8888,
+                decoded.complete,
+              );
+              final pixels = await decoded.future;
+              try {
+                ClassicFramePainter(
+                  pixels,
+                  surface.textRuns,
+                  surface.width,
+                  surface.height,
+                  false,
+                ).paint(Canvas(recorder), const Size(640, 384));
+              } finally {
+                pixels.dispose();
+              }
+            } else {
+              ModernScenePainter(
+                game,
+                art,
+                textStyle: const TextStyle(fontFamily: 'BBK CJK'),
+              ).paint(Canvas(recorder), const Size(640, 384));
+            }
             final picture = recorder.endRecording();
             final image = await picture.toImage(640, 384);
             try {
@@ -260,7 +290,8 @@ void main() {
             File(
               '${folder.path}/timeline.json',
             ).writeAsStringSync(jsonEncode(timeline));
-            final output = '${root.path}/${entry['id']}.$format';
+            final output =
+                '${root.path}/${entry['id']}${classic ? '-classic' : ''}.$format';
             final encoded = await Process.run('python3', [
               'tool/encode_fmj_battle_gif.py',
               folder.path,
@@ -274,6 +305,7 @@ void main() {
             final info = jsonDecode(encoded.stdout as String) as Map;
             records.add({
               ...entry,
+              'renderStyle': classic ? 'classic' : 'color',
               'simulationFrames': frameCount,
               'durationMs': frameCount * 40,
               'loopGapMs': 600,
@@ -298,7 +330,7 @@ void main() {
           }
         }
         File(
-          '${root.path}/shard-$shard.json',
+          '${root.path}/${classic ? 'classic-' : ''}shard-$shard.json',
         ).writeAsStringSync(jsonEncode(records));
         expect(records, isNotEmpty);
       } finally {
