@@ -22,6 +22,7 @@ def main():
     parser.add_argument('--destination',type=Path,required=True)
     parser.add_argument('--render-revision',required=True)
     parser.add_argument('--mirror',type=Path)
+    parser.add_argument('--require-classic',action='store_true')
     args=parser.parse_args()
     assert hashlib.sha256(args.artifact.read_bytes()).hexdigest()==args.sha256,'云端产物摘要不匹配'
     before,_=payload(args.destination)
@@ -40,11 +41,18 @@ def main():
         assert data['stepMs']==40 and data['speed']==1
         assert len(data['cases'])==len(previous) and len({c['id']for c in data['cases']})==len(previous),'案例数量或唯一编号发生变化'
         assert {c['id']for c in data['cases']}==set(previous),'案例编号有增删'
+        if args.require_classic:
+            assert data['summary'].get('classicCases')==len(previous),'黑白对照案例未完整导出'
         for case in data['cases']:
             old=previous[case['id']]
             assert identity(case)==identity(old),(case['id'],'案例身份发生变化')
             assert(case['durationMs'],case['simulationFrames'],case['loopGapMs'])==(old['durationMs'],old['simulationFrames'],old['loopGapMs']),(case['id'],'原动作时长发生变化')
             assert case['gifDurationMs']==case['durationMs']+case['loopGapMs']
+            if args.require_classic:
+                classic=case.get('classic',{})
+                assert classic.get('gif')in data['gifs'],(case['id'],'黑白动图缺失')
+                for field in('durationMs','simulationFrames','loopGapMs'):
+                    assert classic.get(field)==case[field],(case['id'],field,'黑白彩色时长不一致')
         descriptor,js_filename=tempfile.mkstemp(prefix='fmj-battle-review-',suffix='.js')
         os.close(descriptor)
         javascript=Path(js_filename)
