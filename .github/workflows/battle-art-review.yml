@@ -1,0 +1,63 @@
+name: 伏魔记战斗动图审核
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - test/games/fmj/battle_review_export_test.dart
+      - tool/*fmj_battle*
+      - tool/fmj_battle_review_template.html
+      - .github/workflows/battle-art-review.yml
+permissions:
+  contents: read
+jobs:
+  render:
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.4'
+          cache: true
+      - run: flutter pub get --enforce-lockfile
+      - run: python3 -m pip install Pillow
+      - run: python3 tool/export_fmj_battle_catalog.py
+      - name: 正式战斗状态机与Painter逐帧录制
+        env:
+          FMJ_EXPORT_BATTLE_REVIEW: '1'
+          FMJ_REVIEW_SHARD: ${{ matrix.shard }}
+          FMJ_REVIEW_SHARDS: '4'
+        run: flutter test --no-pub test/games/fmj/battle_review_export_test.dart --reporter expanded
+      - uses: actions/upload-artifact@v4
+        with:
+          name: battle-gifs-${{ matrix.shard }}
+          path: |
+            build/battle-review/*.gif
+            build/battle-review/shard-*.json
+          retention-days: 14
+  document:
+    needs: render
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: battle-gifs-*
+          merge-multiple: true
+          path: build/battle-review
+      - run: python3 -m pip install Pillow
+      - run: python3 tool/export_fmj_battle_catalog.py
+      - run: python3 tool/build_fmj_battle_review.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fmj-battle-review-document
+          path: |
+            build/battle-review/*.html
+            build/battle-review/*.manifest.json
+          retention-days: 30
