@@ -26,6 +26,8 @@ jobs:
         with:
           ref: main
           persist-credentials: false
+      - name: 安装图像回归测试依赖
+        run: python3 -m pip install Pillow
       - run: python3 -m unittest discover -s tool/tests -p 'test_*.py' -v
       - name: 发布已校验的原始安装包
         env:
