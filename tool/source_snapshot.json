@@ -48,7 +48,7 @@
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "c7cfa6c1a0c1d240fa9036f44894c4b2972a2575fd593c0f68b8ee28275cbf18"
+      "importedSha256": "f0160bc9a1a9003cddf4f30b3b8db601ac3a39bbdc2cb83504a8286fb2c276c0"
     },
     {
       "game": "fmj",
@@ -3508,6 +3508,12 @@
       "previousImportedSha256": "5270cf425002466b6f9b3a4df54353eba088fc7142058b728fea49204a1de0f2",
       "currentSha256": "94b60eb06a95cfd378978231d0ee0b6c53cc44c6061c29cd1c088120efd25b3e",
       "reason": "回归修正：作弊客栈导航副本及实际入场同时支持关闭后重复战斗，菜单展开时恢复紧凑信息栏"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "c7cfa6c1a0c1d240fa9036f44894c4b2972a2575fd593c0f68b8ee28275cbf18",
+      "currentSha256": "f0160bc9a1a9003cddf4f30b3b8db601ac3a39bbdc2cb83504a8286fb2c276c0",
+      "reason": "修复标题/开场页空存档菜单被主界面输入拦截，菜单优先接收返回和选择"
     }
   ]
 }

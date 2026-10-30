@@ -58,6 +58,57 @@ void main() {
     return battle;
   }
 
+  test('结束游戏再继续故事，无存档时A不叠菜单、B正常返回标题', () {
+    for (final modern in [false, true]) {
+      final game = engine()..preferences['modernUi'] = modern;
+      game.openSystemMenu();
+      game.selectMenu(game.menus.last, 3);
+      expect(game.screen, 'title');
+      expect(game.saves.every((slot) => slot == null), true);
+      game.titleSelection = 1;
+      game.press(GameKey.confirm);
+      expect(game.menus.single.kind, 'load');
+      for (var i = 0; i < 3; i++) {
+        game.press(GameKey.confirm);
+      }
+      expect(game.menus, hasLength(1));
+      expect(game.notice, '这是空档位');
+      game.press(GameKey.cancel);
+      expect(game.menus, isEmpty);
+      expect(game.screen, 'title');
+    }
+  });
+
+  testWidgets('空档位读档框的鼠标关闭按钮有效，关闭后可重新选择故事', (tester) async {
+    final game = engine()..screen = 'title';
+    final model = GameViewModel()
+      ..engine = game
+      ..loading = false;
+    await tester.runAsync(() => model.prepareModernArt());
+    try {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: AnimatedBuilder(
+            animation: model,
+            builder: (context, _) => ModernGameView(model: model),
+          ),
+        ),
+      );
+      await tester.tap(find.text('继续故事'));
+      await tester.pump();
+      expect(find.text('读入进度'), findsOneWidget);
+      expect(game.menus, hasLength(1));
+      await tester.tap(find.byIcon(Icons.close));
+      await tester.pump();
+      expect(game.menus, isEmpty);
+      expect(find.text('继续故事'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    } finally {
+      await tester.pumpWidget(const SizedBox.shrink());
+      model.dispose();
+    }
+  });
+
   test('最后一件装备穿上后移出装备列表，换下的旧装备返回列表', () {
     final game = engine();
     // 采用真实武器，经过与键盘相同的物品、人物菜单确认链。

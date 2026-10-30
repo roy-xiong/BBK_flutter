@@ -652,6 +652,13 @@ final class GameEngine {
       moneyFarm.stop();
       navigation.cancel();
     }
+    // 标题/开场页也可打开读档框；菜单必须先接收A/B和方向键，防止空档位
+    // 无法退出、再次确认反而叠出新的读档框。关闭后仍返回原有标题状态。
+    if (menus.isNotEmpty) {
+      _menuKey(key, down);
+      render();
+      return;
+    }
     if (screen == 'intro') {
       if (down && key == GameKey.cancel) {
         screen = 'title';
@@ -670,11 +677,6 @@ final class GameEngine {
           openSaveMenu(load: true);
         }
       }
-      render();
-      return;
-    }
-    if (menus.isNotEmpty) {
-      _menuKey(key, down);
       render();
       return;
     }
