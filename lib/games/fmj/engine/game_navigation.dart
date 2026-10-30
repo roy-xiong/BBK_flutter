@@ -648,6 +648,14 @@ final class GameNavigation {
       });
       // 先建立结果监听，避免子隔离区快速完成或取消时遗失返回值。
       final future = worker.result.future;
+      final state = _capture();
+      // 只在作弊的客栈往返规划副本中忽略关闭标记。真实旗标不变，实际入场
+      // 由GameMoneyFarm跳入原战斗分支；普通一键直达仍完整遵守原剧情条件。
+      if (game.moneyFarm.active &&
+          goal.scriptId == '7:2' &&
+          game.flags.contains(1117)) {
+        state.flags.remove(221);
+      }
       try {
         final isolate = await Isolate.spawn(
           _planNavigation,
@@ -655,7 +663,7 @@ final class GameNavigation {
             game.data.maps,
             game.data.scripts,
             Map.of(game.inventory),
-            _capture(),
+            state,
             goal,
             worker.port.sendPort,
           ),

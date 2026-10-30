@@ -284,7 +284,8 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                   double informationHeight(double width) =>
                       ModernGameView.informationHeight(
                         width,
-                        members: game?.battle == null
+                        members:
+                            game?.battle == null && game?.menus.isEmpty == true
                             ? (game?.players.length ?? 0)
                             : 0,
                       );

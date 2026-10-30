@@ -62,7 +62,7 @@
       "source": "lib/engine/game_navigation.dart",
       "destination": "lib/games/fmj/engine/game_navigation.dart",
       "sourceSha256": "90d7de90e1fe0fcd50707ae9d9076690682f754a6bb6671b6883cd0580dee2dc",
-      "importedSha256": "c9d947a24dbba8d2be78739c7135e074a7b455518234b6e463388396d6fa3dc6"
+      "importedSha256": "43e08e0e9982788222cbbd970377c67d10ebf4e368b0ee1e54dc78d854d1e854"
     },
     {
       "game": "fmj",
@@ -125,7 +125,7 @@
       "source": "lib/ui/game_page.dart",
       "destination": "lib/games/fmj/ui/game_page.dart",
       "sourceSha256": "63257197b764f9b0a967dd0105050b443fb5c5b8b1a356ac8cc39fd9077b02ee",
-      "importedSha256": "14b0044663ebb7065b3b3cbd48ba6c7373a590a82c2e578fbbc69288e8ff92ff"
+      "importedSha256": "3aca15684a857e3be316c14f002de2f8b01ededcd5c195cb8fa07f30a56ce76b"
     },
     {
       "game": "fmj",
@@ -160,7 +160,7 @@
       "source": "lib/ui/modern_game_view.dart",
       "destination": "lib/games/fmj/ui/modern_game_view.dart",
       "sourceSha256": "7fead2e2d569c14ca9d2d9c012124c82b450b5e1e0c75310b0bc47eb495d45c0",
-      "importedSha256": "73e8e0e80f7411fab7a1ec2a6e502d5139955db924515354fe429bb82cd006e5"
+      "importedSha256": "e17182fe7583e0c203b99da142c19adb6af8dc7e3a62038392faafc37d8f103c"
     },
     {
       "game": "fmj",
@@ -2219,7 +2219,7 @@
     {
       "game": "fmj",
       "destination": "lib/games/fmj/engine/game_money_farm.dart",
-      "importedSha256": "5270cf425002466b6f9b3a4df54353eba088fc7142058b728fea49204a1de0f2",
+      "importedSha256": "94b60eb06a95cfd378978231d0ee0b6c53cc44c6061c29cd1c088120efd25b3e",
       "approval": "用户本轮要求：统一人物与可取消刷钱循环"
     },
     {
@@ -3484,6 +3484,30 @@
       "previousImportedSha256": "db1968ab49fa56ad4342da6724b1ff6b0ee6739d2990fd1744f5c2c036ed3028",
       "currentSha256": "5270cf425002466b6f9b3a4df54353eba088fc7142058b728fea49204a1de0f2",
       "reason": "定向反馈修订：细化战斗效果、20珠批量刷钱、关闭门面和白无常身份、跨平台常亮及小屏状态/控制布局"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_navigation.dart",
+      "previousImportedSha256": "c9d947a24dbba8d2be78739c7135e074a7b455518234b6e463388396d6fa3dc6",
+      "currentSha256": "43e08e0e9982788222cbbd970377c67d10ebf4e368b0ee1e54dc78d854d1e854",
+      "reason": "回归修正：作弊客栈导航副本及实际入场同时支持关闭后重复战斗，菜单展开时恢复紧凑信息栏"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_page.dart",
+      "previousImportedSha256": "14b0044663ebb7065b3b3cbd48ba6c7373a590a82c2e578fbbc69288e8ff92ff",
+      "currentSha256": "3aca15684a857e3be316c14f002de2f8b01ededcd5c195cb8fa07f30a56ce76b",
+      "reason": "回归修正：作弊客栈导航副本及实际入场同时支持关闭后重复战斗，菜单展开时恢复紧凑信息栏"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_game_view.dart",
+      "previousImportedSha256": "73e8e0e80f7411fab7a1ec2a6e502d5139955db924515354fe429bb82cd006e5",
+      "currentSha256": "e17182fe7583e0c203b99da142c19adb6af8dc7e3a62038392faafc37d8f103c",
+      "reason": "回归修正：作弊客栈导航副本及实际入场同时支持关闭后重复战斗，菜单展开时恢复紧凑信息栏"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_money_farm.dart",
+      "previousImportedSha256": "5270cf425002466b6f9b3a4df54353eba088fc7142058b728fea49204a1de0f2",
+      "currentSha256": "94b60eb06a95cfd378978231d0ee0b6c53cc44c6061c29cd1c088120efd25b3e",
+      "reason": "回归修正：作弊客栈导航副本及实际入场同时支持关闭后重复战斗，菜单展开时恢复紧凑信息栏"
     }
   ]
 }

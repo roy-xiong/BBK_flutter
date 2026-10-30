@@ -206,8 +206,12 @@ final class GameMoneyFarm {
         game.flags.contains(1117) &&
         game.flags.contains(221) &&
         cursor?.running == true &&
-        cursor!.script.commands.elementAtOrNull(cursor.pointer)?.address ==
-            103) {
+        const {93, 103}.contains(
+          cursor!.script.commands.elementAtOrNull(cursor.pointer)?.address,
+        )) {
+      game.sceneName = cursor.script.commands
+          .firstWhere((c) => c.opcode == 54)
+          .string;
       game.jump(114);
     }
     if (cursor?.running == true) return;

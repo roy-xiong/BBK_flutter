@@ -35,7 +35,9 @@ final class ModernGameView extends StatelessWidget {
       final infoHeight = math.min(
         informationHeight(
           constraints.maxWidth,
-          members: game.battle == null ? game.players.length : 0,
+          members: game.battle == null && game.menus.isEmpty
+              ? game.players.length
+              : 0,
         ),
         math.max(0.0, constraints.maxHeight - 64),
       );
@@ -132,7 +134,7 @@ final class _WorldInformation extends StatelessWidget {
                     if (battle != null) line('战斗 · 第 ${battle.round + 1} 回合'),
                   ],
                 ),
-                if (battle == null && members.isNotEmpty)
+                if (battle == null && game.menus.isEmpty && members.isNotEmpty)
                   Expanded(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
