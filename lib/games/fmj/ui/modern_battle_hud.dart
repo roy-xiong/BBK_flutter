@@ -6,6 +6,7 @@ import 'game_view_model.dart';
 import 'modern_art.dart';
 import 'modern_scene.dart';
 import 'party_resource_color.dart';
+import 'modern_enemy_health.dart';
 
 const _ink = Color(0xff183431),
     _gold = Color(0xffd6bb79),
@@ -37,7 +38,28 @@ final class ModernBattleHud extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => FittedBox(
+  Widget build(BuildContext context) => LayoutBuilder(
+    builder: (context, constraints) {
+      final small = constraints.maxWidth < 500;
+      final scale = constraints.maxWidth / (small ? 390 : 960);
+      return Stack(
+        fit: StackFit.expand,
+        children: [
+          _battleControls(),
+          Positioned(
+            left: (small ? 6.0 : 14.0) * scale,
+            top: (small ? 6.0 : 14.0) * scale,
+            child: ModernEnemyHealth(
+              battle: battle,
+              sceneWidth: constraints.maxWidth,
+            ),
+          ),
+        ],
+      );
+    },
+  );
+
+  Widget _battleControls() => FittedBox(
     fit: BoxFit.contain,
     alignment: Alignment.bottomCenter,
     child: SizedBox(

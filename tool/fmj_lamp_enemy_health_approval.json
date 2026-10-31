@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-31",
+  "source": "user-message",
+  "approval": "全部认可",
+  "preview": "伏魔记-灯洞入口与敌方血量-审核预览-V1-20261031.html",
+  "previewSha256": "1a7aab6ffc1baa3294ea8cc61f2fadec665e02f89a4c133fe1f53a9b9092f2b2",
+  "baselineRevision": "521d40e94c372dfd7e170762ca3e079e576e00a1",
+  "items": 15,
+  "lampEntrances": 8,
+  "lampExits": 8,
+  "battleCases": 6,
+  "scope": [
+    "恢复伏魔洞八个37号事件格入口显示",
+    "四张复用灯洞地图中的八个返回楼梯",
+    "左上角敌方气血与选中、归零及手机窄屏显示"
+  ],
+  "animationPlacement": "尚未调整，本次先核对真实战斗HUD遮挡",
+  "supplement": {
+    "source": "user-message",
+    "text": "去灯洞1，打完护灯兽之后，走出口，会跳到伏魔洞那一层，其实这里应该是有个出口的ui",
+    "scope": "伏魔洞左右两侧的八个返程洞口，原图块63；与中央原图块37的八个入口分别恢复"
+  }
+}

@@ -740,7 +740,12 @@ final class _SceneGeometry {
     decorations = (art.decorations[map.id] ?? const <SceneBuilding>[])
         .where((b) => art.sprites.containsKey('${b.key}/0'))
         .toList();
-    foreground = [...buildings, ...decorations.where((b) => !b.floor)];
+    foreground = [
+      ...buildings,
+      ...decorations.where((b) => !b.floor),
+      ...ModernWorldObjects.lampEntrances(map),
+      ...ModernWorldObjects.lampReturnExits(map),
+    ];
     Iterable<int> coveredBy(SceneBuilding b) =>
         b.cells ??
         [

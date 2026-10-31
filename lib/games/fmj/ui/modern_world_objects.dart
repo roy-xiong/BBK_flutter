@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import '../data/game_data.dart';
 import '../engine/game_actor.dart';
 import '../engine/game_engine.dart';
 import 'modern_art.dart';
@@ -7,6 +8,40 @@ import 'modern_art.dart';
 /// 原机关的独立美术层。位置和显示状态始终由原 NPC 决定，图形不创建交互区域。
 final class ModernWorldObjects {
   const ModernWorldObjects._();
+
+  /// 八个灯洞入口来自伏魔洞原37号图块及2—9号事件，不能按整套迷宫图块恢复旧直角。
+  /// 完整高清楼梯在前景绘制，尺寸与已认可预览一致；不修改地图、事件或碰撞格。
+  static List<SceneBuilding> lampEntrances(GameMap map) {
+    if (map.id != '3:1' || map.tiles != 8) return const [];
+    return [
+      for (var y = 0; y < map.height; y++)
+        for (var x = 0; x < map.width; x++)
+          if (map.cell(x, y) & 127 == 37 &&
+              map.event(x, y) >= 2 &&
+              map.event(x, y) <= 9)
+            SceneBuilding(
+              'review-v14:cave-stairs',
+              x,
+              y,
+              1,
+              1,
+              visualWidth: 1.32,
+              visualHeight: 1.32,
+            ),
+    ];
+  }
+
+  /// 八个灯洞返程口在伏魔洞左右两侧，由原63号图块标记；与中央37号入口不同。
+  /// 四个洞口每侧逐格排列，保持一格高，不能扩大成互相覆盖的楼梯或移动返程落点。
+  static List<SceneBuilding> lampReturnExits(GameMap map) {
+    if (map.id != '3:1' || map.tiles != 8) return const [];
+    return [
+      for (var y = 0; y < map.height; y++)
+        for (var x = 0; x < map.width; x++)
+          if (map.cell(x, y) & 127 == 63)
+            SceneBuilding('building:cave-mouth', x, y, 1, 1),
+    ];
+  }
 
   static bool draw(
     Canvas canvas,
@@ -109,15 +144,16 @@ final class ModernWorldObjects {
       );
       return true;
     }
-    if (actor.sprite == 11 && game.map?.id == '3:2') {
+    if (actor.sprite == 11 &&
+        const {'3:2', '3:3', '3:4', '3:5'}.contains(game.map?.id)) {
       return art.drawObject(
         canvas,
         'review-v14:cave-stairs/0',
         Rect.fromLTWH(
-          point.dx - tile * .12,
-          point.dy - tile * .35,
-          tile * 1.25,
-          tile * 1.35,
+          point.dx - tile * .2,
+          point.dy - tile * .4,
+          tile * 1.4,
+          tile * 1.4,
         ),
         paint,
       );

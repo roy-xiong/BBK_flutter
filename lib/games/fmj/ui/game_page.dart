@@ -503,11 +503,12 @@ final class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                     onDoubleTap: portrait
                         ? null
                         : () {
-                            if (mounted)
+                            if (mounted) {
                               setState(
                                 () => _landscapeToolsVisible =
                                     !_landscapeToolsVisible,
                               );
+                            }
                           },
                     child: Stack(
                       fit: StackFit.expand,
