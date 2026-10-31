@@ -77,7 +77,16 @@ void main() {
 
   for (final keyboard in [true, false]) {
     testWidgets('${keyboard ? '回车' : '虚拟A'}无需按方向键即可使用万能钥匙', (tester) async {
-      final game = engine(), script = data.scripts['14:9']!;
+      tester.view.physicalSize = const Size(390, 844);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+      final game = engine()
+        ..preferences['manualLayout'] = true
+        ..preferences['portraitControls'] = true;
+      final script = data.scripts['14:9']!;
       open(game, script, script.commands.indexWhere((c) => c.opcode == 31));
       final directory = Directory.systemTemp.createTempSync('fmj-use-confirm-');
       final repository = SaveRepository(directory: directory);

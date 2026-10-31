@@ -164,15 +164,21 @@ void main() {
         ),
       );
       await tester.pump();
-      expect(find.text('一键前往当前目标'), findsOneWidget);
-      expect(find.text('B'), findsOneWidget);
-      expect(find.text('A'), findsOneWidget);
       if (size.height > size.width) {
+        expect(
+          find.byKey(const ValueKey('fmj-quick-travel-large')),
+          findsOneWidget,
+        );
+        expect(find.text('B'), findsOneWidget);
+        expect(find.text('A'), findsOneWidget);
         expect(find.byType(PortraitGameControlsPanel), findsOneWidget);
         expect(find.text('SELECT'), findsOneWidget);
         expect(find.text('START'), findsOneWidget);
       } else {
-        expect(find.byType(GameControlsOverlay), findsOneWidget);
+        expect(find.byType(GameControlsOverlay), findsNothing);
+        expect(find.byType(PortraitGameControlsPanel), findsNothing);
+        expect(find.text('A'), findsNothing);
+        expect(find.text('B'), findsNothing);
       }
       await capture(tester, 'controls-${size.width.toInt()}');
     }

@@ -59,10 +59,18 @@ void main() {
   });
 
   testWidgets('菜单固定在独立顶栏，地图不被遮挡，刷钱仅在作弊面板', (tester) async {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(() {
+      tester.view.resetPhysicalSize();
+      tester.view.resetDevicePixelRatio();
+    });
     final g = create(),
         model = GameViewModel()
           ..engine = create()
           ..loading = false;
+    g.preferences['manualLayout'] = true;
+    g.preferences['portraitControls'] = true;
     model.engine = g;
     await tester.runAsync(model.prepareModernArt);
     try {

@@ -29,26 +29,33 @@ void main() {
     );
   }
 
-  test('短按优先弯月刀，耗尽后复用备用武器，再耗尽时重新选择', () {
+  test('首次短按选武器，之后使用上次所选，耗尽时重新选择', () {
     final g = game()
       ..addGoods('7:19')
       ..addGoods('7:9', 2);
-    g.preferredThrowWeapon = '7:9';
     var b = battle(g)..quickThrow();
-    expect(b.queue.single.resource, '7:19');
-    expect(g.inventory['7:19'], 1, reason: '排队阶段不能提前消耗');
-    expect(g.preferredThrowWeapon, '7:9', reason: '优先弯月刀不能覆盖备用选择');
-    g.useGoods('7:19');
-    b = battle(g)..quickThrow();
+    expect(b.queue, isEmpty);
+    expect(g.menus.last.ids.toSet(), {'7:19', '7:9'});
+    g.menus.last.selected = g.menus.last.ids.indexOf('7:9');
+    g.press(GameKey.confirm);
     expect(b.queue.single.resource, '7:9');
+    expect(g.preferredThrowWeapon, '7:9');
+    expect(g.inventory['7:9'], 2, reason: '排队阶段不能提前消耗');
+    b = battle(g)..quickThrow();
+    expect(b.queue.single.resource, '7:9', reason: '背包有弯月刀也不得替换上次所选');
     expect(b.queue.single.targets, hasLength(3));
     g.useGoods('7:9', 2);
+    b = battle(g)..quickThrow();
+    expect(g.menus.last.ids, ['7:19']);
+    expect(b.queue, isEmpty);
+    g.press(GameKey.confirm);
+    expect(b.queue.single.resource, '7:19');
+    expect(g.preferredThrowWeapon, '7:19');
+    g.useGoods('7:19');
     g.addGoods('7:1');
     b = battle(g)..quickThrow();
-    expect(g.menus.last.ids, ['7:1']);
     g.press(GameKey.confirm);
     expect(g.preferredThrowWeapon, '7:1');
-    expect(b.queue.single.resource, '7:1');
     expect(b.queue.single.targets, hasLength(1));
   });
 
@@ -73,7 +80,9 @@ void main() {
   });
 
   test('同回合预留最后一把武器，忙碌、剧情和禁投状态不重复投掷', () {
-    final g = game()..addGoods('7:19');
+    final g = game()
+      ..addGoods('7:19')
+      ..preferredThrowWeapon = '7:19';
     final b = battle(g)..quickThrow();
     b.quickThrow();
     expect(b.queue, hasLength(1));
@@ -159,7 +168,9 @@ void main() {
   });
 
   test('自动战斗开启时快捷投掷不会在下一帧被普攻覆盖', () {
-    final g = game()..addGoods('7:19');
+    final g = game()
+      ..addGoods('7:19')
+      ..preferredThrowWeapon = '7:19';
     g.preferences['autoBattle'] = true;
     final b = battle(g)..quickThrow();
     for (var i = 0; i < 4; i++) {

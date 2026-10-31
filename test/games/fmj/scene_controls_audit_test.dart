@@ -95,7 +95,7 @@ void main() {
       ),
     );
     final touch = await tester.startGesture(
-      tester.getCenter(find.text('一键前往当前目标')),
+      tester.getCenter(find.byKey(const ValueKey('fmj-quick-travel-large'))),
     );
     await tester.pump(const Duration(milliseconds: 150));
     expect(taps, 1);

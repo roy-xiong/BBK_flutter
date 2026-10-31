@@ -46,7 +46,7 @@ void main() {
     expect(pixels, before, reason: '不修改原版黑白位图');
   });
 
-  testWidgets('小屏快捷前往保持大触控区域，短按与长按入口仍可用', (tester) async {
+  testWidgets('小屏圆形快捷前往保留真实触控区，短按与长按入口仍可用', (tester) async {
     tester.view.physicalSize = const Size(320, 330);
     tester.view.devicePixelRatio = 1;
     final inputs = <GameControl>[];
@@ -57,8 +57,8 @@ void main() {
     );
     final button = find.byKey(const ValueKey('fmj-quick-travel-large'));
     final rect = tester.getRect(button);
-    expect(rect.height, greaterThanOrEqualTo(56));
-    expect(rect.width, greaterThanOrEqualTo(250));
+    expect(rect.height, greaterThanOrEqualTo(46));
+    expect(rect.width, closeTo(rect.height, .01));
     await tester.tap(button);
     await tester.pump();
     expect(inputs, [GameControl.quickTravel]);

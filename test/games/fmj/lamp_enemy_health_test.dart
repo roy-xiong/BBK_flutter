@@ -85,8 +85,9 @@ void main() {
       g.update();
       if (g.cursor?.script.id == '2:18' &&
           g.cursor?.running == false &&
-          g.operation == null)
+          g.operation == null) {
         break;
+      }
     }
     expect(g.error, isEmpty);
     expect(g.map?.id, '3:1');

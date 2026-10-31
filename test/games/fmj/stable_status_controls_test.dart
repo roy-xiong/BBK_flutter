@@ -78,7 +78,9 @@ void main() {
       'fmj-quick-travel-large',
     ];
     Map<String, Rect> geometry() => {
-      for (final key in keys) key: tester.getRect(find.byKey(ValueKey(key))),
+      for (final key in keys)
+        if (find.byKey(ValueKey(key)).evaluate().isNotEmpty)
+          key: tester.getRect(find.byKey(ValueKey(key))),
     };
     void checkMembers(int count) {
       final band = tester.getRect(
@@ -250,6 +252,10 @@ void main() {
           ),
         );
         await tester.pump();
+        expect(
+          find.byKey(const ValueKey('fmj-quick-travel-large')),
+          size.width > size.height ? findsNothing : findsOneWidget,
+        );
         final before = geometry();
         final beforeColumns = columns();
         checkMembers(3);
@@ -342,14 +348,21 @@ void main() {
         await tester.pump();
         expect(geometry(), before, reason: '$size 入队后操作区必须原位');
         expect(columns(), beforeColumns);
-        final button = tester.getRect(
-          find.byKey(const ValueKey('fmj-wide-view-button')),
-        );
-        final label = tester.getRect(
-          find.text(game.wide ? '远视野 2×' : '原视野 1×'),
-        );
-        expect(label.left - button.left, greaterThanOrEqualTo(6));
-        expect(button.right - label.right, greaterThanOrEqualTo(6));
+        if (size.width <= size.height) {
+          final button = tester.getRect(
+            find.byKey(const ValueKey('fmj-wide-view-button')),
+          );
+          final label = tester.getRect(
+            find.text(game.wide ? '远视野 2×' : '原视野 1×'),
+          );
+          expect(label.left - button.left, greaterThanOrEqualTo(6));
+          expect(button.right - label.right, greaterThanOrEqualTo(6));
+        } else {
+          expect(
+            find.byKey(const ValueKey('fmj-wide-view-button')),
+            findsNothing,
+          );
+        }
         expect(tester.takeException(), isNull);
       }
     } finally {

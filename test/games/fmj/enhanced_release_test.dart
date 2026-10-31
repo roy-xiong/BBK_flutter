@@ -560,32 +560,21 @@ void main() {
       expect(scene.bottom, closeTo(information.top, .01));
       expect(scene.width / scene.height, closeTo(5 / 3, .01));
       if (size.width > size.height) {
-        final viewport = tester.getRect(
-          find.byKey(const ValueKey('game-surface-layout')),
-        );
-        for (final label in [
-          '投掷\n弯月刀',
-          '技能',
-          '合击',
-          '选择关卡',
-          '奔跑 1×',
-          '自动战斗 关',
-          '远视野 2×',
-          'A',
-          'B',
+        expect(find.byType(AppBar), findsNothing);
+        for (final key in [
+          'fmj-quick-travel-large',
+          'fmj-battle-throw',
+          'fmj-battle-magic',
+          'fmj-battle-coop',
         ]) {
           expect(
-            viewport.overlaps(
-              tester.getRect(
-                label == '合击'
-                    ? find.byKey(const ValueKey('fmj-battle-coop'))
-                    : find.text(label),
-              ),
-            ),
-            isFalse,
-            reason: '新版画面不能被原版 $label 遮住',
+            find.byKey(ValueKey(key)),
+            findsNothing,
+            reason: '横屏全屏时操作按钮必须隐藏',
           );
         }
+        expect(find.text('A'), findsNothing);
+        expect(find.text('B'), findsNothing);
       }
       final boundary =
           tester.renderObject(find.byKey(const Key('full-release')))
