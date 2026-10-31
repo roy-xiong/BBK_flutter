@@ -43,7 +43,8 @@ final class ModernEnemyHealth extends StatelessWidget {
           vertical: (small ? 5.0 : 8.0) * scale,
         ),
         decoration: BoxDecoration(
-          color: const Color(0xe9162e2d),
+          // 用户确认敌我信息背景均为45%不透明度；前景文字、头像和血条不整体淡化。
+          color: const Color(0x73162e2d),
           border: Border.all(
             color: const Color(0xffbc9f65),
             width: (small ? .7 : 1.0) * scale,

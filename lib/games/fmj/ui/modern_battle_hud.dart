@@ -77,7 +77,9 @@ final class ModernBattleHud extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Color(0xf2223f38), Color(0xff122d2a)],
+                  // 底层约22.5%，叠加约29%的角色卡片后，合成背景约45%。
+                  // 只调整背景填充，不使用Opacity包裹文字、头像或血条。
+                  colors: [Color(0x39223f38), Color(0x39122d2a)],
                 ),
                 border: Border(top: BorderSide(color: _gold, width: 1.4)),
               ),
@@ -278,7 +280,7 @@ final class _PartyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => DecoratedBox(
     decoration: BoxDecoration(
-      color: active ? const Color(0xff3b5140) : const Color(0xff203d35),
+      color: active ? const Color(0x4a3b5140) : const Color(0x4a203d35),
       border: Border.all(
         color: active ? _gold : const Color(0xff60715a),
         width: active ? 1.5 : .7,

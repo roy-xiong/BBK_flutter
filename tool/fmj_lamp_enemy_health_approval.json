@@ -19,5 +19,13 @@
     "source": "user-message",
     "text": "去灯洞1，打完护灯兽之后，走出口，会跳到伏魔洞那一层，其实这里应该是有个出口的ui",
     "scope": "伏魔洞左右两侧的八个返程洞口，原图块63；与中央原图块37的八个入口分别恢复"
+  },
+  "translucencyApproval": {
+    "date": "2026-10-31",
+    "source": "user-message",
+    "text": "看了，无论我方还是敌方，都45%，然后修改，提交，打包全平台。",
+    "backgroundOpacity": 0.45,
+    "foregroundOpacity": 1.0,
+    "preview": "伏魔记-战斗面板半透明-审核预览-V1-20261031.html"
   }
 }
