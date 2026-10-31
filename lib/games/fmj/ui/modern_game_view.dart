@@ -760,7 +760,14 @@ final class _NativeMenuState extends State<_NativeMenu> {
   GameMenu? _observed;
   int _selected = -1, _page = 0, _revision = -1;
   bool get _detailed => ['inventory', 'magic'].contains(widget.menu.kind);
-  bool get _compact => widget.maxHeight < 200;
+  bool get _equipmentSelection =>
+      widget.menu.kind == 'inventory' && widget.menu.mode == 'equip';
+
+  /// V4 只压缩装备选择框；场景、状态栏与控制面板仍占原区域。
+  double get _menuMaxHeight => _equipmentSelection
+      ? math.min(widget.maxHeight * 78 / 90, 340.0)
+      : widget.maxHeight;
+  bool get _compact => _menuMaxHeight < 200;
   double get _titleHeight => (_compact ? 24 : 28) * widget.scale;
 
   /// 每行高度由菜单实际可用高度决定；主菜单四项完整可见，长列表继续滚动。
@@ -775,7 +782,7 @@ final class _NativeMenuState extends State<_NativeMenu> {
         ? 8
         : widget.menu.items.length;
     final visibleRows = widget.menu.kind == 'main' ? 4 : count.clamp(1, 5);
-    return ((widget.maxHeight - header) / visibleRows).clamp(
+    return ((_menuMaxHeight - header) / visibleRows).clamp(
       18.0,
       42.0 * widget.scale,
     );
@@ -947,6 +954,15 @@ final class _NativeMenuState extends State<_NativeMenu> {
               ),
             ),
             onTap: () => widget.model.action((g) {
+              // 先切换选中项以查看同页对比；再次点击选中项或按 A 才进入穿戴选人。
+              if (_equipmentSelection && menu.selected != i) {
+                if (!identical(g.menus.lastOrNull, menu)) return;
+                g.refreshMenus();
+                if (menu.ids.elementAtOrNull(i) != expectedId) return;
+                menu.selected = i;
+                menu.page = 0;
+                return;
+              }
               g.selectMenu(menu, i, expectedId: expectedId);
             }),
           );
@@ -969,6 +985,145 @@ final class _NativeMenuState extends State<_NativeMenu> {
           : menu.kind == 'magic'
           ? '耗真气：${record.byte(4)}'
           : '价格：${menu.mode == 'buy' ? record.word(18) : record.word(20)}\n${menu.mode == 'buy' ? '金钱：${game.money}' : '数量：${game.inventory[id] ?? 0}'}';
+      if (_equipmentSelection && id != null) {
+        final comparisons = game.equipmentComparisons(
+          id,
+          owner: menu.equipmentOwner,
+          slot: menu.equipmentSlot,
+        );
+        final notice = game.equipmentSelectionNotice(
+          id,
+          owner: menu.equipmentOwner,
+          slot: menu.equipmentSlot,
+        );
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(flex: 2, child: list()),
+            VerticalDivider(
+              width: 14 * scale,
+              color: _gold.withValues(alpha: .35),
+            ),
+            Expanded(
+              flex: 3,
+              child: SingleChildScrollView(
+                key: const ValueKey('equipment-comparison-details'),
+                controller: _details,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      meta.replaceAll('\n', '  '),
+                      style: TextStyle(
+                        color: _paper,
+                        fontSize: 10.5 * scale,
+                        height: 1.25,
+                      ),
+                    ),
+                    if (notice.isNotEmpty)
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 6 * scale),
+                        child: Text(
+                          notice,
+                          style: TextStyle(color: _gold, fontSize: 11 * scale),
+                        ),
+                      ),
+                    for (final comparison in comparisons)
+                      Padding(
+                        key: ValueKey(
+                          'equip-comparison-${comparison.player.index}',
+                        ),
+                        padding: EdgeInsets.only(top: 6 * scale),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              comparison.player.name,
+                              style: TextStyle(
+                                color: _gold,
+                                fontSize: 11 * scale,
+                                height: 1.3,
+                              ),
+                            ),
+                            for (final change in comparison.changes)
+                              Text.rich(
+                                key: ValueKey(
+                                  'equip-change-${comparison.player.index}-${change.$1}',
+                                ),
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text:
+                                          '${change.$1} ${change.$2} → ${change.$3}  ',
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          '${change.$3 > change.$2 ? '+' : ''}${change.$3 - change.$2}',
+                                      style: TextStyle(
+                                        color: change.$3 > change.$2
+                                            ? const Color(0xff93dfb6)
+                                            : const Color(0xffffaaa3),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                style: TextStyle(
+                                  color: _paper,
+                                  fontSize: 10.5 * scale,
+                                  height: 1.35,
+                                ),
+                              ),
+                            for (final effect in comparison.addedEffects)
+                              Text(
+                                '新增：$effect',
+                                style: TextStyle(
+                                  color: const Color(0xff93dfb6),
+                                  fontSize: 10.5 * scale,
+                                  height: 1.3,
+                                ),
+                              ),
+                            for (final effect in comparison.removedEffects)
+                              Text(
+                                '移除：$effect',
+                                style: TextStyle(
+                                  color: const Color(0xffffaaa3),
+                                  fontSize: 10.5 * scale,
+                                  height: 1.3,
+                                ),
+                              ),
+                            if (comparison.changes.isEmpty &&
+                                comparison.addedEffects.isEmpty &&
+                                comparison.removedEffects.isEmpty)
+                              Text(
+                                '属性与效果无变化',
+                                style: TextStyle(
+                                  color: _paper.withValues(alpha: .7),
+                                  fontSize: 10.5 * scale,
+                                  height: 1.3,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    Divider(
+                      color: _gold.withValues(alpha: .2),
+                      height: 12 * scale,
+                    ),
+                    Text(
+                      description,
+                      style: TextStyle(
+                        color: const Color(0xffcec6ac),
+                        fontSize: 11 * scale,
+                        height: 1.3,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        );
+      }
       return Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -1045,74 +1200,80 @@ final class _NativeMenuState extends State<_NativeMenu> {
       );
     }
 
-    return _Plaque(
-      child: SizedBox(
-        width: (_detailed ? 400 : 320) * scale,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: _gold,
-                      letterSpacing: 1,
-                      fontSize: 14 * scale,
-                      fontWeight: FontWeight.w600,
+    return ConstrainedBox(
+      key: _equipmentSelection
+          ? const ValueKey('equipment-selection-frame')
+          : null,
+      constraints: BoxConstraints(maxHeight: _menuMaxHeight),
+      child: _Plaque(
+        child: SizedBox(
+          width: (_detailed ? 400 : 320) * scale,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: _gold,
+                        letterSpacing: 1,
+                        fontSize: 14 * scale,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
-                ),
-                IconButton(
-                  // Material 3 默认仍会把小图标的触控区域撑到48dp；菜单已提供
-                  // 整行点击入口，这里必须使用指定尺寸，避免挤掉第四个菜单项。
-                  style: const ButtonStyle(
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  constraints: BoxConstraints.tightFor(
-                    width: 28 * scale,
-                    height: _titleHeight,
-                  ),
-                  padding: EdgeInsets.zero,
-                  onPressed: () => widget.model.action((g) {
-                    if (identical(g.menus.lastOrNull, menu)) {
-                      g.press(GameKey.cancel);
-                    }
-                  }),
-                  icon: Icon(Icons.close, size: 18 * scale, color: _paper),
-                  visualDensity: VisualDensity.compact,
-                ),
-              ],
-            ),
-            if (menu.kind == 'main')
-              Padding(
-                padding: const EdgeInsets.only(bottom: 4),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    '金钱：${game.money}',
-                    style: TextStyle(
-                      color: _paper,
-                      fontSize: 12 * scale,
-                      height: 1.2,
+                  IconButton(
+                    // Material 3 默认仍会把小图标的触控区域撑到48dp；菜单已提供
+                    // 整行点击入口，这里必须使用指定尺寸，避免挤掉第四个菜单项。
+                    style: const ButtonStyle(
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
+                    constraints: BoxConstraints.tightFor(
+                      width: 28 * scale,
+                      height: _titleHeight,
+                    ),
+                    padding: EdgeInsets.zero,
+                    onPressed: () => widget.model.action((g) {
+                      if (identical(g.menus.lastOrNull, menu)) {
+                        g.press(GameKey.cancel);
+                      }
+                    }),
+                    icon: Icon(Icons.close, size: 18 * scale, color: _paper),
+                    visualDensity: VisualDensity.compact,
                   ),
-                ),
+                ],
               ),
-            if (items.isEmpty)
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  menu.kind == 'magic' ? '没有法术' : '没有物品',
-                  style: TextStyle(color: _paper, fontSize: 13 * scale),
+              if (menu.kind == 'main')
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      '金钱：${game.money}',
+                      style: TextStyle(
+                        color: _paper,
+                        fontSize: 12 * scale,
+                        height: 1.2,
+                      ),
+                    ),
+                  ),
                 ),
-              )
-            else
-              Flexible(child: body()),
-          ],
+              if (items.isEmpty)
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Text(
+                    menu.kind == 'magic' ? '没有法术' : '没有物品',
+                    style: TextStyle(color: _paper, fontSize: 13 * scale),
+                  ),
+                )
+              else
+                Flexible(child: body()),
+            ],
+          ),
         ),
       ),
     );

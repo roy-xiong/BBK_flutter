@@ -11,6 +11,8 @@ final class GameMenu {
     this.onSelect,
     this.onRefresh,
     this.purchase,
+    this.equipmentOwner,
+    this.equipmentSlot,
   });
   final String kind;
   final List<String> items;
@@ -20,6 +22,10 @@ final class GameMenu {
   final void Function(int index)? onSelect;
   final void Function(GameMenu menu)? onRefresh;
   final GamePurchase? purchase;
+
+  /// 从穿戴页进入时固定人物与部位；背包入口为空，按当前队伍逐人比较。
+  final GameActor? equipmentOwner;
+  final int? equipmentSlot;
   int selected = 0, page = 0, revision = 0;
 }
 
@@ -31,6 +37,23 @@ final class GamePurchase {
   final bool selling;
   int quantity = 0, limit = 0;
   int get total => quantity * unitPrice;
+}
+
+/// 只读换装投影；变化项使用「属性名、当前值、更换后值」，不提前消费背包或触发标记。
+final class EquipmentComparison {
+  EquipmentComparison(
+    this.player,
+    this.slot,
+    Iterable<(String, int, int)> changes,
+    Iterable<String> added,
+    Iterable<String> removed,
+  ) : changes = List.unmodifiable(changes),
+      addedEffects = List.unmodifiable(added),
+      removedEffects = List.unmodifiable(removed);
+  final GameActor player;
+  final int slot;
+  final List<(String, int, int)> changes;
+  final List<String> addedEffects, removedEffects;
 }
 
 extension GameMenus on GameEngine {
@@ -297,6 +320,8 @@ extension GameMenus on GameEngine {
     void Function(String id)? select,
     List<String>? items,
     List<String> Function()? itemsProvider,
+    GameActor? equipmentOwner,
+    int? equipmentSlot,
   }) {
     final catalog = items == null ? null : List<String>.of(items);
     List<String> currentIds() =>
@@ -347,6 +372,8 @@ extension GameMenus on GameEngine {
       <String>[],
       ids: <String>[],
       mode: mode,
+      equipmentOwner: equipmentOwner,
+      equipmentSlot: equipmentSlot,
       onRefresh: rebuild,
       onSelect: (i) {
         final id = menu.ids.elementAtOrNull(i);
@@ -486,11 +513,126 @@ extension GameMenus on GameEngine {
         record.byte(3) & (1 << (player.index - 1)) != 0;
   }
 
+  /// 与实际换装共用槽位规则，显式更换第一饰品槽时不能自动改投第二槽。
+  int? _equipmentSlot(GameActor p, GameRecord r, int? requested) {
+    const types = [6, 6, 5, 3, 7, 2, 4, 1];
+    var slot = requested ?? types.indexOf(r.byte(0));
+    if (slot < 0 || slot >= types.length || types[slot] != r.byte(0)) {
+      return null;
+    }
+    if (requested == null &&
+        r.byte(0) == 6 &&
+        p.equipment[slot] != null &&
+        p.equipment[1] == null) {
+      slot = 1;
+    }
+    return slot;
+  }
+
+  /// 物品仍保留在列表；此处只筛选可参与对比及确认换装的当前队员。
+  List<GameActor> equipmentCandidates(
+    String id, {
+    GameActor? owner,
+    int? slot,
+  }) {
+    final r = goods(id);
+    if (r == null || (inventory[id] ?? 0) <= 0) return [];
+    return players
+        .where(
+          (p) =>
+              (owner == null || identical(owner, p)) &&
+              canEquip(p, id) &&
+              !p.equipment.contains(id) &&
+              _equipmentSlot(p, r, slot) != null,
+        )
+        .toList();
+  }
+
+  /// 只在右侧无可对比人物时给出一条提示，不能为每名不适用队员重复占行。
+  String equipmentSelectionNotice(String id, {GameActor? owner, int? slot}) {
+    if (equipmentCandidates(id, owner: owner, slot: slot).isNotEmpty) return '';
+    if (!players.any((p) => canEquip(p, id))) return '当前队伍无人可装备';
+    if (owner != null && !canEquip(owner, id)) return '当前人物无法装备';
+    return '适用人物已装备此物品';
+  }
+
+  /// 使用与穿戴完全相同的先卸后装及逐步封顶规则；仅修改临时属性载体。
+  List<EquipmentComparison> equipmentComparisons(
+    String id, {
+    GameActor? owner,
+    int? slot,
+  }) {
+    final r = goods(id);
+    if (r == null) return [];
+    return equipmentCandidates(id, owner: owner, slot: slot).map((p) {
+      final target = _equipmentSlot(p, r, slot)!;
+      final projected = GameActor(p.type, p.index)
+        ..attack = p.attack
+        ..defense = p.defense
+        ..speed = p.speed
+        ..spirit = p.spirit
+        ..luck = p.luck
+        ..maxHp = p.maxHp
+        ..maxMp = p.maxMp;
+      final old = p.equipment[target];
+      final oldRecord = old == null ? null : goods(old);
+      if (oldRecord != null) {
+        _applyEquipmentAttributes(projected, oldRecord, -1);
+      }
+      _applyEquipmentAttributes(projected, r, 1);
+      final equipment = List<String?>.of(p.equipment)..[target] = id;
+      final before = _equipmentEffects(p.equipment),
+          after = _equipmentEffects(equipment);
+      return EquipmentComparison(
+        p,
+        target,
+        [
+          ('攻击', p.attack, projected.attack),
+          ('防御', p.defense, projected.defense),
+          ('身法', p.speed, projected.speed),
+          ('灵力', p.spirit, projected.spirit),
+          ('吉运', p.luck, projected.luck),
+          ('气血上限', p.maxHp, projected.maxHp),
+          ('真气上限', p.maxMp, projected.maxMp),
+        ].where((v) => v.$2 != v.$3),
+        after.difference(before),
+        before.difference(after),
+      );
+    }).toList();
+  }
+
+  /// 按整套装备归并特效，保留另一件防具提供的相同免疫与饰品的合计回复。
+  Set<String> _equipmentEffects(List<String?> equipment) {
+    final result = <String>{};
+    var hp = 0, mp = 0;
+    if (preferences['normalAttackAll'] == true) result.add('普通攻击全体');
+    for (final id in equipment.whereType<String>()) {
+      final r = goods(id);
+      if (r == null) continue;
+      final type = r.byte(0), mask = r.byte(28);
+      if (type == 6) {
+        hp += r.signedByte(23);
+        mp += r.signedByte(22);
+      } else {
+        if (type == 7 && (id == '7:9' || mask & 16 != 0)) result.add('普通攻击全体');
+        for (final status in [(8, '中毒'), (4, '混乱'), (2, '咒封'), (1, '昏眠')]) {
+          if (mask & status.$1 == 0) continue;
+          result.add(
+            type == 7 ? '攻击附带${status.$2}（${r.byte(4)}回合）' : '免疫${status.$2}',
+          );
+        }
+      }
+    }
+    if (hp != 0) result.add('每回合气血${hp > 0 ? '+' : ''}$hp');
+    if (mp != 0) result.add('每回合真气${mp > 0 ? '+' : ''}$mp');
+    return result;
+  }
+
   void selectEquipmentOwner(String id) => _selectPlayer(
     (p) {
       if (equip(p, id)) notice = '已装备 ${goodsName(id)}';
     },
-    allowed: (p) => canEquip(p, id),
+    allowed: (p) => equipmentCandidates(id).contains(p),
     emptyMessage: '当前队伍无人可以装备${goodsName(id)}',
   );
 
@@ -556,12 +698,10 @@ extension GameMenus on GameEngine {
                   const types = [6, 6, 5, 3, 7, 2, 4, 1];
                   openInventory(
                     mode: 'equip',
+                    equipmentOwner: p,
+                    equipmentSlot: slot,
                     itemsProvider: () => inventory.keys
-                        .where(
-                          (id) =>
-                              id.startsWith('${types[slot]}:') &&
-                              canEquip(p, id),
-                        )
+                        .where((id) => id.startsWith('${types[slot]}:'))
                         .toList(),
                     select: (id) => equip(p, id, slot: slot),
                   );
@@ -591,20 +731,9 @@ extension GameMenus on GameEngine {
       notice = '已装备 ${goodsName(id)}';
       return false;
     }
-    const types = [6, 6, 5, 3, 7, 2, 4, 1];
-    final automaticSlot = slot == null;
-    slot ??= types.indexWhere((type) => type == r.byte(0));
-    if (slot < 0 ||
-        slot >= 8 ||
-        types[slot] != r.byte(0) ||
-        fromBag && (inventory[id] ?? 0) <= 0) {
+    slot = _equipmentSlot(p, r, slot);
+    if (slot == null || fromBag && (inventory[id] ?? 0) <= 0) {
       return false;
-    }
-    if (automaticSlot &&
-        r.byte(0) == 6 &&
-        p.equipment[slot] != null &&
-        p.equipment[1] == null) {
-      slot = 1;
     }
     final hp = p.hp, mp = p.mp;
     unequip(p, slot);
@@ -627,7 +756,8 @@ extension GameMenus on GameEngine {
     addGoods(id);
   }
 
-  void _equipmentDelta(GameActor p, GameRecord r, int sign) {
+  /// 属性投影与真正穿戴共用；这里不写库存、免疫、剧情标记或当前气血真气。
+  void _applyEquipmentAttributes(GameActor p, GameRecord r, int sign) {
     final type = r.byte(0);
     if (type != 6) {
       p.maxMp = (p.maxMp + sign * r.signedByte(22)).clamp(0, 999);
@@ -638,6 +768,11 @@ extension GameMenus on GameEngine {
     p.spirit = (p.spirit + sign * r.signedByte(26)).clamp(0, 99);
     p.speed = (p.speed + sign * r.signedByte(27)).clamp(0, 99);
     p.luck = (p.luck + sign * r.signedByte(29)).clamp(0, 99);
+  }
+
+  void _equipmentDelta(GameActor p, GameRecord r, int sign) {
+    final type = r.byte(0);
+    _applyEquipmentAttributes(p, r, sign);
     if (type == 7) {
       if (sign > 0) {
         p.attackStatus = r.byte(28);
