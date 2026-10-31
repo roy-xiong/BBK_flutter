@@ -1272,7 +1272,8 @@ final class GameBattle {
     for (final p in game.players.where((p) => p.alive)) {
       final chain = game.data.record(12, 2, p.index);
       if (chain == null) continue;
-      if (p.level >= chain.byte(2)) break;
+      // 满级只跳过当前队员，不能终止整队结算，否则其后的队友会丢失经验。
+      if (p.level >= chain.byte(2)) continue;
       final needed = chain.word(4 + (p.level - 1) * 20 + 14),
           exp = p.exp + totalExp;
       p.exp = exp;
