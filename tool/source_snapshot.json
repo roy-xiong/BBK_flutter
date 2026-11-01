@@ -20,56 +20,56 @@
       "source": "lib/data/game_data.dart",
       "destination": "lib/games/fmj/data/game_data.dart",
       "sourceSha256": "db001d4b81c04f764d3d6f14c9ca197ba8e9e1a4ebb44da9bccc9cac41c57a21",
-      "importedSha256": "db001d4b81c04f764d3d6f14c9ca197ba8e9e1a4ebb44da9bccc9cac41c57a21"
+      "importedSha256": "a29e43d87e5338fed4243d61f6b55e7dc96219ffd62e65010a22644f3f179618"
     },
     {
       "game": "fmj",
       "source": "lib/data/save_repository.dart",
       "destination": "lib/games/fmj/data/save_repository.dart",
       "sourceSha256": "5e4428f6160cd5effa20cc14cc4d92280cd7975465952b96292c59f30fc12e7a",
-      "importedSha256": "a3472457c04f8c4a8724599e548f71a3b5aaa542a7f8b7304b7852203d91aeb0"
+      "importedSha256": "177e64783e4d114c39cdca4343616aaddbe4bc5d81e164d34a2dc91d5534575a"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_actor.dart",
       "destination": "lib/games/fmj/engine/game_actor.dart",
       "sourceSha256": "2f3e72f2b9e05732d839ddef70b1d53ce148766cee242b55db8f613223e12270",
-      "importedSha256": "2f3e72f2b9e05732d839ddef70b1d53ce148766cee242b55db8f613223e12270"
+      "importedSha256": "56b23f3babccb767cadf17a714eba1d7a44f601bea80747c37601142f4340f57"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_battle.dart",
       "destination": "lib/games/fmj/engine/game_battle.dart",
       "sourceSha256": "5375ae6aa517e1fc8de0296091ad7c2f8acf48eb93368643e773cb8f9167b071",
-      "importedSha256": "0ade419bffa5298566f4da1d06b2a07678bcba46f227f1f98296a5fb699e569a"
+      "importedSha256": "1aa7712fc847f49f3df4590cb60d36c3d720454cc5c100654dc9c72f49ad1470"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "16837024c1154dd195a1443e116c4150dcf945df512885fe01cb1555b8e78d07"
+      "importedSha256": "fd09f716ea0ef8d9df9d6209afda57a367c65a1010f3391fdbc242a91280db2a"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_menus.dart",
       "destination": "lib/games/fmj/engine/game_menus.dart",
       "sourceSha256": "0d4fe2395bc3664887210d11914603f951d6e6ab37113b7ef9c2a241c5dc1c3a",
-      "importedSha256": "043ff4533f6ee9c6a519f12241757fbc6f44b7e9f250ee79ca1ce215adb01396"
+      "importedSha256": "b5ec8027e03aa691974a5aa354f9003e3a51deac84d5e07e497577298682334a"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_navigation.dart",
       "destination": "lib/games/fmj/engine/game_navigation.dart",
       "sourceSha256": "90d7de90e1fe0fcd50707ae9d9076690682f754a6bb6671b6883cd0580dee2dc",
-      "importedSha256": "43e08e0e9982788222cbbd970377c67d10ebf4e368b0ee1e54dc78d854d1e854"
+      "importedSha256": "95dc55d144220fb6ba27ebecb98ddff460ecd8d54d95403c84053b8542ad20e7"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_render.dart",
       "destination": "lib/games/fmj/engine/game_render.dart",
       "sourceSha256": "b796a60d7f619e67d0a02e354df7d7d05e59c6495abc6984a052a0b5fcae7365",
-      "importedSha256": "e88134f0bbc95b7f9ee2d077aa159f3bed415d6f43fb62f2a4de31f5d2502250"
+      "importedSha256": "2ffa0dfc31780a285f9174eaab633f3a2af1eb800a811c55b9dd44f0215e3161"
     },
     {
       "game": "fmj",
@@ -97,42 +97,42 @@
       "source": "lib/ui/game_cheat_panel.dart",
       "destination": "lib/games/fmj/ui/game_cheat_panel.dart",
       "sourceSha256": "0699e303a640209e28415727608ed1ae7d73aa9448c6770c7930f79151029e1c",
-      "importedSha256": "8a8ef1a38d711b41d1ebe2ed496b2b653c1f4631b64c8af059ba40f1cd1de4d6"
+      "importedSha256": "f478bbc073905fe882a30c5d601070c6d654c0b7369f73d0d688895827876a68"
     },
     {
       "game": "fmj",
       "source": "lib/ui/game_controls.dart",
       "destination": "lib/games/fmj/ui/game_controls.dart",
       "sourceSha256": "f1003f2779a30e5e6f5cbd05b1220a837b1fe47d6144d6423fd0e935395a7b68",
-      "importedSha256": "820b63112e6bb15bf8c1dab21b0a6e58fc46f31964070e4f59af24da156a9044"
+      "importedSha256": "78aafcc266668f2ff8c600ef95e9f4745b7e37170543f34453966185c1a1733b"
     },
     {
       "game": "fmj",
       "source": "lib/ui/game_keyboard_bindings.dart",
       "destination": "lib/games/fmj/ui/game_keyboard_bindings.dart",
       "sourceSha256": "7055aa69d68c102014618f39bdef35bfe6caca04aefee8737df87583580c38e1",
-      "importedSha256": "7055aa69d68c102014618f39bdef35bfe6caca04aefee8737df87583580c38e1"
+      "importedSha256": "944f8a5ce7f30524a9acef53303fc76f3e736280eb446133f7ad34be3f6ff587"
     },
     {
       "game": "fmj",
       "source": "lib/ui/game_keyboard_mapping_sheet.dart",
       "destination": "lib/games/fmj/ui/game_keyboard_mapping_sheet.dart",
       "sourceSha256": "4cf01f01e5360b980c1722d805011d2bf00197bf4e9d38c3ca3c34940b35e71a",
-      "importedSha256": "4cf01f01e5360b980c1722d805011d2bf00197bf4e9d38c3ca3c34940b35e71a"
+      "importedSha256": "781990942946a37f14acda1200f7e96020bb4f9570929e7c618eb324692e92da"
     },
     {
       "game": "fmj",
       "source": "lib/ui/game_page.dart",
       "destination": "lib/games/fmj/ui/game_page.dart",
       "sourceSha256": "63257197b764f9b0a967dd0105050b443fb5c5b8b1a356ac8cc39fd9077b02ee",
-      "importedSha256": "3aca15684a857e3be316c14f002de2f8b01ededcd5c195cb8fa07f30a56ce76b"
+      "importedSha256": "c81a17d1157c30788a67f79dc9bc467a9df4aba9cc9e379e7c15a70df281c97e"
     },
     {
       "game": "fmj",
       "source": "lib/ui/game_view_model.dart",
       "destination": "lib/games/fmj/ui/game_view_model.dart",
       "sourceSha256": "786dff4519fccfd2727406d85205e84ad72394a542c0ece02ca086e142e1a202",
-      "importedSha256": "11aaa07bee055c193ebbc8434e14f36980924c70819ee49c5c07e2aec692b3ed"
+      "importedSha256": "909f9b6e65f1a76580e3727bc50d83463b336637e1f5cd32f4dc389399c6de01"
     },
     {
       "game": "fmj",
@@ -146,21 +146,21 @@
       "source": "lib/ui/modern_battle_hud.dart",
       "destination": "lib/games/fmj/ui/modern_battle_hud.dart",
       "sourceSha256": "699cd18d0ac6950cfa8a218ff5dc028e1f2a08915546c6c0c0b84c46dd0ec02e",
-      "importedSha256": "699cd18d0ac6950cfa8a218ff5dc028e1f2a08915546c6c0c0b84c46dd0ec02e"
+      "importedSha256": "3bb152e24ab93af4ea8d232eebb5627dbb5db958650a85763a9e59ca69a4b1af"
     },
     {
       "game": "fmj",
       "source": "lib/ui/modern_battle_layout.dart",
       "destination": "lib/games/fmj/ui/modern_battle_layout.dart",
       "sourceSha256": "9a51a5461fbb703a11499b522a48b21efdf86c18e6e4ab4254ebe895cbcedfc8",
-      "importedSha256": "9a51a5461fbb703a11499b522a48b21efdf86c18e6e4ab4254ebe895cbcedfc8"
+      "importedSha256": "36ea34f3fa2c7d05b5dc2381876ad00b4106d8d837125c2b6bbd34fb70f80b56"
     },
     {
       "game": "fmj",
       "source": "lib/ui/modern_game_view.dart",
       "destination": "lib/games/fmj/ui/modern_game_view.dart",
       "sourceSha256": "7fead2e2d569c14ca9d2d9c012124c82b450b5e1e0c75310b0bc47eb495d45c0",
-      "importedSha256": "e17182fe7583e0c203b99da142c19adb6af8dc7e3a62038392faafc37d8f103c"
+      "importedSha256": "8c163d1c04dfee02294ff8f3b2d44fc6df0b7b4196954cb18dc2d2ba2236cbb2"
     },
     {
       "game": "fmj",
@@ -174,7 +174,7 @@
       "source": "lib/ui/modern_scene.dart",
       "destination": "lib/games/fmj/ui/modern_scene.dart",
       "sourceSha256": "0ca7e7194f78502f1fc560c83b6a82701c4082b531bfc9e57d50dd480af0ba15",
-      "importedSha256": "6044e44e4cf0e9115ed7231b16fb96d83c6bce6420a4ddb8e7921fc1ace50372"
+      "importedSha256": "c653000fa2280fc5c32540b8d95d3621ed99365233db92283959852bfa20b8f6"
     },
     {
       "game": "fmj",
@@ -706,7 +706,7 @@
       "source": "lib/data/services/game_save_codec.dart",
       "destination": "lib/games/sgby/data/services/game_save_codec.dart",
       "sourceSha256": "c083770097af93718d183b08360144858b46bd3a42d0a71337d5c34ff1c3cce9",
-      "importedSha256": "c083770097af93718d183b08360144858b46bd3a42d0a71337d5c34ff1c3cce9"
+      "importedSha256": "28a60284193240d62ec8065ddcd0ccf3959c52e4d4fc1ec67e0cc15cf1c3ebdf"
     },
     {
       "game": "sgby",
@@ -874,28 +874,28 @@
       "source": "lib/domain/use_cases/resolve_battle.dart",
       "destination": "lib/games/sgby/domain/use_cases/resolve_battle.dart",
       "sourceSha256": "f8902a46de769acef6ff0cdc6594c83ea7c1305803a88ead3e609c8241e12018",
-      "importedSha256": "f8902a46de769acef6ff0cdc6594c83ea7c1305803a88ead3e609c8241e12018"
+      "importedSha256": "0e331c24ec57b1248baf10f1a0629410d3a1ff21343dfd5f41b51d67a8705171"
     },
     {
       "game": "sgby",
       "source": "lib/domain/use_cases/special_generals.dart",
       "destination": "lib/games/sgby/domain/use_cases/special_generals.dart",
       "sourceSha256": "3234854f6ad247835768dbc6657266e6b680fce89c423bc4e5b4aa5ecc39fbd9",
-      "importedSha256": "3234854f6ad247835768dbc6657266e6b680fce89c423bc4e5b4aa5ecc39fbd9"
+      "importedSha256": "c20b29daf222a147a673f898e76cdc8de4aabd8515b9bf13ceea575815669534"
     },
     {
       "game": "sgby",
       "source": "lib/domain/use_cases/strategy_commands.dart",
       "destination": "lib/games/sgby/domain/use_cases/strategy_commands.dart",
       "sourceSha256": "bb1a0477ec0355fa2179e709af83233b62734e42411ba872bf3290710966f856",
-      "importedSha256": "bb1a0477ec0355fa2179e709af83233b62734e42411ba872bf3290710966f856"
+      "importedSha256": "dc1d6f74a6e7caa2fc469a855917ebdca2880c5265621e8507c28214c0fa380e"
     },
     {
       "game": "sgby",
       "source": "lib/engine/core/battle_flow.dart",
       "destination": "lib/games/sgby/engine/core/battle_flow.dart",
       "sourceSha256": "49fc5b7deeee33e209c3a7765f6eb370edb08faedd494d1bcc79dbd5a2933d55",
-      "importedSha256": "49fc5b7deeee33e209c3a7765f6eb370edb08faedd494d1bcc79dbd5a2933d55"
+      "importedSha256": "0dabb775a486a36dfdfa3749e6f741a060aa1ab3ae9f71c016770b8ff48bb42f"
     },
     {
       "game": "sgby",
@@ -909,7 +909,7 @@
       "source": "lib/engine/core/native_game_session.dart",
       "destination": "lib/games/sgby/engine/core/native_game_session.dart",
       "sourceSha256": "9c5a50cb2d9799d0c084e9599e9986a4e762d2de91481654d53147a0bf8eadba",
-      "importedSha256": "9c5a50cb2d9799d0c084e9599e9986a4e762d2de91481654d53147a0bf8eadba"
+      "importedSha256": "8dd978d4d64aecf5cf2fafe66f43ab91f58c13b2f9538a9c1fc01768011b3c7c"
     },
     {
       "game": "sgby",
@@ -930,14 +930,14 @@
       "source": "lib/engine/core/strategy_command_flow.dart",
       "destination": "lib/games/sgby/engine/core/strategy_command_flow.dart",
       "sourceSha256": "f900747190eaf42cc70c186b24677bc6305b75eab54298520dc13b08e3bcadda",
-      "importedSha256": "f900747190eaf42cc70c186b24677bc6305b75eab54298520dc13b08e3bcadda"
+      "importedSha256": "7b40eb672aba60e487c6591fdc241d16e7c7046f67e44b90fa60e6ca8dafd0f3"
     },
     {
       "game": "sgby",
       "source": "lib/engine/core/strategy_turn_flow.dart",
       "destination": "lib/games/sgby/engine/core/strategy_turn_flow.dart",
       "sourceSha256": "194ea492f53e33b20db9cc703696c3445e13826b224e18f4a7271ebf3eae84a7",
-      "importedSha256": "194ea492f53e33b20db9cc703696c3445e13826b224e18f4a7271ebf3eae84a7"
+      "importedSha256": "56d94a2bcadcbec6e40255a4ec9ff111e1b0d2c6eaa98cd4425160560a57e99f"
     },
     {
       "game": "sgby",
@@ -1126,7 +1126,7 @@
       "source": "lib/ui/features/game/view_models/game_view_model.dart",
       "destination": "lib/games/sgby/ui/features/game/view_models/game_view_model.dart",
       "sourceSha256": "84d5fd993d62c8446d0a129f364f66f136905c9b1039c904805b8042b2a6d270",
-      "importedSha256": "23fd08168ef89231e87de2e13a2aaa7fe21f15dc5e7669e840fedc57dfb0ed1b"
+      "importedSha256": "ba15af8cfa3326712c03f8ebcfbea2b94330bb965812d86927691873b4a8bb9a"
     },
     {
       "game": "sgby",
@@ -1175,7 +1175,7 @@
       "source": "lib/ui/features/game/views/game_page.dart",
       "destination": "lib/games/sgby/ui/features/game/views/game_page.dart",
       "sourceSha256": "b9fa4d3c62037d986974041d2092a65b40418fe1a29e2cd606850f0ad33e2a30",
-      "importedSha256": "1f72b122312f7f5f3149fd100ac1f711ef8a5248571835cf04ec319ac63f81d0"
+      "importedSha256": "786f0fc25683798338720594e166f288b2c4ac5018a78ab63ea4b82817935503"
     },
     {
       "game": "sgby",
@@ -1350,7 +1350,7 @@
       "source": "test/engine/battle_pixel_parity_test.dart",
       "destination": "test/games/sgby/engine/battle_pixel_parity_test.dart",
       "sourceSha256": "0d441c029be6f8b06a7fa7be567e5c5d3a46514ac99220d3628f326392ba85c6",
-      "importedSha256": "be3d7b0ab955f6714a95559ba0c48ce5d8d3b1cb216766446f67bdd649fd6a2e"
+      "importedSha256": "3733bde3f69c61b6fc7fafc493f1a67f34d643d8f13bb532121c91aa9b50fa8b"
     },
     {
       "game": "sgby",
@@ -3532,6 +3532,180 @@
       "previousImportedSha256": "bcc3d45b23f21b79123875053ed6cdbe6c2f941fc3bb26217e8043c11c2d5c6c",
       "currentSha256": "0ade419bffa5298566f4da1d06b2a07678bcba46f227f1f98296a5fb699e569a",
       "reason": "按本轮要求，投掷首次选择武器，之后只复用上次选择且仍有库存的武器；取消自动优先弯月刀，保留长按更换与库存预留"
+    },
+    {
+      "destination": "lib/games/fmj/data/game_data.dart",
+      "previousImportedSha256": "db001d4b81c04f764d3d6f14c9ca197ba8e9e1a4ebb44da9bccc9cac41c57a21",
+      "currentSha256": "a29e43d87e5338fed4243d61f6b55e7dc96219ffd62e65010a22644f3f179618",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/fmj/data/save_repository.dart",
+      "previousImportedSha256": "a3472457c04f8c4a8724599e548f71a3b5aaa542a7f8b7304b7852203d91aeb0",
+      "currentSha256": "177e64783e4d114c39cdca4343616aaddbe4bc5d81e164d34a2dc91d5534575a",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_actor.dart",
+      "previousImportedSha256": "2f3e72f2b9e05732d839ddef70b1d53ce148766cee242b55db8f613223e12270",
+      "currentSha256": "56b23f3babccb767cadf17a714eba1d7a44f601bea80747c37601142f4340f57",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_battle.dart",
+      "previousImportedSha256": "0ade419bffa5298566f4da1d06b2a07678bcba46f227f1f98296a5fb699e569a",
+      "currentSha256": "1aa7712fc847f49f3df4590cb60d36c3d720454cc5c100654dc9c72f49ad1470",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "16837024c1154dd195a1443e116c4150dcf945df512885fe01cb1555b8e78d07",
+      "currentSha256": "fd09f716ea0ef8d9df9d6209afda57a367c65a1010f3391fdbc242a91280db2a",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_menus.dart",
+      "previousImportedSha256": "043ff4533f6ee9c6a519f12241757fbc6f44b7e9f250ee79ca1ce215adb01396",
+      "currentSha256": "b5ec8027e03aa691974a5aa354f9003e3a51deac84d5e07e497577298682334a",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_navigation.dart",
+      "previousImportedSha256": "43e08e0e9982788222cbbd970377c67d10ebf4e368b0ee1e54dc78d854d1e854",
+      "currentSha256": "95dc55d144220fb6ba27ebecb98ddff460ecd8d54d95403c84053b8542ad20e7",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_render.dart",
+      "previousImportedSha256": "e88134f0bbc95b7f9ee2d077aa159f3bed415d6f43fb62f2a4de31f5d2502250",
+      "currentSha256": "2ffa0dfc31780a285f9174eaab633f3a2af1eb800a811c55b9dd44f0215e3161",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_cheat_panel.dart",
+      "previousImportedSha256": "8a8ef1a38d711b41d1ebe2ed496b2b653c1f4631b64c8af059ba40f1cd1de4d6",
+      "currentSha256": "f478bbc073905fe882a30c5d601070c6d654c0b7369f73d0d688895827876a68",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_controls.dart",
+      "previousImportedSha256": "820b63112e6bb15bf8c1dab21b0a6e58fc46f31964070e4f59af24da156a9044",
+      "currentSha256": "78aafcc266668f2ff8c600ef95e9f4745b7e37170543f34453966185c1a1733b",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_keyboard_bindings.dart",
+      "previousImportedSha256": "7055aa69d68c102014618f39bdef35bfe6caca04aefee8737df87583580c38e1",
+      "currentSha256": "944f8a5ce7f30524a9acef53303fc76f3e736280eb446133f7ad34be3f6ff587",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_keyboard_mapping_sheet.dart",
+      "previousImportedSha256": "4cf01f01e5360b980c1722d805011d2bf00197bf4e9d38c3ca3c34940b35e71a",
+      "currentSha256": "781990942946a37f14acda1200f7e96020bb4f9570929e7c618eb324692e92da",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_page.dart",
+      "previousImportedSha256": "3aca15684a857e3be316c14f002de2f8b01ededcd5c195cb8fa07f30a56ce76b",
+      "currentSha256": "c81a17d1157c30788a67f79dc9bc467a9df4aba9cc9e379e7c15a70df281c97e",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_view_model.dart",
+      "previousImportedSha256": "11aaa07bee055c193ebbc8434e14f36980924c70819ee49c5c07e2aec692b3ed",
+      "currentSha256": "909f9b6e65f1a76580e3727bc50d83463b336637e1f5cd32f4dc389399c6de01",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_battle_hud.dart",
+      "previousImportedSha256": "699cd18d0ac6950cfa8a218ff5dc028e1f2a08915546c6c0c0b84c46dd0ec02e",
+      "currentSha256": "3bb152e24ab93af4ea8d232eebb5627dbb5db958650a85763a9e59ca69a4b1af",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_battle_layout.dart",
+      "previousImportedSha256": "9a51a5461fbb703a11499b522a48b21efdf86c18e6e4ab4254ebe895cbcedfc8",
+      "currentSha256": "36ea34f3fa2c7d05b5dc2381876ad00b4106d8d837125c2b6bbd34fb70f80b56",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_game_view.dart",
+      "previousImportedSha256": "e17182fe7583e0c203b99da142c19adb6af8dc7e3a62038392faafc37d8f103c",
+      "currentSha256": "8c163d1c04dfee02294ff8f3b2d44fc6df0b7b4196954cb18dc2d2ba2236cbb2",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_scene.dart",
+      "previousImportedSha256": "6044e44e4cf0e9115ed7231b16fb96d83c6bce6420a4ddb8e7921fc1ace50372",
+      "currentSha256": "c653000fa2280fc5c32540b8d95d3621ed99365233db92283959852bfa20b8f6",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/sgby/data/services/game_save_codec.dart",
+      "previousImportedSha256": "c083770097af93718d183b08360144858b46bd3a42d0a71337d5c34ff1c3cce9",
+      "currentSha256": "28a60284193240d62ec8065ddcd0ccf3959c52e4d4fc1ec67e0cc15cf1c3ebdf",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/sgby/domain/use_cases/resolve_battle.dart",
+      "previousImportedSha256": "f8902a46de769acef6ff0cdc6594c83ea7c1305803a88ead3e609c8241e12018",
+      "currentSha256": "0e331c24ec57b1248baf10f1a0629410d3a1ff21343dfd5f41b51d67a8705171",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/sgby/domain/use_cases/special_generals.dart",
+      "previousImportedSha256": "3234854f6ad247835768dbc6657266e6b680fce89c423bc4e5b4aa5ecc39fbd9",
+      "currentSha256": "c20b29daf222a147a673f898e76cdc8de4aabd8515b9bf13ceea575815669534",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/sgby/domain/use_cases/strategy_commands.dart",
+      "previousImportedSha256": "bb1a0477ec0355fa2179e709af83233b62734e42411ba872bf3290710966f856",
+      "currentSha256": "dc1d6f74a6e7caa2fc469a855917ebdca2880c5265621e8507c28214c0fa380e",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/sgby/engine/core/battle_flow.dart",
+      "previousImportedSha256": "49fc5b7deeee33e209c3a7765f6eb370edb08faedd494d1bcc79dbd5a2933d55",
+      "currentSha256": "0dabb775a486a36dfdfa3749e6f741a060aa1ab3ae9f71c016770b8ff48bb42f",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/sgby/engine/core/native_game_session.dart",
+      "previousImportedSha256": "9c5a50cb2d9799d0c084e9599e9986a4e762d2de91481654d53147a0bf8eadba",
+      "currentSha256": "8dd978d4d64aecf5cf2fafe66f43ab91f58c13b2f9538a9c1fc01768011b3c7c",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/sgby/engine/core/strategy_command_flow.dart",
+      "previousImportedSha256": "f900747190eaf42cc70c186b24677bc6305b75eab54298520dc13b08e3bcadda",
+      "currentSha256": "7b40eb672aba60e487c6591fdc241d16e7c7046f67e44b90fa60e6ca8dafd0f3",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/sgby/engine/core/strategy_turn_flow.dart",
+      "previousImportedSha256": "194ea492f53e33b20db9cc703696c3445e13826b224e18f4a7271ebf3eae84a7",
+      "currentSha256": "56d94a2bcadcbec6e40255a4ec9ff111e1b0d2c6eaa98cd4425160560a57e99f",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/sgby/ui/features/game/view_models/game_view_model.dart",
+      "previousImportedSha256": "23fd08168ef89231e87de2e13a2aaa7fe21f15dc5e7669e840fedc57dfb0ed1b",
+      "currentSha256": "ba15af8cfa3326712c03f8ebcfbea2b94330bb965812d86927691873b4a8bb9a",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/sgby/ui/features/game/views/game_page.dart",
+      "previousImportedSha256": "1f72b122312f7f5f3149fd100ac1f711ef8a5248571835cf04ec319ac63f81d0",
+      "currentSha256": "786f0fc25683798338720594e166f288b2c4ac5018a78ab63ea4b82817935503",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "test/games/sgby/engine/battle_pixel_parity_test.dart",
+      "previousImportedSha256": "be3d7b0ab955f6714a95559ba0c48ce5d8d3b1cb216766446f67bdd649fd6a2e",
+      "currentSha256": "3733bde3f69c61b6fc7fafc493f1a67f34d643d8f13bb532121c91aa9b50fa8b",
+      "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
     }
   ]
 }
