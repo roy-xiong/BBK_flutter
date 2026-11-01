@@ -86,6 +86,7 @@ final class GameSaveCodec {
         throw const FormatException('道具队列编号越界');
       }
     }
+    final orderedPeople = <int>{};
     for (final order in world.orders) {
       if (order.orderId < 1 ||
           order.orderId > 27 ||
@@ -94,6 +95,21 @@ final class GameSaveCodec {
           order.fighters.length > 10 ||
           order.fighters.any((id) => id >= people.length)) {
         throw const FormatException('订单或出征武将编号无效');
+      }
+      final cityTarget = const [13, 14, 23, 27].contains(order.orderId);
+      final personTarget = const [6, 15, 16, 17, 19].contains(order.orderId);
+      if (cityTarget && order.object >= cities.length ||
+          personTarget && order.object >= people.length) {
+        throw const FormatException('订单目标引用无效');
+      }
+      final participants = order.orderId == 27
+          ? order.fighters
+          : [order.person];
+      if (participants.isEmpty ||
+          participants.any(
+            (id) => !orderedPeople.add(id) || world.cityOfPerson(id) != null,
+          )) {
+        throw const FormatException('订单参与者重复或仍在城内');
       }
     }
     final hidden = data['hiddenGenerals'];

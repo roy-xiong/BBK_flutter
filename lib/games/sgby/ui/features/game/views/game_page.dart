@@ -249,6 +249,19 @@ class _GamePageState extends State<GamePage>
             }
             final action = _viewModel.keyboardAction(event.logicalKey.keyId);
             if (action == null) return KeyEventResult.ignored;
+            // 以解析后的动作判定，重映射后的按键同样遵守一次按下只执行一次。
+            // 方向与翻页保留连续输入，开关、确认、弹层及下令忽略系统重复事件。
+            if (event is KeyRepeatEvent &&
+                !const [
+                  GameInput.up,
+                  GameInput.down,
+                  GameInput.left,
+                  GameInput.right,
+                  GameInput.pageUp,
+                  GameInput.pageDown,
+                ].contains(action)) {
+              return KeyEventResult.handled;
+            }
             _viewModel.send(action);
             return KeyEventResult.handled;
           },

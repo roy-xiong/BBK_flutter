@@ -74,6 +74,16 @@ final class SpecialGenerals {
         )
         .toList();
     final replacements = <int, int>{};
+    // 输送资源已经从源城扣除；整次隐藏在任何人物、继承或订单变化之前拒绝，
+    // 避免取消时因城池易主或16位资源上限导致退款损失。完成输送后可正常隐藏。
+    if (world.orders.any(
+      (order) => order.orderId == 13 && pending.contains(order.person),
+    )) {
+      return const CheatResult(
+        isSuccess: false,
+        message: '特殊武将正在输送物资，请完成输送后再隐藏',
+      );
+    }
     for (final id in pending) {
       if (world.person(id)!.belong != id + 1) continue;
       int? best;

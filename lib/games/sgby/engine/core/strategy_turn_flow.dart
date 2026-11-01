@@ -1,6 +1,5 @@
 import '../../domain/models/game_order.dart';
 import '../../domain/models/game_world.dart';
-import '../../domain/models/game_battle.dart';
 import '../../domain/models/game_report.dart';
 import '../../domain/use_cases/advance_calendar.dart';
 import '../../domain/use_cases/computer_strategy.dart';
@@ -22,7 +21,7 @@ final class StrategyTurnFlow {
   final NativeGameSession session;
   final ResolveBattle resolver;
   final ExecuteStrategyOrder execute;
-  GameBattle? _postBattle;
+
   GameWorld? get world => session.world;
 
   void start() {
@@ -188,8 +187,13 @@ final class StrategyTurnFlow {
           );
           void finish() {
             data.removeOrder(order);
-            if (battle.entered) _postBattle = battle;
             session.activeBattle = null;
+            if (battle.entered) {
+              // 本场报告和继承处理结束后即为战略安全边界，必须先收尾再进入下一场。
+              // 延迟至月末会把后续继承/易主误当成本场破城，错误处置原有俘虏。
+              session.enhancements.executeDefeatedCaptives(data, battle);
+              session.enhancements.postBattle(data, battle);
+            }
             session.showStrategy();
             _next();
           }
@@ -253,12 +257,6 @@ final class StrategyTurnFlow {
         session.resolvingTurn = false;
         session.activeBattle = null;
         session.showStrategy();
-        final pending = _postBattle;
-        _postBattle = null;
-        if (pending != null) {
-          session.enhancements.executeDefeatedCaptives(data, pending);
-          session.enhancements.postBattle(data, pending);
-        }
         if (!session.checkGameOver()) session.completeStrategyTurn();
       },
     );

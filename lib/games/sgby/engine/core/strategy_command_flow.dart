@@ -293,7 +293,10 @@ final class StrategyCommandFlow {
         GameReport(result.message, person: action.person),
     ];
     void finish() {
-      if ([1, 2, 3, 4, 5, 6, 9, 10, 12, 14, 24, 25].contains(command)) {
+      if (command == 23 && action.target != null) {
+        // 对齐侦察下令后的ShowCityPro；武将仍保留原订单，月结时按原规则归队。
+        session.showCityInfo(action.target!);
+      } else if ([1, 2, 3, 4, 5, 6, 9, 10, 12, 14, 24, 25].contains(command)) {
         start();
       } else {
         session.showStrategy();

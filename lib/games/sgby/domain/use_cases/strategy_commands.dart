@@ -230,18 +230,21 @@ final class StrategyCommands {
         !([7, 8].contains(command) && isCaptive)) {
       return StrategyResult(false, _str(84));
     }
-    final consumeCommand = command == 4
+    final checkCommand = command == 4
         ? 0
         : command == 26
         ? 24
-        : command == 14 && resources.rule('fixThewOverFlow') == 0
-        ? 13
         : command;
+    // 移动按自身门槛准入；旧配置仅复用输送的扣减量，不能把扣减量当门槛。
+    final consumeCommand =
+        command == 14 && resources.rule('fixThewOverFlow') == 0
+        ? 13
+        : checkCommand;
     final consumesThew = ![7, 8, 9, 10, 12, 25].contains(command);
     final consumesMoney =
         [1, 2, 3, 4, 5, 15, 16, 17, 19, 23].contains(command) ||
         command == 6 && resources.rule('fixConsumeMoney') != 0;
-    if (consumesThew && person.thew < thewCost(consumeCommand)) {
+    if (consumesThew && person.thew < thewCost(checkCommand)) {
       return StrategyResult(false, _str(60));
     }
     if (consumesMoney && city.money < moneyCost(consumeCommand)) {
@@ -470,9 +473,19 @@ final class StrategyCommands {
         break;
     }
     if (consumesThew) {
-      nextPerson = nextPerson.copyWith(
-        thew: u8(person.thew - thewCost(consumeCommand)),
-      );
+      if (command == 15 && resources.rule('fixAlienateComsumeThew') == 0) {
+        // 旧规则先校验执行者，再扣目标体力；配置开启时才改为扣执行者。
+        world.setPerson(
+          action.target!,
+          target!.copyWith(thew: u8(target.thew - thewCost(consumeCommand))),
+        );
+      } else {
+        final remaining = person.thew - thewCost(consumeCommand);
+        nextPerson = nextPerson.copyWith(
+          // 移动明确采用饱和扣减，禁止恢复旧U8下溢(0-8=248)副作用。
+          thew: command == 14 ? remaining.clamp(0, 255) : u8(remaining),
+        );
+      }
     }
     if (consumesMoney) {
       nextCity = nextCity.copyWith(

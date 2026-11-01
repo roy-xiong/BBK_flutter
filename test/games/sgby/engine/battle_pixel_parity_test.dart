@@ -99,6 +99,9 @@ void main() {
 
       render(0);
       if (name.endsWith('menu')) {
+        // 此测试直接绘制参考战场而未调用flow.start；输入前同步真实场景边界。
+        // 保留原始参考图与全部像素比较，菜单入口仍走生产输入流程。
+        session.submitScene(NativeScene.battle);
         flow.input(NativeInput.cancel);
         if (name == 'animation_menu') {
           session.input(NativeInput.down);

@@ -230,6 +230,7 @@ final class NativeGameSession {
   }
 
   void _showMain() {
+    _clearReport();
     _menu = null;
     _movie = null;
     _afterMovie = null;
@@ -340,6 +341,7 @@ final class NativeGameSession {
   /// 载入成功后替换整个世界，避免旧菜单和动画继续持有被替换的数据。
   void replaceWorld(GameWorld replacement) {
     if (_disposed || replacement.playerRulerIndex == null) return;
+    _clearReport();
     if (legacySaveLoadEnabled) {
       replacement.random.restore(world?.random.state ?? _seedProvider());
     }
@@ -1087,6 +1089,18 @@ final class NativeGameSession {
     final callback = _afterReport;
     _afterReport = null;
     callback?.call();
+  }
+
+  /// 退出或读档时释放报告的整组状态，旧局回调和倒计时不能作用于新局。
+  ///
+  /// 背景、返回场景、可关闭标记与完成回调具有相同生命周期，必须一起失效。
+  void _clearReport() {
+    _afterReport = null;
+    _reportBackground = null;
+    _reportReturn = null;
+    _reportWaitUs = 0;
+    _reportDismissible = true;
+    _visualReport = null;
   }
 
   void dispose() {

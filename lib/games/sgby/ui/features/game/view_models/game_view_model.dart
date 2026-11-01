@@ -262,8 +262,9 @@ final class GameViewModel extends ChangeNotifier {
         _session?.requestAdvanceTurn();
       }
     } else if (action == GameInput.battleInfo &&
-        _session?.activeBattle != null) {
-      _session?.onBattleInput?.call(NativeInput.search);
+        _session?.activeBattle != null &&
+        _session?.scene == NativeScene.battle) {
+      _session?.input(NativeInput.search);
     } else if (action == GameInput.quickExpedition &&
         _session?.scene == NativeScene.strategy &&
         !(_session?.resolvingTurn ?? true)) {

@@ -393,6 +393,11 @@ final class BattleFlow {
 
   void input(NativeInput input) {
     if (_finished || _pending != null || _enemy || world == null) return;
+    // 快捷入口也必须服从场景边界，不能从行动菜单或报告中拆开位移事务。
+    if (session.scene != NativeScene.battle &&
+        session.scene != NativeScene.battleSituation) {
+      return;
+    }
     if (_situation) {
       if (input == NativeInput.confirm || input == NativeInput.cancel) {
         _situation = false;

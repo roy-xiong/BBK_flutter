@@ -43,6 +43,10 @@ final class ResolveBattle {
     GameOrder order, {
     List<int>? selectedDefenders,
   }) {
+    if (world.city(order.object) == null || world.city(order.city) == null) {
+      _cancelExpedition(world, order);
+      return const PreparedBattle();
+    }
     final fighters = order.fighters
         .where((id) => (world.person(id)?.arms ?? 0) > 0)
         .take(10)
@@ -71,7 +75,10 @@ final class ResolveBattle {
     }
     final city = world.city(order.object), first = fighters.firstOrNull;
     final attacker = first == null ? null : world.person(first);
-    if (city == null || attacker == null) return const PreparedBattle();
+    if (city == null || attacker == null) {
+      _cancelExpedition(world, order);
+      return const PreparedBattle();
+    }
     final reports = <GameReport>[];
     final player = (world.playerRulerIndex ?? -1) + 1;
     if (city.belong == 0 || city.belong == attacker.belong) {
@@ -182,6 +189,30 @@ final class ResolveBattle {
       world.personsInCity(order.object, belong: 65535),
     );
     return PreparedBattle(battle: battle, reports: reports);
+  }
+
+  /// 无效目的地等异常取消仍归还出征者；源城仍属原势力时退回携粮。
+  ///
+  /// 仅在人员确实处于在途状态时退粮，重复准备已归队订单不会重复增加资源。
+  void _cancelExpedition(GameWorld world, GameOrder order) {
+    final source = world.city(order.city);
+    final leader = order.fighters.firstOrNull;
+    final belong = leader == null ? null : world.person(leader)?.belong;
+    final inTransit = order.fighters.any(
+      (id) => world.person(id) != null && world.cityOfPerson(id) == null,
+    );
+    for (final id in order.fighters.toSet()) {
+      commands.returnPerson(world, order.copyWith(person: id));
+    }
+    if (inTransit &&
+        source != null &&
+        belong != null &&
+        source.belong == belong) {
+      world.setCity(
+        order.city,
+        source.copyWith(food: (source.food + order.food).clamp(0, 65535)),
+      );
+    }
   }
 
   /// 结算不删除订单，继承者查找需要看见其余仍未执行的出征与普通订单。
