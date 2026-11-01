@@ -293,21 +293,24 @@ void main() {
     expect(game.menus.last.ids, ['9:1']);
   });
 
-  test('回气药与永久成长药按原字段生效，且每次只扣一份', () {
+  test('复活药恢复气血，永久成长药生效，每次只扣一份', () {
     final game = engine(), p = game.players.first;
     p
+      ..maxHp = 200
+      ..hp = 0
       ..maxMp = 200
       ..mp = 5;
     game.addGoods('10:1');
     final percent = game.goods('10:1')!.byte(23);
     expect(percent, greaterThan(0));
     expect(game.consumeMedicine(p, '10:1'), isTrue);
-    expect(p.mp, (5 + 200 * percent ~/ 100).clamp(0, 200));
+    expect(p.hp, 30);
+    expect(p.mp, 5);
     expect(game.inventory['10:1'] ?? 0, 0);
     final attack = p.attack, growth = game.goods('11:1')!;
     game.addGoods('11:1');
     game.consumeMedicine(p, '11:1');
-    expect(p.attack, (attack + growth.signedByte(25)).clamp(0, 999));
+    expect(p.attack, attack + growth.signedByte(25));
     expect(game.inventory['11:1'] ?? 0, 0);
   });
 
@@ -423,12 +426,14 @@ void main() {
     model.dispose();
   });
 
-  test('满库存购买不扣钱，出售最后一件后刷新列表', () {
+  test('高库存购买取消不扣钱，出售最后一件后刷新列表', () {
     final game = engine();
     game.addGoods('9:1', 999);
     game.money = 5000;
     game.openInventory(mode: 'buy', items: ['9:1']);
     choose(game, 0);
+    expect(game.menus.last.purchase, isNotNull);
+    game.press(GameKey.cancel);
     expect(game.money, 5000);
     expect(game.inventory['9:1'], 999);
     game.menus.clear();

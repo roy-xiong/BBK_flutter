@@ -35,7 +35,10 @@ final class GamePurchase {
   final String id;
   final int unitPrice;
   final bool selling;
-  int quantity = 0, limit = 0;
+  int quantity = 0;
+
+  /// null表示零售价购买没有数量上限；买卖的资金与实际库存约束仍即时刷新。
+  int? limit;
   int get total => quantity * unitPrice;
 }
 
@@ -386,10 +389,6 @@ extension GameMenus on GameEngine {
           return;
         }
         if (mode == 'buy') {
-          if ((inventory[id] ?? 0) >= 999) {
-            notice = '此物品已达到携带上限';
-            return;
-          }
           if (money < r.word(18)) {
             notice = '金钱不足';
             return;
@@ -422,17 +421,18 @@ extension GameMenus on GameEngine {
     menus.add(menu);
   }
 
-  /// 按BBK购买流程进入数量确认。库存上限沿用当前引擎，不能被预览加减提前消耗。
+  /// 数量确认只受资金、售出库存和钱包容量限制，普通背包数量不再封顶。
   void _openPurchase(String id, int price, {bool selling = false}) {
     final purchase = GamePurchase(id, price, selling: selling);
     void refresh(GameMenu menu) {
-      final room = selling
-          ? (inventory[id] ?? 0)
-          : (999 - (inventory[id] ?? 0)).clamp(0, 999);
       final cash = selling ? 2147483647 - money : money;
-      final affordable = price == 0 ? room : math.max(0, cash) ~/ price;
-      final limit = math.min(room, affordable);
-      final quantity = purchase.quantity.clamp(0, limit);
+      final affordable = price == 0 ? null : math.max(0, cash) ~/ price;
+      final int? limit = selling
+          ? math.min(inventory[id] ?? 0, affordable ?? (inventory[id] ?? 0))
+          : affordable;
+      final quantity = limit == null
+          ? math.max(0, purchase.quantity)
+          : purchase.quantity.clamp(0, limit);
       if (purchase.limit != limit || purchase.quantity != quantity) {
         menu.revision++;
       }
@@ -466,9 +466,7 @@ extension GameMenus on GameEngine {
           notice = '售出 ${goodsName(id)} ×$quantity';
           return;
         }
-        if (goods(id) == null ||
-            quantity > 999 - (inventory[id] ?? 0) ||
-            total > money) {
+        if (goods(id) == null || total > money) {
           return;
         }
         money -= total;
@@ -486,7 +484,9 @@ extension GameMenus on GameEngine {
     refreshMenus();
     final purchase = menu.purchase;
     if (purchase == null) return;
-    final next = (purchase.quantity + delta).clamp(0, purchase.limit);
+    final requested = math.max(0, purchase.quantity + delta);
+    final limit = purchase.limit;
+    final next = limit == null ? requested : math.min(requested, limit);
     if (next == purchase.quantity) return;
     purchase.quantity = next;
     menu.revision++;
@@ -760,14 +760,14 @@ extension GameMenus on GameEngine {
   void _applyEquipmentAttributes(GameActor p, GameRecord r, int sign) {
     final type = r.byte(0);
     if (type != 6) {
-      p.maxMp = (p.maxMp + sign * r.signedByte(22)).clamp(0, 999);
-      p.maxHp = (p.maxHp + sign * r.signedByte(23)).clamp(1, 999);
+      p.maxMp = math.max(0, p.maxMp + sign * r.signedByte(22));
+      p.maxHp = math.max(1, p.maxHp + sign * r.signedByte(23));
     }
-    p.defense = (p.defense + sign * r.signedByte(24)).clamp(0, 999);
-    p.attack = (p.attack + sign * r.byte(25)).clamp(0, 999);
-    p.spirit = (p.spirit + sign * r.signedByte(26)).clamp(0, 99);
-    p.speed = (p.speed + sign * r.signedByte(27)).clamp(0, 99);
-    p.luck = (p.luck + sign * r.signedByte(29)).clamp(0, 99);
+    p.defense = math.max(0, p.defense + sign * r.signedByte(24));
+    p.attack = math.max(0, p.attack + sign * r.byte(25));
+    p.spirit = math.max(0, p.spirit + sign * r.signedByte(26));
+    p.speed = math.max(0, p.speed + sign * r.signedByte(27));
+    p.luck = math.max(0, p.luck + sign * r.signedByte(29));
   }
 
   void _equipmentDelta(GameActor p, GameRecord r, int sign) {
@@ -829,18 +829,20 @@ extension GameMenus on GameEngine {
         p.mp = (p.mp + r.word(24)).clamp(0, p.maxMp);
         p.clearStatus(r.byte(28));
       case 10:
-        p.mp = (p.mp + p.maxMp * r.byte(23).clamp(0, 100) ~/ 100).clamp(
-          0,
-          p.maxMp,
-        );
+        final percent = r.byte(23).clamp(0, 100);
+        final recovered = percent == 0
+            ? 0
+            : math.max(1, p.maxHp * percent ~/ 100);
+        // 战斗保留原版致死负HP，复活不能先抵偿这部分“负债”而再次失败。
+        p.hp = (math.max(0, p.hp) + recovered).clamp(0, p.maxHp);
       case 11:
-        p.maxMp = (p.maxMp + r.signedByte(22)).clamp(0, 999);
-        p.maxHp = (p.maxHp + r.signedByte(23)).clamp(1, 999);
-        p.defense = (p.defense + r.signedByte(24)).clamp(0, 999);
-        p.attack = (p.attack + r.signedByte(25)).clamp(0, 999);
-        p.spirit = (p.spirit + r.signedByte(26)).clamp(0, 99);
-        p.speed = (p.speed + r.signedByte(27)).clamp(0, 99);
-        p.luck = (p.luck + r.signedByte(29)).clamp(0, 99);
+        p.maxMp = math.max(0, p.maxMp + r.signedByte(22));
+        p.maxHp = math.max(1, p.maxHp + r.signedByte(23));
+        p.defense = math.max(0, p.defense + r.signedByte(24));
+        p.attack = math.max(0, p.attack + r.signedByte(25));
+        p.spirit = math.max(0, p.spirit + r.signedByte(26));
+        p.speed = math.max(0, p.speed + r.signedByte(27));
+        p.luck = math.max(0, p.luck + r.signedByte(29));
     }
     p.hp = p.hp.clamp(0, p.maxHp);
     p.mp = p.mp.clamp(0, p.maxMp);

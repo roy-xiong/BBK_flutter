@@ -749,15 +749,16 @@ final class GameEngine {
     if (op == null || index < 0 || index >= op.options.length) return;
     operation = null;
     if (op.kind == 'choice') {
-      const deferred = {
-        '9:1': 2330,
-        '10:1': 2331,
-        '11:4': 2332,
-        '14:9': 2333,
-        '2:33': 2334,
-      };
-      final flag = deferred[op.scriptId];
-      if (index == 0 && flag != null) flags.add(flag);
+      final flag =
+          _deferredSideGoals[(op.scriptId, 21)] ??
+          _deferredSideGoals[(op.scriptId, 1)];
+      if (flag != null) {
+        if (index == 0) {
+          flags.add(flag);
+        } else {
+          flags.remove(flag);
+        }
+      }
       if (op.scriptId == '5:1' && op.address == 512 && index == 0) {
         flags.add(2335);
         navigation.cancel();
@@ -1038,7 +1039,8 @@ final class GameEngine {
   String magicName(String id) => magic(id)?.text(6) ?? id;
   void addGoods(String id, [int count = 1]) {
     if (goods(id) != null) {
-      inventory[id] = ((inventory[id] ?? 0) + count).clamp(0, 999);
+      // 普通获取、退回装备与脚本奖励共用真实库存，不截断超出作弊预设的数量。
+      inventory[id] = math.max(0, (inventory[id] ?? 0) + count);
       refreshMenus();
     }
   }
@@ -1091,27 +1093,27 @@ final class GameEngine {
       case 0:
         p.level = value.clamp(1, 255);
       case 1:
-        p.attack = value.clamp(0, 999);
+        p.attack = math.max(0, value);
       case 2:
-        p.defense = value.clamp(0, 999);
+        p.defense = math.max(0, value);
       case 3:
-        p.speed = value.clamp(0, 99);
+        p.speed = math.max(0, value);
       case 4:
         p.hp = value.clamp(0, p.maxHp);
       case 5:
         p.mp = value.clamp(0, p.maxMp);
       case 6:
-        p.exp = value.clamp(0, 2147483647);
+        p.exp = math.max(0, value);
       case 7:
-        p.spirit = value.clamp(0, 99);
+        p.spirit = math.max(0, value);
       case 8:
-        p.luck = value.clamp(0, 99);
+        p.luck = math.max(0, value);
       case 10:
       case 15:
-        p.maxHp = value.clamp(1, 999);
+        p.maxHp = math.max(1, value);
       case 11:
       case 16:
-        p.maxMp = value.clamp(0, 999);
+        p.maxMp = math.max(0, value);
     }
   }
 
@@ -1130,7 +1132,15 @@ final class GameEngine {
     'disableSave': disableSave,
     'allowMiss': allowMiss,
     'allowTossArm': allowTossArm,
-    'players': players.map((p) => p.toJson()).toList(),
+    // 地图只使用队长实体。队员的战斗数据独立保存，位置统一跟随队长，
+    // 不把招募/跨图前遗留的队员坐标写成下一张地图上的实体坐标。
+    'players': players
+        .map(
+          (p) =>
+              p.toJson()
+                ..addAll({'x': player?.x ?? p.x, 'y': player?.y ?? p.y}),
+        )
+        .toList(),
     'npcs': npcs.map((id, p) => MapEntry('$id', p.toJson())),
     'inventory': Map<String, int>.from(inventory),
     'preferredThrowWeapon': preferredThrowWeapon,
@@ -1186,23 +1196,34 @@ final class GameEngine {
     final nextPlayers = rawPlayers
         .map((v) => GameActor.fromJson(Map<String, dynamic>.from(v as Map)))
         .toList();
+    final leader = nextPlayers.first;
     if (nextPlayers.any(
-      (p) =>
-          p.type != 1 ||
-          data.record(3, 1, p.index) == null ||
-          p.x < 0 ||
-          p.y < 0 ||
-          p.x >= nextMap.width ||
-          p.y >= nextMap.height,
-    )) {
+          (p) => p.type != 1 || data.record(3, 1, p.index) == null,
+        ) ||
+        leader.x < 0 ||
+        leader.y < 0 ||
+        leader.x >= nextMap.width ||
+        leader.y >= nextMap.height) {
       throw const FormatException('存档人物或坐标无效');
     }
-    final nextInventory = Map<String, int>.from(j['inventory'] as Map);
-    if (nextInventory.entries.any(
-      (e) => goods(e.key) == null || e.value < 0 || e.value > 999,
-    )) {
+    // 首版已写出队员仍在旧图坐标的合法档；队员不参与地图碰撞，读回时
+    // 归一到经过边界验证的队长位置，不能因此放宽真正地图实体的坐标校验。
+    for (final companion in nextPlayers.skip(1)) {
+      companion.x = leader.x;
+      companion.y = leader.y;
+    }
+    final rawInventory = j['inventory'];
+    if (rawInventory is! Map ||
+        rawInventory.entries.any(
+          (e) =>
+              e.key is! String ||
+              e.value is! int ||
+              goods(e.key as String) == null ||
+              (e.value as int) < 0,
+        )) {
       throw const FormatException('存档物品数据无效');
     }
+    final nextInventory = Map<String, int>.from(rawInventory);
     final nextNpcs = <int, GameActor>{};
     for (final entry in (j['npcs'] as Map).entries) {
       final id = int.tryParse('${entry.key}');
@@ -1283,7 +1304,16 @@ final class GameEngine {
     operation = null;
     menus.clear();
     route.clear();
+    routeMap = '';
+    ended = false;
+    titleSelection = 0;
+    ticks = 0;
+    stageStoneProgress = null;
+    _walkElapsed = 0;
+    _scriptYield = false;
+    _dialogueConfirmHeld = false;
     error = '';
+    notice = '';
     intro = null;
     if (repairKey) notice = '已恢复遗漏支线：补齐不点卡片及1把万能钥匙，可继续愚人居任务';
     render();

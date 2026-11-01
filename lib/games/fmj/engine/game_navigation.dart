@@ -18,6 +18,16 @@ bool _allowYurenReturn(
             !flags.contains(2303) &&
             !flags.contains(261)));
 
+/// 暂缓只影响自动推荐；玩家显式重选目标时可恢复正常分支入口。
+const _deferredSideGoals = <(String, int), int>{
+  ('9:1', 21): 2330,
+  ('10:1', 21): 2331,
+  ('11:4', 21): 2332,
+  ('14:9', 21): 2333,
+  ('2:33', 1): 2334,
+  ('5:1', 56): 2335,
+};
+
 final class GameGoal {
   const GameGoal(
     this.label,
@@ -26,11 +36,15 @@ final class GameGoal {
     this.hint = '到达后与人物或机关正常交互。',
     this.done = false,
     this.ready = true,
+    this.deferred = false,
     this.continuation,
   });
   final String label, scriptId, hint;
   final int event;
   final bool done, ready;
+
+  /// 玩家取消过此分支，自动完整流程暂不推荐；不表示前置条件不足。
+  final bool deferred;
 
   /// 到达入口只完成一段路线；玩家处理开门选择后继续前往房内的真实目标。
   final GameGoal? continuation;
@@ -388,6 +402,7 @@ final class GameNavigation {
           event,
           done: done,
           ready: ready && !done,
+          deferred: f.contains(_deferredSideGoals[(script, event)]),
           hint: hint,
         ),
       );
@@ -441,7 +456,6 @@ final class GameNavigation {
       f.contains(210) &&
           f.contains(207) &&
           !f.contains(215) &&
-          !f.contains(2335) &&
           (game.cursor?.script.id == '5:16' ||
               (game.inventory['14:4'] ?? 0) > 0),
       '用金色钥匙打开东厢房。',
@@ -518,7 +532,6 @@ final class GameNavigation {
         lock.$3,
         f.contains(lock.$4),
         f.contains(lock.$5) &&
-            !f.contains(lock.$6) &&
             !f.contains(lock.$7) &&
             remainingKeys > 0 &&
             (isCard || remainingKeys > reservedCardKeys),
@@ -564,7 +577,7 @@ final class GameNavigation {
 
   GameGoal get nextGoal {
     if (game.preferences['storyScope'] != 'complete') return mainGoal;
-    final available = sideGoals.where((g) => g.ready).toList();
+    final available = sideGoals.where((g) => g.ready && !g.deferred).toList();
     // 洞内先取任务卡片，再继续玄武机关。钥匙是真实库存条件，与取得钥匙的
     // 送信标志无关；已开箱、已取卡或主动取消者不重复推荐、不重复发奖励。
     if (game.cursor?.script.id == '14:9') {
@@ -614,6 +627,11 @@ final class GameNavigation {
     }
     cancel();
     final selected = goal ?? nextGoal;
+    if (goal != null && selected.ready && !selected.done) {
+      // 显式选取才解除暂缓，自动下一目标和恢复旧档都保留玩家的取消决定。
+      final flag = _deferredSideGoals[(selected.scriptId, selected.event)];
+      if (flag != null) game.flags.remove(flag);
+    }
     active = selected.scriptId == '5:1' && selected.event == 56
         ? GameGoal(
             selected.label,

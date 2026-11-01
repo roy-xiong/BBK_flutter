@@ -3,11 +3,13 @@ part of 'game_engine.dart';
 final class BattleAction {
   BattleAction(
     this.actor,
-    this.targets,
+    List<GameActor> targets,
     this.kind, {
     this.resource,
     this.fleeSucceeded = false,
-  });
+    bool? targetsAll,
+  }) : targets = List.of(targets),
+       targetsAll = targetsAll ?? (kind == 'coop' && targets.length > 1);
   final GameActor actor;
   final List<GameActor> targets;
   final String kind;
@@ -19,14 +21,34 @@ final class BattleAction {
   int stage = 0, tipTicks = 0;
   bool hitApplied = false;
   final List<BattleRaise> raises = [];
+
+  /// 选招时保存存活队员，发起者在首位；睡眠队员仍保留每回合的状态收尾机会。
+  final List<GameActor> cooperativeParticipants = [];
+
+  /// 执行前由参与名单过滤出的实际出手者，伤害、扣费和阵型动画共用此名单。
+  final List<GameActor> cooperativeActors = [];
+  GameRecord? cooperativeMagic;
+  bool cooperativeCaptured = false;
+
+  /// 本次动作实际使用的目标模式；单选合击不继承法术资源中的全体标记。
+  bool targetsAll;
+  final Set<GameActor> missedTargets = {};
+  final Set<GameActor> landedTargets = {};
   final Map<GameActor, (int, int)> cooperativeOrigins = {};
   final Map<GameActor, int> changes = {};
 }
 
 /// 伤害上浮与异常图标沿用原 40ms 驱动和 SRS 帧顺序。
 final class BattleRaise {
-  BattleRaise(GameData data, this.x, this.y, this.delta, int mask, {this.actor})
-    : showing = delta != 0 {
+  BattleRaise(
+    GameData data,
+    this.x,
+    this.y,
+    this.delta,
+    int mask, {
+    this.actor,
+    this.miss = false,
+  }) : showing = delta != 0 || miss {
     for (final entry in [
       (8, 243),
       (4, 244),
@@ -42,6 +64,10 @@ final class BattleRaise {
     }
   }
   final int x, y, delta;
+
+  /// 闪避是独立结果，不能与零伤害或无状态变化混为一谈。
+  final bool miss;
+  String get text => miss ? 'MISS' : '${delta > 0 ? '+' : ''}$delta';
 
   /// 仅供新版表现层定位；原坐标仍供经典画面使用。
   final GameActor? actor;
@@ -96,6 +122,10 @@ final class GameBattle {
       if (monster != null) this.monsters.add(monster);
     }
     for (final p in game.players) {
+      // 原版每次新战斗重置异常；装备免疫与永久成长由角色继续持有。
+      p.clearStatus(15);
+      p.statusRounds.clear();
+      p.modifiers.clear();
       if (p.hp <= 0) p.hp = 1;
     }
     totalMoney = this.monsters.fold(0, (v, m) => v + m.money);
@@ -269,10 +299,7 @@ final class GameBattle {
 
   void quickCoop() {
     if (!canUseShortcuts) return;
-    if (game.players.where((p) => p.alive).length < 2) {
-      game.notice = '合击需要至少两名队员存活';
-      return;
-    }
+    if (!_canCooperate(selectedPlayer)) return;
     auto = false;
     _manualShortcutSelection = true;
     targetKind = '';
@@ -514,27 +541,87 @@ final class GameBattle {
           _target('coop');
       }
     } else if (key == GameKey.cancel && actorIndex > 0) {
-      actorIndex--;
-      while (actorIndex > 0 && !game.players[actorIndex].alive) {
-        actorIndex--;
+      var previous = actorIndex - 1;
+      while (previous >= 0 && !game.players[previous].alive) {
+        previous--;
       }
-      if (queue.isNotEmpty) queue.removeLast();
+      if (previous < 0) return;
+      final previousActor = game.players[previous];
+      final queued = queue.lastIndexWhere(
+        (a) => identical(a.actor, previousActor),
+      );
+      if (queued >= 0) queue.removeAt(queued);
+      actorIndex = previous;
+      _manualShortcutSelection = false;
       icon = 1;
     }
+  }
+
+  /// 两个入口与真正执行前使用相同的存活/昏眠条件，发起者失能不能由队友代替。
+  bool _canCooperate(GameActor? actor) {
+    final canAct = actor != null && actor.alive && actor.status & 1 == 0;
+    if (canAct &&
+        game.players.where((p) => p.alive && p.status & 1 == 0).length >= 2) {
+      return true;
+    }
+    game.notice = '合击需要至少两名可行动队员';
+    return false;
+  }
+
+  /// 一次动作只捕获一次名单和发起者饰品，避免执行与表现层各自读取全队。
+  void _captureCooperative(BattleAction action) {
+    if (action.cooperativeCaptured) return;
+    action.cooperativeCaptured = true;
+    action.cooperativeParticipants.addAll([
+      if (action.actor.alive) action.actor,
+      ...game.players.where((p) => p.alive && !identical(p, action.actor)),
+    ]);
+    final decoration = action.actor.equipment.firstOrNull;
+    final magicId = decoration == null
+        ? 0
+        : game.goods(decoration)?.byte(28) ?? 0;
+    action.cooperativeMagic = magicId > 0
+        ? game.data.record(4, 1, magicId)
+        : null;
+  }
+
+  /// 合击取代整队指令，即使未能发动，也必须让名单中的睡眠/中毒状态正常收尾。
+  void _skipAction(BattleAction action) {
+    final participants = action.kind == 'coop'
+        ? action.cooperativeParticipants
+        : [action.actor];
+    _postRaises.clear();
+    for (final participant in participants) {
+      _postRaises.addAll(_awardAndDecay(participant));
+    }
+    _postPending = true;
+    current = null;
   }
 
   void _prepare(BattleAction selected) {
     var next = selected;
     final actor = next.actor;
-    if (!actor.alive || actor.status & 1 != 0) {
-      _postRaises
+    if (next.kind == 'coop') {
+      _captureCooperative(next);
+      next.cooperativeParticipants.removeWhere((p) => !p.alive);
+      next.cooperativeActors
         ..clear()
-        ..addAll(_awardAndDecay(actor));
-      _postPending = true;
-      current = null;
+        ..addAll(
+          next.cooperativeParticipants.where(
+            (p) => p.alive && p.status & 1 == 0,
+          ),
+        );
+      if (!actor.alive ||
+          actor.status & 1 != 0 ||
+          next.cooperativeActors.length < 2) {
+        _skipAction(next);
+        return;
+      }
+    } else if (!actor.alive || actor.status & 1 != 0) {
+      _skipAction(next);
       return;
     }
-    if (actor.status & 4 != 0) {
+    if (next.kind != 'coop' && actor.status & 4 != 0) {
       next = BattleAction(actor, [actor], 'self');
     } else if (actor.status & 2 != 0 &&
         (next.kind == 'magic' || next.kind == 'help')) {
@@ -552,23 +639,22 @@ final class GameBattle {
           ? monsters.where((p) => p.alive).toList()
           : game.players.where((p) => p.alive).toList();
       if (next.targets.length != 1 || available.isEmpty) {
-        _postRaises
-          ..clear()
-          ..addAll(_awardAndDecay(actor));
-        _postPending = true;
-        current = null;
+        _skipAction(next);
         return;
       }
       final target = actor.type == 1
           ? available.first
           : available[game.random.nextInt(available.length)];
-      next = BattleAction(actor, [target], next.kind, resource: next.resource);
+      next.targets
+        ..clear()
+        ..add(target);
     }
     current = next;
     _begin(next);
   }
 
   void _target(String kind) {
+    if (kind == 'coop' && !_canCooperate(selectedPlayer)) return;
     targetKind = kind;
     targetIndex = targets
         .indexWhere((p) => p.alive)
@@ -662,6 +748,8 @@ final class GameBattle {
 
   void _select(BattleAction action) {
     if (action.kind == 'coop') {
+      if (!_canCooperate(action.actor)) return;
+      _captureCooperative(action);
       queue.clear();
       queue.add(action);
       _startTurn();
@@ -773,6 +861,14 @@ final class GameBattle {
       return;
     }
     if (action.kind == 'flee') return;
+    if (action.kind == 'attack' ||
+        action.kind == 'magic' ||
+        action.kind == 'coop' ||
+        action.kind == 'throw') {
+      // 仅在动作开始时剔除前序动作击杀的目标（含剧情隐藏占位）。同次合击内部
+      // 保持这份名单，首人击杀后其余出手者仍须完成伤害、真气扣除与吸血。
+      action.targets.removeWhere((target) => !target.alive);
+    }
     final id = action.resource;
     final record = id == null
         ? null
@@ -792,9 +888,21 @@ final class GameBattle {
         action.movie = GameMovie(game.data, type, animation)..iterations = 2;
       }
     }
+    if (action.kind != 'coop') {
+      action.targetsAll =
+          record != null &&
+          (action.kind == 'item' || action.kind == 'throw'
+              ? id != null && game.goodsTargetsAll(id)
+              : record.byte(3) & 128 != 0);
+    }
     final beforeStatuses =
         <GameActor, (int, Map<int, int>, Map<int, (int, int)>)>{};
-    for (final target in action.targets) {
+    final tracked = <GameActor>{
+      ...action.targets,
+      if (action.kind == 'coop') ...action.cooperativeActors,
+      if (action.kind == 'magic') actor,
+    };
+    for (final target in tracked) {
       action.changes[target] = target.hp;
       beforeStatuses[target] = (
         target.status,
@@ -803,19 +911,27 @@ final class GameBattle {
       );
     }
     if (action.kind == 'coop') {
-      for (final p in game.players) {
+      for (final p in action.cooperativeActors) {
         action.cooperativeOrigins[p] = (p.combatX, p.combatY);
       }
     }
     switch (action.kind) {
       case 'attack':
-        for (final target in action.targets.where((p) => p.alive)) {
-          _physical(actor, target);
+        for (final target in action.targets) {
+          _physical(actor, target, action: action);
         }
       case 'self':
-        _physical(actor, actor, allowMiss: false);
+        _physical(actor, actor, allowMiss: false, action: action);
       case 'magic':
-        if (record != null) _attackMagic(actor, action.targets, record);
+        if (record != null) {
+          _attackMagic(
+            actor,
+            action.targets,
+            record,
+            all: action.targetsAll,
+            action: action,
+          );
+        }
       case 'help':
         if (record != null) {
           if (actor.mp < record.byte(4)) break;
@@ -851,7 +967,7 @@ final class GameBattle {
         }
       case 'item':
         // 库存已在_begin入口统一扣一份，不能在全体目标循环里再次扣除。
-        // 比例回气、永久成长与增强药按ROM中的数值和回合数生效。
+        // 比例复活、永久成长与增强药按ROM中的数值和回合数生效。
         if (record != null) {
           for (final target in action.targets) {
             if (record.byte(0) >= 9 && record.byte(0) <= 11) {
@@ -864,20 +980,21 @@ final class GameBattle {
           }
         }
       case 'coop':
-        final decoration = game.players.isEmpty
-            ? null
-            : game.players.first.equipment.first;
-        final equipment = decoration == null ? null : game.goods(decoration);
-        final magicId = equipment?.byte(28) ?? 0;
-        final magic = magicId > 0 ? game.data.record(4, 1, magicId) : null;
+        final magic = action.cooperativeMagic;
         action.movie = GameMovie(game.data, 2, magic?.byte(5) ?? 240)
           ..iterations = 1;
-        for (final p in game.players) {
+        for (final p in action.cooperativeActors) {
           if (magic != null) {
-            _attackMagic(p, action.targets, magic);
+            _attackMagic(
+              p,
+              action.targets,
+              magic,
+              all: action.targetsAll,
+              action: action,
+            );
           } else {
-            for (final target in action.targets.where((p) => p.alive)) {
-              _physical(p, target, rate: 1.6);
+            for (final target in action.targets) {
+              _physical(p, target, rate: 1.6, action: action);
             }
           }
         }
@@ -906,6 +1023,9 @@ final class GameBattle {
           delta,
           mask,
           actor: target,
+          miss:
+              action.missedTargets.contains(target) &&
+              !action.landedTargets.contains(target),
         ),
       );
     }
@@ -914,14 +1034,19 @@ final class GameBattle {
   bool _miss(GameActor source, GameActor target) =>
       game.allowMiss &&
       game.random.nextDouble() <
-          (-(_speed(source) - _speed(target)) * .003 + .3);
+          (-(_speed(source) - _speed(target)) * .003 + .3).clamp(0.0, 1.0);
   void _physical(
     GameActor source,
     GameActor target, {
     double rate = 1,
     bool allowMiss = true,
+    BattleAction? action,
   }) {
-    if (allowMiss && _miss(source, target)) return;
+    if (allowMiss && _miss(source, target)) {
+      action?.missedTargets.add(target);
+      return;
+    }
+    action?.landedTargets.add(target);
     final base = math.max(
       0,
       _computed(source, 32, source.attack) -
@@ -937,8 +1062,10 @@ final class GameBattle {
   void _attackMagic(
     GameActor source,
     List<GameActor> targets,
-    GameRecord magic,
-  ) {
+    GameRecord magic, {
+    required bool all,
+    required BattleAction action,
+  }) {
     if (magic.byte(0) == 5) {
       if (targets.isNotEmpty) {
         final target = targets.first;
@@ -949,11 +1076,17 @@ final class GameBattle {
       }
       return;
     }
-    final all = magic.byte(3) & 128 != 0;
-    if (all) source.mp -= magic.byte(4);
+    final cost = magic.byte(4);
+    if (source.mp < cost) return;
+    if (all) source.mp -= cost;
     for (final target in targets) {
-      if (_miss(source, target)) continue;
-      if (!all) source.mp -= magic.byte(4);
+      if (!all && source.mp < cost) break;
+      if (_miss(source, target)) {
+        action.missedTargets.add(target);
+        continue;
+      }
+      action.landedTargets.add(target);
+      if (!all) source.mp -= cost;
       int hurt(int value) => value > 0
           ? math.max(
               0,
@@ -971,7 +1104,7 @@ final class GameBattle {
       if (!all) {
         if (hp < 0) source.hp = math.min(source.maxHp, source.hp - hp);
         final mp = hurt(magic.signedWord(20));
-        target.mp = math.min(target.maxMp, target.mp - mp.abs());
+        target.mp = (target.mp - mp.abs()).clamp(0, target.maxMp);
         if (mp < 0) source.mp = math.min(source.maxMp, source.mp - mp);
       }
       _status(magic.byte(24) & 15, magic.byte(3) & 127, target);
@@ -1058,6 +1191,10 @@ final class GameBattle {
     if (action.hitApplied || action.targets.length != 1) return;
     action.hitApplied = true;
     for (final target in action.targets) {
+      if (action.missedTargets.contains(target) &&
+          !action.landedTargets.contains(target)) {
+        continue;
+      }
       if (target.type == 1) {
         target.combatFrame = 10;
       } else {
@@ -1117,7 +1254,7 @@ final class GameBattle {
         if (coop) {
           var i = 0;
           const points = [(92, 52), (109, 63), (126, 74)];
-          for (final p in game.players) {
+          for (final p in action.cooperativeActors) {
             final origin =
                     action.cooperativeOrigins[p] ?? (p.combatX, p.combatY),
                 dest = points[i.clamp(0, 2)];
@@ -1154,7 +1291,7 @@ final class GameBattle {
       a.combatY = action.originY;
       a.combatFrame = _restFrame(a);
       if (coop) {
-        for (final p in game.players) {
+        for (final p in action.cooperativeActors) {
           final origin = action.cooperativeOrigins[p];
           if (origin != null) {
             p.combatX = origin.$1;
@@ -1186,6 +1323,10 @@ final class GameBattle {
     a.combatFrame = a.alive ? 1 : 12;
     if (action.hitApplied) {
       for (final target in action.targets) {
+        if (action.missedTargets.contains(target) &&
+            !action.landedTargets.contains(target)) {
+          continue;
+        }
         if (target.type == 3) {
           target.combatX -= 2;
           target.combatY -= 2;
@@ -1194,9 +1335,13 @@ final class GameBattle {
         }
       }
     }
-    _postRaises
-      ..clear()
-      ..addAll(_awardAndDecay(a));
+    _postRaises.clear();
+    final participants = action.kind == 'coop'
+        ? action.cooperativeParticipants
+        : [a];
+    for (final participant in participants) {
+      _postRaises.addAll(_awardAndDecay(participant));
+    }
     _postPending = true;
     if (action.kind == 'flee' && action.fleeSucceeded) {
       _finish(true, flee: true);
@@ -1512,13 +1657,7 @@ final class GameBattle {
     final action = current;
     if (action != null && action.stage == 1 && action.movie != null) {
       final target = action.targets.isEmpty ? null : action.targets.first;
-      final resource = action.resource;
-      final item = action.kind == 'throw' || action.kind == 'item';
-      final all =
-          resource != null &&
-          (item
-              ? game.goodsTargetsAll(resource)
-              : (game.magic(resource)?.byte(3) ?? 0) & 128 != 0);
+      final all = action.targetsAll;
       final targetImage = target == null
           ? null
           : game.data.image(
@@ -1544,7 +1683,7 @@ final class GameBattle {
         final scale = game.wide ? 2 : 1;
         game.surface.text(
           game.data,
-          '${raise.delta > 0 ? '+' : ''}${raise.delta}',
+          raise.text,
           raise.x * scale + (game.wide ? 4 : 0),
           (raise.y + raise.dy) * scale + (game.wide ? -13 : 0),
           fontSize: 8,

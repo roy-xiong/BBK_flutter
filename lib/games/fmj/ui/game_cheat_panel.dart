@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 import 'game_view_model.dart';
 
 /// 伏魔记原版十项辅助操作；显示设置、倍速和 UI 切换保留各自原有入口。
@@ -97,14 +98,21 @@ final class GameCheatPanel extends StatelessWidget {
           ),
           action(
             '全队属性拉满',
-            '生命、真气、攻防、身法、灵力和幸运提升至上限',
+            '七项属性补至999，已正常超过999的数值保持原值',
             Icons.auto_graph,
             () => model.action((g) {
               for (final p in g.players) {
-                p.maxHp = p.hp = p.maxMp = p.mp = p.attack = p.defense = 999;
-                p.speed = p.spirit = p.luck = 99;
+                p.maxHp = math.max(p.maxHp, 999);
+                p.maxMp = math.max(p.maxMp, 999);
+                p.hp = p.maxHp;
+                p.mp = p.maxMp;
+                p.attack = math.max(p.attack, 999);
+                p.defense = math.max(p.defense, 999);
+                p.speed = math.max(p.speed, 999);
+                p.spirit = math.max(p.spirit, 999);
+                p.luck = math.max(p.luck, 999);
               }
-              g.notice = '全队主要属性已提升至上限';
+              g.notice = '全队主要属性已补至999，正常高属性保持原值';
             }),
           ),
           action(

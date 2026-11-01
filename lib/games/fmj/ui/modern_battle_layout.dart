@@ -35,7 +35,10 @@ final class ModernBattleLayout {
         action.cooperativeOrigins.containsKey(actor);
     if (isAttacker && action.kind == 'coop') {
       const formation = [Offset(384, 248), Offset(432, 232), Offset(480, 216)];
-      final index = math.max(0, battle.game.players.indexOf(actor)).clamp(0, 2);
+      // 阵型顺序与引擎实际出手名单一致，第二/三人发起或有队友失能时不留空位。
+      final index = math
+          .max(0, action.cooperativeActors.indexOf(actor))
+          .clamp(0, 2);
       return Offset.lerp(
             base,
             formation[index],

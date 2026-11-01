@@ -149,17 +149,11 @@ abstract final class ModernBattleEffects {
           final item = action.kind == 'item' || action.kind == 'throw';
           record = item ? game.goods(resource) : game.magic(resource);
           name = item ? game.goodsName(resource) : game.magicName(resource);
-          all = item
-              ? game.goodsTargetsAll(resource)
-              : (record?.byte(3) ?? 0) & 128 != 0;
+          all = action.targetsAll;
         } else if (action.kind == 'coop') {
-          final equipment = game.players.firstOrNull?.equipment.firstOrNull;
-          final magic = equipment == null
-              ? 0
-              : game.goods(equipment)?.byte(28) ?? 0;
-          record = magic > 0 ? game.magic('1:$magic') : null;
+          record = action.cooperativeMagic;
           name = record?.text(6) ?? '合击';
-          all = (record?.byte(3) ?? 0) & 128 != 0;
+          all = action.targetsAll;
         }
         final healing = action.targets.any(
           (target) => (action.changes[target] ?? 0) > 0,

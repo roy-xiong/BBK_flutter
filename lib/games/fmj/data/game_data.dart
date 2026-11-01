@@ -60,8 +60,13 @@ final class GameRecord {
 
   int word(int at) => byte(at) | (byte(at + 1) << 8);
   int signedByte(int at) => (byte(at) & 127) * (byte(at) & 128 == 0 ? 1 : -1);
-  int signedWord(int at) =>
-      (word(at) & 32767) * (word(at) & 32768 == 0 ? 1 : -1);
+
+  /// word 使用16位补码；byte中的装备修正仍使用符号加绝对值，二者不能混用。
+  int signedWord(int at) {
+    final value = word(at);
+    return value & 0x8000 == 0 ? value : value - 0x10000;
+  }
+
   String text(int at) {
     final end = library.bytes.indexOf(0, offset + at);
     if (end < 0 || end - offset - at > 16384) {

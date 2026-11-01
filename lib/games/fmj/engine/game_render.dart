@@ -383,14 +383,42 @@ extension GameRendering on GameEngine {
   }
 
   void _smallNumber(int value, int x, int y) {
+    final label = value.abs().toString();
     surface.text(
       data,
-      value.abs().toString(),
+      label,
       x,
       y,
-      fontSize: 8,
+      fontSize: math.min(8.0, 40 / (label.length * .7)),
       right: x + 40,
       bottom: y + 11,
+    );
+  }
+
+  /// 经典画布没有横向滚动；高数值在既有行内缩字完整展示，普通数值仍用原字号。
+  void _fittedStatText(String value, int x, int y, {int? right}) {
+    final available = math.max(1, (right ?? surface.width) - x);
+    var font = 14.0;
+    while (font > 2 &&
+        textLayout
+                .fit(
+                  value,
+                  0,
+                  (available * 14 / font).round(),
+                  (16 * 14 / font).round(),
+                )
+                .next <
+            value.length) {
+      font -= .5;
+    }
+    surface.text(
+      data,
+      value,
+      x,
+      y,
+      right: right,
+      bottom: y + 16,
+      fontSize: font,
     );
   }
 
@@ -409,7 +437,12 @@ extension GameRendering on GameEngine {
         '↑↓数量 A确认 B取消',
       ];
       for (var i = 0; i < rows.length; i++) {
-        _text(rows[i], left + 6, top + 5 + i * line, right: wide ? 262 : 147);
+        _fittedStatText(
+          rows[i],
+          left + 6,
+          top + 5 + i * line,
+          right: wide ? 262 : 147,
+        );
       }
     } else if (kind == 'main') {
       surface.frame(
@@ -494,7 +527,7 @@ extension GameRendering on GameEngine {
           right: 308,
         );
         if (kind != 'magic') {
-          _text(
+          _fittedStatText(
             menu.mode == 'buy' ? '金钱:$money' : '数量:${inventory[item] ?? 0}',
             160,
             56,
@@ -558,16 +591,16 @@ extension GameRendering on GameEngine {
           '免疫 ${p.immunity == 0 ? '无' : '${p.immunity & 8 != 0 ? '毒' : ''}${p.immunity & 4 != 0 ? '乱' : ''}${p.immunity & 2 != 0 ? '封' : ''}${p.immunity & 1 != 0 ? '眠' : ''}'}',
         ];
         for (var i = 0; i < values.length; i++) {
-          _text(values[i], 84, 6 + i * 18);
+          _fittedStatText(values[i], 84, 6 + i * 18);
         }
       } else {
         _image(11, 1, p.index, 2, 2);
         _text(p.name, 2, 40);
         _text('等级 ${p.level}', 42, 4);
-        _text('生命 ${p.hp}/${p.maxHp}', 42, 22);
-        _text('真气 ${p.mp}/${p.maxMp}', 42, 40);
-        _text('攻击 ${p.attack}', 42, 58);
-        _text('防御 ${p.defense}', 42, 76);
+        _fittedStatText('生命 ${p.hp}/${p.maxHp}', 42, 22);
+        _fittedStatText('真气 ${p.mp}/${p.maxMp}', 42, 40);
+        _fittedStatText('攻击 ${p.attack}', 42, 58);
+        _fittedStatText('防御 ${p.defense}', 42, 76);
       }
     } else if (kind == 'equipment') {
       surface.clear();

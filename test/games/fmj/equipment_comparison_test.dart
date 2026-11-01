@@ -79,7 +79,7 @@ void main() {
     }
   });
 
-  test('属性已封顶时不显示零变化，预览不写剧情标记', () {
+  test('预览能越过原属性上限，零变化仍隐藏且不写剧情标记', () {
     final g = game(), p = g.players.first;
     p
       ..attack = 999
@@ -91,7 +91,19 @@ void main() {
       ..maxMp = 999;
     g.addGoods('2:18');
     final before = jsonEncode(g.snapshot());
-    expect(g.equipmentComparisons('2:18', owner: p).single.changes, isEmpty);
+    final changes = g.equipmentComparisons('2:18', owner: p).single.changes;
+    expect(
+      changes,
+      containsAll([
+        ('防御', 999, 1099),
+        ('身法', 99, 117),
+        ('灵力', 99, 114),
+        ('吉运', 99, 109),
+        ('气血上限', 999, 1049),
+        ('真气上限', 999, 1049),
+      ]),
+    );
+    expect(changes.any((change) => change.$1 == '攻击'), false);
     expect(jsonEncode(g.snapshot()), before);
   });
 

@@ -100,7 +100,7 @@ final class _WorldInformation extends StatelessWidget {
           final font = constraints.maxWidth < 960 ? 10.5 : 12.0;
           final style = _style(font);
           double width(String sample) => _width(sample, font);
-          final resourceWidth = width('气血') + width('999') * 2 + width('/');
+          final resourceWidth = width('气血') + width('9999') * 2 + width('/');
           final columns = [
             width('慕容小梅') + 4,
             width('Lv.') + width('255') + 4,
@@ -120,6 +120,12 @@ final class _WorldInformation extends StatelessWidget {
           );
           Widget slot(String sample, Widget child) =>
               SizedBox(width: width(sample), child: child);
+          // 固定列宽保持队伍、场景切换时对齐；超过预留位数时只缩放数值而不截位。
+          Widget number(String value, {Color? color}) => FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerRight,
+            child: text(value, color: color, right: true),
+          );
           Widget line(String text, {Color color = _paper}) => FittedBox(
             fit: BoxFit.scaleDown,
             alignment: Alignment.centerLeft,
@@ -158,9 +164,9 @@ final class _WorldInformation extends StatelessWidget {
               return Row(
                 children: [
                   slot('气血', text(label)),
-                  slot('999', text('$current', color: color, right: true)),
+                  slot('9999', number('$current', color: color)),
                   slot('/', text('/', color: color)),
-                  slot('999', text('$maximum', color: color, right: true)),
+                  slot('9999', number('$maximum', color: color)),
                 ],
               );
             }
@@ -188,7 +194,7 @@ final class _WorldInformation extends StatelessWidget {
                     Row(
                       children: [
                         slot('经验', text('经验')),
-                        slot('2147483647', text('${p.exp}', right: true)),
+                        slot('2147483647', number('${p.exp}')),
                         Expanded(child: text(next == null ? '（满级）' : '/$next')),
                       ],
                     ),
@@ -898,6 +904,25 @@ final class _NativeMenuState extends State<_NativeMenu> {
       'battle-goods' => '战斗物品',
       _ => '菜单',
     };
+    Widget entryText(int i) {
+      final state = menu.kind == 'state';
+      final label = Text(
+        items[i],
+        maxLines: state ? null : 1,
+        softWrap: !state,
+        overflow: state ? TextOverflow.visible : TextOverflow.ellipsis,
+        style: TextStyle(color: _paper, fontSize: 13 * scale, height: 1.25),
+      );
+      // 状态是七条硬换行，宽度按最长一行缩放，不能自动折成更多行后省略尾部属性。
+      return state
+          ? FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: label,
+            )
+          : label;
+    }
+
     // 菜单位于游戏画布的 ColoredBox 之上，需要自己的 Material 承接选中底色和水波纹。
     Widget list() => Material(
       type: MaterialType.transparency,
@@ -943,16 +968,7 @@ final class _NativeMenuState extends State<_NativeMenu> {
                   ),
             minLeadingWidth: goodsId == null ? null : 20,
             horizontalTitleGap: 5 * scale,
-            title: Text(
-              items[i],
-              maxLines: menu.kind == 'state' ? 7 : 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: _paper,
-                fontSize: 13 * scale,
-                height: 1.25,
-              ),
-            ),
+            title: entryText(i),
             onTap: () => widget.model.action((g) {
               // 先切换选中项以查看同页对比；再次点击选中项或按 A 才进入穿戴选人。
               if (_equipmentSelection && menu.selected != i) {
@@ -1295,6 +1311,7 @@ final class _PurchasePanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final purchase = menu.purchase;
     if (purchase == null) return const SizedBox.shrink();
+    final limit = purchase.limit;
     final verb = purchase.selling ? '出售' : '购买';
     void cancel() => model.action((g) => g.selectMenu(menu, 1));
     return Material(
@@ -1394,16 +1411,19 @@ final class _PurchasePanel extends StatelessWidget {
                     ),
                     SizedBox(
                       width: 66,
-                      child: Text(
-                        '${purchase.quantity}',
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(color: _gold, fontSize: 21),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          '${purchase.quantity}',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(color: _gold, fontSize: 21),
+                        ),
                       ),
                     ),
                     IconButton(
                       tooltip: '增加$verb数量',
                       padding: EdgeInsets.zero,
-                      onPressed: purchase.quantity >= purchase.limit
+                      onPressed: limit != null && purchase.quantity >= limit
                           ? null
                           : () => model.action(
                               (g) => g.changePurchaseQuantity(menu, 1),
@@ -1411,7 +1431,7 @@ final class _PurchasePanel extends StatelessWidget {
                       icon: const Icon(Icons.add, size: 22, color: _paper),
                     ),
                     Text(
-                      ' / ${purchase.limit}',
+                      ' / ${limit ?? '不限'}',
                       style: const TextStyle(color: _paper, fontSize: 11),
                     ),
                   ],

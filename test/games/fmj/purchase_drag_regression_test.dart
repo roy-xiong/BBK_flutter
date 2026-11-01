@@ -63,7 +63,7 @@ void main() {
     expect(game.menus.last.ids, ['9:1']);
   });
 
-  test('数量为零确认不成交，资金及携带空间限制可购买数量', () {
+  test('数量为零不成交，资金限制购买数量，库存可以超过999', () {
     final game = engine();
     openPurchase(game);
     game.press(GameKey.confirm);
@@ -77,8 +77,8 @@ void main() {
       game.press(GameKey.up);
     }
     game.press(GameKey.confirm);
-    expect(game.inventory['9:1'], 999);
-    expect(game.money, game.goods('9:1')!.word(18));
+    expect(game.inventory['9:1'], 1000);
+    expect(game.money, 0);
   });
 
   testWidgets('彩色数量框在窄屏可增减数量、取消及确认购买', (tester) async {

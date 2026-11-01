@@ -24,6 +24,7 @@ class _KeyboardMappingDialogState extends State<_KeyboardMappingDialog> {
   final FocusNode _captureFocus = FocusNode();
   GameControl? _recording;
   bool _saving = false;
+  String? _bindingError;
   @override
   void dispose() {
     _captureFocus.dispose();
@@ -32,8 +33,19 @@ class _KeyboardMappingDialogState extends State<_KeyboardMappingDialog> {
 
   Future<void> _bind(GameControl action, String code) async {
     if (_saving) return;
+    if (!widget.settings.keyboardBindings.canBind(action, code)) {
+      setState(() {
+        _recording = null;
+        _bindingError =
+            '每个动作最多绑定${GameKeyboardBindings.maxBindingsPerAction}个键，请先删除一个已有按键。';
+      });
+      return;
+    }
     _saving = true;
-    setState(() => _recording = null);
+    setState(() {
+      _recording = null;
+      _bindingError = null;
+    });
     final existing = widget.settings.keyboardBindings.actionFor(code);
     var approved = true;
     if (existing != null && existing != action) {
@@ -96,7 +108,7 @@ class _KeyboardMappingDialogState extends State<_KeyboardMappingDialog> {
               children: [
                 Text(
                   _recording == null
-                      ? '点击“添加按键”，再按键绑定。每个动作可绑定多个键，修改后自动保存。'
+                      ? '点击“添加按键”，再按键绑定。每个动作最多绑定${GameKeyboardBindings.maxBindingsPerAction}个键，修改后自动保存。'
                       : '请按键，绑定到“${GameKeyboardBindings.labels[_recording]}”',
                   style: TextStyle(
                     color: _recording == null
@@ -105,6 +117,7 @@ class _KeyboardMappingDialogState extends State<_KeyboardMappingDialog> {
                   ),
                 ),
                 const SizedBox(height: 12),
+                if (_bindingError != null) Text(_bindingError!),
                 Expanded(
                   child: ListView(
                     children: [
@@ -140,10 +153,30 @@ class _KeyboardMappingDialogState extends State<_KeyboardMappingDialog> {
                                 ),
                               ActionChip(
                                 label: Text(
-                                  _recording == action ? '按键录入中…' : '添加按键',
+                                  (widget
+                                                  .settings
+                                                  .keyboardBindings
+                                                  .bindings[action]
+                                                  ?.length ??
+                                              0) >=
+                                          GameKeyboardBindings
+                                              .maxBindingsPerAction
+                                      ? '已达8键上限'
+                                      : _recording == action
+                                      ? '按键录入中…'
+                                      : '添加按键',
                                 ),
                                 avatar: const Icon(Icons.add, size: 18),
-                                onPressed: _saving
+                                onPressed:
+                                    _saving ||
+                                        (widget
+                                                    .settings
+                                                    .keyboardBindings
+                                                    .bindings[action]
+                                                    ?.length ??
+                                                0) >=
+                                            GameKeyboardBindings
+                                                .maxBindingsPerAction
                                     ? null
                                     : () {
                                         setState(() => _recording = action);

@@ -340,13 +340,20 @@ final class _PartyCard extends StatelessWidget {
               label,
               style: const TextStyle(fontSize: 14, height: 1, color: _paper),
             ),
-            Text(
-              '${math.max(0, current)}/$max',
-              style: TextStyle(
-                fontSize: 15,
-                height: 1,
-                color: color,
-                fontFeatures: const [FontFeature.tabularFigures()],
+            const SizedBox(width: 4),
+            Expanded(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: Alignment.centerRight,
+                child: Text(
+                  '${math.max(0, current)}/$max',
+                  style: TextStyle(
+                    fontSize: 15,
+                    height: 1,
+                    color: color,
+                    fontFeatures: const [FontFeature.tabularFigures()],
+                  ),
+                ),
               ),
             ),
           ],

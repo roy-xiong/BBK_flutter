@@ -61,9 +61,9 @@ final class GameActor {
       a.chain = r.byte(23);
       a.learned = r.byte(9);
       a.level = r.byte(32);
-      a.maxHp = math.min(999, r.word(38));
+      a.maxHp = math.max(1, r.word(38));
       a.hp = math.min(a.maxHp, r.word(40));
-      a.maxMp = math.min(999, r.word(42));
+      a.maxMp = math.max(0, r.word(42));
       a.mp = math.min(a.maxMp, r.word(44));
       a.attack = r.word(46);
       a.defense = r.word(48);
@@ -134,15 +134,15 @@ final class GameActor {
     if (to <= level) return;
     int word(int l, int field) => r.word(4 + (l - 1) * 20 + field);
     int byte(int l, int field) => r.byte(4 + (l - 1) * 20 + field);
-    maxHp = (maxHp + word(to, 0) - word(level, 0)).clamp(1, 999);
+    maxHp = math.max(1, maxHp + word(to, 0) - word(level, 0));
     hp = maxHp;
-    maxMp = (maxMp + word(to, 4) - word(level, 4)).clamp(0, 999);
+    maxMp = math.max(0, maxMp + word(to, 4) - word(level, 4));
     mp = maxMp;
-    attack = (attack + word(to, 8) - word(level, 8)).clamp(0, 999);
-    defense = (defense + word(to, 10) - word(level, 10)).clamp(0, 999);
-    speed = (speed + byte(to, 16) - byte(level, 16)).clamp(0, 99);
-    spirit = (spirit + byte(to, 17) - byte(level, 17)).clamp(0, 99);
-    luck = (luck + byte(to, 18) - byte(level, 18)).clamp(0, 99);
+    attack = math.max(0, attack + word(to, 8) - word(level, 8));
+    defense = math.max(0, defense + word(to, 10) - word(level, 10));
+    speed = math.max(0, speed + byte(to, 16) - byte(level, 16));
+    spirit = math.max(0, spirit + byte(to, 17) - byte(level, 17));
+    luck = math.max(0, luck + byte(to, 18) - byte(level, 18));
     learned = byte(to, 19);
     level = to;
   }
@@ -189,8 +189,9 @@ final class GameActor {
     'pause': pause,
   };
   static GameActor fromJson(Map<String, dynamic> j) {
+    // 不以工程防御为由截断合法成长值；地图/资源结构由GameEngine.restore单独验证。
     int n(String key, [int fallback = 0]) =>
-        j[key] is int ? (j[key] as int).clamp(-1000000, 1000000) : fallback;
+        j[key] is int ? j[key] as int : fallback;
     final a = GameActor(n('type'), n('index'));
     a.name = j['name'] as String? ?? '';
     a.x = n('x');
@@ -201,16 +202,16 @@ final class GameActor {
     a.delay = n('delay');
     a.sprite = n('sprite', 1);
     a.level = n('level', 1).clamp(1, 255);
-    a.maxHp = n('maxHp', 1).clamp(1, 999);
+    a.maxHp = math.max(1, n('maxHp', 1));
     a.hp = n('hp').clamp(0, a.maxHp);
-    a.maxMp = n('maxMp').clamp(0, 999);
+    a.maxMp = math.max(0, n('maxMp'));
     a.mp = n('mp').clamp(0, a.maxMp);
-    a.attack = n('attack');
-    a.defense = n('defense');
-    a.speed = n('speed');
-    a.spirit = n('spirit');
-    a.luck = n('luck');
-    a.exp = n('exp');
+    a.attack = math.max(0, n('attack'));
+    a.defense = math.max(0, n('defense'));
+    a.speed = math.max(0, n('speed'));
+    a.spirit = math.max(0, n('spirit'));
+    a.luck = math.max(0, n('luck'));
+    a.exp = math.max(0, n('exp'));
     a.chain = n('chain');
     a.learned = n('learned');
     a.immunity = n('immunity');

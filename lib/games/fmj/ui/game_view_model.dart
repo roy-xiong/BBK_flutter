@@ -25,7 +25,7 @@ final class GameViewModel extends ChangeNotifier {
   void setKeyboardBindings(GameKeyboardBindings value) {
     if (_disposed) return;
     keyboardBindings = value;
-    _held = null;
+    releaseHeldKeys();
     notifyListeners();
     unawaited(persist());
   }
@@ -68,6 +68,7 @@ final class GameViewModel extends ChangeNotifier {
   bool _windowVisible = true;
   Timer? _timer;
   GameKey? _held;
+  final Map<Object, GameKey> _heldSources = {};
   int _heldElapsed = 0, _autosaveTicks = 0;
   bool _wasSaveable = false;
   String? _autosaveMap;
@@ -98,14 +99,41 @@ final class GameViewModel extends ChangeNotifier {
             .toList(),
       );
       final game = GameEngine(data, textLayout: FlutterSystemFontLayout());
-      final saved = await repository.read();
+      // 文件语法有效不等于业务快照可恢复；用隔离引擎验证自动档和手动档，
+      // 不让失败候选的偏好、补档迁移或会话状态污染最终采用的进度。
+      final validated = await repository.read(
+        validate: (value) {
+          final probe = GameEngine(data, textLayout: FlutterSystemFontLayout());
+          final prefs = value['preferences'];
+          if (prefs is Map) {
+            for (final entry in prefs.entries) {
+              probe.setPreference('${entry.key}', entry.value);
+            }
+          }
+          final slots = value['slots'];
+          final snapshots = [value['autosave'], if (slots is List) ...slots];
+          try {
+            for (final snapshot in snapshots) {
+              if (snapshot == null) continue;
+              if (snapshot is! Map) return false;
+              probe.restore(Map<String, dynamic>.from(snapshot));
+            }
+            return true;
+          } catch (_) {
+            return false;
+          }
+        },
+      );
+      // 两份都损坏时仍保留可读取的设置与手动档位，并显示原有恢复提示。
+      final saved = validated ?? await repository.read();
       if (_disposed) return;
       engine = game;
       if (saved != null) {
         keyboardBindings = GameKeyboardBindings.fromJson(
           saved['keyboardBindings'],
         );
-        game.retainStageBackup(saved['stageBackup'] as String?);
+        final stageBackup = saved['stageBackup'];
+        if (stageBackup is String) game.retainStageBackup(stageBackup);
         final prefs = saved['preferences'];
         if (prefs is Map) {
           for (final entry in prefs.entries) {
@@ -192,9 +220,15 @@ final class GameViewModel extends ChangeNotifier {
     _wasSaveable = saveable;
   }
 
-  void down(GameKey key) {
+  /// 物理键用独立来源记账，同动作的多个实体键共享重复时钟而不互相释放。
+  /// 未提供来源的旧调用继续视为同一动作，不因重复 KeyDown 重置长按门槛。
+  void down(GameKey key, {Object? source}) {
     final game = engine;
     if (game == null || paused || _disposed) return;
+    if (source == null && _held == key) return;
+    final owner = source ?? key;
+    if (_heldSources.containsKey(owner)) return;
+    _heldSources[owner] = key;
     if (_held == key) return; // 同一方向按住期间不因重复KeyDown重发第一步。
     _held = key.index < 4 ? key : null;
     _heldElapsed = 0;
@@ -203,13 +237,21 @@ final class GameViewModel extends ChangeNotifier {
     _render();
   }
 
-  void up(GameKey key) {
-    if (_held == key) _held = null;
+  void up(GameKey key, {Object? source}) {
+    _heldSources.remove(source ?? key);
+    if (_heldSources.containsValue(key)) return;
+    if (_held == key) {
+      _held = _heldSources.values.where((k) => k.index < 4).lastOrNull;
+      _heldElapsed = 0;
+      _heldRepeating = false;
+    }
+    if (_disposed || paused) return;
     engine?.key(key, down: false);
     _render();
   }
 
   void press(GameKey key) {
+    if (_disposed || paused) return;
     engine?.press(key);
     _render();
   }
@@ -259,14 +301,16 @@ final class GameViewModel extends ChangeNotifier {
   }
 
   void setPaused(bool value) {
+    if (_disposed || paused == value) return;
     paused = value;
-    _held = null;
+    releaseHeldKeys();
     if (value) unawaited(persist());
     notifyListeners();
   }
 
   /// 释放物理按键状态，不取消已启动的导航和自动战斗。
   void releaseHeldKeys() {
+    _heldSources.clear();
     _held = null;
     _heldElapsed = 0;
     _heldRepeating = false;
@@ -400,7 +444,7 @@ final class GameViewModel extends ChangeNotifier {
     _disposed = true;
     _timer?.cancel();
     _timer = null;
-    _held = null;
+    releaseHeldKeys();
     engine?.onSaveChanged = null;
     engine?.moneyFarm.stop();
     engine?.navigation.cancel();

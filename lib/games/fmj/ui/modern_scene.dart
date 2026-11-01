@@ -679,7 +679,7 @@ final class ModernScenePainter extends CustomPainter {
     )) {
       _label(
         canvas,
-        '${raise.delta > 0 ? '+' : ''}${raise.delta}',
+        raise.text,
         layout.raisePoint(raise),
         22,
         raise.delta > 0 ? const Color(0xffb5ecc2) : const Color(0xffffdfb1),

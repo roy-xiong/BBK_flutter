@@ -122,10 +122,16 @@ final class ModernEnemyHealth extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Text(
-                              '$current/$maximum',
-                              maxLines: 1,
-                              style: text(font - scale, color),
+                            Flexible(
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  '$current/$maximum',
+                                  maxLines: 1,
+                                  style: text(font - scale, color),
+                                ),
+                              ),
                             ),
                           ],
                         ),

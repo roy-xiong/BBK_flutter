@@ -6,6 +6,7 @@ import 'game_controls.dart';
 class GameKeyboardBindings {
   const GameKeyboardBindings(this.bindings);
   final Map<GameControl, List<String>> bindings;
+  static const maxBindingsPerAction = 8;
   static const defaults = GameKeyboardBindings({
     GameControl.up: ['ArrowUp', 'KeyW'],
     GameControl.down: ['ArrowDown', 'KeyS'],
@@ -61,7 +62,7 @@ class GameKeyboardBindings {
       final codes = (entry.value as List)
           .whereType<String>()
           .where((code) => physicalKeys.containsKey(code) && seen.add(code))
-          .take(8)
+          .take(maxBindingsPerAction)
           .toList();
       result[action!] = List.unmodifiable(codes);
     }
@@ -70,8 +71,16 @@ class GameKeyboardBindings {
 
   GameControl? actionFor(String code) => _action(byCode[code]);
 
-  /// 一个物理键只属于一个动作；重新绑定时移除旧动作，保留目标动作已有的其他键。
+  /// 先验证目标容量再迁移归属，失败时保留原绑定；已有绑定重复录入视为成功。
+  bool canBind(GameControl action, String code) =>
+      labels.containsKey(action) &&
+      physicalKeys.containsKey(code) &&
+      (bindings[action]?.contains(code) == true ||
+          (bindings[action]?.length ?? 0) < maxBindingsPerAction);
+
+  /// 一个物理键只属于一个动作；容量不足时完整拒绝，不能先删除它的旧归属。
   GameKeyboardBindings bind(GameControl action, String code) {
+    if (!canBind(action, code) || actionFor(code) == action) return this;
     final changed = {
       for (final entry in bindings.entries)
         entry.key: entry.value.where((key) => key != code).toList(),

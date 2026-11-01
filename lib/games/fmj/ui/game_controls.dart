@@ -26,6 +26,25 @@ enum GameControl {
   quickCoop,
 }
 
+/// 暂停信号向实际触屏按钮传播，既阻断新输入，也取消已启动的长按计时器。
+/// 恢复后旧触点不会自动重启，必须重新按下，避免弹窗关闭后突然补发动作。
+class GameControlsInputScope extends InheritedWidget {
+  const GameControlsInputScope({
+    super.key,
+    required this.enabled,
+    required super.child,
+  });
+  final bool enabled;
+  static bool enabledOf(BuildContext context) =>
+      context
+          .dependOnInheritedWidgetOfExactType<GameControlsInputScope>()
+          ?.enabled ??
+      true;
+  @override
+  bool updateShouldNotify(GameControlsInputScope oldWidget) =>
+      oldWidget.enabled != enabled;
+}
+
 /// 按 BBK 原版尺寸、位置、配色和长按节奏保留的横屏悬浮控制区。
 class GameControlsOverlay extends StatelessWidget {
   const GameControlsOverlay({
@@ -701,6 +720,14 @@ class _NesInputButtonState extends State<_NesInputButton> {
   Timer? _delayTimer;
   Timer? _repeatTimer;
   bool _pressed = false;
+  bool _inputEnabled = true;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _inputEnabled = GameControlsInputScope.enabledOf(context);
+    if (!_inputEnabled) _stop();
+  }
 
   @override
   void dispose() {
@@ -710,22 +737,22 @@ class _NesInputButtonState extends State<_NesInputButton> {
   }
 
   void _start() {
-    if (_pressed) return;
+    if (_pressed || !_inputEnabled) return;
     setState(() => _pressed = true);
     if (widget.hapticsEnabled) unawaited(HapticFeedback.selectionClick());
     if (widget.longPressOnly) {
       _delayTimer = Timer(const Duration(milliseconds: 600), () {
-        if (mounted && _pressed) widget.onPressed();
+        if (mounted && _pressed && _inputEnabled) widget.onPressed();
       });
       return;
     }
     widget.onPressed();
     if (widget.repeatable) {
       _delayTimer = Timer(const Duration(milliseconds: 320), () {
-        _repeatTimer = Timer.periodic(
-          const Duration(milliseconds: 105),
-          (_) => widget.onPressed(),
-        );
+        if (!mounted || !_pressed || !_inputEnabled) return;
+        _repeatTimer = Timer.periodic(const Duration(milliseconds: 105), (_) {
+          if (mounted && _pressed && _inputEnabled) widget.onPressed();
+        });
       });
     }
   }
@@ -931,6 +958,14 @@ class _HoldButtonState extends State<_HoldButton> {
   Timer? _delayTimer;
   Timer? _repeatTimer;
   bool _pressed = false;
+  bool _inputEnabled = true;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _inputEnabled = GameControlsInputScope.enabledOf(context);
+    if (!_inputEnabled) _stop();
+  }
 
   @override
   void dispose() {
@@ -940,16 +975,16 @@ class _HoldButtonState extends State<_HoldButton> {
   }
 
   void _start() {
-    if (_pressed) return;
+    if (_pressed || !_inputEnabled) return;
     setState(() => _pressed = true);
     if (widget.hapticsEnabled) unawaited(HapticFeedback.selectionClick());
     widget.onPressed();
     if (widget.repeatable) {
       _delayTimer = Timer(const Duration(milliseconds: 320), () {
-        _repeatTimer = Timer.periodic(
-          const Duration(milliseconds: 105),
-          (_) => widget.onPressed(),
-        );
+        if (!mounted || !_pressed || !_inputEnabled) return;
+        _repeatTimer = Timer.periodic(const Duration(milliseconds: 105), (_) {
+          if (mounted && _pressed && _inputEnabled) widget.onPressed();
+        });
       });
     }
   }
