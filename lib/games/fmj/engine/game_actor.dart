@@ -77,6 +77,7 @@ final class GameActor {
         final item = r.byte(offsets[i]);
         if (item > 0) a.equipment[i] = '${types[i]}:$item';
       }
+      a.synchronizeLearnedMagic(data);
     } else if (type == 3) {
       a.name = r.text(6);
       a.level = r.byte(18);
@@ -126,12 +127,36 @@ final class GameActor {
     return result;
   }
 
+  /// 按当前等级恢复成长法术，只增加已学进度，不把成长表末尾的零值当作遗忘。
+  ///
+  /// ROM中柳清风36级、小梅37级、袁萍芷34级起的法术数量为零，因此需要取
+  /// 当前等级及之前各级的最大数量，兼容逐级升级、直接跳级和旧档已被清零的情况。
+  /// 已通过作弊学全的进度仍保留；剧情额外法术独立存放，敌人不使用我方成长表。
+  /// 只在人物加载、升级和读档时同步，不在每帧查询法术列表时重复扫描成长表。
+  void synchronizeLearnedMagic(GameData data) {
+    if (type != 1) return;
+    final magicChain = data.record(12, 1, chain);
+    if (magicChain == null) return;
+    final growth = data.record(12, 2, index);
+    var count = learned;
+    if (growth != null) {
+      final lastLevel = math.min(level, growth.byte(2));
+      for (var at = 1; at <= lastLevel; at++) {
+        count = math.max(count, growth.byte(4 + (at - 1) * 20 + 19));
+      }
+    }
+    learned = count.clamp(0, magicChain.byte(2));
+  }
+
   /// 升级按 MLR 每级差值增量处理，保留仙药和剧情增加的永久属性。
   void levelUp(GameData data, int to) {
     final r = data.record(12, 2, index);
     if (r == null) return;
     to = to.clamp(1, r.byte(2));
-    if (to <= level) return;
+    if (to <= level) {
+      synchronizeLearnedMagic(data);
+      return;
+    }
     int word(int l, int field) => r.word(4 + (l - 1) * 20 + field);
     int byte(int l, int field) => r.byte(4 + (l - 1) * 20 + field);
     maxHp = math.max(1, maxHp + word(to, 0) - word(level, 0));
@@ -143,8 +168,8 @@ final class GameActor {
     speed = math.max(0, speed + byte(to, 16) - byte(level, 16));
     spirit = math.max(0, spirit + byte(to, 17) - byte(level, 17));
     luck = math.max(0, luck + byte(to, 18) - byte(level, 18));
-    learned = byte(to, 19);
     level = to;
+    synchronizeLearnedMagic(data);
   }
 
   Map<String, dynamic> toJson() => {

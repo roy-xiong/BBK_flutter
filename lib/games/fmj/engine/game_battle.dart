@@ -111,6 +111,7 @@ final class GameBattle {
     required List<int> monsters,
     required this.background,
     required this.randomFight,
+    Map<int, String> enemyNames = const {},
     this.maxRound = 0,
     this.eventRounds = const [],
     this.events = const [],
@@ -119,7 +120,11 @@ final class GameBattle {
   }) {
     for (final id in monsters.where((id) => id > 0)) {
       final monster = GameActor.load(game.data, 3, id);
-      if (monster != null) this.monsters.add(monster);
+      if (monster != null) {
+        // 一场战斗拥有独立实例；只覆盖当前剧情显示名，不改共享资源、图片和数值。
+        monster.name = enemyNames[id] ?? monster.name;
+        this.monsters.add(monster);
+      }
     }
     for (final p in game.players) {
       // 原版每次新战斗重置异常；装备免疫与永久成长由角色继续持有。
@@ -134,6 +139,7 @@ final class GameBattle {
     if (!randomFight && this.monsters.length == 1) {
       final ghost = GameActor.load(game.data, 3, this.monsters.first.index);
       if (ghost != null) {
+        ghost.name = this.monsters.first.name;
         ghost.hp = -1;
         ghost.visible = false;
         this.monsters.insert(0, ghost);
@@ -1424,6 +1430,7 @@ final class GameBattle {
       p.exp = exp;
       if (exp >= needed) {
         final previous = p.level;
+        final oldLearned = p.learned;
         p.exp = exp - needed;
         p.levelUp(game.data, previous + 1);
         int difference(int offset, {bool byte = false}) => byte
@@ -1443,8 +1450,8 @@ final class GameBattle {
         levels.add(VictoryCard('message', '${p.name}修行提升'));
         levels.add(VictoryCard('level', '${p.name}修行提升', rows: rows));
         final magicChain = game.data.record(12, 1, p.chain),
-            old = chain.byte(4 + (previous - 1) * 20 + 19),
-            next = chain.byte(4 + (p.level - 1) * 20 + 19);
+            old = oldLearned,
+            next = p.learned;
         if (magicChain != null) {
           for (var i = old; i < next && i < magicChain.byte(2); i++) {
             final id =

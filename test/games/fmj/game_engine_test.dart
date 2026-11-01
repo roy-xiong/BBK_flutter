@@ -320,7 +320,7 @@ void main() {
       await directory.delete(recursive: true);
     }
   });
-  test('96 个故事节点的状态与原引擎逐项对照', () {
+  test('96 个故事节点的状态与原引擎逐项对照（含成长法术修正）', () {
     final expected =
         (jsonDecode(
                   File(
@@ -362,7 +362,20 @@ void main() {
       compare('flags', game.flags.toList()..sort(), reference['flags']);
       compare('variables', game.variables, reference['variables']);
       compare('money', game.money, reference['money']);
-      final expectedPlayers = (reference['players'] as List).cast<Map>();
+      final expectedPlayers = (reference['players'] as List)
+          .map((p) => Map<String, dynamic>.from(p as Map))
+          .toList();
+      // 原对照档也记录了成长表后段清零的缺陷，只修订已确认的这一字段。
+      // 不重生成旧基准，不跳过任何属性、经验、装备、坐标或剧情状态的比较。
+      const magicRepairs = {1: (36, 18), 2: (37, 30), 3: (34, 16)};
+      for (final p in expectedPlayers) {
+        final repair = magicRepairs[p['index']];
+        if (repair != null &&
+            (p['level'] as int) >= repair.$1 &&
+            p['learned'] == 0) {
+          p['learned'] = repair.$2;
+        }
+      }
       compare(
         'players',
         game.players.map((p) {

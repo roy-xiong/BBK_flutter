@@ -12,6 +12,7 @@ part 'game_battle.dart';
 part 'game_menus.dart';
 part 'game_navigation.dart';
 part 'game_money_farm.dart';
+part 'story_battle_names.dart';
 
 /// 输入编号与 BBK 原引擎一致，触屏、键盘和寻路均经过同一入口。
 enum GameKey { up, down, left, right, pageUp, pageDown, confirm, cancel }
@@ -471,6 +472,7 @@ final class GameEngine {
           monsters: a.skip(1).take(3).toList(),
           background: a.skip(4).take(3).toList(),
           randomFight: false,
+          enemyNames: _storyBattleNames[(c.script.id, cmd.address)] ?? const {},
           maxRound: n(0),
           eventRounds: a.skip(7).take(3).toList(),
           events: a.skip(10).take(3).toList(),
@@ -1261,6 +1263,11 @@ final class GameEngine {
       nextInventory['14:2'] = 1;
       nextInventory['14:7'] = 1;
       nextFlags.addAll({1099, 2010});
+    }
+    // 修复旧版升级把成长法术数清零的合法档，只补回当前等级应有的法术。
+    // 不调用levelUp，避免读档触发属性增长、恢复气血真气或改变经验。
+    for (final actor in nextPlayers) {
+      actor.synchronizeLearnedMagic(data);
     }
     players
       ..clear()

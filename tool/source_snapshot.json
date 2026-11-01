@@ -34,21 +34,21 @@
       "source": "lib/engine/game_actor.dart",
       "destination": "lib/games/fmj/engine/game_actor.dart",
       "sourceSha256": "2f3e72f2b9e05732d839ddef70b1d53ce148766cee242b55db8f613223e12270",
-      "importedSha256": "56b23f3babccb767cadf17a714eba1d7a44f601bea80747c37601142f4340f57"
+      "importedSha256": "9aa1f2cead0cebec4c64bb5e18fac55b9b7535faf001f7684e8acc225eb0369f"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_battle.dart",
       "destination": "lib/games/fmj/engine/game_battle.dart",
       "sourceSha256": "5375ae6aa517e1fc8de0296091ad7c2f8acf48eb93368643e773cb8f9167b071",
-      "importedSha256": "1aa7712fc847f49f3df4590cb60d36c3d720454cc5c100654dc9c72f49ad1470"
+      "importedSha256": "cf6a2d0933237e24323b0bb0605fc0f33ca82c50a52fbe5afbfdd04bf4ff3a35"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "fd09f716ea0ef8d9df9d6209afda57a367c65a1010f3391fdbc242a91280db2a"
+      "importedSha256": "3907c0fed27665bb865529746483702015cbe72ecf1bfdbaf3735abd64b184a6"
     },
     {
       "game": "fmj",
@@ -629,7 +629,7 @@
       "source": "test/game_engine_test.dart",
       "destination": "test/games/fmj/game_engine_test.dart",
       "sourceSha256": "7c28e24097f3dd37fa255ea6713415d2fd0d73b6d4a42c1f97ba1e57df51d063",
-      "importedSha256": "6567603a04b5c7f6e442057bcbc60b095615870553f5dab2a71cb9f250928b02"
+      "importedSha256": "b4552b3788583cc5e2bb6dc75d532a08a64f535fc8214ed9ba789f9e3d794022"
     },
     {
       "game": "fmj",
@@ -2246,6 +2246,12 @@
       "destination": "assets/fmj/modern/opening-butterfly-v15.png",
       "sourceSha256": "f9013cd6b24cce6f68dbce011132fc6925261598c868cb022279da0d327eb8a2",
       "importedSha256": "09a65ceb629ae2038f23d7fe678b670b10c3fbc230e1665034ef357af116e04c"
+    },
+    {
+      "game": "fmj",
+      "destination": "lib/games/fmj/engine/story_battle_names.dart",
+      "importedSha256": "9b8bf6d81e75f4e75e7115ecf1ca290cbbfe6340a5cb9754034f9b4adb4c8d3e",
+      "approval": "2026-11-01 用户报告剧情战斗名称错配，已核对原ROM及51条剧情战斗指令"
     }
   ],
   "integrationRevisions": [
@@ -3706,6 +3712,30 @@
       "previousImportedSha256": "be3d7b0ab955f6714a95559ba0c48ce5d8d3b1cb216766446f67bdd649fd6a2e",
       "currentSha256": "3733bde3f69c61b6fc7fafc493f1a67f34d643d8f13bb532121c91aa9b50fa8b",
       "reason": "2026-11-01 用户确认满级经验、装备V4同页对比及两款游戏27项缺陷修复；我方属性与背包去上限，敌方难度保持原样"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_actor.dart",
+      "previousImportedSha256": "56b23f3babccb767cadf17a714eba1d7a44f601bea80747c37601142f4340f57",
+      "currentSha256": "9aa1f2cead0cebec4c64bb5e18fac55b9b7535faf001f7684e8acc225eb0369f",
+      "reason": "2026-11-01 修复三名队员高等级遗忘成长法术并兼容旧档；核对51处剧情战斗，按脚本和指令修复12处共享敌人资源名称错配"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_battle.dart",
+      "previousImportedSha256": "1aa7712fc847f49f3df4590cb60d36c3d720454cc5c100654dc9c72f49ad1470",
+      "currentSha256": "cf6a2d0933237e24323b0bb0605fc0f33ca82c50a52fbe5afbfdd04bf4ff3a35",
+      "reason": "2026-11-01 修复三名队员高等级遗忘成长法术并兼容旧档；核对51处剧情战斗，按脚本和指令修复12处共享敌人资源名称错配"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "fd09f716ea0ef8d9df9d6209afda57a367c65a1010f3391fdbc242a91280db2a",
+      "currentSha256": "3907c0fed27665bb865529746483702015cbe72ecf1bfdbaf3735abd64b184a6",
+      "reason": "2026-11-01 修复三名队员高等级遗忘成长法术并兼容旧档；核对51处剧情战斗，按脚本和指令修复12处共享敌人资源名称错配"
+    },
+    {
+      "destination": "test/games/fmj/game_engine_test.dart",
+      "previousImportedSha256": "6567603a04b5c7f6e442057bcbc60b095615870553f5dab2a71cb9f250928b02",
+      "currentSha256": "b4552b3788583cc5e2bb6dc75d532a08a64f535fc8214ed9ba789f9e3d794022",
+      "reason": "2026-11-01 保留96节点原始基准，仅将39个高等级节点98个人物状态的learned零值按已修复的成长法术规则校正；其余字段严格对照不变"
     }
   ]
 }
