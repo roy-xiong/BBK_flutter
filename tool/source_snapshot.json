@@ -41,14 +41,14 @@
       "source": "lib/engine/game_battle.dart",
       "destination": "lib/games/fmj/engine/game_battle.dart",
       "sourceSha256": "5375ae6aa517e1fc8de0296091ad7c2f8acf48eb93368643e773cb8f9167b071",
-      "importedSha256": "cf6a2d0933237e24323b0bb0605fc0f33ca82c50a52fbe5afbfdd04bf4ff3a35"
+      "importedSha256": "ee418839ffb73ed088388ac45e09b95a3147e40aa2824acd062a0abdf5296449"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "2d89520b89b582ba25e51703b22c7799eb65311485133fcbb0563d360965bea3"
+      "importedSha256": "dd804b8bab41355b4e79c6d3ff04c69ededd03345aedb5affbdd5bfd0e8da9ab"
     },
     {
       "game": "fmj",
@@ -97,14 +97,14 @@
       "source": "lib/ui/game_cheat_panel.dart",
       "destination": "lib/games/fmj/ui/game_cheat_panel.dart",
       "sourceSha256": "0699e303a640209e28415727608ed1ae7d73aa9448c6770c7930f79151029e1c",
-      "importedSha256": "b8842301ca76a4410906b877b53803c7992ace947e0aa897ed9c898beee10a96"
+      "importedSha256": "05839c853fccb53a3ca6feafdbd69a5c6bbde9d1d7998dc978562a73d3af90e8"
     },
     {
       "game": "fmj",
       "source": "lib/ui/game_controls.dart",
       "destination": "lib/games/fmj/ui/game_controls.dart",
       "sourceSha256": "f1003f2779a30e5e6f5cbd05b1220a837b1fe47d6144d6423fd0e935395a7b68",
-      "importedSha256": "78aafcc266668f2ff8c600ef95e9f4745b7e37170543f34453966185c1a1733b"
+      "importedSha256": "2d82d95033f76597fe7fc7223f7d247563361bf3a6704d62ddd93abd8ef637e7"
     },
     {
       "game": "fmj",
@@ -146,7 +146,7 @@
       "source": "lib/ui/modern_battle_hud.dart",
       "destination": "lib/games/fmj/ui/modern_battle_hud.dart",
       "sourceSha256": "699cd18d0ac6950cfa8a218ff5dc028e1f2a08915546c6c0c0b84c46dd0ec02e",
-      "importedSha256": "3bb152e24ab93af4ea8d232eebb5627dbb5db958650a85763a9e59ca69a4b1af"
+      "importedSha256": "5431b6a0e50f6a1578eaad0f9363a9518e9f327370733e79c218f98465c64510"
     },
     {
       "game": "fmj",
@@ -160,7 +160,7 @@
       "source": "lib/ui/modern_game_view.dart",
       "destination": "lib/games/fmj/ui/modern_game_view.dart",
       "sourceSha256": "7fead2e2d569c14ca9d2d9c012124c82b450b5e1e0c75310b0bc47eb495d45c0",
-      "importedSha256": "8c163d1c04dfee02294ff8f3b2d44fc6df0b7b4196954cb18dc2d2ba2236cbb2"
+      "importedSha256": "ad688619dfe0aced77b3acf5b2e3dc7d36fdc6d559f97f846489bb1a16b255b1"
     },
     {
       "game": "fmj",
@@ -174,7 +174,7 @@
       "source": "lib/ui/modern_scene.dart",
       "destination": "lib/games/fmj/ui/modern_scene.dart",
       "sourceSha256": "0ca7e7194f78502f1fc560c83b6a82701c4082b531bfc9e57d50dd480af0ba15",
-      "importedSha256": "c653000fa2280fc5c32540b8d95d3621ed99365233db92283959852bfa20b8f6"
+      "importedSha256": "e9e197c4d5b9f53c3bb63554d742ebd36a55498993b3fb055721a7248f8e1b5c"
     },
     {
       "game": "fmj",
@@ -2258,6 +2258,18 @@
       "destination": "lib/games/fmj/engine/game_pickups.dart",
       "importedSha256": "0297245f49c8b748cf83cd6fa51c926ac990298bed8926d30ce5ed5e013e09c8",
       "approval": "2026-11-02 用户要求全地图扫描宝箱和隐藏点，新增作弊拾取开关并自测，确认锁箱手动用钥匙并遵守剧情时机"
+    },
+    {
+      "game": "fmj",
+      "destination": "lib/games/fmj/engine/game_cheats.dart",
+      "importedSha256": "60c1ebdc08a3d942f18069a4e798fd442cbb32a09bea20b44e90953ec169f926",
+      "approval": "2026-11-02 用户要求敌人封乱毒作弊开关、搜索并按攻击排序领取999把武器，移除技能合击快捷按钮及战斗回合上方金线"
+    },
+    {
+      "game": "fmj",
+      "destination": "lib/games/fmj/ui/weapon_cheat_dialog.dart",
+      "importedSha256": "7ff5c308e2a87a5f42c8b6a15c845a87e025dea1541c2d39085d54ebea61bc88",
+      "approval": "2026-11-02 用户要求敌人封乱毒作弊开关、搜索并按攻击排序领取999把武器，移除技能合击快捷按钮及战斗回合上方金线"
     }
   ],
   "integrationRevisions": [
@@ -3760,6 +3772,48 @@
       "previousImportedSha256": "f478bbc073905fe882a30c5d601070c6d654c0b7369f73d0d688895827876a68",
       "currentSha256": "b8842301ca76a4410906b877b53803c7992ace947e0aa897ed9c898beee10a96",
       "reason": "2026-11-02 用户确认一键直达按剧情和限制完整拾取，锁箱停下确认；扫描144个纯拾取事件，开局先取钨龙剑，预留三张卡的钥匙，并修复支路回程和刷钱导航隔离"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "2d89520b89b582ba25e51703b22c7799eb65311485133fcbb0563d360965bea3",
+      "currentSha256": "dd804b8bab41355b4e79c6d3ff04c69ededd03345aedb5affbdd5bfd0e8da9ab",
+      "reason": "2026-11-02 用户要求敌人封乱毒作弊开关、搜索并按攻击排序领取999把武器，移除技能合击快捷按钮及战斗回合上方金线"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_battle.dart",
+      "previousImportedSha256": "cf6a2d0933237e24323b0bb0605fc0f33ca82c50a52fbe5afbfdd04bf4ff3a35",
+      "currentSha256": "ee418839ffb73ed088388ac45e09b95a3147e40aa2824acd062a0abdf5296449",
+      "reason": "2026-11-02 用户要求敌人封乱毒作弊开关、搜索并按攻击排序领取999把武器，移除技能合击快捷按钮及战斗回合上方金线"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_cheat_panel.dart",
+      "previousImportedSha256": "b8842301ca76a4410906b877b53803c7992ace947e0aa897ed9c898beee10a96",
+      "currentSha256": "05839c853fccb53a3ca6feafdbd69a5c6bbde9d1d7998dc978562a73d3af90e8",
+      "reason": "2026-11-02 用户要求敌人封乱毒作弊开关、搜索并按攻击排序领取999把武器，移除技能合击快捷按钮及战斗回合上方金线"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_controls.dart",
+      "previousImportedSha256": "78aafcc266668f2ff8c600ef95e9f4745b7e37170543f34453966185c1a1733b",
+      "currentSha256": "2d82d95033f76597fe7fc7223f7d247563361bf3a6704d62ddd93abd8ef637e7",
+      "reason": "2026-11-02 用户要求敌人封乱毒作弊开关、搜索并按攻击排序领取999把武器，移除技能合击快捷按钮及战斗回合上方金线"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_scene.dart",
+      "previousImportedSha256": "c653000fa2280fc5c32540b8d95d3621ed99365233db92283959852bfa20b8f6",
+      "currentSha256": "e9e197c4d5b9f53c3bb63554d742ebd36a55498993b3fb055721a7248f8e1b5c",
+      "reason": "2026-11-02 用户要求敌人封乱毒作弊开关、搜索并按攻击排序领取999把武器，移除技能合击快捷按钮及战斗回合上方金线"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_battle_hud.dart",
+      "previousImportedSha256": "3bb152e24ab93af4ea8d232eebb5627dbb5db958650a85763a9e59ca69a4b1af",
+      "currentSha256": "5431b6a0e50f6a1578eaad0f9363a9518e9f327370733e79c218f98465c64510",
+      "reason": "2026-11-02 用户要求敌人封乱毒作弊开关、搜索并按攻击排序领取999把武器，移除技能合击快捷按钮及战斗回合上方金线"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_game_view.dart",
+      "previousImportedSha256": "8c163d1c04dfee02294ff8f3b2d44fc6df0b7b4196954cb18dc2d2ba2236cbb2",
+      "currentSha256": "ad688619dfe0aced77b3acf5b2e3dc7d36fdc6d559f97f846489bb1a16b255b1",
+      "reason": "2026-11-02 用户要求敌人封乱毒作弊开关、搜索并按攻击排序领取999把武器，移除技能合击快捷按钮及战斗回合上方金线"
     }
   ]
 }

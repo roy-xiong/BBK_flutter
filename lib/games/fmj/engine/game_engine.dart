@@ -14,6 +14,7 @@ part 'game_navigation.dart';
 part 'game_money_farm.dart';
 part 'story_battle_names.dart';
 part 'game_pickups.dart';
+part 'game_cheats.dart';
 
 /// 输入编号与 BBK 原引擎一致，触屏、键盘和寻路均经过同一入口。
 enum GameKey { up, down, left, right, pageUp, pageDown, confirm, cancel }
@@ -99,6 +100,7 @@ final class GameEngine {
     'randomBattleDisabled': false,
     'storyScope': 'complete',
     'autoPickup': false,
+    'enemyDebuffs': false,
   };
   GameMap? map;
   ScriptCursor? cursor;

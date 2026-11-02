@@ -1,11 +1,28 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import '../engine/game_engine.dart';
 import 'game_view_model.dart';
+import 'weapon_cheat_dialog.dart';
 
 /// 伏魔记原版十项辅助操作；显示设置、倍速和 UI 切换保留各自原有入口。
 final class GameCheatPanel extends StatelessWidget {
   const GameCheatPanel({super.key, required this.model});
   final GameViewModel model;
+
+  /// 选择只返回武器ID，真正发放通过当前会话动作入口；退出或换会话后不误发物品。
+  Future<void> _chooseWeapon(BuildContext context) async {
+    final game = model.engine;
+    if (game == null) return;
+    final id = await showDialog<String>(
+      context: context,
+      builder: (_) => WeaponCheatDialog(game: game, art: model.modernArt),
+    );
+    if (id == null || !context.mounted || !identical(model.engine, game)) {
+      return;
+    }
+    model.action((g) => g.grantCheatWeapon(id));
+  }
+
   @override
   Widget build(BuildContext context) => AnimatedBuilder(
     animation: model,
@@ -50,6 +67,18 @@ final class GameCheatPanel extends StatelessWidget {
             '切换我方无敌',
             '免疫伤害、毒乱眠封及敌方削弱，开启时清除已有异常',
             Icons.health_and_safety,
+          ),
+          toggle(
+            'enemyDebuffs',
+            '敌人封＋乱＋毒',
+            '当前及后续战斗的存活敌人持续封印、混乱和中毒；关闭撤回作弊效果',
+            Icons.coronavirus_outlined,
+          ),
+          action(
+            '获取999把武器',
+            '搜索并选择武器，每次增加999把，按攻击加成从高到低排列',
+            Icons.backpack_outlined,
+            () => _chooseWeapon(context),
           ),
           ListTile(
             leading: const Icon(Icons.paid),

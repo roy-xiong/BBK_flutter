@@ -231,9 +231,9 @@ void main() {
       await gesture.up();
       await tester.pump();
       expect(inputs, [GameControl.chooseThrowWeapon]);
-      await tester.tap(find.byKey(const ValueKey('fmj-battle-magic')));
-      await tester.tap(find.byKey(const ValueKey('fmj-battle-coop')));
-      expect(inputs.skip(1), [GameControl.quickMagic, GameControl.quickCoop]);
+      expect(find.byKey(const ValueKey('fmj-battle-magic')), findsNothing);
+      expect(find.byKey(const ValueKey('fmj-battle-coop')), findsNothing);
+      expect(inputs, [GameControl.chooseThrowWeapon]);
       expect(tester.takeException(), isNull);
     });
   }

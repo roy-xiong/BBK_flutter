@@ -248,7 +248,7 @@ void main() {
           home: Scaffold(body: GameCheatPanel(model: vm)),
         ),
       );
-      await tester.ensureVisible(find.text('全队属性拉满'));
+      await tester.scrollUntilVisible(find.text('全队属性拉满'), 200);
       await tester.pumpAndSettle();
       await tester.tap(find.text('全队属性拉满'));
       expect(p.attack, 1500);

@@ -88,11 +88,13 @@ final class _WorldInformation extends StatelessWidget {
         : game.map?.name ?? '伏魔记';
     return DecoratedBox(
       key: const ValueKey('world-information-band'),
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
           colors: [Color(0xff203e38), Color(0xff132c2b)],
         ),
-        border: Border(top: BorderSide(color: Color(0xff997e4f))),
+        border: battle == null
+            ? const Border(top: BorderSide(color: Color(0xff997e4f)))
+            : null,
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {

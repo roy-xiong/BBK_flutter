@@ -81,7 +81,6 @@ final class ModernBattleHud extends StatelessWidget {
                   // 只调整背景填充，不使用Opacity包裹文字、头像或血条。
                   colors: [Color(0x39223f38), Color(0x39122d2a)],
                 ),
-                border: Border(top: BorderSide(color: _gold, width: 1.4)),
               ),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 6, 10, 6),

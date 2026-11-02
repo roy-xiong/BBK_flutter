@@ -157,6 +157,17 @@ final class GameBattle {
   }
   final GameEngine game;
 
+  /// 敌人封乱毒作弊是战斗期间的附加状态，不写入原状态、持续回合或存档。
+  /// 关闭立即撤回附加效果，正常技能施加的状态继续按原回合数衰减；免疫不抵消作弊。
+  int statusFor(GameActor actor) =>
+      actor.status |
+      (actor.type == 3 &&
+              actor.visible &&
+              actor.alive &&
+              game.preferences['enemyDebuffs'] == true
+          ? 14
+          : 0);
+
   /// 仅向表现层提供初始坐标，避免新版站位反向修改原版进攻轨迹和伤害位置。
   late final Map<GameActor, (int, int)> presentationOrigins;
   late final List<GameActor> presentationEnemies;
@@ -623,13 +634,13 @@ final class GameBattle {
         _skipAction(next);
         return;
       }
-    } else if (!actor.alive || actor.status & 1 != 0) {
+    } else if (!actor.alive || statusFor(actor) & 1 != 0) {
       _skipAction(next);
       return;
     }
-    if (next.kind != 'coop' && actor.status & 4 != 0) {
+    if (next.kind != 'coop' && statusFor(actor) & 4 != 0) {
       next = BattleAction(actor, [actor], 'self');
-    } else if (actor.status & 2 != 0 &&
+    } else if (statusFor(actor) & 2 != 0 &&
         (next.kind == 'magic' || next.kind == 'help')) {
       next = BattleAction(
         actor,
@@ -801,7 +812,7 @@ final class GameBattle {
             .magics(game.data)
             .where((id) => (game.magic(id)?.byte(4) ?? 999) < m.mp)
             .toList();
-        if (m.status & 2 == 0) {
+        if (statusFor(m) & 2 == 0) {
           final restore = magics
               .where((id) => game.magic(id)?.byte(0) == 3)
               .firstOrNull;
@@ -1391,7 +1402,7 @@ final class GameBattle {
           );
         }
       }
-      if (a.status & 8 != 0 &&
+      if (statusFor(a) & 8 != 0 &&
           !(a.type == 1 && game.preferences['invincible'] == true)) {
         final before = a.hp;
         a.hp = a.hp == 1 ? 0 : (a.hp * .75).truncate();

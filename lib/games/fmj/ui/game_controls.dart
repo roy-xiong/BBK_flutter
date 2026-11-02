@@ -481,12 +481,8 @@ class _BattleShortcutButtons extends StatelessWidget {
             GameControl.quickThrow,
             held: GameControl.chooseThrowWeapon,
           ),
-          const SizedBox(width: 8),
-          button('magic', '技能', '选择魔法技能', GameControl.quickMagic),
-          const SizedBox(width: 8),
-          button('coop', '合击', '选择合击目标', GameControl.quickCoop),
         ] else
-          SizedBox(width: buttonSize * 3 + 24),
+          SizedBox(width: buttonSize + 8),
       ],
     );
   }

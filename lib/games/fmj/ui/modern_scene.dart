@@ -648,7 +648,7 @@ final class ModernScenePainter extends CustomPainter {
       }
       final statuses = [
         for (final bit in [(8, '毒'), (4, '乱'), (2, '封'), (1, '眠')])
-          if (actor.status & bit.$1 != 0) bit.$2,
+          if (battle.statusFor(actor) & bit.$1 != 0) bit.$2,
       ].join('');
       if (statuses.isNotEmpty) {
         _label(
