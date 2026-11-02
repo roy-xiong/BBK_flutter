@@ -48,7 +48,7 @@
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "e4dbae5c16c649a47b24cc29cd0382b177f5a7fd10da6d58e757f4d74b39b824"
+      "importedSha256": "a3eb853388a9973c86f44a7c286cb7774a6cde844d0a87a6d9fdb6f23908c792"
     },
     {
       "game": "fmj",
@@ -69,7 +69,7 @@
       "source": "lib/engine/game_render.dart",
       "destination": "lib/games/fmj/engine/game_render.dart",
       "sourceSha256": "b796a60d7f619e67d0a02e354df7d7d05e59c6495abc6984a052a0b5fcae7365",
-      "importedSha256": "2ffa0dfc31780a285f9174eaab633f3a2af1eb800a811c55b9dd44f0215e3161"
+      "importedSha256": "48c09cd2f27ca2fe3911ab3ada5e6246d05997fd6b66f51258a07bb1feeae32e"
     },
     {
       "game": "fmj",
@@ -132,7 +132,7 @@
       "source": "lib/ui/game_view_model.dart",
       "destination": "lib/games/fmj/ui/game_view_model.dart",
       "sourceSha256": "786dff4519fccfd2727406d85205e84ad72394a542c0ece02ca086e142e1a202",
-      "importedSha256": "bb66d71f214408b2bfed000d928371f6e4d45e7680be8c365ff3790a3cbc7649"
+      "importedSha256": "5d0b88495288d803a273fa6c40ab391a59aa9188412acb2df16f6b71e9faf0d4"
     },
     {
       "game": "fmj",
@@ -174,7 +174,7 @@
       "source": "lib/ui/modern_scene.dart",
       "destination": "lib/games/fmj/ui/modern_scene.dart",
       "sourceSha256": "0ca7e7194f78502f1fc560c83b6a82701c4082b531bfc9e57d50dd480af0ba15",
-      "importedSha256": "aa5adb9ca86d97fa844c05a91fedf039d5219dd961aef0d102feea6cd4d4eca0"
+      "importedSha256": "0885d12a2b8ff9c3d57708db7e48f215d0df5fa9494e576dbd012e9d290ca8a9"
     },
     {
       "game": "fmj",
@@ -2275,6 +2275,11 @@
       "game": "fmj",
       "destination": "assets/fmj/modern/party-costumes-v1.png",
       "importedSha256": "ecd35c620f82ac62dd04623c2c5464fb10b0c8065b2ca88d368474bcfc1f7f9e"
+    },
+    {
+      "game": "fmj",
+      "destination": "lib/games/fmj/engine/game_party_follow.dart",
+      "importedSha256": "6a262462f7eced69de7a481810ba6cbe6e7b0eecde01c2161e3ac6b7f40f7b36"
     }
   ],
   "integrationRevisions": [
@@ -3945,6 +3950,30 @@
       "previousImportedSha256": "1f2c694e2f1e7d1f066f62516eeeef3abe4834ad5d88133990efc0a2aee8cc9e",
       "currentSha256": "d882263ffc4a13bd61f4f9786c98ac0c87b3718bc7bf87fe4133044c4b8b78e1",
       "reason": "2026-11-02 修复新三人战斗悬浮：逐帧实际脚底/倒地接触点对齐，防御使用同一地面落点，收紧接触阴影并取消新形象整图上下浮动；地图组队仅做审核预览"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "e4dbae5c16c649a47b24cc29cd0382b177f5a7fd10da6d58e757f4d74b39b824",
+      "currentSha256": "a3eb853388a9973c86f44a7c286cb7774a6cde844d0a87a6d9fdb6f23908c792",
+      "reason": "2026-11-02 用户认可A版一格紧凑纵队及战斗贴地修正；跟随使用真实足迹的独立显示快照，不修改角色剧情坐标与事件，支持黑白彩色及新旧形象，按要求不检查直接全平台打包"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_render.dart",
+      "previousImportedSha256": "2ffa0dfc31780a285f9174eaab633f3a2af1eb800a811c55b9dd44f0215e3161",
+      "currentSha256": "48c09cd2f27ca2fe3911ab3ada5e6246d05997fd6b66f51258a07bb1feeae32e",
+      "reason": "2026-11-02 用户认可A版一格紧凑纵队及战斗贴地修正；跟随使用真实足迹的独立显示快照，不修改角色剧情坐标与事件，支持黑白彩色及新旧形象，按要求不检查直接全平台打包"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_view_model.dart",
+      "previousImportedSha256": "bb66d71f214408b2bfed000d928371f6e4d45e7680be8c365ff3790a3cbc7649",
+      "currentSha256": "5d0b88495288d803a273fa6c40ab391a59aa9188412acb2df16f6b71e9faf0d4",
+      "reason": "2026-11-02 用户认可A版一格紧凑纵队及战斗贴地修正；跟随使用真实足迹的独立显示快照，不修改角色剧情坐标与事件，支持黑白彩色及新旧形象，按要求不检查直接全平台打包"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_scene.dart",
+      "previousImportedSha256": "aa5adb9ca86d97fa844c05a91fedf039d5219dd961aef0d102feea6cd4d4eca0",
+      "currentSha256": "0885d12a2b8ff9c3d57708db7e48f215d0df5fa9494e576dbd012e9d290ca8a9",
+      "reason": "2026-11-02 用户认可A版一格紧凑纵队及战斗贴地修正；跟随使用真实足迹的独立显示快照，不修改角色剧情坐标与事件，支持黑白彩色及新旧形象，按要求不检查直接全平台打包"
     }
   ]
 }

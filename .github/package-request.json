@@ -1,7 +1,6 @@
 {
-  "request": "2026-11-02-party-costumes-v1-publish-retry-2",
-  "publish_run_id": "41462664267",
+  "request": "2026-11-02-compact-party-follow",
   "platform": "all",
   "skip_validation": true,
-  "reason": "四平台1.0.45+46均已成功；补发既有安装包到Release，不重新构建或运行测试。"
+  "reason": "用户认可A版一格紧凑纵队及战斗贴地修复，要求推送main后全平台打包，不检查、不下载。"
 }

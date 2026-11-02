@@ -3,6 +3,7 @@ part of 'game_engine.dart';
 extension GameRendering on GameEngine {
   /// 绘制逻辑帧，远视野布局直接采用 BBK wide-ui.js 的整数坐标。
   void render() {
+    partyFollow.synchronize();
     refreshMenus();
     final target = surface;
     if (screen == 'intro') {
@@ -236,20 +237,19 @@ extension GameRendering on GameEngine {
         );
       }
     }
-    final actors = [...npcs.values, ?player];
-    actors.sort((a, b) => a.y.compareTo(b.y));
-    for (final actor in actors) {
+    for (final pose in partyFollow.worldActors) {
+      final actor = pose.actor;
       final resource = data.image(8, actor.type, actor.sprite);
       if (resource == null) continue;
-      final base = switch (actor.direction) {
+      final base = switch (pose.direction) {
         1 => 0,
         2 => 3,
         3 => 6,
         _ => 9,
       };
-      final frame = base + [0, 1, 2, 1][actor.step % 4];
-      final x = (actor.x - left) * 16 + offset,
-          y = (actor.y - top) * 16 + 16 - resource.height;
+      final frame = base + [0, 1, 2, 1][pose.step % 4];
+      final x = (pose.x - left) * 16 + offset,
+          y = (pose.y - top) * 16 + 16 - resource.height;
       if (!wide && (x < 8 || x >= 152)) continue;
       surface.blit(resource.frame(frame), x, y);
     }

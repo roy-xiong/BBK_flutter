@@ -321,17 +321,23 @@ final class ModernScenePainter extends CustomPainter {
     }
     // 原引擎在地图之后绘制全部 NPC。交互机关不能被静态家具或屋顶挡掉。
     if (!overview || showActorsInOverview) {
-      final actors = [...game.npcs.values, ?player]
-        ..sort((a, b) => a.y.compareTo(b.y));
-      for (final actor in actors) {
-        final point = camera.point(actor.x, actor.y);
+      for (final pose in game.partyFollow.worldActors) {
+        final point = camera.point(pose.x, pose.y);
         if (point.dx < -160 ||
             point.dx > 800 ||
             point.dy < -192 ||
             point.dy > 512) {
           continue;
         }
-        _drawActor(canvas, art, actor, point, tileSize);
+        _drawActor(
+          canvas,
+          art,
+          pose.actor,
+          point,
+          tileSize,
+          direction: pose.direction,
+          step: pose.step,
+        );
       }
     }
     if (!overview) {
@@ -357,8 +363,12 @@ final class ModernScenePainter extends CustomPainter {
     ModernArt art,
     GameActor actor,
     Offset point,
-    double tileSize,
-  ) {
+    double tileSize, {
+    int? direction,
+    int? step,
+  }) {
+    final facing = (direction ?? actor.direction).clamp(1, 4);
+    final walkFrame = [0, 1, 2, 1][(step ?? actor.step) % 4];
     if (actor.type == 4 && actor.name.contains('透明')) return;
     if (ModernWorldObjects.draw(
       canvas,
@@ -391,13 +401,11 @@ final class ModernScenePainter extends CustomPainter {
     final resource = actor.type == 1
         ? 'hero:${actor.index}'
         : '8:${actor.type}:${actor.sprite}';
-    final frame =
-        [0, 3, 6, 9][actor.direction.clamp(1, 4) - 1] +
-        [0, 1, 2, 1][actor.step % 4];
+    final frame = [0, 3, 6, 9][facing - 1] + walkFrame;
     // 宝箱和透明机关使用自己的资源，不能与同编号 NPC 的高清人物切片混用。
     final hdKey = actor.type == 1 || actor.type == 2
         ? art.characterKey(
-            'world:${actor.type == 1 ? 'hero' : 'npc'}:${actor.index}:${actor.direction.clamp(1, 4)}/${[0, 1, 2, 1][actor.step % 4]}',
+            'world:${actor.type == 1 ? 'hero' : 'npc'}:${actor.index}:$facing/$walkFrame',
             costume: game.preferences['costumeHeroes'] == true,
           )
         : null;

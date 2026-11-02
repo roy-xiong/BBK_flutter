@@ -15,6 +15,7 @@ part 'game_money_farm.dart';
 part 'story_battle_names.dart';
 part 'game_pickups.dart';
 part 'game_cheats.dart';
+part 'game_party_follow.dart';
 
 /// 输入编号与 BBK 原引擎一致，触屏、键盘和寻路均经过同一入口。
 enum GameKey { up, down, left, right, pageUp, pageDown, confirm, cancel }
@@ -66,6 +67,7 @@ final class GameEngine {
   late final GameNavigation navigation = GameNavigation(this);
   late final GameMoneyFarm moneyFarm = GameMoneyFarm(this);
   late final GamePickups pickups = GamePickups(this);
+  late final GamePartyFollow partyFollow = GamePartyFollow(this);
   final SystemTextLayout textLayout;
   final math.Random random;
   static final _speakerPrefix = RegExp(r'^([^：:\r\n，。！？!?]{1,16})[：:]');
@@ -220,6 +222,7 @@ final class GameEngine {
     navigation.cancel();
     stageStoneProgress = null;
     players.clear();
+    partyFollow.reset();
     npcs.clear();
     flags.clear();
     inventory.clear();
@@ -798,6 +801,7 @@ final class GameEngine {
       p.y = p.y - screenY + y;
     }
     map = next;
+    partyFollow.reset();
     screenX = x;
     screenY = y;
     route.clear();
@@ -826,11 +830,13 @@ final class GameEngine {
     _ => (-1, 0),
   };
   void _moveActor(GameActor p, int d) {
+    partyFollow.beforeMove(p);
     final (dx, dy) = _delta(d);
     p.x += dx;
     p.y += dy;
     p.direction = d;
     p.step = (p.step + 1) % 4;
+    partyFollow.afterMove(p);
   }
 
   int? _npcAt(int x, int y) {
@@ -1339,6 +1345,7 @@ final class GameEngine {
     stageStoneProgress = null;
     _walkElapsed = 0;
     _scriptYield = false;
+    partyFollow.reset();
     _dialogueConfirmHeld = false;
     error = '';
     notice = '';
