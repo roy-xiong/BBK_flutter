@@ -1,5 +1,5 @@
 {
-  "request": "2026-11-02-party-costumes-v1-publish",
+  "request": "2026-11-02-party-costumes-v1-publish-retry-1",
   "publish_run_id": "41462664267",
   "platform": "all",
   "skip_validation": true,

@@ -40,4 +40,16 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           SOURCE_RUN_ID: ${{ github.event.workflow_run.id || inputs.run_id }}
-        run: python3 tool/publish_release.py
+        run: |
+          python3 - <<'PY'
+          import os
+          import runpy
+          try:
+              runpy.run_path('tool/publish_release.py', run_name='__main__')
+          except Exception as error:
+              # 将发布失败原因暴露为Actions注解，便于直接查看；不输出令牌。
+              message = str(error).replace(os.environ['GH_TOKEN'], '<REDACTED>')
+              message = message.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+              print('::error::' + message, flush=True)
+              raise SystemExit(1)
+          PY
