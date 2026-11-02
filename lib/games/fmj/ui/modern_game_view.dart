@@ -88,13 +88,11 @@ final class _WorldInformation extends StatelessWidget {
         : game.map?.name ?? '伏魔记';
     return DecoratedBox(
       key: const ValueKey('world-information-band'),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
           colors: [Color(0xff203e38), Color(0xff132c2b)],
         ),
-        border: battle == null
-            ? const Border(top: BorderSide(color: Color(0xff997e4f)))
-            : null,
+        border: Border(top: BorderSide(color: Color(0xff997e4f))),
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -777,6 +775,10 @@ final class _NativeMenuState extends State<_NativeMenu> {
       : widget.maxHeight;
   bool get _compact => _menuMaxHeight < 200;
   double get _titleHeight => (_compact ? 24 : 28) * widget.scale;
+  double get _actorTabsHeight =>
+      widget.menu.kind == 'equipment' && widget.game.players.length > 1
+      ? 28 * widget.scale
+      : 0;
 
   /// 每行高度由菜单实际可用高度决定；主菜单四项完整可见，长列表继续滚动。
   double get _extent {
@@ -784,6 +786,7 @@ final class _NativeMenuState extends State<_NativeMenu> {
     // 与下方标题、金钱和外框的实际高度保持一致，不能借缩短状态栏隐藏菜单溢出。
     final header =
         _titleHeight +
+        _actorTabsHeight +
         18 +
         (widget.menu.kind == 'main' ? 14.4 * widget.scale + 4 : 0);
     final count = widget.menu.kind == 'equipment'
@@ -1265,6 +1268,55 @@ final class _NativeMenuState extends State<_NativeMenu> {
                   ),
                 ],
               ),
+              if (menu.kind == 'equipment' && game.players.length > 1)
+                SizedBox(
+                  height: _actorTabsHeight,
+                  child: Row(
+                    children: [
+                      for (var i = 0; i < game.players.length; i++)
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 2 * scale,
+                            ),
+                            child: Semantics(
+                              selected: menu.actor == i,
+                              button: true,
+                              child: TextButton(
+                                key: ValueKey(
+                                  'equipment-actor-${game.players[i].index}',
+                                ),
+                                style: TextButton.styleFrom(
+                                  minimumSize: Size.zero,
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 3 * scale,
+                                  ),
+                                  foregroundColor: menu.actor == i
+                                      ? _gold
+                                      : _paper,
+                                  backgroundColor: menu.actor == i
+                                      ? _gold.withValues(alpha: .15)
+                                      : null,
+                                ),
+                                onPressed: () => widget.model.action(
+                                  (g) => g.selectEquipmentActor(menu, i),
+                                ),
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Text(
+                                    game.players[i].name,
+                                    style: TextStyle(fontSize: 11 * scale),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
               if (menu.kind == 'main')
                 Padding(
                   padding: const EdgeInsets.only(bottom: 4),

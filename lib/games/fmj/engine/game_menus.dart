@@ -94,6 +94,23 @@ extension GameMenus on GameEngine {
     return true;
   }
 
+  /// 穿戴页的触屏人物按钮与翻页键共用切换入口，保留正在查看的装备部位。
+  /// 仅替换当前最上层穿戴菜单，旧按钮不能越过换装子菜单更换人物，防止误操作。
+  bool selectEquipmentActor(GameMenu menu, int index) {
+    if (!identical(menus.lastOrNull, menu) ||
+        menu.kind != 'equipment' ||
+        index < 0 ||
+        index >= players.length) {
+      return false;
+    }
+    if (menu.actor == index) return true;
+    final selected = menu.selected.clamp(0, 7);
+    menus.removeLast();
+    openEquipment(index);
+    menus.last.selected = selected;
+    return true;
+  }
+
   void _menuKey(GameKey key, bool down) {
     if (menus.isEmpty) return;
     refreshMenus();
@@ -136,8 +153,7 @@ extension GameMenus on GameEngine {
       if (menu.kind == 'equipment' && players.length > 1) {
         final actor =
             (menu.actor + (key == GameKey.pageDown ? 1 : -1)) % players.length;
-        menus.removeLast();
-        openEquipment(actor);
+        selectEquipmentActor(menu, actor);
       } else {
         menu.page = math.max(
           0,

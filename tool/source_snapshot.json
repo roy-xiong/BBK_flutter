@@ -55,7 +55,7 @@
       "source": "lib/engine/game_menus.dart",
       "destination": "lib/games/fmj/engine/game_menus.dart",
       "sourceSha256": "0d4fe2395bc3664887210d11914603f951d6e6ab37113b7ef9c2a241c5dc1c3a",
-      "importedSha256": "b5ec8027e03aa691974a5aa354f9003e3a51deac84d5e07e497577298682334a"
+      "importedSha256": "a4b6c3865619fdf84aaea68cf8271c151052f9cf728baa06c4a1bd3487bf1363"
     },
     {
       "game": "fmj",
@@ -160,7 +160,7 @@
       "source": "lib/ui/modern_game_view.dart",
       "destination": "lib/games/fmj/ui/modern_game_view.dart",
       "sourceSha256": "7fead2e2d569c14ca9d2d9c012124c82b450b5e1e0c75310b0bc47eb495d45c0",
-      "importedSha256": "ad688619dfe0aced77b3acf5b2e3dc7d36fdc6d559f97f846489bb1a16b255b1"
+      "importedSha256": "0f7443d8c5c027ae3fad8265fc85fedc41c7f9054acc74709ad5afd44142ea4e"
     },
     {
       "game": "fmj",
@@ -3814,6 +3814,18 @@
       "previousImportedSha256": "8c163d1c04dfee02294ff8f3b2d44fc6df0b7b4196954cb18dc2d2ba2236cbb2",
       "currentSha256": "ad688619dfe0aced77b3acf5b2e3dc7d36fdc6d559f97f846489bb1a16b255b1",
       "reason": "2026-11-02 用户要求敌人封乱毒作弊开关、搜索并按攻击排序领取999把武器，移除技能合击快捷按钮及战斗回合上方金线"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_menus.dart",
+      "previousImportedSha256": "b5ec8027e03aa691974a5aa354f9003e3a51deac84d5e07e497577298682334a",
+      "currentSha256": "a4b6c3865619fdf84aaea68cf8271c151052f9cf728baa06c4a1bd3487bf1363",
+      "reason": "2026-11-02 用户纠正恢复最下方状态栏金线；修复穿戴查看仅有柳清风的问题，增加点击队员切换并与翻页键共用，保持部位和当前人物操作归属"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_game_view.dart",
+      "previousImportedSha256": "ad688619dfe0aced77b3acf5b2e3dc7d36fdc6d559f97f846489bb1a16b255b1",
+      "currentSha256": "0f7443d8c5c027ae3fad8265fc85fedc41c7f9054acc74709ad5afd44142ea4e",
+      "reason": "2026-11-02 用户纠正恢复最下方状态栏金线；修复穿戴查看仅有柳清风的问题，增加点击队员切换并与翻页键共用，保持部位和当前人物操作归属"
     }
   ]
 }
