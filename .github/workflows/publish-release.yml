@@ -10,6 +10,10 @@ on:
         description: 补发已成功的打包 Run ID
         type: string
         required: true
+      skip_validation:
+        description: 跳过发布脚本测试，直接发布已成功的安装包
+        type: boolean
+        default: false
 permissions:
   actions: read
   contents: write
@@ -27,8 +31,10 @@ jobs:
           ref: main
           persist-credentials: false
       - name: 安装图像回归测试依赖
+        if: ${{ !inputs.skip_validation }}
         run: python3 -m pip install Pillow
       - run: python3 -m unittest discover -s tool/tests -p 'test_*.py' -v
+        if: ${{ !inputs.skip_validation }}
       - name: 发布已校验的原始安装包
         env:
           GH_TOKEN: ${{ github.token }}

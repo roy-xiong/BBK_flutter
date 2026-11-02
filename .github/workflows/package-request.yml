@@ -9,6 +9,7 @@ permissions:
 jobs:
   dispatch:
     runs-on: ubuntu-24.04
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - name: 将主分支构建请求交给现有打包流水线
@@ -18,10 +19,29 @@ jobs:
             // 无需在开发机保存GitHub令牌；请求文件随提交保留，便于追溯。
             const fs = require('fs');
             const request = JSON.parse(fs.readFileSync('.github/package-request.json', 'utf8'));
+            const publish = async (runId) => {
+              if (!/^[1-9][0-9]*$/.test(String(runId))) throw new Error('发布Run ID无效');
+              await github.rest.actions.createWorkflowDispatch({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: 'publish-release.yml',
+                ref: 'main',
+                inputs: {run_id: String(runId), skip_validation: String(request.skip_validation === true)},
+              });
+              core.summary.addHeading('已请求发布现有安装包');
+              core.summary.addRaw(`构建Run：${runId}。发布流程读取现有产物，不重新编译。`);
+              await core.summary.write();
+            };
+            // 支持构建已经成功时单独补发，避免重复递增版本和重新打包。
+            if (request.publish_run_id !== undefined) {
+              await publish(request.publish_run_id);
+              return;
+            }
             const platforms = ['macos', 'android', 'ios', 'windows', 'ios-macos', 'android-ios-macos', 'all'];
             if (!platforms.includes(request.platform) || typeof request.skip_validation !== 'boolean') {
               throw new Error('构建请求的平台或跳过验证参数无效');
             }
+            const requestedAt = Date.now() - 10000;
             await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -35,3 +55,23 @@ jobs:
             core.summary.addHeading('已触发现有打包流水线');
             core.summary.addRaw(`平台：${request.platform}；跳过验证：${request.skip_validation}；来源提交：${context.sha}`);
             await core.summary.write();
+            // GITHUB_TOKEN触发的构建不会保证继续派生workflow_run事件，
+            // 因此跟踪本次SHA的构建并显式派发发布；不读取开发机凭据。
+            for (let attempt = 0; attempt < 330; attempt++) {
+              const {data} = await github.rest.actions.listWorkflowRuns({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: 'packages.yml',
+                event: 'workflow_dispatch',
+                head_sha: context.sha,
+                per_page: 20,
+              });
+              const run = data.workflow_runs.find(item => Date.parse(item.created_at) >= requestedAt);
+              if (run?.status === 'completed') {
+                if (run.conclusion !== 'success') throw new Error(`构建未成功：${run.html_url}`);
+                await publish(run.id);
+                return;
+              }
+              await new Promise(resolve => setTimeout(resolve, 10000));
+            }
+            throw new Error('等待构建结束超时，请使用publish_run_id补发已有产物');
