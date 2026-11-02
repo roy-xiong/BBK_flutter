@@ -15,7 +15,8 @@ def gh(*args, missing_ok=False):
     if result.returncode:
         if missing_ok and 'HTTP 404' in result.stderr:
             return None
-        raise RuntimeError(f'GitHub 操作失败：{args[0]}；{result.stderr.strip()}')
+        operation = f'{args[0]} {args[1]}' if len(args) > 1 else args[0]
+        raise RuntimeError(f'GitHub 操作失败：{operation}；{result.stderr.strip()}')
     return result.stdout
 
 
