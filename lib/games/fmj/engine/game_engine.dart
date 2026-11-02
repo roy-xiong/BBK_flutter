@@ -84,7 +84,8 @@ final class GameEngine {
   /// 独立自动档；不占用、不覆盖三个手动档位，由会话持久化层在安全节点更新。
   Map<String, dynamic>? automaticSave;
   final Map<String, dynamic> preferences = {
-    'modernUi': false,
+    'modernUi': true,
+    'costumeHeroes': false,
     'darkControls': true,
     'controlsVisible': true,
     'hapticsEnabled': true,

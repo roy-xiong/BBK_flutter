@@ -42,7 +42,11 @@ abstract final class ModernOpeningScene {
     final hx = chase ? 64 + progress * 350 : 412.0;
     final hy = 266 + math.sin(progress * math.pi * 2) * 15;
     final frame = chase ? [0, 1, 2, 1][(game.ticks ~/ 2) % 4] : 0;
-    final sprite = art.sprites['world:hero:1:2/$frame'];
+    final heroKey = art.characterKey(
+      'world:hero:1:2/$frame',
+      costume: game.preferences['costumeHeroes'] == true,
+    );
+    final sprite = art.sprites[heroKey];
     if (sprite != null) {
       const h = 126.0;
       final w = h * sprite.rect.width / sprite.rect.height;
@@ -52,7 +56,7 @@ abstract final class ModernOpeningScene {
       );
       art.drawSprite(
         canvas,
-        'world:hero:1:2/$frame',
+        heroKey,
         Rect.fromLTWH(hx, hy - h, w, h),
         paint..color = Colors.white,
       );

@@ -57,6 +57,12 @@ final class GameCheatPanel extends StatelessWidget {
         children: [
           const ListTile(title: Text('作弊系统', style: TextStyle(fontSize: 20))),
           toggle(
+            'costumeHeroes',
+            '使用新版人物形象',
+            '开启使用已认可的三人古装形象，关闭使用当前形象；同步切换行走、战斗与头像，仅影响彩色画面',
+            Icons.face_retouching_natural,
+          ),
+          toggle(
             'autoPickup',
             '一键直达拾取物品',
             '先收集当前剧情可达的宝箱、隐藏物品和金钱，再继续目标；锁箱停下确认，重新开启可重试已取消的锁箱',

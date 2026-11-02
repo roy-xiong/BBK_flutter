@@ -80,7 +80,7 @@ final class GameViewModel extends ChangeNotifier {
   bool isLoading = true;
   bool hapticsEnabled = true;
   bool controlsVisible = true;
-  bool cartoonEnabled = false;
+  bool cartoonEnabled = true;
   KeyboardBindings keyboard = KeyboardBindings();
   final ValueNotifier<int> sceneRevision = ValueNotifier(0);
   bool landscape = false;
@@ -129,7 +129,7 @@ final class GameViewModel extends ChangeNotifier {
       if (!_current(generation)) return;
       hapticsEnabled = settings['hapticsEnabled'] != false;
       controlsVisible = settings['controlsVisible'] != false;
-      cartoonEnabled = settings['cartoonEnabled'] == true;
+      cartoonEnabled = settings['cartoonEnabled'] != false;
       keyboard = KeyboardBindings(settings['keyboardBindings']);
       final speed = settings['battleSpeedMultiplier'];
       if (speed is int && sgbyGameSpeedMultipliers.contains(speed)) {

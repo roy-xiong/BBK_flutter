@@ -197,6 +197,14 @@ final class ModernArt {
 
   bool _disposed = false;
 
+  /// 两套人物共享同一资源生命周期，切换时只选择切片，不解码或修改原图片。
+  ///
+  /// 新素材使用独立命名空间；缺少某帧时回退当前形象，不影响经典黑白资源。
+  String characterKey(String key, {required bool costume}) {
+    final alternate = 'costume:$key';
+    return costume && sprites.containsKey(alternate) ? alternate : key;
+  }
+
   /// 地表采样绑定世界原点，同一镜头内各格共享着色器。缓存按最近使用顺序
   /// 限制为 32 项，移动镜头、切换地图不会无限积累原生 Shader 对象。
   final _groundShaders =

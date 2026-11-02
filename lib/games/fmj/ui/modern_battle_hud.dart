@@ -135,6 +135,11 @@ final class ModernBattleHud extends StatelessWidget {
                                             battle.game.players[i],
                                           ),
                                       art: art,
+                                      costume:
+                                          battle
+                                              .game
+                                              .preferences['costumeHeroes'] ==
+                                          true,
                                     ),
                             ),
                           ],
@@ -272,10 +277,12 @@ final class _PartyCard extends StatelessWidget {
     required this.actor,
     required this.active,
     required this.art,
+    required this.costume,
   });
   final GameActor actor;
   final bool active;
   final ModernArt? art;
+  final bool costume;
   @override
   Widget build(BuildContext context) => DecoratedBox(
     decoration: BoxDecoration(
@@ -296,7 +303,12 @@ final class _PartyCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(2),
               child: CustomPaint(
-                painter: PortraitPainter(actor.index, actor.name, art),
+                painter: PortraitPainter(
+                  actor.index,
+                  actor.name,
+                  art,
+                  costume: costume,
+                ),
               ),
             ),
           ),

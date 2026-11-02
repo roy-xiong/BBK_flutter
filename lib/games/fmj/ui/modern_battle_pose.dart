@@ -40,6 +40,7 @@ abstract final class ModernBattlePose {
     required bool defending,
     required int ticks,
     required ui.FilterQuality filterQuality,
+    bool costume = false,
   }) {
     if (actor.type != 1 ||
         actor.index < 1 ||
@@ -51,12 +52,25 @@ abstract final class ModernBattlePose {
     }
     final rest = actor.combatFrame == 1 || actor.combatFrame == 11;
     if (defending && rest) {
-      return _guard(canvas, art, actor.index, target, filterQuality);
+      return _guard(canvas, art, actor.index, target, filterQuality, costume);
     }
     if (actor.combatFrame != 11 || actor.hp >= actor.maxHp ~/ 10) {
       return false;
     }
-    final sprite = art.sprites['battle:hero:${actor.index}/10'];
+    final key = art.characterKey(
+      'battle:hero:${actor.index}/10',
+      costume: costume,
+    );
+    // 新套装已有本人虚弱姿态，不能再套用旧短装的颈、腰、膝网格变形。
+    if (costume && key.startsWith('costume:')) {
+      return art.drawSprite(
+        canvas,
+        key,
+        target,
+        ui.Paint()..filterQuality = filterQuality,
+      );
+    }
+    final sprite = art.sprites[key];
     if (sprite == null ||
         sprite.texture >= art.textures.length ||
         sprite.texture < 0 ||
@@ -225,8 +239,10 @@ abstract final class ModernBattlePose {
     int hero,
     ui.Rect target,
     ui.FilterQuality filterQuality,
+    bool costume,
   ) {
-    final sprite = art.sprites['battle:hero:$hero/1'];
+    final key = art.characterKey('battle:hero:$hero/1', costume: costume);
+    final sprite = art.sprites[key];
     if (sprite == null || sprite.rect.isEmpty) return false;
     var height = target.height;
     var width = height * sprite.rect.width / sprite.rect.height;
@@ -242,7 +258,7 @@ abstract final class ModernBattlePose {
       height,
     );
     final paint = ui.Paint()..filterQuality = filterQuality;
-    if (!art.drawSprite(canvas, 'battle:hero:$hero/1', guard, paint)) {
+    if (!art.drawSprite(canvas, key, guard, paint)) {
       return false;
     }
     final h = target.height, x = target.center.dx - h * .26;

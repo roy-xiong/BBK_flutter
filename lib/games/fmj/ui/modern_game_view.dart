@@ -689,7 +689,12 @@ final class _Dialogue extends StatelessWidget {
               width: (compact ? 62 : 82) * scale,
               height: (compact ? 78 : 108) * scale,
               child: CustomPaint(
-                painter: PortraitPainter(head, actor ?? '', art),
+                painter: PortraitPainter(
+                  head,
+                  actor ?? '',
+                  art,
+                  costume: game.preferences['costumeHeroes'] == true,
+                ),
               ),
             ),
           if (head >= 1 && head <= 3) const SizedBox(width: 12),
@@ -960,6 +965,7 @@ final class _NativeMenuState extends State<_NativeMenu> {
                         game.players[i].index,
                         game.players[i].name,
                         widget.model.modernArt,
+                        costume: game.preferences['costumeHeroes'] == true,
                       ),
                     ),
                   )

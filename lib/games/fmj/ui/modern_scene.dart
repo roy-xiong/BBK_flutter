@@ -396,7 +396,10 @@ final class ModernScenePainter extends CustomPainter {
         [0, 1, 2, 1][actor.step % 4];
     // 宝箱和透明机关使用自己的资源，不能与同编号 NPC 的高清人物切片混用。
     final hdKey = actor.type == 1 || actor.type == 2
-        ? 'world:${actor.type == 1 ? 'hero' : 'npc'}:${actor.index}:${actor.direction.clamp(1, 4)}/${[0, 1, 2, 1][actor.step % 4]}'
+        ? art.characterKey(
+            'world:${actor.type == 1 ? 'hero' : 'npc'}:${actor.index}:${actor.direction.clamp(1, 4)}/${[0, 1, 2, 1][actor.step % 4]}',
+            costume: game.preferences['costumeHeroes'] == true,
+          )
         : null;
     final hd = hdKey == null ? null : art.sprites[hdKey];
     final source = art.frames['$resource/$frame'] ?? art.frames['$resource/0'];
@@ -540,10 +543,16 @@ final class ModernScenePainter extends CustomPainter {
       final point = layout.point(actor);
       final phase = math.max(0, actor.combatFrame - 1);
       final requested = actor.type == 1
-          ? 'battle:hero:${actor.index}/$phase'
+          ? art.characterKey(
+              'battle:hero:${actor.index}/$phase',
+              costume: game.preferences['costumeHeroes'] == true,
+            )
           : 'battle:monster:${actor.sprite}/$phase';
       final resting = actor.type == 1
-          ? 'battle:hero:${actor.index}/0'
+          ? art.characterKey(
+              'battle:hero:${actor.index}/0',
+              costume: game.preferences['costumeHeroes'] == true,
+            )
           : 'battle:monster:${actor.sprite}/0';
       // 原怪物低血帧号可能超出自身图片帧数，原渲染会回退首帧；新版也使用高清首帧。
       final key = art.sprites.containsKey(requested) ? requested : resting;
@@ -641,6 +650,7 @@ final class ModernScenePainter extends CustomPainter {
         defending: battle.defending.contains(actor),
         ticks: game.ticks,
         filterQuality: _paint.filterQuality,
+        costume: game.preferences['costumeHeroes'] == true,
       )) {
         if (!art.drawSprite(canvas, key, target, _paint)) {
           art.draw(canvas, resource, phase, target, _paint);
@@ -817,10 +827,11 @@ final class _SceneGeometry {
 
 /// 独立放大头像，使用有来源记录的角色轮廓和新版肤色、发色材质。
 final class PortraitPainter extends CustomPainter {
-  PortraitPainter(this.index, this.name, this.art);
+  PortraitPainter(this.index, this.name, this.art, {this.costume = false});
   final int index;
   final String name;
   final ModernArt? art;
+  final bool costume;
   @override
   void paint(Canvas canvas, Size size) {
     final art = this.art;
@@ -844,7 +855,7 @@ final class PortraitPainter extends CustomPainter {
     );
     if (!art.drawPortrait(
       canvas,
-      'portrait:hero:$index/0',
+      art.characterKey('portrait:hero:$index/0', costume: costume),
       target,
       paint..color = Colors.white,
     )) {
@@ -854,5 +865,7 @@ final class PortraitPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant PortraitPainter oldDelegate) =>
-      index != oldDelegate.index || art != oldDelegate.art;
+      index != oldDelegate.index ||
+      art != oldDelegate.art ||
+      costume != oldDelegate.costume;
 }

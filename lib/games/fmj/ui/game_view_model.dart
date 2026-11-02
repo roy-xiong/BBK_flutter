@@ -363,7 +363,7 @@ final class GameViewModel extends ChangeNotifier {
           game.operation?.kind == 'credits';
       final sceneKey =
           '${game.map?.id}/${game.cursor?.script.id}/'
-          '${game.wide}/${game.preferences['hd']}/${game.flags}/'
+          '${game.wide}/${game.preferences['hd']}/${game.preferences['costumeHeroes']}/${game.flags}/'
           '${animated ? game.ticks : 0}/${game.route}/'
           '${[...game.npcs.values, ?game.player].map((a) => '${a.type},${a.index},${a.sprite},${a.x},${a.y},${a.direction},'
               '${a.step},${a.state},${a.visible}').join(';')}';

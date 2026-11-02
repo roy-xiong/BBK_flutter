@@ -48,7 +48,7 @@
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "dd804b8bab41355b4e79c6d3ff04c69ededd03345aedb5affbdd5bfd0e8da9ab"
+      "importedSha256": "e4dbae5c16c649a47b24cc29cd0382b177f5a7fd10da6d58e757f4d74b39b824"
     },
     {
       "game": "fmj",
@@ -90,14 +90,14 @@
       "source": "lib/ui/dialogue_presentation.dart",
       "destination": "lib/games/fmj/ui/dialogue_presentation.dart",
       "sourceSha256": "ac6f16a7830b9cdceb213411a5da1794e859358546dc8d67231ca6eaf4419c6e",
-      "importedSha256": "ac6f16a7830b9cdceb213411a5da1794e859358546dc8d67231ca6eaf4419c6e"
+      "importedSha256": "5e91e1b8129a05c5f7315f1e1959a3bb75f9f5e700c1ba1a8890a8b9bb7e9075"
     },
     {
       "game": "fmj",
       "source": "lib/ui/game_cheat_panel.dart",
       "destination": "lib/games/fmj/ui/game_cheat_panel.dart",
       "sourceSha256": "0699e303a640209e28415727608ed1ae7d73aa9448c6770c7930f79151029e1c",
-      "importedSha256": "05839c853fccb53a3ca6feafdbd69a5c6bbde9d1d7998dc978562a73d3af90e8"
+      "importedSha256": "1edba37749a790ddad658cff7941c465a15557924ee819b06eb133e7bdbdef4d"
     },
     {
       "game": "fmj",
@@ -132,21 +132,21 @@
       "source": "lib/ui/game_view_model.dart",
       "destination": "lib/games/fmj/ui/game_view_model.dart",
       "sourceSha256": "786dff4519fccfd2727406d85205e84ad72394a542c0ece02ca086e142e1a202",
-      "importedSha256": "909f9b6e65f1a76580e3727bc50d83463b336637e1f5cd32f4dc389399c6de01"
+      "importedSha256": "bb66d71f214408b2bfed000d928371f6e4d45e7680be8c365ff3790a3cbc7649"
     },
     {
       "game": "fmj",
       "source": "lib/ui/modern_art.dart",
       "destination": "lib/games/fmj/ui/modern_art.dart",
       "sourceSha256": "7aaabd5830dd20ecab38ff42b95a9205e8d1cc33b86e8924849ab00ea4428f85",
-      "importedSha256": "7b4c604ec61b42f3ea3370c433359b4a94f2fbc0c856c1391ae287ac36a4cd42"
+      "importedSha256": "6d8fba8749280ee779fbc470e3fa2b4568b520cf465b0b4255296b7151eef47f"
     },
     {
       "game": "fmj",
       "source": "lib/ui/modern_battle_hud.dart",
       "destination": "lib/games/fmj/ui/modern_battle_hud.dart",
       "sourceSha256": "699cd18d0ac6950cfa8a218ff5dc028e1f2a08915546c6c0c0b84c46dd0ec02e",
-      "importedSha256": "5431b6a0e50f6a1578eaad0f9363a9518e9f327370733e79c218f98465c64510"
+      "importedSha256": "3286c498e20b53b3b6af7287211d358d570ee1d61496a61bb34c5256707ffe77"
     },
     {
       "game": "fmj",
@@ -160,7 +160,7 @@
       "source": "lib/ui/modern_game_view.dart",
       "destination": "lib/games/fmj/ui/modern_game_view.dart",
       "sourceSha256": "7fead2e2d569c14ca9d2d9c012124c82b450b5e1e0c75310b0bc47eb495d45c0",
-      "importedSha256": "0f7443d8c5c027ae3fad8265fc85fedc41c7f9054acc74709ad5afd44142ea4e"
+      "importedSha256": "0a4a80f5a56d8cafc9ecdd4d39adb4a6fa2a9e50a2e30332490cbb2cfcec514b"
     },
     {
       "game": "fmj",
@@ -174,7 +174,7 @@
       "source": "lib/ui/modern_scene.dart",
       "destination": "lib/games/fmj/ui/modern_scene.dart",
       "sourceSha256": "0ca7e7194f78502f1fc560c83b6a82701c4082b531bfc9e57d50dd480af0ba15",
-      "importedSha256": "e9e197c4d5b9f53c3bb63554d742ebd36a55498993b3fb055721a7248f8e1b5c"
+      "importedSha256": "d80f5a964a45238c5147887a2d1652b00ba12736bf2dea2b8a0def689635195f"
     },
     {
       "game": "fmj",
@@ -188,7 +188,7 @@
       "source": "lib/ui/modern_world_objects.dart",
       "destination": "lib/games/fmj/ui/modern_world_objects.dart",
       "sourceSha256": "85eaba354c8b9d6094bf0540b7cf52a9094a88f1051e35c7414fd139a7342613",
-      "importedSha256": "924afece514fc79a4eaff0e3f6eed7b825655849602a9f275d85131c4a5a0cec"
+      "importedSha256": "9720a998a918c112af65d018265fd5c53253bc963bdec05015e7c38289fc63df"
     },
     {
       "game": "fmj",
@@ -202,7 +202,7 @@
       "source": "lib/ui/system_font_layout.dart",
       "destination": "lib/games/fmj/ui/system_font_layout.dart",
       "sourceSha256": "442b07134193baa639878c27261214891d2a94d14472807f145bfa6c5750cc0c",
-      "importedSha256": "442b07134193baa639878c27261214891d2a94d14472807f145bfa6c5750cc0c"
+      "importedSha256": "99a73b93da46542058329be17a2876f45d2ff3a2b1966693336e0a3c7653fe82"
     },
     {
       "game": "fmj",
@@ -391,7 +391,7 @@
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "38fc528229ae134cd5bad2be33baa14fb2e941434853496f7d0ae9f893cb93ea"
+      "importedSha256": "1f2c694e2f1e7d1f066f62516eeeef3abe4834ad5d88133990efc0a2aee8cc9e"
     },
     {
       "game": "fmj",
@@ -517,7 +517,7 @@
       "source": "test/enhanced_release_test.dart",
       "destination": "test/games/fmj/enhanced_release_test.dart",
       "sourceSha256": "e69f058f52b467827b657fec0bcea25a4607aac7b329709da1231db5de435b1a",
-      "importedSha256": "4f0b595e3dc6a7bbf53dd14644b39fb1253ad335a622532574442a1d46668b10"
+      "importedSha256": "50ad5460e9d81e426601421c7f7ecaf138b3661e907212bda33c49396856f0a4"
     },
     {
       "game": "fmj",
@@ -636,7 +636,7 @@
       "source": "test/game_navigation_test.dart",
       "destination": "test/games/fmj/game_navigation_test.dart",
       "sourceSha256": "32591be6aece73c910fc3c07e451274eec2c397ac58b9fe8944c7e4806c310bb",
-      "importedSha256": "cc1634ac8048c6ad5aa03980b0ba5b32f7f663eaa74ae15ec733e28b827d9e51"
+      "importedSha256": "949fc63c80bdb8b64bbde3f8371157de29325bd0f17985b9667a2ef257c28d60"
     },
     {
       "game": "fmj",
@@ -650,7 +650,7 @@
       "source": "test/map_structure_fidelity_test.dart",
       "destination": "test/games/fmj/map_structure_fidelity_test.dart",
       "sourceSha256": "d976cde68cba9c3abd52e692eef2017d73005325f4f82bd31766429ff188f758",
-      "importedSha256": "245373705b513146746529627184921c884a0d6a7367da929a8b7d74818ac012"
+      "importedSha256": "6f6a22a72d69ef19da2521c7d657c0d9e2f2681a9dd7df470f15e3649340c8ea"
     },
     {
       "game": "fmj",
@@ -1098,7 +1098,7 @@
       "source": "lib/ui/core/app_theme.dart",
       "destination": "lib/games/sgby/ui/core/app_theme.dart",
       "sourceSha256": "f69dab2315c3b6695372fcb721b45fba734ce5839c40ae5b596ca05f5908c1ac",
-      "importedSha256": "f69dab2315c3b6695372fcb721b45fba734ce5839c40ae5b596ca05f5908c1ac"
+      "importedSha256": "859ae43235c2452eeef76c1bc3af6b058571294d7786747fe3d4f82c25942a62"
     },
     {
       "game": "sgby",
@@ -1126,7 +1126,7 @@
       "source": "lib/ui/features/game/view_models/game_view_model.dart",
       "destination": "lib/games/sgby/ui/features/game/view_models/game_view_model.dart",
       "sourceSha256": "84d5fd993d62c8446d0a129f364f66f136905c9b1039c904805b8042b2a6d270",
-      "importedSha256": "ba15af8cfa3326712c03f8ebcfbea2b94330bb965812d86927691873b4a8bb9a"
+      "importedSha256": "4e6b7561b0fed9af754d5874f631f378b7d9ebff0a4b1a2e91788c3ed54e706a"
     },
     {
       "game": "sgby",
@@ -2270,6 +2270,11 @@
       "destination": "lib/games/fmj/ui/weapon_cheat_dialog.dart",
       "importedSha256": "7ff5c308e2a87a5f42c8b6a15c845a87e025dea1541c2d39085d54ebea61bc88",
       "approval": "2026-11-02 用户要求敌人封乱毒作弊开关、搜索并按攻击排序领取999把武器，移除技能合击快捷按钮及战斗回合上方金线"
+    },
+    {
+      "game": "fmj",
+      "destination": "assets/fmj/modern/party-costumes-v1.png",
+      "importedSha256": "ecd35c620f82ac62dd04623c2c5464fb10b0c8065b2ca88d368474bcfc1f7f9e"
     }
   ],
   "integrationRevisions": [
@@ -3826,6 +3831,102 @@
       "previousImportedSha256": "ad688619dfe0aced77b3acf5b2e3dc7d36fdc6d559f97f846489bb1a16b255b1",
       "currentSha256": "0f7443d8c5c027ae3fad8265fc85fedc41c7f9054acc74709ad5afd44142ea4e",
       "reason": "2026-11-02 用户纠正恢复最下方状态栏金线；修复穿戴查看仅有柳清风的问题，增加点击队员切换并与翻页键共用，保持部位和当前人物操作归属"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "dd804b8bab41355b4e79c6d3ff04c69ededd03345aedb5affbdd5bfd0e8da9ab",
+      "currentSha256": "e4dbae5c16c649a47b24cc29cd0382b177f5a7fd10da6d58e757f4d74b39b824",
+      "reason": "2026-11-02 用户认可三人新古装与持械造型，作弊中保留原形象并可切换；地图、开场、战斗、头像统一切换，首次启动默认彩色，本次按要求不验证直接全平台打包"
+    },
+    {
+      "destination": "lib/games/fmj/ui/dialogue_presentation.dart",
+      "previousImportedSha256": "ac6f16a7830b9cdceb213411a5da1794e859358546dc8d67231ca6eaf4419c6e",
+      "currentSha256": "5e91e1b8129a05c5f7315f1e1959a3bb75f9f5e700c1ba1a8890a8b9bb7e9075",
+      "reason": "2026-11-02 用户认可三人新古装与持械造型，作弊中保留原形象并可切换；地图、开场、战斗、头像统一切换，首次启动默认彩色，本次按要求不验证直接全平台打包"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_cheat_panel.dart",
+      "previousImportedSha256": "05839c853fccb53a3ca6feafdbd69a5c6bbde9d1d7998dc978562a73d3af90e8",
+      "currentSha256": "1edba37749a790ddad658cff7941c465a15557924ee819b06eb133e7bdbdef4d",
+      "reason": "2026-11-02 用户认可三人新古装与持械造型，作弊中保留原形象并可切换；地图、开场、战斗、头像统一切换，首次启动默认彩色，本次按要求不验证直接全平台打包"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_view_model.dart",
+      "previousImportedSha256": "909f9b6e65f1a76580e3727bc50d83463b336637e1f5cd32f4dc389399c6de01",
+      "currentSha256": "bb66d71f214408b2bfed000d928371f6e4d45e7680be8c365ff3790a3cbc7649",
+      "reason": "2026-11-02 用户认可三人新古装与持械造型，作弊中保留原形象并可切换；地图、开场、战斗、头像统一切换，首次启动默认彩色，本次按要求不验证直接全平台打包"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_art.dart",
+      "previousImportedSha256": "7b4c604ec61b42f3ea3370c433359b4a94f2fbc0c856c1391ae287ac36a4cd42",
+      "currentSha256": "6d8fba8749280ee779fbc470e3fa2b4568b520cf465b0b4255296b7151eef47f",
+      "reason": "2026-11-02 用户认可三人新古装与持械造型，作弊中保留原形象并可切换；地图、开场、战斗、头像统一切换，首次启动默认彩色，本次按要求不验证直接全平台打包"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_battle_hud.dart",
+      "previousImportedSha256": "5431b6a0e50f6a1578eaad0f9363a9518e9f327370733e79c218f98465c64510",
+      "currentSha256": "3286c498e20b53b3b6af7287211d358d570ee1d61496a61bb34c5256707ffe77",
+      "reason": "2026-11-02 用户认可三人新古装与持械造型，作弊中保留原形象并可切换；地图、开场、战斗、头像统一切换，首次启动默认彩色，本次按要求不验证直接全平台打包"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_game_view.dart",
+      "previousImportedSha256": "0f7443d8c5c027ae3fad8265fc85fedc41c7f9054acc74709ad5afd44142ea4e",
+      "currentSha256": "0a4a80f5a56d8cafc9ecdd4d39adb4a6fa2a9e50a2e30332490cbb2cfcec514b",
+      "reason": "2026-11-02 用户认可三人新古装与持械造型，作弊中保留原形象并可切换；地图、开场、战斗、头像统一切换，首次启动默认彩色，本次按要求不验证直接全平台打包"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_scene.dart",
+      "previousImportedSha256": "e9e197c4d5b9f53c3bb63554d742ebd36a55498993b3fb055721a7248f8e1b5c",
+      "currentSha256": "d80f5a964a45238c5147887a2d1652b00ba12736bf2dea2b8a0def689635195f",
+      "reason": "2026-11-02 用户认可三人新古装与持械造型，作弊中保留原形象并可切换；地图、开场、战斗、头像统一切换，首次启动默认彩色，本次按要求不验证直接全平台打包"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_world_objects.dart",
+      "previousImportedSha256": "924afece514fc79a4eaff0e3f6eed7b825655849602a9f275d85131c4a5a0cec",
+      "currentSha256": "9720a998a918c112af65d018265fd5c53253bc963bdec05015e7c38289fc63df",
+      "reason": "2026-11-02 用户认可三人新古装与持械造型，作弊中保留原形象并可切换；地图、开场、战斗、头像统一切换，首次启动默认彩色，本次按要求不验证直接全平台打包"
+    },
+    {
+      "destination": "lib/games/fmj/ui/system_font_layout.dart",
+      "previousImportedSha256": "442b07134193baa639878c27261214891d2a94d14472807f145bfa6c5750cc0c",
+      "currentSha256": "99a73b93da46542058329be17a2876f45d2ff3a2b1966693336e0a3c7653fe82",
+      "reason": "2026-11-02 用户认可三人新古装与持械造型，作弊中保留原形象并可切换；地图、开场、战斗、头像统一切换，首次启动默认彩色，本次按要求不验证直接全平台打包"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "38fc528229ae134cd5bad2be33baa14fb2e941434853496f7d0ae9f893cb93ea",
+      "currentSha256": "1f2c694e2f1e7d1f066f62516eeeef3abe4834ad5d88133990efc0a2aee8cc9e",
+      "reason": "2026-11-02 用户认可三人新古装与持械造型，作弊中保留原形象并可切换；地图、开场、战斗、头像统一切换，首次启动默认彩色，本次按要求不验证直接全平台打包"
+    },
+    {
+      "destination": "test/games/fmj/enhanced_release_test.dart",
+      "previousImportedSha256": "4f0b595e3dc6a7bbf53dd14644b39fb1253ad335a622532574442a1d46668b10",
+      "currentSha256": "50ad5460e9d81e426601421c7f7ecaf138b3661e907212bda33c49396856f0a4",
+      "reason": "2026-11-02 用户认可三人新古装与持械造型，作弊中保留原形象并可切换；地图、开场、战斗、头像统一切换，首次启动默认彩色，本次按要求不验证直接全平台打包"
+    },
+    {
+      "destination": "test/games/fmj/game_navigation_test.dart",
+      "previousImportedSha256": "cc1634ac8048c6ad5aa03980b0ba5b32f7f663eaa74ae15ec733e28b827d9e51",
+      "currentSha256": "949fc63c80bdb8b64bbde3f8371157de29325bd0f17985b9667a2ef257c28d60",
+      "reason": "2026-11-02 用户认可三人新古装与持械造型，作弊中保留原形象并可切换；地图、开场、战斗、头像统一切换，首次启动默认彩色，本次按要求不验证直接全平台打包"
+    },
+    {
+      "destination": "test/games/fmj/map_structure_fidelity_test.dart",
+      "previousImportedSha256": "245373705b513146746529627184921c884a0d6a7367da929a8b7d74818ac012",
+      "currentSha256": "6f6a22a72d69ef19da2521c7d657c0d9e2f2681a9dd7df470f15e3649340c8ea",
+      "reason": "2026-11-02 用户认可三人新古装与持械造型，作弊中保留原形象并可切换；地图、开场、战斗、头像统一切换，首次启动默认彩色，本次按要求不验证直接全平台打包"
+    },
+    {
+      "destination": "lib/games/sgby/ui/core/app_theme.dart",
+      "previousImportedSha256": "f69dab2315c3b6695372fcb721b45fba734ce5839c40ae5b596ca05f5908c1ac",
+      "currentSha256": "859ae43235c2452eeef76c1bc3af6b058571294d7786747fe3d4f82c25942a62",
+      "reason": "2026-11-02 用户认可三人新古装与持械造型，作弊中保留原形象并可切换；地图、开场、战斗、头像统一切换，首次启动默认彩色，本次按要求不验证直接全平台打包"
+    },
+    {
+      "destination": "lib/games/sgby/ui/features/game/view_models/game_view_model.dart",
+      "previousImportedSha256": "ba15af8cfa3326712c03f8ebcfbea2b94330bb965812d86927691873b4a8bb9a",
+      "currentSha256": "4e6b7561b0fed9af754d5874f631f378b7d9ebff0a4b1a2e91788c3ed54e706a",
+      "reason": "2026-11-02 用户认可三人新古装与持械造型，作弊中保留原形象并可切换；地图、开场、战斗、头像统一切换，首次启动默认彩色，本次按要求不验证直接全平台打包"
     }
   ]
 }

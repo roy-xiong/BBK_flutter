@@ -1,0 +1,868 @@
+{
+  "schema": 1,
+  "approval": "2026-11-02 用户认可三人古装与持械预览，要求在作弊中切换并直接全平台打包",
+  "generator": "ImageGen CLI / gpt-image-2",
+  "atlas": "party-costumes-v1.png",
+  "sha256": "ecd35c620f82ac62dd04623c2c5464fb10b0c8065b2ca88d368474bcfc1f7f9e",
+  "inputs": [
+    {
+      "file": "hero-1-battle-v1.png",
+      "sha256": "295a496aa58a99153c31370f01a0a053de049d3e9504a4a9d9f0989edd31c1ca"
+    },
+    {
+      "file": "hero-1-world-v1.png",
+      "sha256": "4ad0e163af4376cb01381798834bba858fa999daca8fa19c865b9fee88cf0a09"
+    },
+    {
+      "file": "hero-2-battle-v1.png",
+      "sha256": "ec5332f96d0cae4476c131db348ec871165d8a26eb0df3e98a3b6d4f74c5e1bb"
+    },
+    {
+      "file": "hero-2-world-v1.png",
+      "sha256": "687f8030e61a01258cb9ce915266d2567caeef382081dbcee28d870c866584a5"
+    },
+    {
+      "file": "hero-3-battle-v1.png",
+      "sha256": "e1ae594d481a7e2e9a792f930793f0da777112c51fe88d2e2eadd5f09ceabf33"
+    },
+    {
+      "file": "hero-3-world-v1.png",
+      "sha256": "2be19d6c75302288a0325e1ddf39dc1d614b3860bef17f5f1ae75dcd7ee411af"
+    }
+  ],
+  "prompts": {
+    "hero-1-battle": "Use case: identity-preserve.\nAsset type: production 2D RPG character sprite sheet for an existing game.\nReference image: approved character concept, the only source for face, hair, costume, colors, body proportions and weapon. Keep this exact character design.\nSubject: Liu Qingfeng, a handsome adult male Ming dynasty scholar swordsman, neat dark scholar cap, refined blue-grey long robe, pale inner collar, dark belt, cloth shoes, a single straight silver jian with the exact gold guard and dark hilt in the reference.\nStyle: crisp refined hand-painted game sprites, smooth fine edges, detailed fabric and readable face, same realistic adult proportions as the reference, not chibi, not pixel art.\nBackground: absolutely flat pure solid magenta RGB(255,0,255) everywhere outside the character, no gradient, no floor, no shadow, no scenery. This is a chroma key sprite sheet.\nComposition: regular equal-sized cell grid, no visible grid lines, exactly one full-body figure centered inside each cell. Each figure including hair, weapon and shoes entirely contained inside its own cell with at least 10 percent margins. Use the whole sheet evenly. No labels, no text, no border, no watermarks.\nExactly THREE columns and TWO rows, 6 full-body combat sprites total. All poses face LEFT toward enemies, seen in three-quarter front/side view, same identity and costume and one weapon in every pose. Keep consistent figure scale. Row 1 column 1: armed relaxed battle idle with the single drawn blade lowered, not the sheathed everyday pose. Row 1 column 2: clearly different attack wind-up, bent knees, sword or saber raised near the head, other hand balances. Row 1 column 3: actual powerful attacking slash or thrust toward LEFT, stepping forward, arm and blade extended horizontally left, blade fully visible inside cell. Row 2 column 1: casting a spell, left open palm extended left with a tiny pale glow while right hand holds the drawn blade downwards. Row 2 column 2: weak or injured idle, slightly bent at waist and knees but standing with weapon held low. Row 2 column 3: fallen unconscious sideways on the ground, eyes closed, robe and limbs folded naturally, intact weapon lying alongside, no blood, not standing or kneeling. Entire silhouette and blade remain in cell. No large magical effects or trails. Output precisely 3x2 cells.\n",
+    "hero-1-world": "Use case: identity-preserve.\nAsset type: production 2D RPG character sprite sheet for an existing game.\nReference image: approved character concept, the only source for face, hair, costume, colors, body proportions and weapon. Keep this exact character design.\nSubject: Liu Qingfeng, a handsome adult male Ming dynasty scholar swordsman, neat dark scholar cap, refined blue-grey long robe, pale inner collar, dark belt, cloth shoes, a single straight silver jian with the exact gold guard and dark hilt in the reference.\nStyle: crisp refined hand-painted game sprites, smooth fine edges, detailed fabric and readable face, same realistic adult proportions as the reference, not chibi, not pixel art.\nBackground: absolutely flat pure solid magenta RGB(255,0,255) everywhere outside the character, no gradient, no floor, no shadow, no scenery. This is a chroma key sprite sheet.\nComposition: regular equal-sized cell grid, no visible grid lines, exactly one full-body figure centered inside each cell. Each figure including hair, weapon and shoes entirely contained inside its own cell with at least 10 percent margins. Use the whole sheet evenly. No labels, no text, no border, no watermarks.\nExactly THREE columns and FOUR rows, 12 full-body sprites total. The rows are camera directions: row 1 character back facing NORTH away from viewer; row 2 profile facing RIGHT/EAST; row 3 front facing SOUTH toward viewer; row 4 profile facing LEFT/WEST. Every row shows same direction in all three columns. Columns are the walking cycle: column 1 standing neutral feet together, column 2 left foot forward right foot back, column 3 right foot forward left foot back. Natural subtle walking, consistent height and identical scale, feet near the bottom of each cell. The weapon is sheathed at the waist in every world sprite and hands are empty. No unsheathed blade in walking frames. Preserve face/hair/costume on side and back views. Camera slightly elevated like classic top-down RPG, bodies are upright, no perspective ground. Do not add or remove any sprite. Output precisely 3x4 cells.\n",
+    "hero-2-battle": "Use case: identity-preserve.\nAsset type: production 2D RPG character sprite sheet for an existing game.\nReference image: approved character concept, the only source for face, hair, costume, colors, body proportions and weapon. Keep this exact character design.\nSubject: Murong Xiaomei, explicitly adult woman age 25-30, same mature adult face, pink ribbons and tidy half-up hair, same pink and ivory Ming-inspired low-cut opaque bodice and long pleated skirt, embroidered cloth shoes, one straight silver jian and its scabbard. Keep the approved adult proportions and covered clothing, no nudity.\nStyle: crisp refined hand-painted game sprites, smooth fine edges, detailed fabric and readable face, same realistic adult proportions as the reference, not chibi, not pixel art.\nBackground: absolutely flat pure solid magenta RGB(255,0,255) everywhere outside the character, no gradient, no floor, no shadow, no scenery. This is a chroma key sprite sheet.\nComposition: regular equal-sized cell grid, no visible grid lines, exactly one full-body figure centered inside each cell. Each figure including hair, weapon and shoes entirely contained inside its own cell with at least 10 percent margins. Use the whole sheet evenly. No labels, no text, no border, no watermarks.\nExactly THREE columns and TWO rows, 6 full-body combat sprites total. All poses face LEFT toward enemies, seen in three-quarter front/side view, same identity and costume and one weapon in every pose. Keep consistent figure scale. Row 1 column 1: armed relaxed battle idle with the single drawn blade lowered, not the sheathed everyday pose. Row 1 column 2: clearly different attack wind-up, bent knees, sword or saber raised near the head, other hand balances. Row 1 column 3: actual powerful attacking slash or thrust toward LEFT, stepping forward, arm and blade extended horizontally left, blade fully visible inside cell. Row 2 column 1: casting a spell, left open palm extended left with a tiny pale glow while right hand holds the drawn blade downwards. Row 2 column 2: weak or injured idle, slightly bent at waist and knees but standing with weapon held low. Row 2 column 3: fallen unconscious sideways on the ground, eyes closed, robe and limbs folded naturally, intact weapon lying alongside, no blood, not standing or kneeling. Entire silhouette and blade remain in cell. No large magical effects or trails. Output precisely 3x2 cells.\n",
+    "hero-2-world": "Use case: identity-preserve.\nAsset type: production 2D RPG character sprite sheet for an existing game.\nReference image: approved character concept, the only source for face, hair, costume, colors, body proportions and weapon. Keep this exact character design.\nSubject: Murong Xiaomei, explicitly adult woman age 25-30, same mature adult face, pink ribbons and tidy half-up hair, same pink and ivory Ming-inspired low-cut opaque bodice and long pleated skirt, embroidered cloth shoes, one straight silver jian and its scabbard. Keep the approved adult proportions and covered clothing, no nudity.\nStyle: crisp refined hand-painted game sprites, smooth fine edges, detailed fabric and readable face, same realistic adult proportions as the reference, not chibi, not pixel art.\nBackground: absolutely flat pure solid magenta RGB(255,0,255) everywhere outside the character, no gradient, no floor, no shadow, no scenery. This is a chroma key sprite sheet.\nComposition: regular equal-sized cell grid, no visible grid lines, exactly one full-body figure centered inside each cell. Each figure including hair, weapon and shoes entirely contained inside its own cell with at least 10 percent margins. Use the whole sheet evenly. No labels, no text, no border, no watermarks.\nExactly THREE columns and FOUR rows, 12 full-body sprites total. The rows are camera directions: row 1 character back facing NORTH away from viewer; row 2 profile facing RIGHT/EAST; row 3 front facing SOUTH toward viewer; row 4 profile facing LEFT/WEST. Every row shows same direction in all three columns. Columns are the walking cycle: column 1 standing neutral feet together, column 2 left foot forward right foot back, column 3 right foot forward left foot back. Natural subtle walking, consistent height and identical scale, feet near the bottom of each cell. The weapon is sheathed at the waist in every world sprite and hands are empty. No unsheathed blade in walking frames. Preserve face/hair/costume on side and back views. Camera slightly elevated like classic top-down RPG, bodies are upright, no perspective ground. Do not add or remove any sprite. Output precisely 3x4 cells.\n",
+    "hero-3-battle": "Use case: identity-preserve.\nAsset type: production 2D RPG character sprite sheet for an existing game.\nReference image: approved character concept, the only source for face, hair, costume, colors, body proportions and weapon. Keep this exact character design.\nSubject: Yuan Pingzhi, an adult woman, same mature face and tidy swept-back bun without any loose cheek tendrils, light sage robe with golden-yellow embroidered borders, opaque ice-blue bodice, long peach pleated skirt, flat embroidered cloth shoes, a single gently curved silver saber and its waist scabbard.\nStyle: crisp refined hand-painted game sprites, smooth fine edges, detailed fabric and readable face, same realistic adult proportions as the reference, not chibi, not pixel art.\nBackground: absolutely flat pure solid magenta RGB(255,0,255) everywhere outside the character, no gradient, no floor, no shadow, no scenery. This is a chroma key sprite sheet.\nComposition: regular equal-sized cell grid, no visible grid lines, exactly one full-body figure centered inside each cell. Each figure including hair, weapon and shoes entirely contained inside its own cell with at least 10 percent margins. Use the whole sheet evenly. No labels, no text, no border, no watermarks.\nExactly THREE columns and TWO rows, 6 full-body combat sprites total. All poses face LEFT toward enemies, seen in three-quarter front/side view, same identity and costume and one weapon in every pose. Keep consistent figure scale. Row 1 column 1: armed relaxed battle idle with the single drawn blade lowered, not the sheathed everyday pose. Row 1 column 2: clearly different attack wind-up, bent knees, sword or saber raised near the head, other hand balances. Row 1 column 3: actual powerful attacking slash or thrust toward LEFT, stepping forward, arm and blade extended horizontally left, blade fully visible inside cell. Row 2 column 1: casting a spell, left open palm extended left with a tiny pale glow while right hand holds the drawn blade downwards. Row 2 column 2: weak or injured idle, slightly bent at waist and knees but standing with weapon held low. Row 2 column 3: fallen unconscious sideways on the ground, eyes closed, robe and limbs folded naturally, intact weapon lying alongside, no blood, not standing or kneeling. Entire silhouette and blade remain in cell. No large magical effects or trails. Output precisely 3x2 cells.\n",
+    "hero-3-world": "Use case: identity-preserve.\nAsset type: production 2D RPG character sprite sheet for an existing game.\nReference image: approved character concept, the only source for face, hair, costume, colors, body proportions and weapon. Keep this exact character design.\nSubject: Yuan Pingzhi, an adult woman, same mature face and tidy swept-back bun without any loose cheek tendrils, light sage robe with golden-yellow embroidered borders, opaque ice-blue bodice, long peach pleated skirt, flat embroidered cloth shoes, a single gently curved silver saber and its waist scabbard.\nStyle: crisp refined hand-painted game sprites, smooth fine edges, detailed fabric and readable face, same realistic adult proportions as the reference, not chibi, not pixel art.\nBackground: absolutely flat pure solid magenta RGB(255,0,255) everywhere outside the character, no gradient, no floor, no shadow, no scenery. This is a chroma key sprite sheet.\nComposition: regular equal-sized cell grid, no visible grid lines, exactly one full-body figure centered inside each cell. Each figure including hair, weapon and shoes entirely contained inside its own cell with at least 10 percent margins. Use the whole sheet evenly. No labels, no text, no border, no watermarks.\nExactly THREE columns and FOUR rows, 12 full-body sprites total. The rows are camera directions: row 1 character back facing NORTH away from viewer; row 2 profile facing RIGHT/EAST; row 3 front facing SOUTH toward viewer; row 4 profile facing LEFT/WEST. Every row shows same direction in all three columns. Columns are the walking cycle: column 1 standing neutral feet together, column 2 left foot forward right foot back, column 3 right foot forward left foot back. Natural subtle walking, consistent height and identical scale, feet near the bottom of each cell. The weapon is sheathed at the waist in every world sprite and hands are empty. No unsheathed blade in walking frames. Preserve face/hair/costume on side and back views. Camera slightly elevated like classic top-down RPG, bodies are upright, no perspective ground. Do not add or remove any sprite. Output precisely 3x4 cells.\n"
+  },
+  "frames": {
+    "costume:world:hero:1:1/0": {
+      "source": "hero-1-world-v1.png",
+      "cell": [
+        0,
+        0,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:1:1/1": {
+      "source": "hero-1-world-v1.png",
+      "cell": [
+        1,
+        0,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:1:1/2": {
+      "source": "hero-1-world-v1.png",
+      "cell": [
+        2,
+        0,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:1:2/0": {
+      "source": "hero-1-world-v1.png",
+      "cell": [
+        0,
+        1,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:1:2/1": {
+      "source": "hero-1-world-v1.png",
+      "cell": [
+        1,
+        1,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:1:2/2": {
+      "source": "hero-1-world-v1.png",
+      "cell": [
+        2,
+        1,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:1:3/0": {
+      "source": "hero-1-world-v1.png",
+      "cell": [
+        0,
+        2,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:1:3/1": {
+      "source": "hero-1-world-v1.png",
+      "cell": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:1:3/2": {
+      "source": "hero-1-world-v1.png",
+      "cell": [
+        2,
+        2,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:1:4/0": {
+      "source": "hero-1-world-v1.png",
+      "cell": [
+        0,
+        3,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:1:4/1": {
+      "source": "hero-1-world-v1.png",
+      "cell": [
+        1,
+        3,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:1:4/2": {
+      "source": "hero-1-world-v1.png",
+      "cell": [
+        2,
+        3,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:portrait:hero:1/0": {
+      "source": "hero-1-world-v1.png",
+      "cell": [
+        0,
+        2,
+        3,
+        4
+      ],
+      "crop": "face and upper torso"
+    },
+    "costume:battle:hero:1/0": {
+      "source": "hero-1-battle-v1.png",
+      "cell": [
+        0,
+        0,
+        3,
+        2
+      ],
+      "pose": "armed-idle"
+    },
+    "costume:battle:hero:1/1": {
+      "source": "hero-1-battle-v1.png",
+      "cell": [
+        1,
+        0,
+        3,
+        2
+      ],
+      "pose": "ready"
+    },
+    "costume:battle:hero:1/2": {
+      "source": "hero-1-battle-v1.png",
+      "cell": [
+        1,
+        0,
+        3,
+        2
+      ],
+      "pose": "ready"
+    },
+    "costume:battle:hero:1/3": {
+      "source": "hero-1-battle-v1.png",
+      "cell": [
+        2,
+        0,
+        3,
+        2
+      ],
+      "pose": "attack"
+    },
+    "costume:battle:hero:1/4": {
+      "source": "hero-1-battle-v1.png",
+      "cell": [
+        2,
+        0,
+        3,
+        2
+      ],
+      "pose": "attack"
+    },
+    "costume:battle:hero:1/5": {
+      "source": "hero-1-battle-v1.png",
+      "cell": [
+        0,
+        0,
+        3,
+        2
+      ],
+      "pose": "armed-idle"
+    },
+    "costume:battle:hero:1/6": {
+      "source": "hero-1-battle-v1.png",
+      "cell": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "pose": "cast"
+    },
+    "costume:battle:hero:1/7": {
+      "source": "hero-1-battle-v1.png",
+      "cell": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "pose": "cast"
+    },
+    "costume:battle:hero:1/8": {
+      "source": "hero-1-battle-v1.png",
+      "cell": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "pose": "cast"
+    },
+    "costume:battle:hero:1/9": {
+      "source": "hero-1-battle-v1.png",
+      "cell": [
+        0,
+        0,
+        3,
+        2
+      ],
+      "pose": "armed-idle"
+    },
+    "costume:battle:hero:1/10": {
+      "source": "hero-1-battle-v1.png",
+      "cell": [
+        1,
+        1,
+        3,
+        2
+      ],
+      "pose": "weak"
+    },
+    "costume:battle:hero:1/11": {
+      "source": "hero-1-battle-v1.png",
+      "cell": [
+        2,
+        1,
+        3,
+        2
+      ],
+      "pose": "fallen"
+    },
+    "costume:world:hero:2:1/0": {
+      "source": "hero-2-world-v1.png",
+      "cell": [
+        0,
+        0,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:2:1/1": {
+      "source": "hero-2-world-v1.png",
+      "cell": [
+        1,
+        0,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:2:1/2": {
+      "source": "hero-2-world-v1.png",
+      "cell": [
+        2,
+        0,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:2:2/0": {
+      "source": "hero-2-world-v1.png",
+      "cell": [
+        0,
+        1,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:2:2/1": {
+      "source": "hero-2-world-v1.png",
+      "cell": [
+        1,
+        1,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:2:2/2": {
+      "source": "hero-2-world-v1.png",
+      "cell": [
+        2,
+        1,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:2:3/0": {
+      "source": "hero-2-world-v1.png",
+      "cell": [
+        0,
+        2,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:2:3/1": {
+      "source": "hero-2-world-v1.png",
+      "cell": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:2:3/2": {
+      "source": "hero-2-world-v1.png",
+      "cell": [
+        2,
+        2,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:2:4/0": {
+      "source": "hero-2-world-v1.png",
+      "cell": [
+        0,
+        3,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:2:4/1": {
+      "source": "hero-2-world-v1.png",
+      "cell": [
+        1,
+        3,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:2:4/2": {
+      "source": "hero-2-world-v1.png",
+      "cell": [
+        2,
+        3,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:portrait:hero:2/0": {
+      "source": "hero-2-world-v1.png",
+      "cell": [
+        0,
+        2,
+        3,
+        4
+      ],
+      "crop": "face and upper torso"
+    },
+    "costume:battle:hero:2/0": {
+      "source": "hero-2-battle-v1.png",
+      "cell": [
+        0,
+        0,
+        3,
+        2
+      ],
+      "pose": "armed-idle"
+    },
+    "costume:battle:hero:2/1": {
+      "source": "hero-2-battle-v1.png",
+      "cell": [
+        1,
+        0,
+        3,
+        2
+      ],
+      "pose": "ready"
+    },
+    "costume:battle:hero:2/2": {
+      "source": "hero-2-battle-v1.png",
+      "cell": [
+        1,
+        0,
+        3,
+        2
+      ],
+      "pose": "ready"
+    },
+    "costume:battle:hero:2/3": {
+      "source": "hero-2-battle-v1.png",
+      "cell": [
+        2,
+        0,
+        3,
+        2
+      ],
+      "pose": "attack"
+    },
+    "costume:battle:hero:2/4": {
+      "source": "hero-2-battle-v1.png",
+      "cell": [
+        2,
+        0,
+        3,
+        2
+      ],
+      "pose": "attack"
+    },
+    "costume:battle:hero:2/5": {
+      "source": "hero-2-battle-v1.png",
+      "cell": [
+        0,
+        0,
+        3,
+        2
+      ],
+      "pose": "armed-idle"
+    },
+    "costume:battle:hero:2/6": {
+      "source": "hero-2-battle-v1.png",
+      "cell": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "pose": "cast"
+    },
+    "costume:battle:hero:2/7": {
+      "source": "hero-2-battle-v1.png",
+      "cell": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "pose": "cast"
+    },
+    "costume:battle:hero:2/8": {
+      "source": "hero-2-battle-v1.png",
+      "cell": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "pose": "cast"
+    },
+    "costume:battle:hero:2/9": {
+      "source": "hero-2-battle-v1.png",
+      "cell": [
+        0,
+        0,
+        3,
+        2
+      ],
+      "pose": "armed-idle"
+    },
+    "costume:battle:hero:2/10": {
+      "source": "hero-2-battle-v1.png",
+      "cell": [
+        1,
+        1,
+        3,
+        2
+      ],
+      "pose": "weak"
+    },
+    "costume:battle:hero:2/11": {
+      "source": "hero-2-battle-v1.png",
+      "cell": [
+        2,
+        1,
+        3,
+        2
+      ],
+      "pose": "fallen"
+    },
+    "costume:world:hero:3:1/0": {
+      "source": "hero-3-world-v1.png",
+      "cell": [
+        0,
+        0,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:3:1/1": {
+      "source": "hero-3-world-v1.png",
+      "cell": [
+        1,
+        0,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:3:1/2": {
+      "source": "hero-3-world-v1.png",
+      "cell": [
+        2,
+        0,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:3:2/0": {
+      "source": "hero-3-world-v1.png",
+      "cell": [
+        0,
+        1,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:3:2/1": {
+      "source": "hero-3-world-v1.png",
+      "cell": [
+        1,
+        1,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:3:2/2": {
+      "source": "hero-3-world-v1.png",
+      "cell": [
+        2,
+        1,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:3:3/0": {
+      "source": "hero-3-world-v1.png",
+      "cell": [
+        0,
+        2,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:3:3/1": {
+      "source": "hero-3-world-v1.png",
+      "cell": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:3:3/2": {
+      "source": "hero-3-world-v1.png",
+      "cell": [
+        2,
+        2,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:3:4/0": {
+      "source": "hero-3-world-v1.png",
+      "cell": [
+        0,
+        3,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:3:4/1": {
+      "source": "hero-3-world-v1.png",
+      "cell": [
+        1,
+        3,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:world:hero:3:4/2": {
+      "source": "hero-3-world-v1.png",
+      "cell": [
+        2,
+        3,
+        3,
+        4
+      ],
+      "weapon": "sheathed"
+    },
+    "costume:portrait:hero:3/0": {
+      "source": "hero-3-world-v1.png",
+      "cell": [
+        0,
+        2,
+        3,
+        4
+      ],
+      "crop": "face and upper torso"
+    },
+    "costume:battle:hero:3/0": {
+      "source": "hero-3-battle-v1.png",
+      "cell": [
+        0,
+        0,
+        3,
+        2
+      ],
+      "pose": "armed-idle"
+    },
+    "costume:battle:hero:3/1": {
+      "source": "hero-3-battle-v1.png",
+      "cell": [
+        1,
+        0,
+        3,
+        2
+      ],
+      "pose": "ready"
+    },
+    "costume:battle:hero:3/2": {
+      "source": "hero-3-battle-v1.png",
+      "cell": [
+        1,
+        0,
+        3,
+        2
+      ],
+      "pose": "ready"
+    },
+    "costume:battle:hero:3/3": {
+      "source": "hero-3-battle-v1.png",
+      "cell": [
+        2,
+        0,
+        3,
+        2
+      ],
+      "pose": "attack"
+    },
+    "costume:battle:hero:3/4": {
+      "source": "hero-3-battle-v1.png",
+      "cell": [
+        2,
+        0,
+        3,
+        2
+      ],
+      "pose": "attack"
+    },
+    "costume:battle:hero:3/5": {
+      "source": "hero-3-battle-v1.png",
+      "cell": [
+        0,
+        0,
+        3,
+        2
+      ],
+      "pose": "armed-idle"
+    },
+    "costume:battle:hero:3/6": {
+      "source": "hero-3-battle-v1.png",
+      "cell": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "pose": "cast"
+    },
+    "costume:battle:hero:3/7": {
+      "source": "hero-3-battle-v1.png",
+      "cell": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "pose": "cast"
+    },
+    "costume:battle:hero:3/8": {
+      "source": "hero-3-battle-v1.png",
+      "cell": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "pose": "cast"
+    },
+    "costume:battle:hero:3/9": {
+      "source": "hero-3-battle-v1.png",
+      "cell": [
+        0,
+        0,
+        3,
+        2
+      ],
+      "pose": "armed-idle"
+    },
+    "costume:battle:hero:3/10": {
+      "source": "hero-3-battle-v1.png",
+      "cell": [
+        1,
+        1,
+        3,
+        2
+      ],
+      "pose": "weak"
+    },
+    "costume:battle:hero:3/11": {
+      "source": "hero-3-battle-v1.png",
+      "cell": [
+        2,
+        1,
+        3,
+        2
+      ],
+      "pose": "fallen"
+    },
+    "costume:world:npc:6:1/0": {
+      "alias": "costume:world:hero:2:1/0"
+    },
+    "costume:world:npc:6:1/1": {
+      "alias": "costume:world:hero:2:1/1"
+    },
+    "costume:world:npc:6:1/2": {
+      "alias": "costume:world:hero:2:1/2"
+    },
+    "costume:world:npc:6:2/0": {
+      "alias": "costume:world:hero:2:2/0"
+    },
+    "costume:world:npc:6:2/1": {
+      "alias": "costume:world:hero:2:2/1"
+    },
+    "costume:world:npc:6:2/2": {
+      "alias": "costume:world:hero:2:2/2"
+    },
+    "costume:world:npc:6:3/0": {
+      "alias": "costume:world:hero:2:3/0"
+    },
+    "costume:world:npc:6:3/1": {
+      "alias": "costume:world:hero:2:3/1"
+    },
+    "costume:world:npc:6:3/2": {
+      "alias": "costume:world:hero:2:3/2"
+    },
+    "costume:world:npc:6:4/0": {
+      "alias": "costume:world:hero:2:4/0"
+    },
+    "costume:world:npc:6:4/1": {
+      "alias": "costume:world:hero:2:4/1"
+    },
+    "costume:world:npc:6:4/2": {
+      "alias": "costume:world:hero:2:4/2"
+    },
+    "costume:world:npc:7:1/0": {
+      "alias": "costume:world:hero:3:1/0"
+    },
+    "costume:world:npc:7:1/1": {
+      "alias": "costume:world:hero:3:1/1"
+    },
+    "costume:world:npc:7:1/2": {
+      "alias": "costume:world:hero:3:1/2"
+    },
+    "costume:world:npc:7:2/0": {
+      "alias": "costume:world:hero:3:2/0"
+    },
+    "costume:world:npc:7:2/1": {
+      "alias": "costume:world:hero:3:2/1"
+    },
+    "costume:world:npc:7:2/2": {
+      "alias": "costume:world:hero:3:2/2"
+    },
+    "costume:world:npc:7:3/0": {
+      "alias": "costume:world:hero:3:3/0"
+    },
+    "costume:world:npc:7:3/1": {
+      "alias": "costume:world:hero:3:3/1"
+    },
+    "costume:world:npc:7:3/2": {
+      "alias": "costume:world:hero:3:3/2"
+    },
+    "costume:world:npc:7:4/0": {
+      "alias": "costume:world:hero:3:4/0"
+    },
+    "costume:world:npc:7:4/1": {
+      "alias": "costume:world:hero:3:4/1"
+    },
+    "costume:world:npc:7:4/2": {
+      "alias": "costume:world:hero:3:4/2"
+    }
+  },
+  "defaultEnabled": false,
+  "originalFramesReplaced": 0,
+  "timingAndGameRulesChanged": false
+}

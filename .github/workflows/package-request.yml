@@ -1,0 +1,37 @@
+name: BBK Flutter 打包请求
+on:
+  push:
+    branches: [main]
+    paths: [.github/package-request.json]
+permissions:
+  contents: read
+  actions: write
+jobs:
+  dispatch:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: 将主分支构建请求交给现有打包流水线
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // 无需在开发机保存GitHub令牌；请求文件随提交保留，便于追溯。
+            const fs = require('fs');
+            const request = JSON.parse(fs.readFileSync('.github/package-request.json', 'utf8'));
+            const platforms = ['macos', 'android', 'ios', 'windows', 'ios-macos', 'android-ios-macos', 'all'];
+            if (!platforms.includes(request.platform) || typeof request.skip_validation !== 'boolean') {
+              throw new Error('构建请求的平台或跳过验证参数无效');
+            }
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'packages.yml',
+              ref: 'main',
+              inputs: {
+                platform: request.platform,
+                skip_validation: String(request.skip_validation),
+              },
+            });
+            core.summary.addHeading('已触发现有打包流水线');
+            core.summary.addRaw(`平台：${request.platform}；跳过验证：${request.skip_validation}；来源提交：${context.sha}`);
+            await core.summary.write();

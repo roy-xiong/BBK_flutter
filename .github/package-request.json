@@ -1,0 +1,6 @@
+{
+  "request": "2026-11-02-party-costumes-v1",
+  "platform": "all",
+  "skip_validation": true,
+  "reason": "用户认可三人古装与持械造型，要求新增作弊切换、首次默认彩色，推送后不验证直接打包。"
+}
