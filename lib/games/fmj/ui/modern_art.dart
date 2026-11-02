@@ -6,9 +6,25 @@ import 'modern_terrain.dart';
 
 /// 高清图片中的一个切片；所有尺寸均为原生图片坐标，不在运行时重新采样生成图片。
 final class ModernSprite {
-  const ModernSprite(this.texture, this.rect);
+  const ModernSprite(
+    this.texture,
+    this.rect, {
+    this.footAnchor = const ui.Offset(.5, 1),
+  });
   final int texture;
   final ui.Rect rect;
+
+  /// 图片局部归一化落地点；允许脚底以上、以下存在透明留白。
+  /// 未声明的旧素材保持原底边中心，不改变旧形象和地景的绘制位置。
+  final ui.Offset footAnchor;
+
+  /// 以真实脚底对齐世界落点，保留整幅图片与武器，不裁切或拉伸人物。
+  ui.Rect groundedRect(ui.Offset ground, ui.Size size) => ui.Rect.fromLTWH(
+    ground.dx - size.width * footAnchor.dx,
+    ground.dy - size.height * footAnchor.dy,
+    size.width,
+    size.height,
+  );
 }
 
 /// 从原地图入口事件生成的名牌，与真实出口共用同一地图坐标。
@@ -259,6 +275,8 @@ final class ModernArt {
         textures.add(await decode('assets/fmj/modern/$file'));
       }
       final sprites = <String, ModernSprite>{};
+      final footAnchors =
+          hd['footAnchors'] as Map<String, dynamic>? ?? const {};
       for (final entry in (hd['frames'] as Map<String, dynamic>).entries) {
         final values = (entry.value as List).cast<num>();
         if (values.length != 5) {
@@ -277,7 +295,25 @@ final class ModernArt {
             rect.bottom > image.height) {
           throw FormatException('高清切片超出图片范围：${entry.key}');
         }
-        sprites[entry.key] = ModernSprite(index, rect);
+        final anchor = footAnchors[entry.key];
+        if (anchor != null &&
+            (anchor is! List ||
+                anchor.length != 2 ||
+                anchor.any(
+                  (v) => v is! num || !v.isFinite || v < 0 || v > 1,
+                ))) {
+          throw FormatException('人物落地点无效：${entry.key}');
+        }
+        sprites[entry.key] = ModernSprite(
+          index,
+          rect,
+          footAnchor: anchor == null
+              ? const ui.Offset(.5, 1)
+              : ui.Offset(
+                  (anchor[0] as num).toDouble(),
+                  (anchor[1] as num).toDouble(),
+                ),
+        );
       }
       final backgrounds = <String, ui.Image>{};
       for (final entry in (hd['backgrounds'] as Map<String, dynamic>).entries) {

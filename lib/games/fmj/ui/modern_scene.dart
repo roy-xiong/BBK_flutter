@@ -557,6 +557,7 @@ final class ModernScenePainter extends CustomPainter {
       // 原怪物低血帧号可能超出自身图片帧数，原渲染会回退首帧；新版也使用高清首帧。
       final key = art.sprites.containsKey(requested) ? requested : resting;
       final sprite = art.sprites[key];
+      final costume = key.startsWith('costume:battle:hero:');
       final resource = actor.type == 1
           ? '11:3:${actor.index}'
           : '8:3:${actor.sprite}';
@@ -612,9 +613,11 @@ final class ModernScenePainter extends CustomPainter {
               : identical(battle.selectedPlayer, actor));
       canvas.drawOval(
         Rect.fromCenter(
-          center: point + const Offset(0, 3),
-          width: width * .68,
-          height: 12,
+          center: point + Offset(0, costume ? 0 : 3),
+          width: costume
+              ? (actor.alive ? height * .28 : width * .72)
+              : width * .68,
+          height: costume ? 7 : 12,
         ),
         _paint..color = const Color(0x66353127),
       );
@@ -632,15 +635,19 @@ final class ModernScenePainter extends CustomPainter {
         );
         _paint.style = PaintingStyle.fill;
       }
-      final idle = battle.current == null && actor.alive
+      // 新长袍的脚底保持落地，不能靠整张图片上下平移表现呼吸。
+      final idle = !costume && battle.current == null && actor.alive
           ? math.sin(game.ticks * .13 + actor.index) * .65
           : 0.0;
-      final target = Rect.fromLTWH(
-        point.dx - width / 2,
-        point.dy - height + idle,
-        width,
-        height,
-      );
+      final target =
+          (sprite?.groundedRect(point, Size(width, height)) ??
+                  Rect.fromLTWH(
+                    point.dx - width / 2,
+                    point.dy - height,
+                    width,
+                    height,
+                  ))
+              .translate(0, idle);
       _paint.color = Colors.white;
       if (!ModernBattlePose.draw(
         canvas,
@@ -651,6 +658,7 @@ final class ModernScenePainter extends CustomPainter {
         ticks: game.ticks,
         filterQuality: _paint.filterQuality,
         costume: game.preferences['costumeHeroes'] == true,
+        groundPoint: point,
       )) {
         if (!art.drawSprite(canvas, key, target, _paint)) {
           art.draw(canvas, resource, phase, target, _paint);

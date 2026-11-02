@@ -139,7 +139,7 @@
       "source": "lib/ui/modern_art.dart",
       "destination": "lib/games/fmj/ui/modern_art.dart",
       "sourceSha256": "7aaabd5830dd20ecab38ff42b95a9205e8d1cc33b86e8924849ab00ea4428f85",
-      "importedSha256": "6d8fba8749280ee779fbc470e3fa2b4568b520cf465b0b4255296b7151eef47f"
+      "importedSha256": "da0f859a5e85d88fe311fe1a4049e12c3d918ce11321228bbed8d15d127645f7"
     },
     {
       "game": "fmj",
@@ -174,7 +174,7 @@
       "source": "lib/ui/modern_scene.dart",
       "destination": "lib/games/fmj/ui/modern_scene.dart",
       "sourceSha256": "0ca7e7194f78502f1fc560c83b6a82701c4082b531bfc9e57d50dd480af0ba15",
-      "importedSha256": "d80f5a964a45238c5147887a2d1652b00ba12736bf2dea2b8a0def689635195f"
+      "importedSha256": "aa5adb9ca86d97fa844c05a91fedf039d5219dd961aef0d102feea6cd4d4eca0"
     },
     {
       "game": "fmj",
@@ -391,7 +391,7 @@
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "1f2c694e2f1e7d1f066f62516eeeef3abe4834ad5d88133990efc0a2aee8cc9e"
+      "importedSha256": "d882263ffc4a13bd61f4f9786c98ac0c87b3718bc7bf87fe4133044c4b8b78e1"
     },
     {
       "game": "fmj",
@@ -3927,6 +3927,24 @@
       "previousImportedSha256": "ba15af8cfa3326712c03f8ebcfbea2b94330bb965812d86927691873b4a8bb9a",
       "currentSha256": "4e6b7561b0fed9af754d5874f631f378b7d9ebff0a4b1a2e91788c3ed54e706a",
       "reason": "2026-11-02 用户认可三人新古装与持械造型，作弊中保留原形象并可切换；地图、开场、战斗、头像统一切换，首次启动默认彩色，本次按要求不验证直接全平台打包"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_art.dart",
+      "previousImportedSha256": "6d8fba8749280ee779fbc470e3fa2b4568b520cf465b0b4255296b7151eef47f",
+      "currentSha256": "da0f859a5e85d88fe311fe1a4049e12c3d918ce11321228bbed8d15d127645f7",
+      "reason": "2026-11-02 修复新三人战斗悬浮：逐帧实际脚底/倒地接触点对齐，防御使用同一地面落点，收紧接触阴影并取消新形象整图上下浮动；地图组队仅做审核预览"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_scene.dart",
+      "previousImportedSha256": "d80f5a964a45238c5147887a2d1652b00ba12736bf2dea2b8a0def689635195f",
+      "currentSha256": "aa5adb9ca86d97fa844c05a91fedf039d5219dd961aef0d102feea6cd4d4eca0",
+      "reason": "2026-11-02 修复新三人战斗悬浮：逐帧实际脚底/倒地接触点对齐，防御使用同一地面落点，收紧接触阴影并取消新形象整图上下浮动；地图组队仅做审核预览"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "1f2c694e2f1e7d1f066f62516eeeef3abe4834ad5d88133990efc0a2aee8cc9e",
+      "currentSha256": "d882263ffc4a13bd61f4f9786c98ac0c87b3718bc7bf87fe4133044c4b8b78e1",
+      "reason": "2026-11-02 修复新三人战斗悬浮：逐帧实际脚底/倒地接触点对齐，防御使用同一地面落点，收紧接触阴影并取消新形象整图上下浮动；地图组队仅做审核预览"
     }
   ]
 }

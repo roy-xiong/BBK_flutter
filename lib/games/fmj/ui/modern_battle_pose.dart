@@ -41,6 +41,7 @@ abstract final class ModernBattlePose {
     required int ticks,
     required ui.FilterQuality filterQuality,
     bool costume = false,
+    ui.Offset? groundPoint,
   }) {
     if (actor.type != 1 ||
         actor.index < 1 ||
@@ -52,7 +53,15 @@ abstract final class ModernBattlePose {
     }
     final rest = actor.combatFrame == 1 || actor.combatFrame == 11;
     if (defending && rest) {
-      return _guard(canvas, art, actor.index, target, filterQuality, costume);
+      return _guard(
+        canvas,
+        art,
+        actor.index,
+        target,
+        filterQuality,
+        costume,
+        groundPoint,
+      );
     }
     if (actor.combatFrame != 11 || actor.hp >= actor.maxHp ~/ 10) {
       return false;
@@ -240,6 +249,7 @@ abstract final class ModernBattlePose {
     ui.Rect target,
     ui.FilterQuality filterQuality,
     bool costume,
+    ui.Offset? groundPoint,
   ) {
     final key = art.characterKey('battle:hero:$hero/1', costume: costume);
     final sprite = art.sprites[key];
@@ -251,18 +261,24 @@ abstract final class ModernBattlePose {
       height *= maxWidth / width;
       width = maxWidth;
     }
-    final guard = ui.Rect.fromLTWH(
-      target.center.dx - width / 2,
-      target.bottom - height,
-      width,
-      height,
-    );
+    final grounded = costume && groundPoint != null;
+    final guard = grounded
+        ? sprite.groundedRect(groundPoint, ui.Size(width, height))
+        : ui.Rect.fromLTWH(
+            target.center.dx - width / 2,
+            target.bottom - height,
+            width,
+            height,
+          );
     final paint = ui.Paint()..filterQuality = filterQuality;
     if (!art.drawSprite(canvas, key, guard, paint)) {
       return false;
     }
-    final h = target.height, x = target.center.dx - h * .26;
-    final y = target.bottom - h * .64;
+    final floor = grounded
+        ? groundPoint
+        : ui.Offset(target.center.dx, target.bottom);
+    final h = target.height, x = floor.dx - h * .26;
+    final y = floor.dy - h * .64;
     final shield = ui.Path()
       ..moveTo(x, y - h * .14)
       ..quadraticBezierTo(x - h * .14, y - h * .07, x - h * .14, y + h * .04)

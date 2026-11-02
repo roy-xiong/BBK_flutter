@@ -864,5 +864,156 @@
   },
   "defaultEnabled": false,
   "originalFramesReplaced": 0,
-  "timingAndGameRulesChanged": false
+  "timingAndGameRulesChanged": false,
+  "groundingRevision": {
+    "date": "2026-11-02",
+    "reason": "用户反馈新人物战斗悬浮；记录实际脚底、倒地落点，取消整图浮动，阴影贴地",
+    "footAnchors": {
+      "costume:battle:hero:1/0": [
+        0.54863281,
+        0.953125
+      ],
+      "costume:battle:hero:1/1": [
+        0.5754717,
+        0.94921875
+      ],
+      "costume:battle:hero:1/2": [
+        0.5754717,
+        0.94921875
+      ],
+      "costume:battle:hero:1/3": [
+        0.62,
+        0.94140625
+      ],
+      "costume:battle:hero:1/4": [
+        0.62,
+        0.94140625
+      ],
+      "costume:battle:hero:1/5": [
+        0.54863281,
+        0.953125
+      ],
+      "costume:battle:hero:1/6": [
+        0.528125,
+        0.9453125
+      ],
+      "costume:battle:hero:1/7": [
+        0.528125,
+        0.9453125
+      ],
+      "costume:battle:hero:1/8": [
+        0.528125,
+        0.9453125
+      ],
+      "costume:battle:hero:1/9": [
+        0.54863281,
+        0.953125
+      ],
+      "costume:battle:hero:1/10": [
+        0.5,
+        0.9375
+      ],
+      "costume:battle:hero:1/11": [
+        0.42578125,
+        0.84375
+      ],
+      "costume:battle:hero:2/0": [
+        0.51367188,
+        0.96484375
+      ],
+      "costume:battle:hero:2/1": [
+        0.51415094,
+        0.9609375
+      ],
+      "costume:battle:hero:2/2": [
+        0.51415094,
+        0.9609375
+      ],
+      "costume:battle:hero:2/3": [
+        0.58666667,
+        0.953125
+      ],
+      "costume:battle:hero:2/4": [
+        0.58666667,
+        0.953125
+      ],
+      "costume:battle:hero:2/5": [
+        0.51367188,
+        0.96484375
+      ],
+      "costume:battle:hero:2/6": [
+        0.51953125,
+        0.953125
+      ],
+      "costume:battle:hero:2/7": [
+        0.51953125,
+        0.953125
+      ],
+      "costume:battle:hero:2/8": [
+        0.51953125,
+        0.953125
+      ],
+      "costume:battle:hero:2/9": [
+        0.51367188,
+        0.96484375
+      ],
+      "costume:battle:hero:2/10": [
+        0.43945312,
+        0.95703125
+      ],
+      "costume:battle:hero:2/11": [
+        0.37861328,
+        0.8125
+      ],
+      "costume:battle:hero:3/0": [
+        0.53515625,
+        0.953125
+      ],
+      "costume:battle:hero:3/1": [
+        0.57311321,
+        0.953125
+      ],
+      "costume:battle:hero:3/2": [
+        0.57311321,
+        0.953125
+      ],
+      "costume:battle:hero:3/3": [
+        0.585,
+        0.9453125
+      ],
+      "costume:battle:hero:3/4": [
+        0.585,
+        0.9453125
+      ],
+      "costume:battle:hero:3/5": [
+        0.53515625,
+        0.953125
+      ],
+      "costume:battle:hero:3/6": [
+        0.53515625,
+        0.94140625
+      ],
+      "costume:battle:hero:3/7": [
+        0.53515625,
+        0.94140625
+      ],
+      "costume:battle:hero:3/8": [
+        0.53515625,
+        0.94140625
+      ],
+      "costume:battle:hero:3/9": [
+        0.53515625,
+        0.953125
+      ],
+      "costume:battle:hero:3/10": [
+        0.47089844,
+        0.93359375
+      ],
+      "costume:battle:hero:3/11": [
+        0.62646484,
+        0.8125
+      ]
+    },
+    "pixelsChanged": false
+  }
 }
