@@ -40,6 +40,12 @@ final class GameCheatPanel extends StatelessWidget {
         children: [
           const ListTile(title: Text('作弊系统', style: TextStyle(fontSize: 20))),
           toggle(
+            'autoPickup',
+            '一键直达拾取物品',
+            '先收集当前剧情可达的宝箱、隐藏物品和金钱，再继续目标；锁箱停下确认，重新开启可重试已取消的锁箱',
+            Icons.inventory_2_outlined,
+          ),
+          toggle(
             'invincible',
             '切换我方无敌',
             '免疫伤害、毒乱眠封及敌方削弱，开启时清除已有异常',

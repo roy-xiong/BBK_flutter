@@ -10,9 +10,14 @@ import 'game_engine_test.dart' show loadData;
 /// 战斗使用游戏内已有的无敌/一击必杀辅助，仍经过真实胜利、奖励及剧情指令。
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  for (final randomEncounters in [false, true]) {
+  for (final configuration in [(false, false), (true, false), (false, true)]) {
+    final (randomEncounters, collectPickups) = configuration;
     test(
-      '完整故事一键直达：开局、主线、可用支线、最终结局（${randomEncounters ? '2倍速随机遭遇' : '4倍速固定路线'}）',
+      '完整故事一键直达：开局、主线、可用支线、最终结局（${collectPickups
+          ? '开启全地图拾取'
+          : randomEncounters
+          ? '2倍速随机遭遇'
+          : '4倍速固定路线'}）',
       () async {
         final game = GameEngine(
           await loadData(),
@@ -58,7 +63,12 @@ void main() {
             final op = game.operation;
             if (op?.kind == 'choice' || op?.kind == 'menu') {
               // 放走老王体验密道；钥匙由正式任务排序预留，不靠测试特意取消魔灯来避坑。
-              final index = op!.scriptId == '5:18' ? 0 : op.options.length - 1;
+              // 自动拾取不替玩家花钥匙；本用例把有限三把钥匙留给三张任务卡。
+              final index =
+                  op!.scriptId == '5:18' ||
+                      collectPickups && {'10:1', '2:33'}.contains(op.scriptId)
+                  ? 0
+                  : op.options.length - 1;
               record(
                 'choice',
                 '${op.scriptId}@${op.address}: ${op.options[index]}',
@@ -102,6 +112,7 @@ void main() {
           game.setPreference('runSpeed', randomEncounters ? 2 : 4);
           game.setPreference('randomBattleDisabled', !randomEncounters);
           game.setPreference('normalAttackAll', true);
+          game.setPreference('autoPickup', collectPickups);
           game.startNewGame();
           await settle();
           final repeats = <String, int>{};
@@ -165,6 +176,12 @@ void main() {
           );
           expect(game.flags.contains(260), isTrue);
           expect(game.ended, isTrue, reason: '必须经最终剧情进入结局');
+          if (collectPickups) {
+            expect(game.flags, containsAll({1021, 1094, 1098}));
+            expect(game.inventory['7:9'], 1, reason: '开局钨龙剑不能错过');
+            expect(game.inventory['7:23'], 1, reason: '酆都城水井领取移魂刀');
+            expect(game.inventory['7:13'], 1, reason: '森林道路宝箱领取嗜血剑');
+          }
           record('complete', game.flags.toList()..sort());
         } finally {
           game.navigation.cancel();
@@ -172,6 +189,14 @@ void main() {
           File('build/validation/full-story-navigation.json').writeAsStringSync(
             const JsonEncoder.withIndent('  ').convert(trace),
           );
+          if (collectPickups) {
+            File(
+              'build/validation/full-story-pickups-snapshot.json',
+            ).writeAsStringSync(jsonEncode(game.snapshot()));
+            File(
+              'build/validation/full-story-pickups-trace.json',
+            ).writeAsStringSync(jsonEncode(trace));
+          }
         }
       },
       timeout: const Timeout(Duration(minutes: 12)),

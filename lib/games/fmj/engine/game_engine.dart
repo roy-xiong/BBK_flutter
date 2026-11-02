@@ -13,6 +13,7 @@ part 'game_menus.dart';
 part 'game_navigation.dart';
 part 'game_money_farm.dart';
 part 'story_battle_names.dart';
+part 'game_pickups.dart';
 
 /// 输入编号与 BBK 原引擎一致，触屏、键盘和寻路均经过同一入口。
 enum GameKey { up, down, left, right, pageUp, pageDown, confirm, cancel }
@@ -63,6 +64,7 @@ final class GameEngine {
   final GameData data;
   late final GameNavigation navigation = GameNavigation(this);
   late final GameMoneyFarm moneyFarm = GameMoneyFarm(this);
+  late final GamePickups pickups = GamePickups(this);
   final SystemTextLayout textLayout;
   final math.Random random;
   static final _speakerPrefix = RegExp(r'^([^：:\r\n，。！？!?]{1,16})[：:]');
@@ -96,6 +98,7 @@ final class GameEngine {
     'normalAttackAll': false,
     'randomBattleDisabled': false,
     'storyScope': 'complete',
+    'autoPickup': false,
   };
   GameMap? map;
   ScriptCursor? cursor;
@@ -218,6 +221,7 @@ final class GameEngine {
     flags.clear();
     inventory.clear();
     preferredThrowWeapon = null;
+    pickups.deferred.clear();
     menus.clear();
     variables.fillRange(0, variables.length, 0);
     money = 0;
@@ -751,6 +755,7 @@ final class GameEngine {
     if (op == null || index < 0 || index >= op.options.length) return;
     operation = null;
     if (op.kind == 'choice') {
+      pickups.onChoice(op, index);
       final flag =
           _deferredSideGoals[(op.scriptId, 21)] ??
           _deferredSideGoals[(op.scriptId, 1)];
@@ -1123,6 +1128,7 @@ final class GameEngine {
   Map<String, dynamic> snapshot() => {
     'format': 1,
     'navigationRevision': 1,
+    'pickupDeferred': pickups.deferred.toList()..sort(),
     'rom': 'a71a98c72af5d1122cc4adbad861c5fa4c2454850cbc6d2b70903b818c0dfd93',
     'scene': sceneName,
     'map': map?.id,
@@ -1179,6 +1185,15 @@ final class GameEngine {
       throw const FormatException('存档场景名称无效');
     }
     final nextMap = data.maps[j['map']], nextScript = data.scripts[j['script']];
+    final rawPickupDeferred = j['pickupDeferred'];
+    if (rawPickupDeferred != null &&
+        (rawPickupDeferred is! List ||
+            rawPickupDeferred.any((v) => v is! String))) {
+      throw const FormatException('存档拾取暂缓记录无效');
+    }
+    final nextPickupDeferred = rawPickupDeferred == null
+        ? <String>{}
+        : (rawPickupDeferred as List).cast<String>().toSet();
     final rawPlayers = j['players'],
         rawVars = j['variables'],
         rawFlags = j['flags'];
@@ -1272,6 +1287,9 @@ final class GameEngine {
     players
       ..clear()
       ..addAll(nextPlayers);
+    pickups.deferred
+      ..clear()
+      ..addAll(nextPickupDeferred);
     map = nextMap;
     cursor = ScriptCursor(nextScript)..running = false;
     sceneName = (j['scene'] as String? ?? nextMap.name).replaceAll(
@@ -1339,7 +1357,13 @@ final class GameEngine {
     if (name == 'storyScope' && value != 'main' && value != 'complete') return;
     if (name == 'runSpeed' && (value is! int || value < 1 || value > 4)) return;
     if (name != 'runSpeed' && name != 'storyScope' && value is! bool) return;
+    final previous = preferences[name];
     preferences[name] = value;
+    if (name == 'autoPickup' && previous != value) {
+      // 刷钱请求自己维护跨图状态；它本就不启用拾取，切开关不能中断它的路线。
+      if (!moneyFarm.active) navigation.cancel();
+      if (value == true) pickups.retryDeferred();
+    }
     if (name == 'invincible' && value == true) {
       for (final p in players) {
         _clearInvincibleStatus(p);

@@ -249,6 +249,7 @@ void main() {
         ),
       );
       await tester.ensureVisible(find.text('全队属性拉满'));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('全队属性拉满'));
       expect(p.attack, 1500);
       expect(p.maxHp, 999);

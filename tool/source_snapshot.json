@@ -48,7 +48,7 @@
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "3907c0fed27665bb865529746483702015cbe72ecf1bfdbaf3735abd64b184a6"
+      "importedSha256": "2d89520b89b582ba25e51703b22c7799eb65311485133fcbb0563d360965bea3"
     },
     {
       "game": "fmj",
@@ -62,7 +62,7 @@
       "source": "lib/engine/game_navigation.dart",
       "destination": "lib/games/fmj/engine/game_navigation.dart",
       "sourceSha256": "90d7de90e1fe0fcd50707ae9d9076690682f754a6bb6671b6883cd0580dee2dc",
-      "importedSha256": "95dc55d144220fb6ba27ebecb98ddff460ecd8d54d95403c84053b8542ad20e7"
+      "importedSha256": "cbf79ef9542d77cab83814568d1213d620dddc5b7f2b0d89b7cedc8888a4aa73"
     },
     {
       "game": "fmj",
@@ -97,7 +97,7 @@
       "source": "lib/ui/game_cheat_panel.dart",
       "destination": "lib/games/fmj/ui/game_cheat_panel.dart",
       "sourceSha256": "0699e303a640209e28415727608ed1ae7d73aa9448c6770c7930f79151029e1c",
-      "importedSha256": "f478bbc073905fe882a30c5d601070c6d654c0b7369f73d0d688895827876a68"
+      "importedSha256": "b8842301ca76a4410906b877b53803c7992ace947e0aa897ed9c898beee10a96"
     },
     {
       "game": "fmj",
@@ -2252,6 +2252,12 @@
       "destination": "lib/games/fmj/engine/story_battle_names.dart",
       "importedSha256": "9b8bf6d81e75f4e75e7115ecf1ca290cbbfe6340a5cb9754034f9b4adb4c8d3e",
       "approval": "2026-11-01 用户报告剧情战斗名称错配，已核对原ROM及51条剧情战斗指令"
+    },
+    {
+      "game": "fmj",
+      "destination": "lib/games/fmj/engine/game_pickups.dart",
+      "importedSha256": "0297245f49c8b748cf83cd6fa51c926ac990298bed8926d30ce5ed5e013e09c8",
+      "approval": "2026-11-02 用户要求全地图扫描宝箱和隐藏点，新增作弊拾取开关并自测，确认锁箱手动用钥匙并遵守剧情时机"
     }
   ],
   "integrationRevisions": [
@@ -3736,6 +3742,24 @@
       "previousImportedSha256": "6567603a04b5c7f6e442057bcbc60b095615870553f5dab2a71cb9f250928b02",
       "currentSha256": "b4552b3788583cc5e2bb6dc75d532a08a64f535fc8214ed9ba789f9e3d794022",
       "reason": "2026-11-01 保留96节点原始基准，仅将39个高等级节点98个人物状态的learned零值按已修复的成长法术规则校正；其余字段严格对照不变"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "3907c0fed27665bb865529746483702015cbe72ecf1bfdbaf3735abd64b184a6",
+      "currentSha256": "2d89520b89b582ba25e51703b22c7799eb65311485133fcbb0563d360965bea3",
+      "reason": "2026-11-02 用户确认一键直达按剧情和限制完整拾取，锁箱停下确认；扫描144个纯拾取事件，开局先取钨龙剑，预留三张卡的钥匙，并修复支路回程和刷钱导航隔离"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_navigation.dart",
+      "previousImportedSha256": "95dc55d144220fb6ba27ebecb98ddff460ecd8d54d95403c84053b8542ad20e7",
+      "currentSha256": "cbf79ef9542d77cab83814568d1213d620dddc5b7f2b0d89b7cedc8888a4aa73",
+      "reason": "2026-11-02 用户确认一键直达按剧情和限制完整拾取，锁箱停下确认；扫描144个纯拾取事件，开局先取钨龙剑，预留三张卡的钥匙，并修复支路回程和刷钱导航隔离"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_cheat_panel.dart",
+      "previousImportedSha256": "f478bbc073905fe882a30c5d601070c6d654c0b7369f73d0d688895827876a68",
+      "currentSha256": "b8842301ca76a4410906b877b53803c7992ace947e0aa897ed9c898beee10a96",
+      "reason": "2026-11-02 用户确认一键直达按剧情和限制完整拾取，锁箱停下确认；扫描144个纯拾取事件，开局先取钨龙剑，预留三张卡的钥匙，并修复支路回程和刷钱导航隔离"
     }
   ]
 }

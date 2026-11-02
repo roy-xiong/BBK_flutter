@@ -66,6 +66,8 @@ final class _NavigationRequest {
     this.state,
     this.goal,
     this.reply,
+    this.collectPickups,
+    this.deferredPickups,
   );
   final Map<String, GameMap> maps;
   final Map<String, GameScript> scripts;
@@ -73,6 +75,8 @@ final class _NavigationRequest {
   final _NavState state;
   final GameGoal goal;
   final SendPort reply;
+  final bool collectPickups;
+  final Set<String> deferredPickups;
 }
 
 /// 顶层入口只接收纯数据，不捕获会话、图片、回调或 Flutter 原生资源。
@@ -81,8 +85,12 @@ Future<void> _planNavigation(_NavigationRequest request) async {
     final game = GameEngine._navigation(
       GameData.navigation(request.maps, request.scripts),
     )..inventory.addAll(request.inventory);
+    game.pickups.deferred.addAll(request.deferredPickups);
+    final pickup = request.collectPickups
+        ? await game.navigation._pickupRoute(request.state, request.goal, 0)
+        : null;
     request.reply.send(
-      await game.navigation._route(request.state, request.goal, 0),
+      pickup ?? await game.navigation._route(request.state, request.goal, 0),
     );
   } catch (error) {
     request.reply.send('后台寻路失败：$error');
@@ -151,11 +159,13 @@ final class _NavLeg {
     this.boundary = false,
     this.blockedBy,
     this.score = 0,
+    this.pickup,
   });
   final int anchorX, anchorY, x, y, event;
   final bool destination, boundary;
   final int? blockedBy;
   final int score;
+  final GamePickupTask? pickup;
   _NavLeg ranked(int value) => _NavLeg(
     anchorX,
     anchorY,
@@ -166,6 +176,7 @@ final class _NavLeg {
     boundary: boundary,
     blockedBy: blockedBy,
     score: value,
+    pickup: pickup,
   );
 }
 
@@ -519,11 +530,7 @@ final class GameNavigation {
       ('观星亭：开启后期宝箱', '2:33', 1, 1104, 260, 2334, 0),
     ];
     final remainingKeys = game.inventory['14:2'] ?? 0;
-    final reservedCardKeys = const [
-      (1077, 2330),
-      (1095, 2332),
-      (1099, 2333),
-    ].where((card) => !f.contains(card.$1) && !f.contains(card.$2)).length;
+    final reservedCardKeys = GamePickups.reservedKeys(f);
     for (final lock in locks) {
       final isCard = const {1077, 1095, 1099}.contains(lock.$4);
       add(
@@ -613,6 +620,7 @@ final class GameNavigation {
     waitTicks = 0;
     _blockedTicks = 0;
     game.route.clear();
+    game.pickups.pending = null;
   }
 
   Future<void> startGoal([GameGoal? goal]) async {
@@ -628,6 +636,7 @@ final class GameNavigation {
     cancel();
     final selected = goal ?? nextGoal;
     if (goal != null && selected.ready && !selected.done) {
+      game.pickups.deferred.remove('${selected.scriptId}/${selected.event}');
       // 显式选取才解除暂缓，自动下一目标和恢复旧档都保留玩家的取消决定。
       final flag = _deferredSideGoals[(selected.scriptId, selected.event)];
       if (flag != null) game.flags.remove(flag);
@@ -684,6 +693,8 @@ final class GameNavigation {
             state,
             goal,
             worker.port.sendPort,
+            game.preferences['autoPickup'] == true && !game.moneyFarm.active,
+            Set.of(game.pickups.deferred),
           ),
           onError: worker.port.sendPort,
           onExit: worker.port.sendPort,
@@ -705,7 +716,9 @@ final class GameNavigation {
       }
       _leg = result;
       game.notice = result.blockedBy == null
-          ? '正在前往：${goal.label}'
+          ? result.pickup == null
+                ? '正在前往：${goal.label}'
+                : '优先拾取：${game.pickups.label(result.pickup!)}'
           : '前方人物暂时挡路，正在等待或绕行';
       if (!game.walkTo(result.anchorX, result.anchorY)) {
         _leg = null;
@@ -779,6 +792,9 @@ final class GameNavigation {
         : next.y > player.y
         ? 3
         : 1;
+    if (next.pickup != null && next.pickup!.point.event == next.event) {
+      game.pickups.pending = next.pickup;
+    }
     if (next.event == 255) {
       game.triggerEvent(255);
     } else if (next.event > 40) {
