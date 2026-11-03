@@ -112,41 +112,8 @@ final class GameEngine {
   GameMovie? intro;
   String screen = 'intro', sceneName = '', error = '', notice = '';
   int screenX = 0, screenY = 0, money = 0, titleSelection = 0, ticks = 0;
-
-  /// 彩色地点提示使用游戏时钟但不占用operation，不阻塞方向输入或剧情续接。
-  int sceneNoticeMs = 0;
   double _walkElapsed = 0;
   bool _scriptYield = false;
-
-  /// 普通过图可同帧完成的结构指令。对白、选择、物品奖励、战斗、电影、
-  /// 人物动作及显式等待均不在此集合，遇到后交回原剧情状态机处理。
-  static const _transferOpcodes = {
-    0,
-    1,
-    3,
-    9,
-    10,
-    11,
-    12,
-    14,
-    16,
-    21,
-    22,
-    23,
-    26,
-    27,
-    32,
-    33,
-    35,
-    37,
-    38,
-    46,
-    52,
-    54,
-    55,
-    67,
-    76,
-  };
   bool _dialogueConfirmHeld = false;
   bool allowMiss = false, allowTossArm = true;
   bool disableSave = false, fightEnabled = false, ended = false;
@@ -197,7 +164,6 @@ final class GameEngine {
   /// 原引擎的一次 40ms 模拟；此层只处理游戏时间，不另读倍速或驱动平台定时器。
   void _updateStep() {
     ticks++;
-    if (sceneNoticeMs > 0) sceneNoticeMs = math.max(0, sceneNoticeMs - 40);
     moneyFarm.tick();
     if (screen == 'intro') {
       final movie = intro;
@@ -252,7 +218,6 @@ final class GameEngine {
   }
 
   void startNewGame() {
-    sceneNoticeMs = 0;
     moneyFarm.stop();
     navigation.cancel();
     stageStoneProgress = null;
@@ -318,7 +283,7 @@ final class GameEngine {
     return true;
   }
 
-  void _process({bool transfer = false}) {
+  void _process() {
     _scriptYield = false;
     for (var budget = 0; budget < 512; budget++) {
       final c = cursor;
@@ -332,15 +297,10 @@ final class GameEngine {
         c.running = false;
         return;
       }
-      final command = c.script.commands[c.pointer];
-      if (transfer && !_transferOpcodes.contains(command.opcode)) return;
-      c.pointer++;
+      final command = c.script.commands[c.pointer++];
       _execute(command, c);
-      if (transfer && command.opcode == 1) {
-        // 地图已在内存中；同帧完成入口初始化，不暴露旧脚本＋新地图的中间帧。
-        operation = null;
-      }
-      if ((!transfer && (_scriptYield || !identical(cursor, c))) ||
+      if (_scriptYield ||
+          !identical(cursor, c) ||
           operation != null ||
           menus.isNotEmpty) {
         return;
@@ -582,11 +542,8 @@ final class GameEngine {
       case 54:
         sceneName = cmd.string;
       case 55:
-        if (preferences['modernUi'] == true) {
-          sceneNoticeMs = 700;
-        } else {
-          operation = GameOperation('timed', text: sceneName, args: [700]);
-        }
+        // 地点名短暂提示即可；700ms 为一倍速时长，其他倍速共用游戏时钟。
+        operation = GameOperation('timed', text: sceneName, args: [700]);
       case 56:
         operation = GameOperation('delay', args: [40]);
       case 58:
@@ -844,7 +801,6 @@ final class GameEngine {
       p.y = p.y - screenY + y;
     }
     map = next;
-    sceneNoticeMs = 0;
     partyFollow.reset();
     screenX = x;
     screenY = y;
@@ -898,12 +854,6 @@ final class GameEngine {
     final (dx, dy) = _delta(direction);
     final x = p.x + dx, y = p.y + dy;
     final event = m.event(x, y);
-    // 只读原脚本判断是否跨地图/路段。普通拾取等事件不提前执行，防止
-    // 修改支线选择时序；进入真对白等边界时，快速入口也会立即停止。
-    final transfer =
-        event != 0 &&
-        preferences['modernUi'] == true &&
-        navigation.isMapTransfer(event + 40);
     if (event != 0) triggerEvent(event + 40);
     if (_walkable(x, y, player: true)) {
       _moveActor(p, direction);
@@ -913,7 +863,6 @@ final class GameEngine {
       p.direction = direction;
       p.step = (p.step + 1) % 4;
     }
-    if (transfer && cursor?.running == true) _process(transfer: true);
     if (event == 0 &&
         cursor?.running != true &&
         fightEnabled &&
@@ -1396,7 +1345,6 @@ final class GameEngine {
     stageStoneProgress = null;
     _walkElapsed = 0;
     _scriptYield = false;
-    sceneNoticeMs = 0;
     partyFollow.reset();
     _dialogueConfirmHeld = false;
     error = '';

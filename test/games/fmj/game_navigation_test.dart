@@ -37,11 +37,6 @@ void main() {
 
   Future<void> drive(GameEngine game, {int limit = 15000}) async {
     for (var i = 0; i < limit; i++) {
-      // 规划使用独立isolate的真实CPU时间，不能用毫秒级空转的模拟帧预算
-      // 判定后台超时；与完整故事回放使用相同的让出方式。
-      if (game.navigation.planning) {
-        await Future<void>.delayed(const Duration(milliseconds: 1));
-      }
       game.update();
       // 让只读规划交还事件循环，实际游戏仍以固定 40ms 步长推进。
       if (i % 25 == 0) await Future<void>.delayed(Duration.zero);

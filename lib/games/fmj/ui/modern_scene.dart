@@ -123,27 +123,6 @@ final class ModernScenePainter extends CustomPainter {
         final (x, y) = camera.sample(column, row);
         final target = camera.target(column, row);
         _paint.color = Colors.white;
-        if (!camera.containsSource(column, row)) {
-          // 居中镜头可看到地图外。室内保持暗色边界，室外只延展相邻底材，
-          // 不能把源图最后一排篱笆/树/建筑反复复制到屏幕边缘。
-          if (!map.id.startsWith('1:') || room != null) {
-            canvas.drawRect(target, _paint..color = const Color(0xff182725));
-          } else {
-            art.drawGround(
-              canvas,
-              ModernTerrain.sceneMaterial(
-                map.tiles,
-                map.cell(x, y) & 127,
-                false,
-              ),
-              target,
-              camera.left + column,
-              camera.top + row,
-              _paint,
-            );
-          }
-          continue;
-        }
         if (!inside(x, y)) {
           canvas.drawRect(target, _paint..color = const Color(0xff182725));
           continue;
@@ -225,7 +204,6 @@ final class ModernScenePainter extends CustomPainter {
     // 第二层逐格保留原结构：围墙、砖道、池沿、云气、石栏、椅凳和未知陈设均有图。
     for (var row = 0; row < camera.rows; row++) {
       for (var column = 0; column < camera.columns; column++) {
-        if (!camera.containsSource(column, row)) continue;
         final (x, y) = camera.sample(column, row);
         final index = y * map.width + x;
         if (!inside(x, y) ||
