@@ -110,6 +110,7 @@ void main() {
                 playerX: left + 6,
                 playerY: top + 3,
                 wide: true,
+                clampToMap: true,
               );
               canvas.save();
               canvas.clipRect(

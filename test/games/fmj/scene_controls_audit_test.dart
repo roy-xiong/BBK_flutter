@@ -450,6 +450,7 @@ void main() {
               playerX: item.$2,
               playerY: item.$3,
               wide: true,
+              clampToMap: true,
             );
             ModernScenePainter(
               g,

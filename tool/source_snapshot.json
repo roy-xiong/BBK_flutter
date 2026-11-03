@@ -48,7 +48,7 @@
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "a3eb853388a9973c86f44a7c286cb7774a6cde844d0a87a6d9fdb6f23908c792"
+      "importedSha256": "d46564addc4674bc101cef470de37b4286b60f30d8b38b0f1f190e5907cb294a"
     },
     {
       "game": "fmj",
@@ -62,7 +62,7 @@
       "source": "lib/engine/game_navigation.dart",
       "destination": "lib/games/fmj/engine/game_navigation.dart",
       "sourceSha256": "90d7de90e1fe0fcd50707ae9d9076690682f754a6bb6671b6883cd0580dee2dc",
-      "importedSha256": "cbf79ef9542d77cab83814568d1213d620dddc5b7f2b0d89b7cedc8888a4aa73"
+      "importedSha256": "12f748bd03c775b07452a8906881e63645a077875fc2b000d7a97cc78542900e"
     },
     {
       "game": "fmj",
@@ -132,7 +132,7 @@
       "source": "lib/ui/game_view_model.dart",
       "destination": "lib/games/fmj/ui/game_view_model.dart",
       "sourceSha256": "786dff4519fccfd2727406d85205e84ad72394a542c0ece02ca086e142e1a202",
-      "importedSha256": "5d0b88495288d803a273fa6c40ab391a59aa9188412acb2df16f6b71e9faf0d4"
+      "importedSha256": "a388ca2162082503e4840b81f010f89f63665a2e8ac9f4943d1a99445a472785"
     },
     {
       "game": "fmj",
@@ -160,21 +160,21 @@
       "source": "lib/ui/modern_game_view.dart",
       "destination": "lib/games/fmj/ui/modern_game_view.dart",
       "sourceSha256": "7fead2e2d569c14ca9d2d9c012124c82b450b5e1e0c75310b0bc47eb495d45c0",
-      "importedSha256": "0a4a80f5a56d8cafc9ecdd4d39adb4a6fa2a9e50a2e30332490cbb2cfcec514b"
+      "importedSha256": "b6e99ebf662ec81132ac53ae551c0d3c6306f528d63e7cebb560cff6aaf166a5"
     },
     {
       "game": "fmj",
       "source": "lib/ui/modern_map_camera.dart",
       "destination": "lib/games/fmj/ui/modern_map_camera.dart",
       "sourceSha256": "7c09171039675462d6490bbbd728e3a9f916df605ad5bab87820b1f29a151e55",
-      "importedSha256": "7c09171039675462d6490bbbd728e3a9f916df605ad5bab87820b1f29a151e55"
+      "importedSha256": "e97b8e88745839b83cb1508a64ccb204cec948e5c96098a4ffdbccc8bfbbf2b3"
     },
     {
       "game": "fmj",
       "source": "lib/ui/modern_scene.dart",
       "destination": "lib/games/fmj/ui/modern_scene.dart",
       "sourceSha256": "0ca7e7194f78502f1fc560c83b6a82701c4082b531bfc9e57d50dd480af0ba15",
-      "importedSha256": "0885d12a2b8ff9c3d57708db7e48f215d0df5fa9494e576dbd012e9d290ca8a9"
+      "importedSha256": "66b19b3dbdaad5d89fe12e978d187c54fb3edc083b457606492374cbbcc5d380"
     },
     {
       "game": "fmj",
@@ -510,7 +510,7 @@
       "source": "test/art_review_export_test.dart",
       "destination": "test/games/fmj/art_review_export_test.dart",
       "sourceSha256": "b183cf8291dfdbae7b53e7ade85c188ad43908d6aae9950f2e48a01e7363a665",
-      "importedSha256": "2ee80e0bdc8a9bd1e409aaf53f1c901a8a55539b3ac884482375f68c814dc563"
+      "importedSha256": "10f2c627031afab541a08cedfe4e0bc45f130b3a6764ee87614d5a7c0b3c3455"
     },
     {
       "game": "fmj",
@@ -636,14 +636,14 @@
       "source": "test/game_navigation_test.dart",
       "destination": "test/games/fmj/game_navigation_test.dart",
       "sourceSha256": "32591be6aece73c910fc3c07e451274eec2c397ac58b9fe8944c7e4806c310bb",
-      "importedSha256": "949fc63c80bdb8b64bbde3f8371157de29325bd0f17985b9667a2ef257c28d60"
+      "importedSha256": "df759e94bff983953bc647078245a4cb1404638b0e9ef4df3cf101e494aab252"
     },
     {
       "game": "fmj",
       "source": "test/map_structure_export_test.dart",
       "destination": "test/games/fmj/map_structure_export_test.dart",
       "sourceSha256": "ad48c1bdb9416ae16a22b3691d5d270cdc95a1dfd13d47232a53cc81407fa562",
-      "importedSha256": "6c6f08241ee3060edd14e487971d027ecfb601679461928ca0275c662c2e665b"
+      "importedSha256": "8cf96862f6cc6369213530f3362ac7bed44e48bc082129b2814a04e21bbd2457"
     },
     {
       "game": "fmj",
@@ -657,7 +657,7 @@
       "source": "test/presentation_regression_test.dart",
       "destination": "test/games/fmj/presentation_regression_test.dart",
       "sourceSha256": "8d78f337ec42b13f56ab59c078efd741846de18b4a6e94d11af04584366e4ec2",
-      "importedSha256": "3fa5794bb1522cab807b661c6b54cf3d3808e6ee56b224eabebe563c2b838764"
+      "importedSha256": "83900ede9a2df9503f349d5d328e1471e133015e513701754d393e43ea9dc595"
     },
     {
       "game": "fmj",
@@ -3974,6 +3974,66 @@
       "previousImportedSha256": "aa5adb9ca86d97fa844c05a91fedf039d5219dd961aef0d102feea6cd4d4eca0",
       "currentSha256": "0885d12a2b8ff9c3d57708db7e48f215d0df5fa9494e576dbd012e9d290ca8a9",
       "reason": "2026-11-02 用户认可A版一格紧凑纵队及战斗贴地修正；跟随使用真实足迹的独立显示快照，不修改角色剧情坐标与事件，支持黑白彩色及新旧形象，按要求不检查直接全平台打包"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "a3eb853388a9973c86f44a7c286cb7774a6cde844d0a87a6d9fdb6f23908c792",
+      "currentSha256": "d46564addc4674bc101cef470de37b4286b60f30d8b38b0f1f190e5907cb294a",
+      "reason": "2026-11-03 修复跨道路和桥梁时停顿及人物跳位：彩色镜头固定屏幕锚点，普通出口同帧初始化，地点提示不阻塞行走，真实剧情边界仍交回原状态机；鼠标反算与镜头一致，审核整图保持原取景"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_navigation.dart",
+      "previousImportedSha256": "cbf79ef9542d77cab83814568d1213d620dddc5b7f2b0d89b7cedc8888a4aa73",
+      "currentSha256": "12f748bd03c775b07452a8906881e63645a077875fc2b000d7a97cc78542900e",
+      "reason": "2026-11-03 修复跨道路和桥梁时停顿及人物跳位：彩色镜头固定屏幕锚点，普通出口同帧初始化，地点提示不阻塞行走，真实剧情边界仍交回原状态机；鼠标反算与镜头一致，审核整图保持原取景"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_view_model.dart",
+      "previousImportedSha256": "5d0b88495288d803a273fa6c40ab391a59aa9188412acb2df16f6b71e9faf0d4",
+      "currentSha256": "a388ca2162082503e4840b81f010f89f63665a2e8ac9f4943d1a99445a472785",
+      "reason": "2026-11-03 修复跨道路和桥梁时停顿及人物跳位：彩色镜头固定屏幕锚点，普通出口同帧初始化，地点提示不阻塞行走，真实剧情边界仍交回原状态机；鼠标反算与镜头一致，审核整图保持原取景"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_game_view.dart",
+      "previousImportedSha256": "0a4a80f5a56d8cafc9ecdd4d39adb4a6fa2a9e50a2e30332490cbb2cfcec514b",
+      "currentSha256": "b6e99ebf662ec81132ac53ae551c0d3c6306f528d63e7cebb560cff6aaf166a5",
+      "reason": "2026-11-03 修复跨道路和桥梁时停顿及人物跳位：彩色镜头固定屏幕锚点，普通出口同帧初始化，地点提示不阻塞行走，真实剧情边界仍交回原状态机；鼠标反算与镜头一致，审核整图保持原取景"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_map_camera.dart",
+      "previousImportedSha256": "7c09171039675462d6490bbbd728e3a9f916df605ad5bab87820b1f29a151e55",
+      "currentSha256": "e97b8e88745839b83cb1508a64ccb204cec948e5c96098a4ffdbccc8bfbbf2b3",
+      "reason": "2026-11-03 修复跨道路和桥梁时停顿及人物跳位：彩色镜头固定屏幕锚点，普通出口同帧初始化，地点提示不阻塞行走，真实剧情边界仍交回原状态机；鼠标反算与镜头一致，审核整图保持原取景"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_scene.dart",
+      "previousImportedSha256": "0885d12a2b8ff9c3d57708db7e48f215d0df5fa9494e576dbd012e9d290ca8a9",
+      "currentSha256": "66b19b3dbdaad5d89fe12e978d187c54fb3edc083b457606492374cbbcc5d380",
+      "reason": "2026-11-03 修复跨道路和桥梁时停顿及人物跳位：彩色镜头固定屏幕锚点，普通出口同帧初始化，地点提示不阻塞行走，真实剧情边界仍交回原状态机；鼠标反算与镜头一致，审核整图保持原取景"
+    },
+    {
+      "destination": "test/games/fmj/art_review_export_test.dart",
+      "previousImportedSha256": "2ee80e0bdc8a9bd1e409aaf53f1c901a8a55539b3ac884482375f68c814dc563",
+      "currentSha256": "10f2c627031afab541a08cedfe4e0bc45f130b3a6764ee87614d5a7c0b3c3455",
+      "reason": "2026-11-03 修复跨道路和桥梁时停顿及人物跳位：彩色镜头固定屏幕锚点，普通出口同帧初始化，地点提示不阻塞行走，真实剧情边界仍交回原状态机；鼠标反算与镜头一致，审核整图保持原取景"
+    },
+    {
+      "destination": "test/games/fmj/game_navigation_test.dart",
+      "previousImportedSha256": "949fc63c80bdb8b64bbde3f8371157de29325bd0f17985b9667a2ef257c28d60",
+      "currentSha256": "df759e94bff983953bc647078245a4cb1404638b0e9ef4df3cf101e494aab252",
+      "reason": "2026-11-03 修复跨道路和桥梁时停顿及人物跳位：彩色镜头固定屏幕锚点，普通出口同帧初始化，地点提示不阻塞行走，真实剧情边界仍交回原状态机；鼠标反算与镜头一致，审核整图保持原取景"
+    },
+    {
+      "destination": "test/games/fmj/map_structure_export_test.dart",
+      "previousImportedSha256": "6c6f08241ee3060edd14e487971d027ecfb601679461928ca0275c662c2e665b",
+      "currentSha256": "8cf96862f6cc6369213530f3362ac7bed44e48bc082129b2814a04e21bbd2457",
+      "reason": "2026-11-03 修复跨道路和桥梁时停顿及人物跳位：彩色镜头固定屏幕锚点，普通出口同帧初始化，地点提示不阻塞行走，真实剧情边界仍交回原状态机；鼠标反算与镜头一致，审核整图保持原取景"
+    },
+    {
+      "destination": "test/games/fmj/presentation_regression_test.dart",
+      "previousImportedSha256": "3fa5794bb1522cab807b661c6b54cf3d3808e6ee56b224eabebe563c2b838764",
+      "currentSha256": "83900ede9a2df9503f349d5d328e1471e133015e513701754d393e43ea9dc595",
+      "reason": "2026-11-03 修复跨道路和桥梁时停顿及人物跳位：彩色镜头固定屏幕锚点，普通出口同帧初始化，地点提示不阻塞行走，真实剧情边界仍交回原状态机；鼠标反算与镜头一致，审核整图保持原取景"
     }
   ]
 }

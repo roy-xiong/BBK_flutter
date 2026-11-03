@@ -59,7 +59,7 @@ void main() {
     expect(game.operation, isNull);
   });
 
-  test('场景名专用提示缩短至700毫秒，普通物品提示保持原时长', () {
+  test('彩色地点提示700毫秒不阻塞，普通物品提示保持原时长', () {
     final game = engine(1)
       ..sceneName = '百草园'
       ..cursor = ScriptCursor(
@@ -74,8 +74,11 @@ void main() {
         }),
       );
     game.update();
-    expect(game.operation?.text, '百草园');
-    expect(game.operation?.args, [700]);
+    expect(game.operation, isNull);
+    expect(game.sceneNoticeMs, 700);
+    game.update();
+    expect(game.cursor?.running, false);
+    expect(game.sceneNoticeMs, 660);
   });
 
   test('经验、金钱、升级及学会法术卡片按倍速展示，奖励只结算一次', () {

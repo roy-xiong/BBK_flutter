@@ -289,6 +289,7 @@ final class GameViewModel extends ChangeNotifier {
       playerX: player.x,
       playerY: player.y,
       wide: game.wide,
+      clampToMap: classic,
     );
     final x = (camera.left + position.dx / size.width * camera.columns).floor();
     final y = (camera.top + position.dy / size.height * camera.rows).floor();
@@ -373,7 +374,7 @@ final class GameViewModel extends ChangeNotifier {
       }
       final op = game.operation;
       final key =
-          '$sceneKey/${game.screen}/${game.sceneName}/${game.money}/'
+          '$sceneKey/${game.screen}/${game.sceneName}/${game.sceneNoticeMs > 0}/${game.money}/'
           '${game.notice}/${game.error}/${game.preferences}/'
           '${identityHashCode(op)}/${op?.start}/${op?.next}/${op?.selected}/'
           '${game.menus.map((m) => '${identityHashCode(m)},${m.selected},${m.page},${m.revision}').join(';')}/'

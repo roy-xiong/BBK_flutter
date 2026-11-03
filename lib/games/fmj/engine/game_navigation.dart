@@ -815,7 +815,23 @@ final class GameNavigation {
       active = follow;
     }
     _leg = null;
-    waitTicks = 3;
+    waitTicks =
+        game.cursor?.running != true &&
+            game.operation == null &&
+            game.battle == null
+        ? 0
+        : 3;
+  }
+
+  /// 只读判断出口是否改变地图或路段，不推进真实剧情、不消耗物品和随机数。
+  /// 入场包含对白也能识别已经发生的地图切换；实际执行仍在对白等边界停下。
+  bool isMapTransfer(int event) {
+    final state = _capture();
+    final after = _simulate(state, event).state;
+    return after.mapId != state.mapId ||
+        after.scriptId != state.scriptId ||
+        after.x != state.x ||
+        after.y != state.y;
   }
 
   /// 本图点击寻路也必须避开尚未处理的事件；跨图事件由路线执行器单独触发。

@@ -36,7 +36,7 @@ void main() {
     random: math.Random(24),
   );
 
-  test('83 张地图两档视野的四角完整覆盖画面，取样始终位于地图内', () {
+  test('审核导出镜头在83张地图两档视野的四角取样始终位于地图内', () {
     for (final map in data.maps.values) {
       for (final wide in [true, false]) {
         for (final point in [
@@ -52,6 +52,7 @@ void main() {
             playerX: point.$1,
             playerY: point.$2,
             wide: wide,
+            clampToMap: true,
           );
           expect(camera.columns * camera.tileSize, 640, reason: map.id);
           expect(camera.rows * camera.tileSize, 384, reason: map.id);

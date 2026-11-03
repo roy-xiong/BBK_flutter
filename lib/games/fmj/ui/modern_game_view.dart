@@ -339,6 +339,25 @@ final class _ModernSceneView extends StatelessWidget {
                     art: model.modernArt,
                   ),
                 ),
+              if (game.sceneNoticeMs > 0 &&
+                  game.operation == null &&
+                  battle == null &&
+                  game.menus.isEmpty)
+                Positioned(
+                  top: 10,
+                  left: 12,
+                  right: 12,
+                  child: IgnorePointer(
+                    child: Center(
+                      child: _Plaque(
+                        child: Text(
+                          game.sceneName,
+                          style: const TextStyle(color: _paper, fontSize: 14),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               if (game.screen == 'intro' || game.screen == 'title')
                 Center(
                   child: Column(
