@@ -294,6 +294,19 @@ final class GameViewModel extends ChangeNotifier {
     final y = (camera.top + position.dy / size.height * camera.rows).floor();
     game.moneyFarm.stop();
     game.navigation.cancel();
+    final worldView = classic ? null : game.connectedWorld.view(game.wide);
+    if (worldView != null) {
+      final wx =
+          worldView.left +
+          (position.dx / size.width * worldView.columns).floor();
+      final wy =
+          worldView.top + (position.dy / size.height * worldView.rows).floor();
+      game.notice = game.connectedWorld.walkToWorld(wx, wy)
+          ? '正在前往点击位置'
+          : '前方有阻碍，无法继续前进';
+      _render();
+      return;
+    }
     game.notice = game.walkTo(x, y, nearest: true)
         ? '正在前往点击位置'
         : '前方有阻碍，无法继续前进';
@@ -363,7 +376,7 @@ final class GameViewModel extends ChangeNotifier {
           game.operation?.kind == 'credits';
       final sceneKey =
           '${game.map?.id}/${game.cursor?.script.id}/'
-          '${game.wide}/${game.preferences['hd']}/${game.preferences['costumeHeroes']}/${game.partyFollow.revision}/${game.flags}/'
+          '${game.wide}/${game.preferences['hd']}/${game.preferences['costumeHeroes']}/${game.partyFollow.revision}/${game.connectedWorld.revision}/${game.flags}/'
           '${animated ? game.ticks : 0}/${game.route}/'
           '${[...game.npcs.values, ...game.players].map((a) => '${a.type},${a.index},${a.sprite},${a.x},${a.y},${a.direction},'
               '${a.step},${a.state},${a.visible}').join(';')}';

@@ -14,6 +14,8 @@ import 'modern_scene_effects.dart';
 import 'modern_maze_floor.dart';
 import 'modern_opening_scene.dart';
 
+part 'modern_connected_scene.dart';
+
 /// 四个方向严格对应屏幕水平、垂直轴，绘制坐标从不影响原地图碰撞和脚本。
 final class ModernScenePainter extends CustomPainter {
   static final _geometry = Expando<Map<GameMap, _SceneGeometry>>();
@@ -25,9 +27,11 @@ final class ModernScenePainter extends CustomPainter {
     this.showActorsInOverview = false,
     this.textStyle,
     this.revision,
+    this.mapOverride,
   });
   final GameEngine game;
   final ModernArt? art;
+  final GameMap? mapOverride;
 
   /// 捕获创建时的修订号，不能比较持有同一个可变引擎的前后两个 delegate。
   final int? revision;
@@ -62,17 +66,26 @@ final class ModernScenePainter extends CustomPainter {
       canvas.restore();
       return;
     }
-    if (ModernOpeningScene.draw(canvas, game, art)) {
+    if (mapOverride == null && ModernOpeningScene.draw(canvas, game, art)) {
       canvas.restore();
       return;
     }
-    if (game.battle != null || game.map == null) {
+    if (mapOverride == null && (game.battle != null || game.map == null)) {
       _landscape(canvas, art);
       if (game.battle != null) _battle(canvas, art);
       canvas.restore();
       return;
     }
-    final map = game.map!, player = game.player;
+    if (!overview &&
+        cameraOverride == null &&
+        mapOverride == null &&
+        game.operation?.movie == null &&
+        game.connectedWorld.active) {
+      _connected(canvas, art);
+      canvas.restore();
+      return;
+    }
+    final map = mapOverride ?? game.map!, player = game.player;
     final camera =
         cameraOverride ??
         ModernMapCamera(
@@ -312,7 +325,7 @@ final class ModernScenePainter extends CustomPainter {
     for (final object in objects) {
       object.$2();
     }
-    for (final point in game.route.take(12)) {
+    for (final point in overview ? <(int, int)>[] : game.route.take(12)) {
       canvas.drawCircle(
         camera.point(point.$1, point.$2) + Offset(tileSize / 2, tileSize * .6),
         2,

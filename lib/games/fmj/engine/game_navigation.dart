@@ -188,9 +188,17 @@ final class _NavNode {
 }
 
 final class _NavOutcome {
-  const _NavOutcome(this.state, this.stable, this.visited);
+  const _NavOutcome(
+    this.state,
+    this.stable,
+    this.visited, {
+    this.transfers = 0,
+    this.actors = const {},
+  });
   final _NavState state;
   final bool stable;
+  final int transfers;
+  final Map<int, GameActor> actors;
 
   /// 某些入场脚本立即转入战斗/过场脚本。保留经过的入口，不能只看最终脚本。
   final Set<String> visited;
@@ -795,6 +803,7 @@ final class GameNavigation {
     if (next.pickup != null && next.pickup!.point.event == next.event) {
       game.pickups.pending = next.pickup;
     }
+    final beforeTransfer = game.mapLoadRevision;
     if (next.event == 255) {
       game.triggerEvent(255);
     } else if (next.event > 40) {
@@ -815,7 +824,10 @@ final class GameNavigation {
       active = follow;
     }
     _leg = null;
-    waitTicks = 3;
+    waitTicks =
+        game.mapLoadRevision != beforeTransfer && game.connectedWorld.active
+        ? 0
+        : 3;
   }
 
   /// 本图点击寻路也必须避开尚未处理的事件；跨图事件由路线执行器单独触发。
@@ -833,11 +845,28 @@ final class GameNavigation {
   }
 
   /// 即使只读预览对白，也不跨越选择、战斗、奖励或物品消耗。
-  _NavOutcome _simulate(_NavState input, int event, {bool preview = false}) {
+  _NavOutcome _simulate(
+    _NavState input,
+    int event, {
+    bool preview = false,
+    Set<int>? allowedOpcodes,
+    Map<int, GameActor>? visualActors,
+  }) {
     final state = input.copy();
     final visited = <String>{state.scriptId};
+    var transfers = 0;
+    final actors = visualActors == null
+        ? null
+        : Map<int, GameActor>.of(visualActors);
+    _NavOutcome finish(bool stable) => _NavOutcome(
+      state,
+      stable,
+      visited,
+      transfers: transfers,
+      actors: actors ?? const {},
+    );
     var script = game.data.scripts[state.scriptId];
-    if (script == null) return _NavOutcome(state, false, visited);
+    if (script == null) return finish(false);
     int? pointer = event == 0
         ? 0
         : event <= script.events.length
@@ -847,21 +876,25 @@ final class GameNavigation {
       if (pointer == null ||
           pointer < 0 ||
           pointer >= script!.commands.length) {
-        return _NavOutcome(state, false, visited);
+        return finish(false);
       }
       final command = script.commands[pointer];
+      if (allowedOpcodes != null && !allowedOpcodes.contains(command.opcode)) {
+        return finish(false);
+      }
       int n(int i) => command.arg(i);
       int value(int i) =>
           i >= 0 && i < state.variables.length ? state.variables[i] : 0;
       if (barriers.contains(command.opcode) &&
           !(preview && {13, 47, 61, 69}.contains(command.opcode))) {
-        return _NavOutcome(state, false, visited);
+        return finish(false);
       }
       int? jump;
       switch (command.opcode) {
         case 9:
-          return _NavOutcome(state, true, visited);
+          return finish(true);
         case 1:
+          transfers++;
           state.mapId = '${n(0)}:${n(1)}';
           state.x = n(2) + 4;
           state.y = n(3) + 3;
@@ -888,12 +921,26 @@ final class GameNavigation {
         case 33:
           state.npcs.remove(n(0));
           state.moving.remove(n(0));
+          actors?.remove(n(0));
         case 52:
           state.npcs.clear();
           state.moving.clear();
+          actors?.clear();
         case 32:
         case 38:
           state.npcs[n(0)] = (n(2), n(3));
+          if (actors != null) {
+            final actor = GameActor.load(
+              game.data,
+              command.opcode == 32 ? 4 : 2,
+              n(1),
+            );
+            if (actor != null) {
+              actor.x = n(2);
+              actor.y = n(3);
+              actors[n(0)] = actor;
+            }
+          }
         case 46:
           if (const {1, 2, 3}.contains(n(1))) {
             state.moving.add(n(0));
@@ -915,15 +962,16 @@ final class GameNavigation {
           visited.add(state.scriptId);
           state.npcs.clear();
           state.moving.clear();
+          actors?.clear();
           state.variables.fillRange(200, 240, 0);
           script = game.data.scripts[state.scriptId];
-          if (script == null) return _NavOutcome(state, false, visited);
+          if (script == null) return finish(false);
           pointer = 0;
           continue;
       }
       pointer = jump == null ? pointer + 1 : script.addresses[jump];
     }
-    return _NavOutcome(state, false, visited);
+    return finish(false);
   }
 
   _NavFlood? _flood(_NavState state, {bool allowEvents = false}) {

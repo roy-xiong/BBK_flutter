@@ -48,7 +48,7 @@
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "a3eb853388a9973c86f44a7c286cb7774a6cde844d0a87a6d9fdb6f23908c792"
+      "importedSha256": "8851efc8ea91ac354aa3c29bfb3abcb2cd88451012a44f6d5ab47bf09400d124"
     },
     {
       "game": "fmj",
@@ -62,14 +62,14 @@
       "source": "lib/engine/game_navigation.dart",
       "destination": "lib/games/fmj/engine/game_navigation.dart",
       "sourceSha256": "90d7de90e1fe0fcd50707ae9d9076690682f754a6bb6671b6883cd0580dee2dc",
-      "importedSha256": "cbf79ef9542d77cab83814568d1213d620dddc5b7f2b0d89b7cedc8888a4aa73"
+      "importedSha256": "1e2a97c500406b7e40b9b28f7ce662eabacc5879b8b5f2c51b004da184bfaae4"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_render.dart",
       "destination": "lib/games/fmj/engine/game_render.dart",
       "sourceSha256": "b796a60d7f619e67d0a02e354df7d7d05e59c6495abc6984a052a0b5fcae7365",
-      "importedSha256": "48c09cd2f27ca2fe3911ab3ada5e6246d05997fd6b66f51258a07bb1feeae32e"
+      "importedSha256": "3f1e4748454ae796ceb135681b46a6a335fa5959cf6eb199aa4b253cb0a2dfdf"
     },
     {
       "game": "fmj",
@@ -132,7 +132,7 @@
       "source": "lib/ui/game_view_model.dart",
       "destination": "lib/games/fmj/ui/game_view_model.dart",
       "sourceSha256": "786dff4519fccfd2727406d85205e84ad72394a542c0ece02ca086e142e1a202",
-      "importedSha256": "5d0b88495288d803a273fa6c40ab391a59aa9188412acb2df16f6b71e9faf0d4"
+      "importedSha256": "84732fa5809303e69e50d4cf47480715d9e8e769b82719a0f893d4dfd081db2a"
     },
     {
       "game": "fmj",
@@ -167,14 +167,14 @@
       "source": "lib/ui/modern_map_camera.dart",
       "destination": "lib/games/fmj/ui/modern_map_camera.dart",
       "sourceSha256": "7c09171039675462d6490bbbd728e3a9f916df605ad5bab87820b1f29a151e55",
-      "importedSha256": "7c09171039675462d6490bbbd728e3a9f916df605ad5bab87820b1f29a151e55"
+      "importedSha256": "2c57c144e8ef0e30e10517d37748c3aa794c10ed5a7b105110c41f7ddbe6a830"
     },
     {
       "game": "fmj",
       "source": "lib/ui/modern_scene.dart",
       "destination": "lib/games/fmj/ui/modern_scene.dart",
       "sourceSha256": "0ca7e7194f78502f1fc560c83b6a82701c4082b531bfc9e57d50dd480af0ba15",
-      "importedSha256": "0885d12a2b8ff9c3d57708db7e48f215d0df5fa9494e576dbd012e9d290ca8a9"
+      "importedSha256": "47d82e80a1d6331f2e5029950ef1b19db900f25c8d2e4b59602bb651d20f1a9f"
     },
     {
       "game": "fmj",
@@ -2280,6 +2280,16 @@
       "game": "fmj",
       "destination": "lib/games/fmj/engine/game_party_follow.dart",
       "importedSha256": "6a262462f7eced69de7a481810ba6cbe6e7b0eecde01c2161e3ac6b7f40f7b36"
+    },
+    {
+      "game": "fmj",
+      "destination": "lib/games/fmj/engine/game_connected_world.dart",
+      "importedSha256": "12165b99f855c4f25e682d4efbab9158d8dff3821eaabe819a66ac07604bc6d3"
+    },
+    {
+      "game": "fmj",
+      "destination": "lib/games/fmj/ui/modern_connected_scene.dart",
+      "importedSha256": "b46d6f789e28eac4597d28223e315e7327c86793ca30329495daaedf2c4b9737"
     }
   ],
   "integrationRevisions": [
@@ -3974,6 +3984,42 @@
       "previousImportedSha256": "aa5adb9ca86d97fa844c05a91fedf039d5219dd961aef0d102feea6cd4d4eca0",
       "currentSha256": "0885d12a2b8ff9c3d57708db7e48f215d0df5fa9494e576dbd012e9d290ca8a9",
       "reason": "2026-11-02 用户认可A版一格紧凑纵队及战斗贴地修正；跟随使用真实足迹的独立显示快照，不修改角色剧情坐标与事件，支持黑白彩色及新旧形象，按要求不检查直接全平台打包"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "a3eb853388a9973c86f44a7c286cb7774a6cde844d0a87a6d9fdb6f23908c792",
+      "currentSha256": "8851efc8ea91ac354aa3c29bfb3abcb2cd88451012a44f6d5ab47bf09400d124",
+      "reason": "2026-11-03 用户明确要求道路与桥梁连续拼接、不切屏且不误入地点；按原脚本、旗标、变量和实际落点核验实例，保留边界镜头；通过242条连接/41脚本及所有合法无事件格覆盖断言，使用真实绘制蒙版补齐不规则接缝"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_navigation.dart",
+      "previousImportedSha256": "cbf79ef9542d77cab83814568d1213d620dddc5b7f2b0d89b7cedc8888a4aa73",
+      "currentSha256": "1e2a97c500406b7e40b9b28f7ce662eabacc5879b8b5f2c51b004da184bfaae4",
+      "reason": "2026-11-03 用户明确要求道路与桥梁连续拼接、不切屏且不误入地点；按原脚本、旗标、变量和实际落点核验实例，保留边界镜头；通过242条连接/41脚本及所有合法无事件格覆盖断言，使用真实绘制蒙版补齐不规则接缝"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_render.dart",
+      "previousImportedSha256": "48c09cd2f27ca2fe3911ab3ada5e6246d05997fd6b66f51258a07bb1feeae32e",
+      "currentSha256": "3f1e4748454ae796ceb135681b46a6a335fa5959cf6eb199aa4b253cb0a2dfdf",
+      "reason": "2026-11-03 用户明确要求道路与桥梁连续拼接、不切屏且不误入地点；按原脚本、旗标、变量和实际落点核验实例，保留边界镜头；通过242条连接/41脚本及所有合法无事件格覆盖断言，使用真实绘制蒙版补齐不规则接缝"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_view_model.dart",
+      "previousImportedSha256": "5d0b88495288d803a273fa6c40ab391a59aa9188412acb2df16f6b71e9faf0d4",
+      "currentSha256": "84732fa5809303e69e50d4cf47480715d9e8e769b82719a0f893d4dfd081db2a",
+      "reason": "2026-11-03 用户明确要求道路与桥梁连续拼接、不切屏且不误入地点；按原脚本、旗标、变量和实际落点核验实例，保留边界镜头；通过242条连接/41脚本及所有合法无事件格覆盖断言，使用真实绘制蒙版补齐不规则接缝"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_map_camera.dart",
+      "previousImportedSha256": "7c09171039675462d6490bbbd728e3a9f916df605ad5bab87820b1f29a151e55",
+      "currentSha256": "2c57c144e8ef0e30e10517d37748c3aa794c10ed5a7b105110c41f7ddbe6a830",
+      "reason": "2026-11-03 用户明确要求道路与桥梁连续拼接、不切屏且不误入地点；按原脚本、旗标、变量和实际落点核验实例，保留边界镜头；通过242条连接/41脚本及所有合法无事件格覆盖断言，使用真实绘制蒙版补齐不规则接缝"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_scene.dart",
+      "previousImportedSha256": "0885d12a2b8ff9c3d57708db7e48f215d0df5fa9494e576dbd012e9d290ca8a9",
+      "currentSha256": "47d82e80a1d6331f2e5029950ef1b19db900f25c8d2e4b59602bb651d20f1a9f",
+      "reason": "2026-11-03 用户明确要求道路与桥梁连续拼接、不切屏且不误入地点；按原脚本、旗标、变量和实际落点核验实例，保留边界镜头；通过242条连接/41脚本及所有合法无事件格覆盖断言，使用真实绘制蒙版补齐不规则接缝"
     }
   ]
 }

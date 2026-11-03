@@ -5,6 +5,17 @@ import 'dart:ui';
 ///
 /// 地图坐标不变。只有取样坐标进行裁剪，角色、事件和碰撞始终使用真实格子。
 final class ModernMapCamera {
+  /// 仅用于连续场景内部绘制一张已经按真实区域裁剪的路段。
+  /// 游戏普通镜头仍使用下方有边界约束的构造函数，不能借此强制人物居中。
+  ModernMapCamera.window({
+    required this.mapWidth,
+    required this.mapHeight,
+    required this.left,
+    required this.top,
+    required bool wide,
+  }) : tileSize = wide ? 32 : 64,
+       columns = wide ? 20 : 10,
+       rows = wide ? 12 : 6;
   ModernMapCamera({
     required this.mapWidth,
     required this.mapHeight,

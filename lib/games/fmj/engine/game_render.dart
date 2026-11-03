@@ -4,6 +4,7 @@ extension GameRendering on GameEngine {
   /// 绘制逻辑帧，远视野布局直接采用 BBK wide-ui.js 的整数坐标。
   void render() {
     partyFollow.synchronize();
+    connectedWorld.synchronize();
     refreshMenus();
     final target = surface;
     if (screen == 'intro') {

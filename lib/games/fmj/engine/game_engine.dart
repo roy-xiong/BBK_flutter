@@ -16,6 +16,7 @@ part 'story_battle_names.dart';
 part 'game_pickups.dart';
 part 'game_cheats.dart';
 part 'game_party_follow.dart';
+part 'game_connected_world.dart';
 
 /// 输入编号与 BBK 原引擎一致，触屏、键盘和寻路均经过同一入口。
 enum GameKey { up, down, left, right, pageUp, pageDown, confirm, cancel }
@@ -68,6 +69,7 @@ final class GameEngine {
   late final GameMoneyFarm moneyFarm = GameMoneyFarm(this);
   late final GamePickups pickups = GamePickups(this);
   late final GamePartyFollow partyFollow = GamePartyFollow(this);
+  late final GameConnectedWorld connectedWorld = GameConnectedWorld(this);
   final SystemTextLayout textLayout;
   final math.Random random;
   static final _speakerPrefix = RegExp(r'^([^：:\r\n，。！？!?]{1,16})[：:]');
@@ -106,6 +108,9 @@ final class GameEngine {
     'enemyDebuffs': false,
   };
   GameMap? map;
+
+  /// 只标识运行期实际装图，连续显示据此识别同贴图重载；不进入存档或剧情。
+  int mapLoadRevision = 0;
   ScriptCursor? cursor;
   GameOperation? operation;
   GameBattle? battle;
@@ -114,6 +119,7 @@ final class GameEngine {
   int screenX = 0, screenY = 0, money = 0, titleSelection = 0, ticks = 0;
   double _walkElapsed = 0;
   bool _scriptYield = false;
+  bool _continuousTransfer = false;
   bool _dialogueConfirmHeld = false;
   bool allowMiss = false, allowTossArm = true;
   bool disableSave = false, fightEnabled = false, ended = false;
@@ -196,6 +202,7 @@ final class GameEngine {
         battle?.update();
       } else {
         _updateNpcs();
+        connectedWorld.tick();
         navigation.tick();
         if (route.isNotEmpty) {
           _walkElapsed += 40;
@@ -218,6 +225,7 @@ final class GameEngine {
   }
 
   void startNewGame() {
+    connectedWorld.reset();
     moneyFarm.stop();
     navigation.cancel();
     stageStoneProgress = null;
@@ -283,7 +291,7 @@ final class GameEngine {
     return true;
   }
 
-  void _process() {
+  void _process({bool connected = false}) {
     _scriptYield = false;
     for (var budget = 0; budget < 512; budget++) {
       final c = cursor;
@@ -297,10 +305,15 @@ final class GameEngine {
         c.running = false;
         return;
       }
-      final command = c.script.commands[c.pointer++];
+      final command = c.script.commands[c.pointer];
+      if (connected &&
+          !GameConnectedWorld.safeOpcodes.contains(command.opcode)) {
+        return;
+      }
+      c.pointer++;
       _execute(command, c);
-      if (_scriptYield ||
-          !identical(cursor, c) ||
+      if (connected && command.opcode == 1) operation = null;
+      if ((!connected && (_scriptYield || !identical(cursor, c))) ||
           operation != null ||
           menus.isNotEmpty) {
         return;
@@ -543,7 +556,9 @@ final class GameEngine {
         sceneName = cmd.string;
       case 55:
         // 地点名短暂提示即可；700ms 为一倍速时长，其他倍速共用游戏时钟。
-        operation = GameOperation('timed', text: sceneName, args: [700]);
+        if (!_continuousTransfer) {
+          operation = GameOperation('timed', text: sceneName, args: [700]);
+        }
       case 56:
         operation = GameOperation('delay', args: [40]);
       case 58:
@@ -668,6 +683,7 @@ final class GameEngine {
       return;
     }
     if (!automatic && down && (key.index < 4 || key == GameKey.cancel)) {
+      connectedWorld.cancelClick();
       moneyFarm.stop();
       navigation.cancel();
     }
@@ -801,6 +817,7 @@ final class GameEngine {
       p.y = p.y - screenY + y;
     }
     map = next;
+    mapLoadRevision++;
     partyFollow.reset();
     screenX = x;
     screenY = y;
@@ -837,6 +854,7 @@ final class GameEngine {
     p.direction = d;
     p.step = (p.step + 1) % 4;
     partyFollow.afterMove(p);
+    if (identical(p, player)) connectedWorld.recordPlayerStep();
   }
 
   int? _npcAt(int x, int y) {
@@ -854,6 +872,9 @@ final class GameEngine {
     final (dx, dy) = _delta(direction);
     final x = p.x + dx, y = p.y + dy;
     final event = m.event(x, y);
+    final connection = event == 0
+        ? null
+        : connectedWorld.prepareStep(x, y, direction);
     if (event != 0) triggerEvent(event + 40);
     if (_walkable(x, y, player: true)) {
       _moveActor(p, direction);
@@ -862,6 +883,16 @@ final class GameEngine {
     } else {
       p.direction = direction;
       p.step = (p.step + 1) % 4;
+    }
+    if (connection != null && cursor?.running == true) {
+      // 只对已只读验证的普通道路出口消除结构等待；原出口指令仍顺序执行。
+      _continuousTransfer = true;
+      try {
+        _process(connected: true);
+      } finally {
+        _continuousTransfer = false;
+      }
+      connectedWorld.finishStep(connection);
     }
     if (event == 0 &&
         cursor?.running != true &&
@@ -1300,6 +1331,7 @@ final class GameEngine {
       ..clear()
       ..addAll(nextPickupDeferred);
     map = nextMap;
+    mapLoadRevision++;
     cursor = ScriptCursor(nextScript)..running = false;
     sceneName = (j['scene'] as String? ?? nextMap.name).replaceAll(
       '\u0000',
@@ -1346,6 +1378,7 @@ final class GameEngine {
     _walkElapsed = 0;
     _scriptYield = false;
     partyFollow.reset();
+    connectedWorld.reset();
     _dialogueConfirmHeld = false;
     error = '';
     notice = '';
