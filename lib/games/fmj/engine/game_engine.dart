@@ -711,6 +711,19 @@ final class GameEngine {
       return;
     }
     if (screen == 'intro') {
+      // 彩色启动画面已经显示标题菜单，实体键应与可点击菜单同步生效。
+      if (preferences['modernUi'] == true) {
+        if (down && (key == GameKey.up || key == GameKey.down)) {
+          titleSelection = 1 - titleSelection;
+        }
+        if (!down && key == GameKey.confirm) {
+          if (titleSelection == 0) {
+            startNewGame();
+          } else {
+            openSaveMenu(load: true);
+          }
+        }
+      }
       if (down && key == GameKey.cancel) {
         screen = 'title';
         intro = null;

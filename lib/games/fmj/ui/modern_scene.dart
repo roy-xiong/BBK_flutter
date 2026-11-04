@@ -13,6 +13,7 @@ import 'modern_world_objects.dart';
 import 'modern_scene_effects.dart';
 import 'modern_maze_floor.dart';
 import 'modern_opening_scene.dart';
+import 'modern_ending_scene.dart';
 
 /// 四个方向严格对应屏幕水平、垂直轴，绘制坐标从不影响原地图碰撞和脚本。
 final class ModernScenePainter extends CustomPainter {
@@ -59,6 +60,10 @@ final class ModernScenePainter extends CustomPainter {
       _paint..color = const Color(0xff263d39),
     );
     if (art == null) {
+      canvas.restore();
+      return;
+    }
+    if (ModernEndingScene.draw(canvas, game, art, viewport: size)) {
       canvas.restore();
       return;
     }

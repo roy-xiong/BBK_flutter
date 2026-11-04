@@ -48,7 +48,7 @@
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "2f584c3beec80a9f0941d81f30f8cedd9979fa50c32e67839f07ffee48104964"
+      "importedSha256": "9484755e88b0dc6993ef10a1b70545333f5a97f1a523e19b8adce7a58d0b758d"
     },
     {
       "game": "fmj",
@@ -160,7 +160,7 @@
       "source": "lib/ui/modern_game_view.dart",
       "destination": "lib/games/fmj/ui/modern_game_view.dart",
       "sourceSha256": "7fead2e2d569c14ca9d2d9c012124c82b450b5e1e0c75310b0bc47eb495d45c0",
-      "importedSha256": "c258d3095fe5acf4b702c04031531fb75daba2ddd394b0a1908734e222c18f83"
+      "importedSha256": "20c33172f208946fd9534673b51d2f0910c3e4f9861f033b74b49a93decf69c0"
     },
     {
       "game": "fmj",
@@ -174,7 +174,7 @@
       "source": "lib/ui/modern_scene.dart",
       "destination": "lib/games/fmj/ui/modern_scene.dart",
       "sourceSha256": "0ca7e7194f78502f1fc560c83b6a82701c4082b531bfc9e57d50dd480af0ba15",
-      "importedSha256": "0885d12a2b8ff9c3d57708db7e48f215d0df5fa9494e576dbd012e9d290ca8a9"
+      "importedSha256": "6d6748dea1b9ca81f0be22f66bbcf5ef7448caf7b835836f459861c119df8157"
     },
     {
       "game": "fmj",
@@ -223,7 +223,7 @@
       "source": "assets/game/FmjGuideData.json",
       "destination": "assets/fmj/game/FmjGuideData.json",
       "sourceSha256": "4b1897d5196756b168e4b88f9265a7ec349ff1aaf349ecc245fe4fbdd11140ac",
-      "importedSha256": "797b3837a84814f5e412939a761b166c8b6954d42e1dce7582b93be547155bba"
+      "importedSha256": "40ba903da906faceb0de48ef00113b7641212ad8a126c4278513c0a43d0c8ffb"
     },
     {
       "game": "fmj",
@@ -2310,6 +2310,24 @@
       "source": "custom-resurrection-pill",
       "destination": "assets/fmj/modern/resurrection-pill-v1.png",
       "importedSha256": "b69977280c99fa7d07b8e334cb5382f13ce83b415ada2cd4550567a53df585bd"
+    },
+    {
+      "game": "fmj",
+      "source": "integration-title-ending-presentation",
+      "destination": "lib/games/fmj/ui/modern_title_menu.dart",
+      "importedSha256": "4cb4dbc09994c857c90f927a0589963367bb7837cff274fff312d965a811c615"
+    },
+    {
+      "game": "fmj",
+      "source": "integration-title-ending-presentation",
+      "destination": "lib/games/fmj/ui/modern_ending_scene.dart",
+      "importedSha256": "212a0a1e18ac52e809c9d10135f2c05db8129ed35433942521845095605c3b76"
+    },
+    {
+      "game": "fmj",
+      "source": "integration-title-ending-presentation",
+      "destination": "lib/games/fmj/ui/ending_calligraphy.dart",
+      "importedSha256": "8bb8dbf7c5773bb16724d62e3c99aa1f94c26a716bb3e97320ba3648b1c67199"
     }
   ],
   "integrationRevisions": [
@@ -4124,6 +4142,30 @@
       "previousImportedSha256": "6d47aad75c1f1c5e0e6383f9bc221154a0ee276244755560558c3ab6bef73998",
       "currentSha256": "f3e81885d8412b099931fb78911dc89c4e509b7bea90936cbbcd64f0196438aa",
       "reason": "2026-11-04 移除丹药常规介绍中的隐藏剧情提示；选关仅重设剧情，保留背包与穿戴，并验证96节点及重复切换。"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "2f584c3beec80a9f0941d81f30f8cedd9979fa50c32e67839f07ffee48104964",
+      "currentSha256": "9484755e88b0dc6993ef10a1b70545333f5a97f1a523e19b8adce7a58d0b758d",
+      "reason": "2026-11-04 用户要求改善标题选中可见性及完字动画；片尾复用OFL字体矢量、保留原SRS时序；新增尾声文案仍待用户审核。"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_game_view.dart",
+      "previousImportedSha256": "c258d3095fe5acf4b702c04031531fb75daba2ddd394b0a1908734e222c18f83",
+      "currentSha256": "20c33172f208946fd9534673b51d2f0910c3e4f9861f033b74b49a93decf69c0",
+      "reason": "2026-11-04 用户要求改善标题选中可见性及完字动画；片尾复用OFL字体矢量、保留原SRS时序；新增尾声文案仍待用户审核。"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_scene.dart",
+      "previousImportedSha256": "0885d12a2b8ff9c3d57708db7e48f215d0df5fa9494e576dbd012e9d290ca8a9",
+      "currentSha256": "6d6748dea1b9ca81f0be22f66bbcf5ef7448caf7b835836f459861c119df8157",
+      "reason": "2026-11-04 用户要求改善标题选中可见性及完字动画；片尾复用OFL字体矢量、保留原SRS时序；新增尾声文案仍待用户审核。"
+    },
+    {
+      "destination": "assets/fmj/game/FmjGuideData.json",
+      "previousImportedSha256": "797b3837a84814f5e412939a761b166c8b6954d42e1dce7582b93be547155bba",
+      "currentSha256": "40ba903da906faceb0de48ef00113b7641212ad8a126c4278513c0a43d0c8ffb",
+      "reason": "2026-11-04 用户要求改善标题选中可见性及完字动画；片尾复用OFL字体矢量、保留原SRS时序；新增尾声文案仍待用户审核。"
     }
   ]
 }

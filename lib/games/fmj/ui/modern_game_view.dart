@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'modern_scene.dart';
 import 'modern_art.dart';
+import 'modern_title_menu.dart';
 import 'modern_battle_hud.dart';
 import 'dialogue_presentation.dart';
 import '../engine/game_engine.dart';
@@ -340,57 +341,7 @@ final class _ModernSceneView extends StatelessWidget {
                   ),
                 ),
               if (game.screen == 'intro' || game.screen == 'title')
-                Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text(
-                        '伏 魔 记',
-                        style: TextStyle(
-                          color: _paper,
-                          fontSize: 44,
-                          letterSpacing: 8,
-                          fontWeight: FontWeight.w700,
-                          shadows: [
-                            Shadow(
-                              color: Colors.black,
-                              blurRadius: 12,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 6),
-                      const Text(
-                        '一剑入尘世 · 再续旧时缘',
-                        style: TextStyle(
-                          color: _gold,
-                          fontSize: 12,
-                          letterSpacing: 3,
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      _MenuButton(
-                        '新的故事',
-                        () => model.action((g) {
-                          if (g.screen == 'intro' || g.screen == 'title') {
-                            g.startNewGame();
-                          }
-                        }),
-                      ),
-                      const SizedBox(height: 8),
-                      _MenuButton(
-                        '继续故事',
-                        () => model.action((g) {
-                          if ((g.screen == 'intro' || g.screen == 'title') &&
-                              g.menus.isEmpty) {
-                            g.openSaveMenu(load: true);
-                          }
-                        }),
-                      ),
-                    ],
-                  ),
-                ),
+                ModernTitleMenu(model: model),
               if (op != null && op.kind == 'dialogue')
                 Positioned(
                   left: compact ? 8 : 14,
