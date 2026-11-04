@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-04",
+  "tool": "imagegen CLI",
+  "model": "gpt-image-2",
+  "prompt": "Use case: stylized-concept\nAsset type: Chinese wuxia RPG inventory icon, one weapon cutout\nPrimary request: A beautifully detailed large Chinese ring-backed broadsword, called dahuan dao: a broad curved single-edged steel blade with five loose round golden metal rings attached along the blunt spine, bronze-gold guard, dark red cord-wrapped grip and a small red tassel. It must read clearly at 88px inventory icon size.\nStyle/medium: finely painted Chinese fantasy game item illustration, matching classic hand-painted RPG equipment icons, polished silver bevel highlights and restrained antique gold details, crisp silhouette.\nComposition/framing: One complete weapon diagonally across the square, tip toward upper right, grip at lower left, generous empty margin; no pedestal, no second weapon, no characters, no scene, no shadows on the backdrop.\nScene/backdrop: Perfect uniform bright magenta #ff00ff outside the weapon for clean background removal. No magenta in the weapon itself.\nText: none.\nConstraints: full blade, all rings and handle visible; attractive refined icon, no text, no logo, no watermark, no blur.\n",
+  "sourceSize": [
+    1254,
+    1254
+  ],
+  "asset": "assets/fmj/modern/ring-blade-v1.png",
+  "monochromeRows": [
+    0,
+    2,
+    6,
+    14,
+    62,
+    124,
+    504,
+    1008,
+    8128,
+    3840,
+    7168,
+    12288,
+    24576,
+    16384,
+    12288,
+    0
+  ]
+}

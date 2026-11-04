@@ -1,6 +1,6 @@
 {
-  "request": "2026-11-02-compact-party-follow",
+  "request": "2026-11-04-master-ring-blade-epilogue",
   "platform": "all",
   "skip_validation": true,
-  "reason": "用户认可A版一格紧凑纵队及战斗贴地修复，要求推送main后全平台打包，不检查、不下载。"
+  "reason": "用户指定基于master新增大环刀及配置页、修复结尾跟随，并全平台打包；本地已完成针对性回归及完整剧情，沿用直接构建并发布下载链接，不下载。"
 }

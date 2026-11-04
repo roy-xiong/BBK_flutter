@@ -139,7 +139,11 @@ final class GamePartyFollow {
   );
 
   Iterable<PartyMapPose> get followers sync* {
-    if (game.screen != 'play' ||
+    // 最终“若干年后”仍沿用战斗队伍，但小梅由脚本1380单独进场。
+    // 在这段过场停止自动跟随，保留原NPC、对白索引和玩家存档队伍。
+    final epilogue = game.cursor?.script.id == '2:18' && game.map?.id == '2:7';
+    if (epilogue ||
+        game.screen != 'play' ||
         game.battle != null ||
         game.operation?.movie != null ||
         game.operation?.kind == 'credits') {

@@ -47,10 +47,20 @@ final class GameEncoding {
 
 /// DAT.LIB 资源的受检视图；格式错误集中转换为可显示的加载错误。
 final class GameRecord {
-  GameRecord(this.library, this.offset);
+  GameRecord(this.library, this.offset) : _values = null, _texts = null;
+
+  /// 扩展物品直接保存整数属性，不受ROM单字节和符号编码的范围限制。
+  /// 数据不可变，原版资源仍走受检字节读取，不能修改共享DAT.LIB。
+  GameRecord.custom(this.library, Map<int, int> values, Map<int, String> texts)
+    : offset = 0,
+      _values = Map.unmodifiable(values),
+      _texts = Map.unmodifiable(texts);
+  final Map<int, int>? _values;
+  final Map<int, String>? _texts;
   final GameData library;
   final int offset;
   int byte(int at) {
+    if (_values != null) return _values[at] ?? 0;
     final index = offset + at;
     if (index < 0 || index >= library.bytes.length) {
       throw const FormatException('游戏资源数据越界');
@@ -58,16 +68,21 @@ final class GameRecord {
     return library.bytes[index];
   }
 
-  int word(int at) => byte(at) | (byte(at + 1) << 8);
-  int signedByte(int at) => (byte(at) & 127) * (byte(at) & 128 == 0 ? 1 : -1);
+  int word(int at) =>
+      _values != null ? (_values[at] ?? 0) : byte(at) | (byte(at + 1) << 8);
+  int signedByte(int at) => _values != null
+      ? (_values[at] ?? 0)
+      : (byte(at) & 127) * (byte(at) & 128 == 0 ? 1 : -1);
 
   /// word 使用16位补码；byte中的装备修正仍使用符号加绝对值，二者不能混用。
   int signedWord(int at) {
+    if (_values != null) return _values[at] ?? 0;
     final value = word(at);
     return value & 0x8000 == 0 ? value : value - 0x10000;
   }
 
   String text(int at) {
+    if (_texts != null) return _texts[at] ?? '';
     final end = library.bytes.indexOf(0, offset + at);
     if (end < 0 || end - offset - at > 16384) {
       throw const FormatException('游戏文字缺少结束标记');
@@ -80,6 +95,17 @@ final class GameRecord {
 final class GameBitmap {
   GameBitmap(this.width, this.height, this.pixels)
     : isOpaque = pixels.every((value) => value >> 24 == 255);
+
+  /// 16格物品图标的黑白轮廓，透明底与原版图标使用同一像素语义。
+  factory GameBitmap.monochrome(List<int> rows) => GameBitmap(
+    16,
+    rows.length,
+    Uint32List.fromList([
+      for (final row in rows)
+        for (var x = 0; x < 16; x++)
+          row & (1 << (15 - x)) != 0 ? 0xff000000 : 0,
+    ]),
+  );
   final int width;
   final int height;
   final Uint32List pixels;
@@ -214,7 +240,11 @@ final class GameData {
     return offset == null ? null : GameRecord(this, offset);
   }
 
+  /// 扩展物品的少量纯Dart像素，不持有ui.Image或额外的原生资源。
+  final Map<String, GameImage> customImages = {};
   GameImage? image(int kind, int type, int index) {
+    final custom = customImages['$kind:$type:$index'];
+    if (custom != null) return custom;
     final offset = offsets['$kind:$type:$index'];
     return offset == null ? null : imageAt(offset);
   }

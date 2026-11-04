@@ -20,7 +20,7 @@
       "source": "lib/data/game_data.dart",
       "destination": "lib/games/fmj/data/game_data.dart",
       "sourceSha256": "db001d4b81c04f764d3d6f14c9ca197ba8e9e1a4ebb44da9bccc9cac41c57a21",
-      "importedSha256": "a29e43d87e5338fed4243d61f6b55e7dc96219ffd62e65010a22644f3f179618"
+      "importedSha256": "559ae2c0fa8b587a8a320265fc4118c00e3996aff4498cf44026ef2dd0d80557"
     },
     {
       "game": "fmj",
@@ -34,28 +34,28 @@
       "source": "lib/engine/game_actor.dart",
       "destination": "lib/games/fmj/engine/game_actor.dart",
       "sourceSha256": "2f3e72f2b9e05732d839ddef70b1d53ce148766cee242b55db8f613223e12270",
-      "importedSha256": "9aa1f2cead0cebec4c64bb5e18fac55b9b7535faf001f7684e8acc225eb0369f"
+      "importedSha256": "eded279c06d8b3ce51811f5e2b45c8f64522e37d13d7d58d11eee2885c0f0713"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_battle.dart",
       "destination": "lib/games/fmj/engine/game_battle.dart",
       "sourceSha256": "5375ae6aa517e1fc8de0296091ad7c2f8acf48eb93368643e773cb8f9167b071",
-      "importedSha256": "ee418839ffb73ed088388ac45e09b95a3147e40aa2824acd062a0abdf5296449"
+      "importedSha256": "8e89dd06a8cd6a2f70e37c12d2b917e2a129079884a2091bf6b3a824bfcf386c"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "a3eb853388a9973c86f44a7c286cb7774a6cde844d0a87a6d9fdb6f23908c792"
+      "importedSha256": "1dcf9a53957ebf3788c665ed022a21482cdfa37692dcb1ed4d5aa30c32173125"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_menus.dart",
       "destination": "lib/games/fmj/engine/game_menus.dart",
       "sourceSha256": "0d4fe2395bc3664887210d11914603f951d6e6ab37113b7ef9c2a241c5dc1c3a",
-      "importedSha256": "a4b6c3865619fdf84aaea68cf8271c151052f9cf728baa06c4a1bd3487bf1363"
+      "importedSha256": "35112c1ac915f3bc9aeab3dea2a70594909cf01c6625bb979b867c4715dae693"
     },
     {
       "game": "fmj",
@@ -97,7 +97,7 @@
       "source": "lib/ui/game_cheat_panel.dart",
       "destination": "lib/games/fmj/ui/game_cheat_panel.dart",
       "sourceSha256": "0699e303a640209e28415727608ed1ae7d73aa9448c6770c7930f79151029e1c",
-      "importedSha256": "1edba37749a790ddad658cff7941c465a15557924ee819b06eb133e7bdbdef4d"
+      "importedSha256": "72d90a21e6f82d2f9855d7bde9371d0aee19a0a3f40a547830ef424f8ee81c8d"
     },
     {
       "game": "fmj",
@@ -223,7 +223,7 @@
       "source": "assets/game/FmjGuideData.json",
       "destination": "assets/fmj/game/FmjGuideData.json",
       "sourceSha256": "4b1897d5196756b168e4b88f9265a7ec349ff1aaf349ecc245fe4fbdd11140ac",
-      "importedSha256": "4b1897d5196756b168e4b88f9265a7ec349ff1aaf349ecc245fe4fbdd11140ac"
+      "importedSha256": "671ac7c1c09ec6fd9de7f5085ca19d798183110764c8cc5defc790aa6ce2047e"
     },
     {
       "game": "fmj",
@@ -391,7 +391,7 @@
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "d882263ffc4a13bd61f4f9786c98ac0c87b3718bc7bf87fe4133044c4b8b78e1"
+      "importedSha256": "ac8bb60824eae7a744b73a76e109a0be525fb7f372c2144aab0501ab26f8cca5"
     },
     {
       "game": "fmj",
@@ -2262,7 +2262,7 @@
     {
       "game": "fmj",
       "destination": "lib/games/fmj/engine/game_cheats.dart",
-      "importedSha256": "60c1ebdc08a3d942f18069a4e798fd442cbb32a09bea20b44e90953ec169f926",
+      "importedSha256": "50afe452be67f797df6e5bd33258f6993a60f73f5c3acd4ec5ca59e9cf718b32",
       "approval": "2026-11-02 用户要求敌人封乱毒作弊开关、搜索并按攻击排序领取999把武器，移除技能合击快捷按钮及战斗回合上方金线"
     },
     {
@@ -2279,7 +2279,25 @@
     {
       "game": "fmj",
       "destination": "lib/games/fmj/engine/game_party_follow.dart",
-      "importedSha256": "6a262462f7eced69de7a481810ba6cbe6e7b0eecde01c2161e3ac6b7f40f7b36"
+      "importedSha256": "277f997fd76168ac72504a904836f507e7381ea17f3196d458ac64bd25af3cf0"
+    },
+    {
+      "game": "fmj",
+      "source": "integration-custom-ring-blade",
+      "destination": "lib/games/fmj/engine/game_ring_blade.dart",
+      "importedSha256": "68749921450500e0299fa557cd8760556486095488119ae06adee70c1c52b965"
+    },
+    {
+      "game": "fmj",
+      "source": "integration-custom-ring-blade",
+      "destination": "lib/games/fmj/ui/ring_blade_settings_page.dart",
+      "importedSha256": "f0312ab1e42864fadcd13fac9717507b991b753a6532589ecb9da2c4c531d040"
+    },
+    {
+      "game": "fmj",
+      "source": "integration-custom-ring-blade",
+      "destination": "assets/fmj/modern/ring-blade-v1.png",
+      "importedSha256": "6c97dd4e7951dcf08be7bce6af39bcf88cc528b425d5cd895376b8cfcedfb36c"
     }
   ],
   "integrationRevisions": [
@@ -3974,6 +3992,72 @@
       "previousImportedSha256": "aa5adb9ca86d97fa844c05a91fedf039d5219dd961aef0d102feea6cd4d4eca0",
       "currentSha256": "0885d12a2b8ff9c3d57708db7e48f215d0df5fa9494e576dbd012e9d290ca8a9",
       "reason": "2026-11-02 用户认可A版一格紧凑纵队及战斗贴地修正；跟随使用真实足迹的独立显示快照，不修改角色剧情坐标与事件，支持黑白彩色及新旧形象，按要求不检查直接全平台打包"
+    },
+    {
+      "destination": "lib/games/fmj/data/game_data.dart",
+      "previousImportedSha256": "a29e43d87e5338fed4243d61f6b55e7dc96219ffd62e65010a22644f3f179618",
+      "currentSha256": "559ae2c0fa8b587a8a320265fc4118c00e3996aff4498cf44026ef2dd0d80557",
+      "reason": "2026-11-04 基于稳定master新增可配置隐藏大环刀和独立图标，修复结尾过场的额外跟随，不引入main连续道路改动。"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_actor.dart",
+      "previousImportedSha256": "9aa1f2cead0cebec4c64bb5e18fac55b9b7535faf001f7684e8acc225eb0369f",
+      "currentSha256": "eded279c06d8b3ce51811f5e2b45c8f64522e37d13d7d58d11eee2885c0f0713",
+      "reason": "2026-11-04 基于稳定master新增可配置隐藏大环刀和独立图标，修复结尾过场的额外跟随，不引入main连续道路改动。"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_battle.dart",
+      "previousImportedSha256": "ee418839ffb73ed088388ac45e09b95a3147e40aa2824acd062a0abdf5296449",
+      "currentSha256": "8e89dd06a8cd6a2f70e37c12d2b917e2a129079884a2091bf6b3a824bfcf386c",
+      "reason": "2026-11-04 基于稳定master新增可配置隐藏大环刀和独立图标，修复结尾过场的额外跟随，不引入main连续道路改动。"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "a3eb853388a9973c86f44a7c286cb7774a6cde844d0a87a6d9fdb6f23908c792",
+      "currentSha256": "1dcf9a53957ebf3788c665ed022a21482cdfa37692dcb1ed4d5aa30c32173125",
+      "reason": "2026-11-04 基于稳定master新增可配置隐藏大环刀和独立图标，修复结尾过场的额外跟随，不引入main连续道路改动。"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_menus.dart",
+      "previousImportedSha256": "a4b6c3865619fdf84aaea68cf8271c151052f9cf728baa06c4a1bd3487bf1363",
+      "currentSha256": "35112c1ac915f3bc9aeab3dea2a70594909cf01c6625bb979b867c4715dae693",
+      "reason": "2026-11-04 基于稳定master新增可配置隐藏大环刀和独立图标，修复结尾过场的额外跟随，不引入main连续道路改动。"
+    },
+    {
+      "destination": "lib/games/fmj/ui/game_cheat_panel.dart",
+      "previousImportedSha256": "1edba37749a790ddad658cff7941c465a15557924ee819b06eb133e7bdbdef4d",
+      "currentSha256": "72d90a21e6f82d2f9855d7bde9371d0aee19a0a3f40a547830ef424f8ee81c8d",
+      "reason": "2026-11-04 基于稳定master新增可配置隐藏大环刀和独立图标，修复结尾过场的额外跟随，不引入main连续道路改动。"
+    },
+    {
+      "destination": "assets/fmj/game/FmjGuideData.json",
+      "previousImportedSha256": "4b1897d5196756b168e4b88f9265a7ec349ff1aaf349ecc245fe4fbdd11140ac",
+      "currentSha256": "671ac7c1c09ec6fd9de7f5085ca19d798183110764c8cc5defc790aa6ce2047e",
+      "reason": "2026-11-04 基于稳定master新增可配置隐藏大环刀和独立图标，修复结尾过场的额外跟随，不引入main连续道路改动。"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "d882263ffc4a13bd61f4f9786c98ac0c87b3718bc7bf87fe4133044c4b8b78e1",
+      "currentSha256": "ac8bb60824eae7a744b73a76e109a0be525fb7f372c2144aab0501ab26f8cca5",
+      "reason": "2026-11-04 基于稳定master新增可配置隐藏大环刀和独立图标，修复结尾过场的额外跟随，不引入main连续道路改动。"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_cheats.dart",
+      "previousImportedSha256": "60c1ebdc08a3d942f18069a4e798fd442cbb32a09bea20b44e90953ec169f926",
+      "currentSha256": "50afe452be67f797df6e5bd33258f6993a60f73f5c3acd4ec5ca59e9cf718b32",
+      "reason": "2026-11-04 基于稳定master新增可配置隐藏大环刀和独立图标，修复结尾过场的额外跟随，不引入main连续道路改动。"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_party_follow.dart",
+      "previousImportedSha256": "6a262462f7eced69de7a481810ba6cbe6e7b0eecde01c2161e3ac6b7f40f7b36",
+      "currentSha256": "277f997fd76168ac72504a904836f507e7381ea17f3196d458ac64bd25af3cf0",
+      "reason": "2026-11-04 基于稳定master新增可配置隐藏大环刀和独立图标，修复结尾过场的额外跟随，不引入main连续道路改动。"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_ring_blade.dart",
+      "previousImportedSha256": "5e671a733d8ed04d2aac4e81625426674fa09c2203ab57fb6bae5a5c5172a623",
+      "currentSha256": "68749921450500e0299fa557cd8760556486095488119ae06adee70c1c52b965",
+      "reason": "2026-11-04 大环刀命中吸取限定普通攻击，回归覆盖合击不误触发；保留当前已测实现。"
     }
   ]
 }

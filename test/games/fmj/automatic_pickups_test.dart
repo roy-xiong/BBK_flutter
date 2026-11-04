@@ -90,15 +90,15 @@ void main() {
     fail('未领取目标：${g.notice}');
   }
 
-  test('全83地图185脚本扫描出144个纯拾取点，剧情战斗奖励不当宝箱', () {
+  test('全83地图185脚本扫描出145个纯拾取点，剧情战斗奖励不当宝箱', () {
     final g = game();
     final points = g.pickups.points;
     expect(data.maps.length, 83);
     expect(data.scripts.length, 185);
-    expect(points.length, 144);
+    expect(points.length, 145);
     expect(points.map((p) => p.scriptId).toSet().length, 56);
     expect(points.where((p) => p.types.contains(9)).length, 68);
-    expect(points.where((p) => p.types.contains(18)).length, 58);
+    expect(points.where((p) => p.types.contains(18)).length, 59);
     expect(points.where((p) => p.money > 0).length, 10);
     expect(
       points.any((p) => p.scriptId == '7:1' && p.event == 21),
@@ -142,6 +142,7 @@ void main() {
     expect(g.flags.contains(1021), false, reason: '规划不能提前修改真实库存和旗标');
     await drive(g);
     expect(g.inventory['7:9'], 1);
+    expect(g.inventory['7:33'], 1, reason: '师父前也实际领取右一格的大环刀');
     expect(g.flags, containsAll([1020, 1021, 1121]));
     expect(g.cursor?.script.id, '2:2');
     expect(g.flags.contains(1), false, reason: '最终仍须走完师父的原版对话');

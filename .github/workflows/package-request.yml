@@ -1,7 +1,7 @@
 name: BBK Flutter 打包请求
 on:
   push:
-    branches: [main]
+    branches: [main, master]
     paths: [.github/package-request.json]
 permissions:
   contents: read
@@ -25,7 +25,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 workflow_id: 'publish-release.yml',
-                ref: 'main',
+                ref: context.ref.replace('refs/heads/', ''),
                 inputs: {run_id: String(runId), skip_validation: String(request.skip_validation === true)},
               });
               core.summary.addHeading('已请求发布现有安装包');
@@ -46,7 +46,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: 'packages.yml',
-              ref: 'main',
+              ref: context.ref.replace('refs/heads/', ''),
               inputs: {
                 platform: request.platform,
                 skip_validation: String(request.skip_validation),

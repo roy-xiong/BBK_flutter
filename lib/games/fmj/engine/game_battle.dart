@@ -1073,7 +1073,13 @@ final class GameBattle {
         math.max(1, (base * rate).truncate()) +
         (game.random.nextDouble() * 10).truncate();
     _hurt(source, target, damage);
-    _status(source.attackStatus, source.attackStatusRounds, target);
+    game.ringBlade.drain(source, target, action);
+    _status(
+      source.attackStatus,
+      source.attackStatusRounds,
+      target,
+      luck: source.equipment[4] == GameRingBlade.id ? 0 : null,
+    );
   }
 
   void _attackMagic(
@@ -1425,6 +1431,7 @@ final class GameBattle {
   /// 奖励在进入胜利态时一次性结算，展示与按键只推进原顺序的提示卡片。
   void _victory() {
     if (phase == 'win') return;
+    totalExp *= game.ringBlade.experienceMultiplierFor(null);
     phase = 'win';
     phaseTicks = 0;
     _victoryElapsed = 0;
@@ -1437,7 +1444,7 @@ final class GameBattle {
       // 满级只跳过当前队员，不能终止整队结算，否则其后的队友会丢失经验。
       if (p.level >= chain.byte(2)) continue;
       final needed = chain.word(4 + (p.level - 1) * 20 + 14),
-          exp = p.exp + totalExp;
+          exp = p.exp + totalExp * game.ringBlade.experienceMultiplierFor(p);
       p.exp = exp;
       if (exp >= needed) {
         final previous = p.level;

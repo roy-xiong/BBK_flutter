@@ -27,11 +27,11 @@ def api(path, **kwargs):
 
 def validate_run(run, repository):
     if (run.get('status') != 'completed' or run.get('conclusion') != 'success'
-            or run.get('head_branch') != 'main'
+            or run.get('head_branch') not in {'main', 'master'}
             or run.get('head_repository', {}).get('full_name') != repository
             or run.get('path') != '.github/workflows/packages.yml'
             or run.get('event') != 'workflow_dispatch'):
-        raise ValueError('只能发布本仓库 main 上已成功的手动打包产物')
+        raise ValueError('只能发布本仓库 main/master 上已成功的手动打包产物')
 
 
 def artifact_version(name):
@@ -120,7 +120,7 @@ def main():
     if len(versions) != 1:
         raise ValueError('多个平台的版本不一致')
     version, build = versions.pop()
-    commits = api(f'{prefix}/commits?sha=main&per_page=100')
+    commits = api(f"{prefix}/commits?sha={run['head_branch']}&per_page=100")
     revision = build_commit(commits, run['head_sha'], version, build)
     content = api(f'{prefix}/contents/pubspec.yaml?ref={revision}')
     pubspec = base64.b64decode(content['content']).decode()

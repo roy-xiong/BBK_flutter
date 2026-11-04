@@ -1294,5 +1294,12 @@
     "type": 14,
     "index": 13,
     "name": "混元金斗"
+  },
+  {
+    "id": "7:33",
+    "type": 7,
+    "index": 33,
+    "name": "大环刀",
+    "custom": true
   }
 ]

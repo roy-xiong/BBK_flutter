@@ -14,7 +14,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: bbk-flutter-packages-main
+  group: bbk-flutter-packages-${{ github.ref_name }}
   cancel-in-progress: false
 env:
   PUB_HOSTED_URL: https://pub.dev
@@ -30,7 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.ref_name }}
       - id: version
         run: python3 tool/bump_version.py
       - id: commit
@@ -39,7 +39,7 @@ jobs:
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add pubspec.yaml CHANGELOG.md
           git commit -m 'chore: package ${{ steps.version.outputs.version }}+${{ steps.version.outputs.build }} [skip ci]'
-          git push origin HEAD:main
+          git push origin HEAD:${{ github.ref_name }}
           echo "revision=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
   validate:
     needs: version

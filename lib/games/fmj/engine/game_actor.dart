@@ -42,6 +42,9 @@ final class GameActor {
     }
   }
 
+  /// 已实际加入人物数值的大环刀加成随存档保存，读旧档/改设置不重复增加。
+  final Map<String, int> ringBladeBonus = {};
+  int ringBladeImmunity = 0;
   final List<String?> equipment = List.filled(8, null);
   final List<String> extraMagic = [];
   final Map<int, int> statusRounds = {};
@@ -200,6 +203,8 @@ final class GameActor {
     'attackStatus': attackStatus,
     'status': status,
     'equipment': equipment,
+    'ringBladeBonus': ringBladeBonus,
+    'ringBladeImmunity': ringBladeImmunity,
     'extraMagic': extraMagic,
     'statusRounds': statusRounds.map((key, value) => MapEntry('$key', value)),
     'immunityCounts': immunityCounts.map(
@@ -218,6 +223,24 @@ final class GameActor {
     int n(String key, [int fallback = 0]) =>
         j[key] is int ? j[key] as int : fallback;
     final a = GameActor(n('type'), n('index'));
+    final bonus = j['ringBladeBonus'];
+    if (bonus is Map) {
+      for (final key in [
+        'maxHp',
+        'maxMp',
+        'attack',
+        'defense',
+        'speed',
+        'spirit',
+        'luck',
+      ]) {
+        final value = bonus[key];
+        if (value is int && value >= 0 && value <= 999999) {
+          a.ringBladeBonus[key] = value;
+        }
+      }
+    }
+    a.ringBladeImmunity = n('ringBladeImmunity').clamp(0, 15);
     a.name = j['name'] as String? ?? '';
     a.x = n('x');
     a.y = n('y');

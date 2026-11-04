@@ -3,7 +3,7 @@ on:
   workflow_run:
     workflows: [BBK Flutter 手动打包]
     types: [completed]
-    branches: [main]
+    branches: [main, master]
   workflow_dispatch:
     inputs:
       run_id:
@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.event.workflow_run.head_branch || github.ref_name }}
           persist-credentials: false
       - name: 安装图像回归测试依赖
         if: ${{ !inputs.skip_validation }}

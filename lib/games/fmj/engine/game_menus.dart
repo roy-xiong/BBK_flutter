@@ -589,7 +589,8 @@ extension GameMenus on GameEngine {
         ..spirit = p.spirit
         ..luck = p.luck
         ..maxHp = p.maxHp
-        ..maxMp = p.maxMp;
+        ..maxMp = p.maxMp
+        ..ringBladeBonus.addAll(p.ringBladeBonus);
       final old = p.equipment[target];
       final oldRecord = old == null ? null : goods(old);
       if (oldRecord != null) {
@@ -626,6 +627,9 @@ extension GameMenus on GameEngine {
       final r = goods(id);
       if (r == null) continue;
       final type = r.byte(0), mask = r.byte(28);
+      if (id == GameRingBlade.id) {
+        result.addAll(ringBlade.effectLabels);
+      }
       if (type == 6) {
         hp += r.signedByte(23);
         mp += r.signedByte(22);
@@ -774,6 +778,10 @@ extension GameMenus on GameEngine {
 
   /// 属性投影与真正穿戴共用；这里不写库存、免疫、剧情标记或当前气血真气。
   void _applyEquipmentAttributes(GameActor p, GameRecord r, int sign) {
+    if (identical(r, ringBlade.record)) {
+      ringBlade.applyAttributes(p, sign > 0);
+      return;
+    }
     final type = r.byte(0);
     if (type != 6) {
       p.maxMp = math.max(0, p.maxMp + sign * r.signedByte(22));
@@ -789,6 +797,10 @@ extension GameMenus on GameEngine {
   void _equipmentDelta(GameActor p, GameRecord r, int sign) {
     final type = r.byte(0);
     _applyEquipmentAttributes(p, r, sign);
+    if (identical(r, ringBlade.record)) {
+      ringBlade.applySpecial(p, sign > 0);
+      return;
+    }
     if (type == 7) {
       if (sign > 0) {
         p.attackStatus = r.byte(28);

@@ -16,6 +16,7 @@ part 'story_battle_names.dart';
 part 'game_pickups.dart';
 part 'game_cheats.dart';
 part 'game_party_follow.dart';
+part 'game_ring_blade.dart';
 
 /// 输入编号与 BBK 原引擎一致，触屏、键盘和寻路均经过同一入口。
 enum GameKey { up, down, left, right, pageUp, pageDown, confirm, cancel }
@@ -68,6 +69,7 @@ final class GameEngine {
   late final GameMoneyFarm moneyFarm = GameMoneyFarm(this);
   late final GamePickups pickups = GamePickups(this);
   late final GamePartyFollow partyFollow = GamePartyFollow(this);
+  late final GameRingBlade ringBlade = GameRingBlade(this);
   final SystemTextLayout textLayout;
   final math.Random random;
   static final _speakerPrefix = RegExp(r'^([^：:\r\n，。！？!?]{1,16})[：:]');
@@ -104,6 +106,7 @@ final class GameEngine {
     'storyScope': 'complete',
     'autoPickup': false,
     'enemyDebuffs': false,
+    'ringBlade': Map<String, dynamic>.from(GameRingBlade.defaults),
   };
   GameMap? map;
   ScriptCursor? cursor;
@@ -1032,6 +1035,7 @@ final class GameEngine {
   }
 
   GameRecord? goods(String id) {
+    if (id == GameRingBlade.id) return ringBlade.record;
     final a = id.split(':');
     return a.length == 2
         ? data.record(6, int.tryParse(a[0]) ?? 0, int.tryParse(a[1]) ?? 0)
@@ -1346,6 +1350,7 @@ final class GameEngine {
     _walkElapsed = 0;
     _scriptYield = false;
     partyFollow.reset();
+    ringBlade.synchronizePlayers();
     _dialogueConfirmHeld = false;
     error = '';
     notice = '';
@@ -1363,6 +1368,14 @@ final class GameEngine {
   }
 
   void setPreference(String name, dynamic value) {
+    if (name == 'ringBlade') {
+      if (value is! Map) return;
+      ringBlade.update(value);
+      refreshMenus();
+      render();
+      onSaveChanged?.call();
+      return;
+    }
     if (!preferences.containsKey(name)) return;
     if (name == 'storyScope' && value != 'main' && value != 'complete') return;
     if (name == 'runSpeed' && (value is! int || value < 1 || value > 4)) return;

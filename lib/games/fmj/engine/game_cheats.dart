@@ -5,11 +5,13 @@ extension GameCheats on GameEngine {
   /// 按武器实际攻击加成降序列出全部武器，同值按资源编号稳定排序。
   /// 攻击字段为无符号byte，嗜血剑250、九龙道剑150不能误读为负数。
   List<String> get cheatWeaponIds {
-    final ids = data.offsets.keys
-        .where((key) => key.startsWith('6:7:'))
-        .map((key) => key.substring(2))
-        .where((id) => goods(id)?.byte(0) == 7)
-        .toList();
+    final ids =
+        data.offsets.keys
+            .where((key) => key.startsWith('6:7:'))
+            .map((key) => key.substring(2))
+            .where((id) => goods(id)?.byte(0) == 7)
+            .toList()
+          ..add(GameRingBlade.id);
     ids.sort((a, b) {
       final damage = goods(b)!.byte(25).compareTo(goods(a)!.byte(25));
       return damage != 0

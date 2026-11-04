@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import '../engine/game_engine.dart';
 import 'game_view_model.dart';
 import 'weapon_cheat_dialog.dart';
+import 'ring_blade_settings_page.dart';
 
 /// 伏魔记原版十项辅助操作；显示设置、倍速和 UI 切换保留各自原有入口。
 final class GameCheatPanel extends StatelessWidget {
@@ -61,6 +62,16 @@ final class GameCheatPanel extends StatelessWidget {
             '使用新版人物形象',
             '开启使用已认可的三人古装形象，关闭使用当前形象；同步切换行走、战斗与头像，仅影响彩色画面',
             Icons.face_retouching_natural,
+          ),
+          action(
+            '大环刀设置',
+            '调整隐藏武器的属性、命中吸取、全队经验、群攻和异常免疫',
+            Icons.tune,
+            () => Navigator.of(context).push<void>(
+              MaterialPageRoute(
+                builder: (_) => RingBladeSettingsPage(model: model, game: game),
+              ),
+            ),
           ),
           toggle(
             'autoPickup',

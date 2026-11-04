@@ -132,10 +132,10 @@ void main() {
     }
   });
 
-  test('全部32把武器排序采用真实攻击加成，发放可超过999且拒绝非武器', () {
+  test('全部33把武器排序采用真实攻击加成，发放可超过999且拒绝非武器', () {
     final g = game(), ids = g.cheatWeaponIds;
-    expect(ids, hasLength(32));
-    expect(ids.take(5), ['7:13', '7:14', '7:31', '7:22', '7:23']);
+    expect(ids, hasLength(33));
+    expect(ids.take(6), ['7:33', '7:13', '7:14', '7:31', '7:22', '7:23']);
     for (var i = 1; i < ids.length; i++) {
       expect(
         g.goods(ids[i - 1])!.byte(25),
@@ -150,7 +150,7 @@ void main() {
     expect(g.inventory['7:14'], 1998);
     expect(g.grantCheatWeapon('9:1'), false);
     expect(g.grantCheatWeapon('7:999'), false);
-    expect(g.inventory, hasLength(32));
+    expect(g.inventory, hasLength(33));
   });
 
   testWidgets('手机横屏键盘弹起搜索不溢出', (tester) async {

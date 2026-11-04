@@ -31,6 +31,9 @@ class ReleaseTests(unittest.TestCase):
     def test_rejects_failure_and_foreign_repository(self):
         run = {'status':'completed','conclusion':'success','head_branch':'main','head_repository':{'full_name':'roy-xiong/BBK_flutter'},'path':'.github/workflows/packages.yml','event':'workflow_dispatch'}
         publisher.validate_run(run,'roy-xiong/BBK_flutter')
+        publisher.validate_run(dict(run,head_branch='master'),'roy-xiong/BBK_flutter')
+        with self.assertRaises(ValueError):
+            publisher.validate_run(dict(run,head_branch='feature'),'roy-xiong/BBK_flutter')
         with self.assertRaises(ValueError):
             publisher.validate_run(dict(run,conclusion='failure'),'roy-xiong/BBK_flutter')
         with self.assertRaises(ValueError):
