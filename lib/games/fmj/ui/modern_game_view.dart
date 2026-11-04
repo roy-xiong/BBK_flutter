@@ -424,7 +424,7 @@ final class _ModernSceneView extends StatelessWidget {
               if (op != null && (op.kind == 'choice' || op.kind == 'menu'))
                 Center(
                   child: _ChoicePanel(
-                    title: '请作选择',
+                    title: op.text.isEmpty ? '请作选择' : op.text,
                     maxHeight: constraints.maxHeight * .8,
                     items: op.options,
                     selected: op.selected,

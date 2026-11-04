@@ -48,14 +48,14 @@
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "1dcf9a53957ebf3788c665ed022a21482cdfa37692dcb1ed4d5aa30c32173125"
+      "importedSha256": "2f584c3beec80a9f0941d81f30f8cedd9979fa50c32e67839f07ffee48104964"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_menus.dart",
       "destination": "lib/games/fmj/engine/game_menus.dart",
       "sourceSha256": "0d4fe2395bc3664887210d11914603f951d6e6ab37113b7ef9c2a241c5dc1c3a",
-      "importedSha256": "35112c1ac915f3bc9aeab3dea2a70594909cf01c6625bb979b867c4715dae693"
+      "importedSha256": "7d63e3b25267e7ba63b8ee515c808ec48bab10e3c223b2b99efc698dc23008fc"
     },
     {
       "game": "fmj",
@@ -69,7 +69,7 @@
       "source": "lib/engine/game_render.dart",
       "destination": "lib/games/fmj/engine/game_render.dart",
       "sourceSha256": "b796a60d7f619e67d0a02e354df7d7d05e59c6495abc6984a052a0b5fcae7365",
-      "importedSha256": "48c09cd2f27ca2fe3911ab3ada5e6246d05997fd6b66f51258a07bb1feeae32e"
+      "importedSha256": "7ba62ba23b4d08a079eff9f2188e8660438894c256bcb367f8ee757321720074"
     },
     {
       "game": "fmj",
@@ -160,7 +160,7 @@
       "source": "lib/ui/modern_game_view.dart",
       "destination": "lib/games/fmj/ui/modern_game_view.dart",
       "sourceSha256": "7fead2e2d569c14ca9d2d9c012124c82b450b5e1e0c75310b0bc47eb495d45c0",
-      "importedSha256": "0a4a80f5a56d8cafc9ecdd4d39adb4a6fa2a9e50a2e30332490cbb2cfcec514b"
+      "importedSha256": "c258d3095fe5acf4b702c04031531fb75daba2ddd394b0a1908734e222c18f83"
     },
     {
       "game": "fmj",
@@ -223,7 +223,7 @@
       "source": "assets/game/FmjGuideData.json",
       "destination": "assets/fmj/game/FmjGuideData.json",
       "sourceSha256": "4b1897d5196756b168e4b88f9265a7ec349ff1aaf349ecc245fe4fbdd11140ac",
-      "importedSha256": "671ac7c1c09ec6fd9de7f5085ca19d798183110764c8cc5defc790aa6ce2047e"
+      "importedSha256": "797b3837a84814f5e412939a761b166c8b6954d42e1dce7582b93be547155bba"
     },
     {
       "game": "fmj",
@@ -391,7 +391,7 @@
       "source": "assets/modern/enhanced-art.json",
       "destination": "assets/fmj/modern/enhanced-art.json",
       "sourceSha256": "cb5c8bc250c265e2f5c703cc78df44dd2c410b81fd5e4c4152e654339bda5ff4",
-      "importedSha256": "ac8bb60824eae7a744b73a76e109a0be525fb7f372c2144aab0501ab26f8cca5"
+      "importedSha256": "73053c410e4d6b9e6fe3a8fa27312dd6c14a8572cdd4992b2865f9b6541c65f8"
     },
     {
       "game": "fmj",
@@ -2298,6 +2298,18 @@
       "source": "integration-custom-ring-blade",
       "destination": "assets/fmj/modern/ring-blade-v1.png",
       "importedSha256": "6c97dd4e7951dcf08be7bce6af39bcf88cc528b425d5cd895376b8cfcedfb36c"
+    },
+    {
+      "game": "fmj",
+      "source": "custom-resurrection-pill",
+      "destination": "lib/games/fmj/engine/game_resurrection_pill.dart",
+      "importedSha256": "6d47aad75c1f1c5e0e6383f9bc221154a0ee276244755560558c3ab6bef73998"
+    },
+    {
+      "game": "fmj",
+      "source": "custom-resurrection-pill",
+      "destination": "assets/fmj/modern/resurrection-pill-v1.png",
+      "importedSha256": "b69977280c99fa7d07b8e334cb5382f13ce83b415ada2cd4550567a53df585bd"
     }
   ],
   "integrationRevisions": [
@@ -4058,6 +4070,48 @@
       "previousImportedSha256": "5e671a733d8ed04d2aac4e81625426674fa09c2203ab57fb6bae5a5c5172a623",
       "currentSha256": "68749921450500e0299fa557cd8760556486095488119ae06adee70c1c52b965",
       "reason": "2026-11-04 大环刀命中吸取限定普通攻击，回归覆盖合击不误触发；保留当前已测实现。"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "1dcf9a53957ebf3788c665ed022a21482cdfa37692dcb1ed4d5aa30c32173125",
+      "currentSha256": "2f584c3beec80a9f0941d81f30f8cedd9979fa50c32e67839f07ffee48104964",
+      "reason": "2026-11-04 用户审核通过起死回生丹及袁萍芷复活对白：双上限成长、百万出售、原角色备份复活与按原剧情继续；仅master扩展。"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_menus.dart",
+      "previousImportedSha256": "35112c1ac915f3bc9aeab3dea2a70594909cf01c6625bb979b867c4715dae693",
+      "currentSha256": "7d63e3b25267e7ba63b8ee515c808ec48bab10e3c223b2b99efc698dc23008fc",
+      "reason": "2026-11-04 用户审核通过起死回生丹及袁萍芷复活对白：双上限成长、百万出售、原角色备份复活与按原剧情继续；仅master扩展。"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_render.dart",
+      "previousImportedSha256": "48c09cd2f27ca2fe3911ab3ada5e6246d05997fd6b66f51258a07bb1feeae32e",
+      "currentSha256": "7ba62ba23b4d08a079eff9f2188e8660438894c256bcb367f8ee757321720074",
+      "reason": "2026-11-04 用户审核通过起死回生丹及袁萍芷复活对白：双上限成长、百万出售、原角色备份复活与按原剧情继续；仅master扩展。"
+    },
+    {
+      "destination": "lib/games/fmj/ui/modern_game_view.dart",
+      "previousImportedSha256": "0a4a80f5a56d8cafc9ecdd4d39adb4a6fa2a9e50a2e30332490cbb2cfcec514b",
+      "currentSha256": "c258d3095fe5acf4b702c04031531fb75daba2ddd394b0a1908734e222c18f83",
+      "reason": "2026-11-04 用户审核通过起死回生丹及袁萍芷复活对白：双上限成长、百万出售、原角色备份复活与按原剧情继续；仅master扩展。"
+    },
+    {
+      "destination": "assets/fmj/game/FmjGuideData.json",
+      "previousImportedSha256": "671ac7c1c09ec6fd9de7f5085ca19d798183110764c8cc5defc790aa6ce2047e",
+      "currentSha256": "617ba34270968de73e1829812e4a911bc4490ac7e9c9c7978642f79924afbf78",
+      "reason": "2026-11-04 用户审核通过起死回生丹及袁萍芷复活对白：双上限成长、百万出售、原角色备份复活与按原剧情继续；仅master扩展。"
+    },
+    {
+      "destination": "assets/fmj/modern/enhanced-art.json",
+      "previousImportedSha256": "ac8bb60824eae7a744b73a76e109a0be525fb7f372c2144aab0501ab26f8cca5",
+      "currentSha256": "73053c410e4d6b9e6fe3a8fa27312dd6c14a8572cdd4992b2865f9b6541c65f8",
+      "reason": "2026-11-04 用户审核通过起死回生丹及袁萍芷复活对白：双上限成长、百万出售、原角色备份复活与按原剧情继续；仅master扩展。"
+    },
+    {
+      "destination": "assets/fmj/game/FmjGuideData.json",
+      "previousImportedSha256": "617ba34270968de73e1829812e4a911bc4490ac7e9c9c7978642f79924afbf78",
+      "currentSha256": "797b3837a84814f5e412939a761b166c8b6954d42e1dce7582b93be547155bba",
+      "reason": "复活后角色按真实站位相向交谈，原事件地址及任务分支保持一致。"
     }
   ]
 }

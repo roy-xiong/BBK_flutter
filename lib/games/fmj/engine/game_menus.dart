@@ -851,6 +851,10 @@ extension GameMenus on GameEngine {
 
   /// 数值效果不负责扣库存，战斗及场外均先按一次交易扣一份，再作用于目标。
   void _applyMedicineEffect(GameActor p, GameRecord r) {
+    if (identical(r, resurrectionPill.record)) {
+      resurrectionPill.applyMedicine(p);
+      return;
+    }
     switch (r.byte(0)) {
       case 9:
         p.hp = (p.hp + r.word(22)).clamp(0, p.maxHp);

@@ -1,6 +1,6 @@
 {
-  "request": "2026-11-04-master-ring-blade-epilogue",
+  "request": "2026-11-04-master-resurrection-pill",
   "platform": "all",
   "skip_validation": true,
-  "reason": "用户指定基于master新增大环刀及配置页、修复结尾跟随，并全平台打包；本地已完成针对性回归及完整剧情，沿用直接构建并发布下载链接，不下载。"
+  "reason": "用户已认可复活对白并要求落地，新增起死回生丹的隐藏拾取、百万出售、服用双成长和袁萍芷复活分支；master全平台打包并发布下载链接，本地已做针对性与完整剧情回归。"
 }

@@ -64,9 +64,10 @@ void main() {
             if (op?.kind == 'choice' || op?.kind == 'menu') {
               // 放走老王体验密道；钥匙由正式任务排序预留，不靠测试特意取消魔灯来避坑。
               // 自动拾取不替玩家花钥匙；本用例把有限三把钥匙留给三张任务卡。
-              final index =
-                  op!.scriptId == '5:18' ||
-                      collectPickups && {'10:1', '2:33'}.contains(op.scriptId)
+              final index = op!.scriptId == '14:8' && op.address == 9020
+                  ? 0
+                  : op.scriptId == '5:18' ||
+                        collectPickups && {'10:1', '2:33'}.contains(op.scriptId)
                   ? 0
                   : op.options.length - 1;
               record(
@@ -157,6 +158,14 @@ void main() {
             await game.navigation.startGoal();
             await settle();
             record('arrived', game.notice);
+            if (collectPickups &&
+                game.flags.contains(252) &&
+                game.cursor?.script.id == '14:8') {
+              expect(game.flags, contains(2392), reason: '开局拾取的丹药实际用于复活');
+              expect(game.players.where((p) => p.index == 3), hasLength(1));
+              expect(game.inventory['11:16'] ?? 0, 0);
+            }
+
             if (game.cursor?.script.id == '5:16' && !game.flags.contains(214)) {
               expect(
                 game.navigation.sideGoals.any(

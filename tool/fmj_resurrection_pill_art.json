@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-04",
+  "model": "gpt-image-2",
+  "tool": "imagegen CLI",
+  "asset": "assets/fmj/modern/resurrection-pill-v1.png",
+  "prompt": "Use case: stylized-concept\nAsset type: one Chinese wuxia RPG inventory item icon\nPrimary request: The extraordinarily valuable life-restoring elixir called Qi Si Hui Sheng Dan. One polished deep crimson spherical medicinal pill in a small open pale jade cup with refined antique gold phoenix filigree. A tiny golden phoenix pattern engraved on the pill itself, a restrained soft warm highlight. A compact readable silhouette at 88px game inventory size.\nStyle/medium: finely hand-painted Chinese fantasy game item illustration, crisp edges, detailed porcelain and gold, tasteful premium medical treasure, matching traditional RPG inventory icons.\nComposition/framing: Centered single item, three-quarter front view, complete cup and pill visible, generous transparent margin. No box, no characters, no floor, no scene, no hovering objects, no background shadow.\nScene/backdrop: uniform bright magenta #ff00ff backdrop outside the object for extraction, no magenta in the object.\nText: none. No letters, no logo, no watermark, no UI frame.\n",
+  "sourceSize": [
+    1254,
+    1254
+  ],
+  "monochromeRows": [
+    0,
+    0,
+    0,
+    2016,
+    4088,
+    8188,
+    16380,
+    8184,
+    8184,
+    4088,
+    4080,
+    2016,
+    992,
+    0,
+    0,
+    0
+  ]
+}

@@ -75,6 +75,22 @@ extension GameRendering on GameEngine {
         case 'choice':
         case 'menu':
           final box = choiceLayout(op);
+          if (op.text.isNotEmpty) {
+            surface.frame(8, 4, surface.width - 8, surface.height - 4);
+            final title =
+                !wide &&
+                    op.scriptId == GameResurrectionPill.story &&
+                    op.address == GameResurrectionPill.choiceAddress
+                ? '复活袁萍芷？\n耗丹×1'
+                : op.text;
+            _text(
+              title,
+              16,
+              10,
+              right: surface.width - 16,
+              bottom: box.top - 3,
+            );
+          }
           _drawList(
             op.options,
             op.selected,
@@ -104,6 +120,17 @@ extension GameRendering on GameEngine {
         first = (op.selected - rows + 1)
             .clamp(0, math.max(0, op.options.length - rows))
             .toInt();
+    if (op.text.isNotEmpty && op.kind == 'choice') {
+      final height = wide ? 20 : 18;
+      return (
+        left: wide ? 48 : 20,
+        top: surface.height - rows * height - 12,
+        right: surface.width - (wide ? 48 : 20),
+        rowHeight: height,
+        first: first,
+        rows: rows,
+      );
+    }
     if (op.kind == 'menu') {
       return (
         left: wide ? 40 : 16,

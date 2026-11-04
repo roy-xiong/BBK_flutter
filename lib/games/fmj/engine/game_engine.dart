@@ -17,6 +17,7 @@ part 'game_pickups.dart';
 part 'game_cheats.dart';
 part 'game_party_follow.dart';
 part 'game_ring_blade.dart';
+part 'game_resurrection_pill.dart';
 
 /// 输入编号与 BBK 原引擎一致，触屏、键盘和寻路均经过同一入口。
 enum GameKey { up, down, left, right, pageUp, pageDown, confirm, cancel }
@@ -70,6 +71,7 @@ final class GameEngine {
   late final GamePickups pickups = GamePickups(this);
   late final GamePartyFollow partyFollow = GamePartyFollow(this);
   late final GameRingBlade ringBlade = GameRingBlade(this);
+  late final GameResurrectionPill resurrectionPill = GameResurrectionPill(this);
   final SystemTextLayout textLayout;
   final math.Random random;
   static final _speakerPrefix = RegExp(r'^([^：:\r\n，。！？!?]{1,16})[：:]');
@@ -224,6 +226,7 @@ final class GameEngine {
     moneyFarm.stop();
     navigation.cancel();
     stageStoneProgress = null;
+    resurrectionPill.reset();
     players.clear();
     partyFollow.reset();
     npcs.clear();
@@ -339,6 +342,16 @@ final class GameEngine {
         _loadMap(id(0), n(2), n(3));
         operation = GameOperation('delay', args: [40]);
       case 2:
+        if (c.script.id == GameResurrectionPill.story &&
+            cmd.address == GameResurrectionPill.rejoinAddress) {
+          if (!resurrectionPill.rejoin(screenX + n(1), screenY + n(2))) {
+            // 若人数/身份已变，退还刚才的丹药并回原剧情，避免吞药或重复人物。
+            addGoods(GameResurrectionPill.id);
+            jump(2456);
+          }
+          operation = GameOperation('delay', args: [40]);
+          return;
+        }
         final p = GameActor.load(data, 1, n(0));
         if (p != null) {
           p.x = screenX + n(1);
@@ -435,6 +448,11 @@ final class GameEngine {
         operation =
             GameOperation(
                 'choice',
+                text:
+                    c.script.id == GameResurrectionPill.story &&
+                        cmd.address == GameResurrectionPill.choiceAddress
+                    ? GameResurrectionPill.prompt
+                    : '',
                 args: a,
                 options: values is List
                     ? values.whereType<String>().toList()
@@ -443,6 +461,12 @@ final class GameEngine {
               ..scriptId = c.script.id
               ..address = cmd.address;
         final choice = operation;
+        if (choice != null &&
+            choice.scriptId == GameResurrectionPill.story &&
+            choice.address == GameResurrectionPill.choiceAddress) {
+          choice.selected = 0;
+          choice.armed = true;
+        }
         if (choice != null && choice.options.firstOrNull == '取消') {
           // 只给明确的道具使用默认焦点；原选项顺序和分支索引保持不变。
           // 不自动提交，人物生死、交物、交换等剧情选择仍沿用原默认项。
@@ -494,6 +518,11 @@ final class GameEngine {
         );
         c.running = false;
       case 40:
+        if (c.script.id == GameResurrectionPill.story &&
+            cmd.address == 1840 &&
+            n(0) == 3) {
+          resurrectionPill.rememberDeparture();
+        }
         players.removeWhere((p) => p.index == n(0));
       case 41:
         money = (money + n(0) + (n(1) << 16)).clamp(0, 2147483647);
@@ -1036,6 +1065,7 @@ final class GameEngine {
 
   GameRecord? goods(String id) {
     if (id == GameRingBlade.id) return ringBlade.record;
+    if (id == GameResurrectionPill.id) return resurrectionPill.record;
     final a = id.split(':');
     return a.length == 2
         ? data.record(6, int.tryParse(a[0]) ?? 0, int.tryParse(a[1]) ?? 0)
@@ -1165,6 +1195,7 @@ final class GameEngine {
     'npcs': npcs.map((id, p) => MapEntry('$id', p.toJson())),
     'inventory': Map<String, int>.from(inventory),
     'preferredThrowWeapon': preferredThrowWeapon,
+    'departedYuan': resurrectionPill.snapshot(),
     'script': cursor?.script.id,
     'timer': cursor?.timer ?? 0,
     'timerCounter': cursor?.timerCounter ?? 0,
@@ -1197,6 +1228,7 @@ final class GameEngine {
     if (j['scene'] != null && j['scene'] is! String) {
       throw const FormatException('存档场景名称无效');
     }
+    final nextDepartedYuan = resurrectionPill.decode(j['departedYuan']);
     final nextMap = data.maps[j['map']], nextScript = data.scripts[j['script']];
     final rawPickupDeferred = j['pickupDeferred'];
     if (rawPickupDeferred != null &&
@@ -1297,6 +1329,7 @@ final class GameEngine {
     for (final actor in nextPlayers) {
       actor.synchronizeLearnedMagic(data);
     }
+    resurrectionPill.restoreDeparted(nextDepartedYuan);
     players
       ..clear()
       ..addAll(nextPlayers);
