@@ -880,51 +880,120 @@ extension GameMenus on GameEngine {
     p.mp = p.mp.clamp(0, p.maxMp);
   }
 
-  /// 选关拥有独立备份；准备角色与剧情状态，不写入三个常规档位。
+  /// 选关只重建关卡剧情；实际背包、出场队员的穿戴和成长独立保留。
+  /// 未在新关卡出场的当前队员，其装备退回背包；关卡准备只补齐所需的最低数量。
+  /// 首次无进度直接选关仍按原模板准备人物，三个手动档位保持由保存入口写入。
   void selectStage(Map<String, dynamic> stage) {
     if (canSave) _stageBackup = jsonEncode(snapshot());
+    final actorIds = (stage['actors'] as List).cast<int>();
+    final carriedPlayers = <int, GameActor>{
+      for (final p in players) p.index: GameActor.fromJson(p.toJson()),
+    };
+    final carriedItems = Map<String, int>.from(inventory);
+    final carriedMoney = money;
+    final carriedThrowWeapon = preferredThrowWeapon;
+    final collected = flags.intersection({
+      2390,
+      GameResurrectionPill.collectedFlag,
+    });
+    final departed = resurrectionPill.decode(resurrectionPill.snapshot());
+    final hasProgress =
+        carriedPlayers.isNotEmpty ||
+        carriedItems.isNotEmpty ||
+        carriedMoney > 0;
+    // 剧情离队备份也保存了真实装备。跳到该人物尚在场的章节时复用，不另造一名空人物。
+    if (departed != null &&
+        actorIds.contains(3) &&
+        !carriedPlayers.containsKey(3)) {
+      carriedPlayers[3] = departed;
+    }
+    for (final p in carriedPlayers.values) {
+      if (actorIds.contains(p.index)) continue;
+      for (final id in p.equipment.whereType<String>()) {
+        carriedItems[id] = (carriedItems[id] ?? 0) + 1;
+      }
+    }
     startNewGame();
     operation = null;
     cursor?.running = false;
+    inventory.addAll(carriedItems);
+    preferredThrowWeapon = carriedThrowWeapon;
+    resurrectionPill.restoreDeparted(actorIds.contains(3) ? null : departed);
     flags.addAll((stage['flags'] as List).cast<int>());
+    flags.addAll(collected);
     variables[1] = stage['variable'] as int? ?? 0;
     final x = stage['x'] as int, y = stage['y'] as int;
     _loadMap(stage['mapId'] as String, x - 4, y - 3);
     players.clear();
-    for (final id in (stage['actors'] as List).cast<int>()) {
-      final p = GameActor.load(data, 1, id);
+    for (final id in actorIds) {
+      final retained = carriedPlayers[id];
+      final p = retained ?? GameActor.load(data, 1, id);
       if (p != null) {
+        // 新出场人物的默认装备优先使用现有库存，避免反复减少/增加人数复制同一道具。
+        if (hasProgress && retained == null) {
+          for (final item in p.equipment.whereType<String>()) {
+            if ((inventory[item] ?? 0) > 0) useGoods(item);
+          }
+        }
         p.x = x;
         p.y = y;
         players.add(p);
       }
     }
+    int owned(String id) =>
+        (inventory[id] ?? 0) +
+        players.fold<int>(
+          0,
+          (count, p) => count + p.equipment.where((item) => item == id).length,
+        );
     for (final value in stage['goods'] as List) {
       final item = Map<String, dynamic>.from(value as Map);
       final id = item['id'] as String, minimum = item['count'] as int;
-      if ((inventory[id] ?? 0) < minimum) {
-        addGoods(id, minimum - (inventory[id] ?? 0));
-      }
+      final count = hasProgress ? owned(id) : inventory[id] ?? 0;
+      if (count < minimum) addGoods(id, minimum - count);
     }
     for (final value in stage['equipment'] as List) {
       final item = Map<String, dynamic>.from(value as Map);
-      final p = _player(item['actor'] as int);
-      if (p != null) {
-        equip(
-          p,
-          item['id'] as String,
-          slot: item['slot'] as int,
-          fromBag: false,
-        );
+      final actor = item['actor'] as int;
+      final p = _player(actor);
+      if (p == null) continue;
+      final id = item['id'] as String;
+      if (!hasProgress) {
+        equip(p, id, slot: item['slot'] as int, fromBag: false);
+      } else {
+        if (owned(id) == 0) addGoods(id);
+        if (!carriedPlayers.containsKey(actor) &&
+            p.equipment[item['slot'] as int] != id) {
+          equip(p, id, slot: item['slot'] as int);
+        }
       }
     }
+    // 穿戴标记必须以真实装备为准：保留的天心灯要生效，未穿模板护甲不能被判为已穿。
+    if (hasProgress) {
+      for (final key in data.offsets.keys.where(
+        (key) => key.startsWith('6:'),
+      )) {
+        final r = goods(key.substring(2));
+        if (r != null && r.byte(0) <= 7 && r.word(132) > 0) {
+          flags.remove(r.word(132));
+        }
+      }
+      for (final p in players) {
+        for (final id in p.equipment.whereType<String>()) {
+          final flag = goods(id)?.word(132) ?? 0;
+          if (flag > 0) flags.add(flag);
+        }
+      }
+    }
+    ringBlade.synchronizePlayers();
     for (final p in players) {
       p.levelUp(data, stage['level'] as int? ?? 5);
       p.hp = p.maxHp;
       p.mp = p.maxMp;
-      p.status = 0;
+      p.clearStatus(15);
+      p.modifiers.clear();
     }
-    money = 5000;
+    money = math.max(5000, carriedMoney);
     disableSave = false;
     _chapter(stage['scriptId'] as String);
     if (stage['scriptId'] == '9:13') {

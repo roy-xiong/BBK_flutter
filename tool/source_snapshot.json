@@ -55,7 +55,7 @@
       "source": "lib/engine/game_menus.dart",
       "destination": "lib/games/fmj/engine/game_menus.dart",
       "sourceSha256": "0d4fe2395bc3664887210d11914603f951d6e6ab37113b7ef9c2a241c5dc1c3a",
-      "importedSha256": "7d63e3b25267e7ba63b8ee515c808ec48bab10e3c223b2b99efc698dc23008fc"
+      "importedSha256": "bc527db524ae2058c23daa55aef68729161381b6b9e18f4c520e1b9ec8fcc6ef"
     },
     {
       "game": "fmj",
@@ -2303,7 +2303,7 @@
       "game": "fmj",
       "source": "custom-resurrection-pill",
       "destination": "lib/games/fmj/engine/game_resurrection_pill.dart",
-      "importedSha256": "6d47aad75c1f1c5e0e6383f9bc221154a0ee276244755560558c3ab6bef73998"
+      "importedSha256": "f3e81885d8412b099931fb78911dc89c4e509b7bea90936cbbcd64f0196438aa"
     },
     {
       "game": "fmj",
@@ -4112,6 +4112,18 @@
       "previousImportedSha256": "617ba34270968de73e1829812e4a911bc4490ac7e9c9c7978642f79924afbf78",
       "currentSha256": "797b3837a84814f5e412939a761b166c8b6954d42e1dce7582b93be547155bba",
       "reason": "复活后角色按真实站位相向交谈，原事件地址及任务分支保持一致。"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_menus.dart",
+      "previousImportedSha256": "7d63e3b25267e7ba63b8ee515c808ec48bab10e3c223b2b99efc698dc23008fc",
+      "currentSha256": "bc527db524ae2058c23daa55aef68729161381b6b9e18f4c520e1b9ec8fcc6ef",
+      "reason": "2026-11-04 移除丹药常规介绍中的隐藏剧情提示；选关仅重设剧情，保留背包与穿戴，并验证96节点及重复切换。"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_resurrection_pill.dart",
+      "previousImportedSha256": "6d47aad75c1f1c5e0e6383f9bc221154a0ee276244755560558c3ab6bef73998",
+      "currentSha256": "f3e81885d8412b099931fb78911dc89c4e509b7bea90936cbbcd64f0196438aa",
+      "reason": "2026-11-04 移除丹药常规介绍中的隐藏剧情提示；选关仅重设剧情，保留背包与穿戴，并验证96节点及重复切换。"
     }
   ]
 }
