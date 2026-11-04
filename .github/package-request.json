@@ -1,6 +1,6 @@
 {
-  "request": "2026-11-04-master-classic-party-identity",
+  "request": "2026-11-04-master-ring-keyboard-multi-level",
   "platform": "all",
   "skip_validation": true,
-  "reason": "用户补充黑白队友跟随形象均为柳清风，修复经典绘制身份映射并验证四方向四帧、三人跟随与旧档；接续本次全平台发布，master打包，不下载。"
+  "reason": "用户要求iOS大环刀设置键盘可收起且保存不遮挡，一并确认修复单场大量经验连续升级；已完成iOS尺寸/键盘注入、经验与相关回归及全剧情，推master后全平台发布，不下载。"
 }

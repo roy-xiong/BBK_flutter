@@ -41,7 +41,7 @@
       "source": "lib/engine/game_battle.dart",
       "destination": "lib/games/fmj/engine/game_battle.dart",
       "sourceSha256": "5375ae6aa517e1fc8de0296091ad7c2f8acf48eb93368643e773cb8f9167b071",
-      "importedSha256": "8e89dd06a8cd6a2f70e37c12d2b917e2a129079884a2091bf6b3a824bfcf386c"
+      "importedSha256": "bec8d9c24e92d6445fa54b312b996fd776420f16a7fbc1aa854395c0d23942c6"
     },
     {
       "game": "fmj",
@@ -2291,7 +2291,7 @@
       "game": "fmj",
       "source": "integration-custom-ring-blade",
       "destination": "lib/games/fmj/ui/ring_blade_settings_page.dart",
-      "importedSha256": "f0312ab1e42864fadcd13fac9717507b991b753a6532589ecb9da2c4c531d040"
+      "importedSha256": "f7a5dcd20c3b9f0acd9b6f4d92b573bd6fd5e9271de985078bf49b365c9796c7"
     },
     {
       "game": "fmj",
@@ -4178,6 +4178,18 @@
       "previousImportedSha256": "7ba62ba23b4d08a079eff9f2188e8660438894c256bcb367f8ee757321720074",
       "currentSha256": "5820967de07b475c663bd9cff83a61c2613d17dcca18cf89ee4f4f653cdcabd8",
       "reason": "2026-11-04 修复经典黑白跟随使用三人共享的柳清风行走图，绘制时按身份映射小梅6、袁萍芷7号NPC资源；原角色与战斗编号不变。"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_battle.dart",
+      "previousImportedSha256": "8e89dd06a8cd6a2f70e37c12d2b917e2a129079884a2091bf6b3a824bfcf386c",
+      "currentSha256": "bec8d9c24e92d6445fa54b312b996fd776420f16a7fbc1aa854395c0d23942c6",
+      "reason": "2026-11-04 修复iOS大环刀设置数字键盘遮挡与关闭，并按用户确认逐级结算大量经验，保留倍率一次、法术提示和成长加成。"
+    },
+    {
+      "destination": "lib/games/fmj/ui/ring_blade_settings_page.dart",
+      "previousImportedSha256": "f0312ab1e42864fadcd13fac9717507b991b753a6532589ecb9da2c4c531d040",
+      "currentSha256": "f7a5dcd20c3b9f0acd9b6f4d92b573bd6fd5e9271de985078bf49b365c9796c7",
+      "reason": "2026-11-04 修复iOS大环刀设置数字键盘遮挡与关闭，并按用户确认逐级结算大量经验，保留倍率一次、法术提示和成长加成。"
     }
   ]
 }

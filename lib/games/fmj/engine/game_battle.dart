@@ -1443,13 +1443,15 @@ final class GameBattle {
       if (chain == null) continue;
       // 满级只跳过当前队员，不能终止整队结算，否则其后的队友会丢失经验。
       if (p.level >= chain.byte(2)) continue;
-      final needed = chain.word(4 + (p.level - 1) * 20 + 14),
-          exp = p.exp + totalExp * game.ringBlade.experienceMultiplierFor(p);
-      p.exp = exp;
-      if (exp >= needed) {
+      // 本场经验与倍率只发放一次；随后逐级扣门槛。循环最多到成长表上限，
+      // 不受奖励数值大小影响，也不会因某级门槛为零而无限循环。
+      p.exp += totalExp * game.ringBlade.experienceMultiplierFor(p);
+      while (p.level < chain.byte(2)) {
+        final needed = chain.word(4 + (p.level - 1) * 20 + 14);
+        if (p.exp < needed) break;
         final previous = p.level;
         final oldLearned = p.learned;
-        p.exp = exp - needed;
+        p.exp -= needed;
         p.levelUp(game.data, previous + 1);
         int difference(int offset, {bool byte = false}) => byte
             ? chain.byte(4 + (p.level - 1) * 20 + offset) -

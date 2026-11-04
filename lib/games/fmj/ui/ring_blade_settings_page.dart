@@ -50,7 +50,11 @@ final class _RingBladeSettingsPageState extends State<RingBladeSettingsPage> {
     });
   }
 
+  /// iOS数字键盘没有系统完成键；显式失焦统一服务工具栏、提交与拖动操作。
+  void _dismissKeyboard() => FocusScope.of(context).unfocus();
+
   void _save() {
+    _dismissKeyboard();
     if (!(_form.currentState?.validate() ?? false)) return;
     if (!identical(widget.model.engine, widget.game)) {
       Navigator.of(context).pop();
@@ -100,6 +104,9 @@ final class _RingBladeSettingsPageState extends State<RingBladeSettingsPage> {
             controller: _controllers[key],
             enabled: toggle == null || _draft[toggle] == true,
             keyboardType: TextInputType.number,
+            textInputAction: TextInputAction.done,
+            onFieldSubmitted: (_) => _dismissKeyboard(),
+            onTapOutside: (_) => _dismissKeyboard(),
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             decoration: InputDecoration(
               isDense: true,
@@ -139,17 +146,37 @@ final class _RingBladeSettingsPageState extends State<RingBladeSettingsPage> {
       title: const Text('大环刀设置'),
       actions: [TextButton(onPressed: _defaults, child: const Text('恢复默认'))],
     ),
-    bottomNavigationBar: SafeArea(
-      top: false,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 10, 20, 12),
-        child: FilledButton.icon(
-          key: const ValueKey('save-ring-blade'),
-          onPressed: _save,
-          icon: const Icon(Icons.check),
-          label: const Padding(
-            padding: EdgeInsets.symmetric(vertical: 12),
-            child: Text('保存并应用'),
+    // bottomNavigationBar默认不避让键盘；把输入区高度显式留在底部，保存与
+    // 收起操作始终位于数字键盘上沿。SafeArea只负责设备边缘，避免混淆两种边距。
+    bottomNavigationBar: Padding(
+      padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
+      child: SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 10),
+          child: Row(
+            children: [
+              if (MediaQuery.viewInsetsOf(context).bottom > 0) ...[
+                TextButton.icon(
+                  key: const ValueKey('dismiss-ring-keyboard'),
+                  onPressed: _dismissKeyboard,
+                  icon: const Icon(Icons.keyboard_hide),
+                  label: const Text('收起键盘'),
+                ),
+                const SizedBox(width: 8),
+              ],
+              Expanded(
+                child: FilledButton.icon(
+                  key: const ValueKey('save-ring-blade'),
+                  onPressed: _save,
+                  icon: const Icon(Icons.check),
+                  label: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Text('保存并应用'),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -157,6 +184,7 @@ final class _RingBladeSettingsPageState extends State<RingBladeSettingsPage> {
     body: Form(
       key: _form,
       child: ListView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         padding: const EdgeInsets.all(20),
         children: [
           Center(
