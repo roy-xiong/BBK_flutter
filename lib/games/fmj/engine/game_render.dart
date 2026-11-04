@@ -266,7 +266,20 @@ extension GameRendering on GameEngine {
     }
     for (final pose in partyFollow.worldActors) {
       final actor = pose.actor;
-      final resource = data.image(8, actor.type, actor.sprite);
+      // 原ROM三名可控人物共享8:1:1（柳清风）的行走资源；小梅和袁萍芷
+      // 的独立黑白行走图存于同身份剧情NPC中。只在绘制时映射，兼容旧档
+      // 的sprite=1，既不改战斗图片编号，也不改变跟随轨迹、碰撞或人物属性。
+      final counterpart = actor.type == 1
+          ? switch (actor.index) {
+              2 => 6,
+              3 => 7,
+              _ => null,
+            }
+          : null;
+      final npc = counterpart == null ? null : data.record(3, 2, counterpart);
+      final resource =
+          (npc == null ? null : data.image(8, 2, npc.byte(22))) ??
+          data.image(8, actor.type, actor.sprite);
       if (resource == null) continue;
       final base = switch (pose.direction) {
         1 => 0,

@@ -69,7 +69,7 @@
       "source": "lib/engine/game_render.dart",
       "destination": "lib/games/fmj/engine/game_render.dart",
       "sourceSha256": "b796a60d7f619e67d0a02e354df7d7d05e59c6495abc6984a052a0b5fcae7365",
-      "importedSha256": "7ba62ba23b4d08a079eff9f2188e8660438894c256bcb367f8ee757321720074"
+      "importedSha256": "5820967de07b475c663bd9cff83a61c2613d17dcca18cf89ee4f4f653cdcabd8"
     },
     {
       "game": "fmj",
@@ -4172,6 +4172,12 @@
       "previousImportedSha256": "40ba903da906faceb0de48ef00113b7641212ad8a126c4278513c0a43d0c8ffb",
       "currentSha256": "42f7b9744c9859078402e2754b23df7c66905e3c13c488dded585c413d3170ae",
       "reason": "2026-11-04 用户确认V2团圆尾声：2392条件分支、13句正式对白、三人入场离场；原未救回结局与SRS时序保留。"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_render.dart",
+      "previousImportedSha256": "7ba62ba23b4d08a079eff9f2188e8660438894c256bcb367f8ee757321720074",
+      "currentSha256": "5820967de07b475c663bd9cff83a61c2613d17dcca18cf89ee4f4f653cdcabd8",
+      "reason": "2026-11-04 修复经典黑白跟随使用三人共享的柳清风行走图，绘制时按身份映射小梅6、袁萍芷7号NPC资源；原角色与战斗编号不变。"
     }
   ]
 }
