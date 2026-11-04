@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bbk_flutter/games/fmj/data/game_data.dart';
 import 'package:bbk_flutter/games/fmj/engine/game_engine.dart';
-import 'package:bbk_flutter/games/fmj/engine/game_actor.dart';
 import 'package:bbk_flutter/games/fmj/ui/game_view_model.dart';
 import 'package:bbk_flutter/games/fmj/ui/modern_game_view.dart';
 import 'package:bbk_flutter/games/fmj/ui/modern_art.dart';
@@ -87,7 +86,7 @@ void main() {
       }
     });
   });
-  testWidgets('标题状态与待审尾声场景使用真实游戏界面导出', (tester) async {
+  testWidgets('标题状态与已审核尾声使用正式脚本和游戏界面导出', (tester) async {
     final g = GameEngine(data, textLayout: FlutterSystemFontLayout())
       ..screen = 'title'
       ..intro = null;
@@ -139,20 +138,27 @@ void main() {
         g.restore(GameData.decodeObject(path.readAsStringSync()));
         g.preferences['costumeHeroes'] = true;
         g.sceneName = '无机阁';
-        // 仅供待审文案预览，正式剧情数据尚未加入袁萍芷的尾声分支。
-        g.npcs[22] = GameActor.load(data, 2, 7)!
-          ..x = 13
-          ..y = 8
-          ..direction = 4;
-        g.player!.direction = 2;
-        g.operation = GameOperation(
-          'dialogue',
-          args: [3],
-          text: '能有今日的清闲，是好事。只是别让小梅总替你操心。',
-        );
-        g.operation!.scriptId = '2:18';
-        g.render();
-        await show('epilogue-draft');
+        // 从正式尾声入口推进到已审核第三句，场景演员与对白都来自生产脚本。
+        g.npcs.clear();
+        g.player!
+          ..x = 11
+          ..y = 8;
+        g.screenX = 7;
+        g.screenY = 5;
+        final ending = data.scripts['2:18']!;
+        g.cursor = ScriptCursor(ending)..pointer = ending.addresses[1133]!;
+        g.flags.add(GameResurrectionPill.revivedFlag);
+        for (var i = 0; i < 5000; i++) {
+          g.update();
+          expect(g.error, isEmpty);
+          if (g.operation?.kind == 'dialogue' && g.operation?.address == 9240) {
+            break;
+          }
+          if (g.operation != null) g.press(GameKey.confirm);
+        }
+        expect(g.operation?.address, 9240);
+        expect(g.npcs[22]?.index, 7);
+        await show('epilogue-approved');
       }
     } finally {
       await tester.pumpWidget(const SizedBox.shrink());

@@ -1,7 +1,6 @@
 {
-  "request": "2026-11-04-master-stage-inventory-publish-retry",
+  "request": "2026-11-04-master-approved-epilogue-v2",
   "platform": "all",
   "skip_validation": true,
-  "reason": "GitHub创建Release临时返回502；仅补发已成功的1.0.50+51全平台原始产物，不重新构建。",
-  "publish_run_id": 41812385919
+  "reason": "用户已确认成婚育女版尾声V2并要求推送打包。master接入13句正式对白及条件出场，同时包含已认可的标题高亮与水墨完字，全平台构建并发布下载链接，不下载。"
 }

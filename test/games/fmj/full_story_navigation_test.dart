@@ -61,6 +61,18 @@ void main() {
               await Future<void>.delayed(Duration.zero);
             }
             final op = game.operation;
+            if (op?.kind == 'dialogue' &&
+                op?.scriptId == '2:18' &&
+                op!.address >= 9230 &&
+                op.address <= 9290 &&
+                !trace.any(
+                  (entry) =>
+                      entry['action'] == 'epilogue-dialogue' &&
+                      entry['detail'] == op.text,
+                )) {
+              record('epilogue-dialogue', op.text);
+            }
+
             if (op?.kind == 'choice' || op?.kind == 'menu') {
               // 放走老王体验密道；钥匙由正式任务排序预留，不靠测试特意取消魔灯来避坑。
               // 自动拾取不替玩家花钥匙；本用例把有限三把钥匙留给三张任务卡。
@@ -185,6 +197,20 @@ void main() {
           );
           expect(game.flags.contains(260), isTrue);
           expect(game.ended, isTrue, reason: '必须经最终剧情进入结局');
+          final epilogue = trace
+              .where((entry) => entry['action'] == 'epilogue-dialogue')
+              .map((entry) => entry['detail'])
+              .toList();
+          if (collectPickups) {
+            expect(epilogue, hasLength(13));
+            expect(
+              epilogue.join(),
+              allOf(contains('成亲这些年'), contains('女儿'), contains('两位夫人')),
+            );
+          } else {
+            expect(epilogue, isEmpty, reason: '未救回路线不出现新对白');
+          }
+
           if (collectPickups) {
             expect(game.flags, containsAll({1021, 1094, 1098}));
             expect(game.inventory['7:9'], 1, reason: '开局钨龙剑不能错过');
