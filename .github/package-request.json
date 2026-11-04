@@ -1,6 +1,7 @@
 {
-  "request": "2026-11-04-master-stage-inventory-retention",
+  "request": "2026-11-04-master-stage-inventory-publish-retry",
   "platform": "all",
   "skip_validation": true,
-  "reason": "用户要求移除丹药描述中的隐藏剧情提示，并修复选关丢失背包及装备；master提交后全平台打包并发布，已完成针对性回归、96节点对照及完整剧情检查，不下载。"
+  "reason": "GitHub创建Release临时返回502；仅补发已成功的1.0.50+51全平台原始产物，不重新构建。",
+  "publish_run_id": 41812385919
 }
