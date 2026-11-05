@@ -9,7 +9,6 @@ final class GameResurrectionPill {
   static const collectedFlag = 2391, revivedFlag = 2392;
   static const story = '14:8', choiceAddress = 9020, rejoinAddress = 9040;
   static const prompt = '是否使用起死回生丹，复活袁萍芷？\n消耗：起死回生丹 ×1';
-  GameActor? _departed;
   GameRecord? _record;
 
   GameRecord get record {
@@ -61,17 +60,8 @@ final class GameResurrectionPill {
     );
   }
 
-  void reset() {
-    _departed = null;
-  }
-
-  Map<String, dynamic>? snapshot() => _departed?.toJson();
-
-  /// 在原剧情移除袁萍芷之前复制实际人物，保留仙药成长、经验、法术、装备和加成。
-  void rememberDeparture() {
-    final actor = game._player(3);
-    if (actor != null) _departed = GameActor.fromJson(actor.toJson());
-  }
+  /// 为旧版存档保留兼容字段，实际离队数据统一由partyRoster持有。
+  Map<String, dynamic>? snapshot() => game.partyRoster.departedYuan?.toJson();
 
   /// 必须在restore提交新会话前完成校验，坏备份不能使有效存档只恢复一半。
   GameActor? decode(Object? raw) {
@@ -94,15 +84,11 @@ final class GameResurrectionPill {
     }
   }
 
-  void restoreDeparted(GameActor? actor) {
-    _departed = actor;
-  }
-
   /// 剧情消费由57指令完成。本函数只在指定的复活入队指令调用，拒绝重复入队。
   /// 老档没有离队备份时，以真实人物资源和当前队伍等级恢复，不改动其他成员。
   bool rejoin(int x, int y) {
     if (game.players.length >= 3 || game._player(3) != null) return false;
-    final original = _departed;
+    final original = game.partyRoster.departedYuan;
     final actor = original == null
         ? GameActor.load(game.data, 1, 3)
         : GameActor.fromJson(original.toJson());
@@ -126,7 +112,7 @@ final class GameResurrectionPill {
       ..mp = actor.maxMp;
     actor.clearStatus(15);
     actor.modifiers.clear();
-    _departed = null;
+    game.partyRoster.retainYuan(null);
     game.partyFollow.reset();
     return true;
   }

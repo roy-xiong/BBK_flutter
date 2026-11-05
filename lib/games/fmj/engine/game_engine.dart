@@ -18,6 +18,7 @@ part 'game_cheats.dart';
 part 'game_party_follow.dart';
 part 'game_ring_blade.dart';
 part 'game_resurrection_pill.dart';
+part 'game_party_roster.dart';
 
 /// 输入编号与 BBK 原引擎一致，触屏、键盘和寻路均经过同一入口。
 enum GameKey { up, down, left, right, pageUp, pageDown, confirm, cancel }
@@ -72,6 +73,7 @@ final class GameEngine {
   late final GamePartyFollow partyFollow = GamePartyFollow(this);
   late final GameRingBlade ringBlade = GameRingBlade(this);
   late final GameResurrectionPill resurrectionPill = GameResurrectionPill(this);
+  late final GamePartyRoster partyRoster = GamePartyRoster(this);
   final SystemTextLayout textLayout;
   final math.Random random;
   static final _speakerPrefix = RegExp(r'^([^：:\r\n，。！？!?]{1,16})[：:]');
@@ -226,7 +228,7 @@ final class GameEngine {
     moneyFarm.stop();
     navigation.cancel();
     stageStoneProgress = null;
-    resurrectionPill.reset();
+    partyRoster.reset();
     players.clear();
     partyFollow.reset();
     npcs.clear();
@@ -352,12 +354,7 @@ final class GameEngine {
           operation = GameOperation('delay', args: [40]);
           return;
         }
-        final p = GameActor.load(data, 1, n(0));
-        if (p != null) {
-          p.x = screenX + n(1);
-          p.y = screenY + n(2);
-          players.add(p);
-        }
+        partyRoster.join(n(0), screenX + n(1), screenY + n(2));
         operation = GameOperation('delay', args: [40]);
       case 3:
       case 33:
@@ -518,12 +515,7 @@ final class GameEngine {
         );
         c.running = false;
       case 40:
-        if (c.script.id == GameResurrectionPill.story &&
-            cmd.address == 1840 &&
-            n(0) == 3) {
-          resurrectionPill.rememberDeparture();
-        }
-        players.removeWhere((p) => p.index == n(0));
+        partyRoster.depart(n(0));
       case 41:
         money = (money + n(0) + (n(1) << 16)).clamp(0, 2147483647);
       case 42:
@@ -1209,6 +1201,7 @@ final class GameEngine {
     'inventory': Map<String, int>.from(inventory),
     'preferredThrowWeapon': preferredThrowWeapon,
     'departedYuan': resurrectionPill.snapshot(),
+    'partyReserve': partyRoster.snapshot(),
     'script': cursor?.script.id,
     'timer': cursor?.timer ?? 0,
     'timerCounter': cursor?.timerCounter ?? 0,
@@ -1242,6 +1235,11 @@ final class GameEngine {
       throw const FormatException('存档场景名称无效');
     }
     final nextDepartedYuan = resurrectionPill.decode(j['departedYuan']);
+    final nextReserve = partyRoster.decode(j['partyReserve']);
+    // 首版复活丹的袁萍芷备份兼容迁入通用名册，不会把当前队员重置为离队数据。
+    if (nextDepartedYuan != null) {
+      nextReserve.putIfAbsent(3, () => nextDepartedYuan);
+    }
     final nextMap = data.maps[j['map']], nextScript = data.scripts[j['script']];
     final rawPickupDeferred = j['pickupDeferred'];
     if (rawPickupDeferred != null &&
@@ -1271,6 +1269,10 @@ final class GameEngine {
     final nextPlayers = rawPlayers
         .map((v) => GameActor.fromJson(Map<String, dynamic>.from(v as Map)))
         .toList();
+    if (nextPlayers.map((p) => p.index).toSet().length != nextPlayers.length ||
+        nextPlayers.any((p) => nextReserve.containsKey(p.index))) {
+      throw const FormatException('存档角色身份重复');
+    }
     final leader = nextPlayers.first;
     if (nextPlayers.any(
           (p) => p.type != 1 || data.record(3, 1, p.index) == null,
@@ -1342,7 +1344,7 @@ final class GameEngine {
     for (final actor in nextPlayers) {
       actor.synchronizeLearnedMagic(data);
     }
-    resurrectionPill.restoreDeparted(nextDepartedYuan);
+    partyRoster.restoreReserve(nextReserve);
     players
       ..clear()
       ..addAll(nextPlayers);

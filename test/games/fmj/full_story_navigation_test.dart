@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math' as math;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bbk_flutter/games/fmj/engine/game_engine.dart';
+import 'package:bbk_flutter/games/fmj/engine/game_actor.dart';
 import 'package:bbk_flutter/games/fmj/ui/system_font_layout.dart';
 import 'game_engine_test.dart' show loadData;
 
@@ -10,10 +11,17 @@ import 'game_engine_test.dart' show loadData;
 /// 战斗使用游戏内已有的无敌/一击必杀辅助，仍经过真实胜利、奖励及剧情指令。
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  for (final configuration in [(false, false), (true, false), (false, true)]) {
-    final (randomEncounters, collectPickups) = configuration;
+  for (final configuration in [
+    (false, false, false),
+    (true, false, false),
+    (false, true, false),
+    (false, true, true),
+  ]) {
+    final (randomEncounters, collectPickups, boostedExperience) = configuration;
     test(
-      '完整故事一键直达：开局、主线、可用支线、最终结局（${collectPickups
+      '完整故事一键直达：开局、主线、可用支线、最终结局（${boostedExperience
+          ? '1000倍经验完整同行'
+          : collectPickups
           ? '开启全地图拾取'
           : randomEncounters
           ? '2倍速随机遭遇'
@@ -43,6 +51,25 @@ void main() {
           print('STORY ${jsonEncode(row)}');
         }
 
+        Map<String, dynamic>? departedXiaomei;
+        var checkedRejoin = false;
+        Map<String, dynamic> growth(GameActor actor) => {
+          for (final key in [
+            'level',
+            'exp',
+            'maxHp',
+            'maxMp',
+            'attack',
+            'defense',
+            'speed',
+            'spirit',
+            'luck',
+            'learned',
+            'equipment',
+            'extraMagic',
+          ])
+            key: actor.toJson()[key],
+        };
         Future<void> settle() async {
           String? previousScript;
           for (var frame = 0; frame < 60000; frame++) {
@@ -51,7 +78,38 @@ void main() {
               // 把仍正常运行的规划误判为未完成。
               await Future<void>.delayed(const Duration(milliseconds: 1));
             }
+            final xiaomeiBefore = game.players
+                .where((p) => p.index == 2)
+                .firstOrNull;
+            final beforeGrowth = boostedExperience && xiaomeiBefore != null
+                ? growth(xiaomeiBefore)
+                : null;
             game.update();
+            if (boostedExperience) {
+              if ((game.inventory['7:33'] ?? 0) > 0 &&
+                  game.player?.equipment[4] != '7:33') {
+                game.equip(game.player!, '7:33');
+              }
+              final xiaomei = game.players
+                  .where((p) => p.index == 2)
+                  .firstOrNull;
+              if (xiaomeiBefore != null && xiaomei == null) {
+                departedXiaomei = beforeGrowth;
+                expect(departedXiaomei!['level'], 60);
+                record('xiaomei-departed', departedXiaomei);
+              }
+              if (xiaomeiBefore == null &&
+                  xiaomei != null &&
+                  departedXiaomei != null) {
+                expect(
+                  growth(xiaomei),
+                  departedXiaomei,
+                  reason: '1000倍练满的小梅重逢不重置',
+                );
+                checkedRejoin = true;
+                record('xiaomei-rejoined', growth(xiaomei));
+              }
+            }
             if (game.cursor?.script.id != previousScript) {
               previousScript = game.cursor?.script.id;
               record('transfer', previousScript);
@@ -126,6 +184,9 @@ void main() {
           game.setPreference('randomBattleDisabled', !randomEncounters);
           game.setPreference('normalAttackAll', true);
           game.setPreference('autoPickup', collectPickups);
+          if (boostedExperience) {
+            game.setPreference('ringBlade', {'experienceMultiplier': 1000});
+          }
           game.startNewGame();
           await settle();
           final repeats = <String, int>{};
@@ -197,6 +258,9 @@ void main() {
           );
           expect(game.flags.contains(260), isTrue);
           expect(game.ended, isTrue, reason: '必须经最终剧情进入结局');
+          if (boostedExperience) {
+            expect(checkedRejoin, true, reason: '真实剧情必须经历小梅离队重逢');
+          }
           final epilogue = trace
               .where((entry) => entry['action'] == 'epilogue-dialogue')
               .map((entry) => entry['detail'])

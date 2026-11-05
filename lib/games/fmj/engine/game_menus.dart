@@ -896,29 +896,28 @@ extension GameMenus on GameEngine {
       2390,
       GameResurrectionPill.collectedFlag,
     });
-    final departed = resurrectionPill.decode(resurrectionPill.snapshot());
+    final reserve = partyRoster.copyReserve();
+    for (final id in actorIds) {
+      final previous = reserve.remove(id);
+      if (previous != null) carriedPlayers.putIfAbsent(id, () => previous);
+    }
     final hasProgress =
         carriedPlayers.isNotEmpty ||
         carriedItems.isNotEmpty ||
         carriedMoney > 0;
-    // 剧情离队备份也保存了真实装备。跳到该人物尚在场的章节时复用，不另造一名空人物。
-    if (departed != null &&
-        actorIds.contains(3) &&
-        !carriedPlayers.containsKey(3)) {
-      carriedPlayers[3] = departed;
-    }
     for (final p in carriedPlayers.values) {
       if (actorIds.contains(p.index)) continue;
       for (final id in p.equipment.whereType<String>()) {
         carriedItems[id] = (carriedItems[id] ?? 0) + 1;
       }
+      reserve[p.index] = partyRoster.stageReserveWithoutEquipment(p);
     }
     startNewGame();
     operation = null;
     cursor?.running = false;
     inventory.addAll(carriedItems);
     preferredThrowWeapon = carriedThrowWeapon;
-    resurrectionPill.restoreDeparted(actorIds.contains(3) ? null : departed);
+    partyRoster.restoreReserve(reserve);
     flags.addAll((stage['flags'] as List).cast<int>());
     flags.addAll(collected);
     variables[1] = stage['variable'] as int? ?? 0;

@@ -48,14 +48,14 @@
       "source": "lib/engine/game_engine.dart",
       "destination": "lib/games/fmj/engine/game_engine.dart",
       "sourceSha256": "ac940577413bf1af409ef1e9659ccdb2d2efb5540d3bb3ccd2e593e1d82338c1",
-      "importedSha256": "9484755e88b0dc6993ef10a1b70545333f5a97f1a523e19b8adce7a58d0b758d"
+      "importedSha256": "9ee7c14abf4d1a326ae150f348dbfac20542f584a8bab411ccc435735b763dd8"
     },
     {
       "game": "fmj",
       "source": "lib/engine/game_menus.dart",
       "destination": "lib/games/fmj/engine/game_menus.dart",
       "sourceSha256": "0d4fe2395bc3664887210d11914603f951d6e6ab37113b7ef9c2a241c5dc1c3a",
-      "importedSha256": "bc527db524ae2058c23daa55aef68729161381b6b9e18f4c520e1b9ec8fcc6ef"
+      "importedSha256": "87f226c2099127aac836e14e1ff75ec028cc0f4e28a2012e0122a3debec5c4cf"
     },
     {
       "game": "fmj",
@@ -2303,7 +2303,7 @@
       "game": "fmj",
       "source": "custom-resurrection-pill",
       "destination": "lib/games/fmj/engine/game_resurrection_pill.dart",
-      "importedSha256": "f3e81885d8412b099931fb78911dc89c4e509b7bea90936cbbcd64f0196438aa"
+      "importedSha256": "382e986588306dd3b974d334717eb205b9b52b7b9406f94234f5aac38796af15"
     },
     {
       "game": "fmj",
@@ -2328,6 +2328,12 @@
       "source": "integration-title-ending-presentation",
       "destination": "lib/games/fmj/ui/ending_calligraphy.dart",
       "importedSha256": "8bb8dbf7c5773bb16724d62e3c99aa1f94c26a716bb3e97320ba3648b1c67199"
+    },
+    {
+      "game": "fmj",
+      "source": "integration-party-rejoin-progress",
+      "destination": "lib/games/fmj/engine/game_party_roster.dart",
+      "importedSha256": "1d318746c07e34584d5cdb2c5d6033ff81b1e7e51d1dadc500cf533df1f52d2b"
     }
   ],
   "integrationRevisions": [
@@ -4190,6 +4196,24 @@
       "previousImportedSha256": "f0312ab1e42864fadcd13fac9717507b991b753a6532589ecb9da2c4c531d040",
       "currentSha256": "f7a5dcd20c3b9f0acd9b6f4d92b573bd6fd5e9271de985078bf49b365c9796c7",
       "reason": "2026-11-04 修复iOS大环刀设置数字键盘遮挡与关闭，并按用户确认逐级结算大量经验，保留倍率一次、法术提示和成长加成。"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_engine.dart",
+      "previousImportedSha256": "9484755e88b0dc6993ef10a1b70545333f5a97f1a523e19b8adce7a58d0b758d",
+      "currentSha256": "9ee7c14abf4d1a326ae150f348dbfac20542f584a8bab411ccc435735b763dd8",
+      "reason": "2026-11-05 修复小梅/袁萍芷离队重逢按ROM重新创建而丢失培养，通用角色名册持久化，兼容旧档、选关退装及复活路径；1000倍完整故事验证。"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_menus.dart",
+      "previousImportedSha256": "bc527db524ae2058c23daa55aef68729161381b6b9e18f4c520e1b9ec8fcc6ef",
+      "currentSha256": "87f226c2099127aac836e14e1ff75ec028cc0f4e28a2012e0122a3debec5c4cf",
+      "reason": "2026-11-05 修复小梅/袁萍芷离队重逢按ROM重新创建而丢失培养，通用角色名册持久化，兼容旧档、选关退装及复活路径；1000倍完整故事验证。"
+    },
+    {
+      "destination": "lib/games/fmj/engine/game_resurrection_pill.dart",
+      "previousImportedSha256": "f3e81885d8412b099931fb78911dc89c4e509b7bea90936cbbcd64f0196438aa",
+      "currentSha256": "382e986588306dd3b974d334717eb205b9b52b7b9406f94234f5aac38796af15",
+      "reason": "2026-11-05 修复小梅/袁萍芷离队重逢按ROM重新创建而丢失培养，通用角色名册持久化，兼容旧档、选关退装及复活路径；1000倍完整故事验证。"
     }
   ]
 }

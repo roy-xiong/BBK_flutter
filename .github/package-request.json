@@ -1,6 +1,6 @@
 {
-  "request": "2026-11-04-master-ring-keyboard-multi-level",
+  "request": "2026-11-05-master-party-rejoin-progress",
   "platform": "all",
   "skip_validation": true,
-  "reason": "用户要求iOS大环刀设置键盘可收起且保存不遮挡，一并确认修复单场大量经验连续升级；已完成iOS尺寸/键盘注入、经验与相关回归及全剧情，推master后全平台发布，不下载。"
+  "reason": "修复1000倍经验练满的小梅离队再入队被重置，统一保留队友完整数据及存档；1000倍完整故事、普通故事、58项相关回归及96选关基线已验证，沿用master全平台打包并发布，不下载。"
 }
