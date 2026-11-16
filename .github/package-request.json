@@ -1,5 +1,5 @@
 {
-  "request": "2026-11-16-master-sgby-diplomacy-surrender",
+  "request": "2026-11-16-master-sgby-diplomacy-surrender-snapshot",
   "platform": "all",
   "skip_validation": false,
   "reason": "修复三国霸业同势力外交及劝降时在途武将变为在野，补充回归用例；沿用master流水线执行完整校验，打包Android、iOS、macOS、Windows并发布Release。"

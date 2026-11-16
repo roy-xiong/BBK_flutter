@@ -853,14 +853,14 @@
       "source": "lib/domain/use_cases/computer_strategy.dart",
       "destination": "lib/games/sgby/domain/use_cases/computer_strategy.dart",
       "sourceSha256": "b1f598dee73777c70ab0ccbb50ca3a925c0bf8899a09aaee6966dcbc182fef6d",
-      "importedSha256": "b1f598dee73777c70ab0ccbb50ca3a925c0bf8899a09aaee6966dcbc182fef6d"
+      "importedSha256": "93c83e980be4d0c47ee2741db84e8728c92dcdc507efa9b74b3bd524100fe195"
     },
     {
       "game": "sgby",
       "source": "lib/domain/use_cases/execute_strategy_order.dart",
       "destination": "lib/games/sgby/domain/use_cases/execute_strategy_order.dart",
       "sourceSha256": "045dc9a19274194be1a69796cc2f618c3d7206264de8a4a1ddfb75237c08b608",
-      "importedSha256": "045dc9a19274194be1a69796cc2f618c3d7206264de8a4a1ddfb75237c08b608"
+      "importedSha256": "72ddeba789715838edc8c988559c699bf75547466bd0b7ed89e3eaf67e6e195c"
     },
     {
       "game": "sgby",
@@ -1385,7 +1385,7 @@
       "source": "test/engine/computer_strategy_parity_test.dart",
       "destination": "test/games/sgby/engine/computer_strategy_parity_test.dart",
       "sourceSha256": "f9ec3b7c9bcfe9bc3ce7e20e714afa5b938db8bc5867c55de296bfafdfd5b548",
-      "importedSha256": "d9786b1951e3b47ecf3dd6db2bfb7b4cdba5c95dfdd3b6f025b5300ff70dde4a"
+      "importedSha256": "8d9d03bb3f05fcbfef0ad54616024dfa0d5821f0a1c277bcdfa0e765188f0886"
     },
     {
       "game": "sgby",
@@ -4214,6 +4214,24 @@
       "previousImportedSha256": "f3e81885d8412b099931fb78911dc89c4e509b7bea90936cbbcd64f0196438aa",
       "currentSha256": "382e986588306dd3b974d334717eb205b9b52b7b9406f94234f5aac38796af15",
       "reason": "2026-11-05 修复小梅/袁萍芷离队重逢按ROM重新创建而丢失培养，通用角色名册持久化，兼容旧档、选关退装及复活路径；1000倍完整故事验证。"
+    },
+    {
+      "destination": "lib/games/sgby/domain/use_cases/computer_strategy.dart",
+      "previousImportedSha256": "b1f598dee73777c70ab0ccbb50ca3a925c0bf8899a09aaee6966dcbc182fef6d",
+      "currentSha256": "93c83e980be4d0c47ee2741db84e8728c92dcdc507efa9b74b3bd524100fe195",
+      "reason": "2026-11-16 修复三国霸业同势力外交和劝降后在途武将变为在野，增加结算时归属校验、归队及旧命令物资回收；AI开启外交的旧错误输出改为合法目标和固定种子回放断言。"
+    },
+    {
+      "destination": "lib/games/sgby/domain/use_cases/execute_strategy_order.dart",
+      "previousImportedSha256": "045dc9a19274194be1a69796cc2f618c3d7206264de8a4a1ddfb75237c08b608",
+      "currentSha256": "72ddeba789715838edc8c988559c699bf75547466bd0b7ed89e3eaf67e6e195c",
+      "reason": "2026-11-16 修复三国霸业同势力外交和劝降后在途武将变为在野，增加结算时归属校验、归队及旧命令物资回收；AI开启外交的旧错误输出改为合法目标和固定种子回放断言。"
+    },
+    {
+      "destination": "test/games/sgby/engine/computer_strategy_parity_test.dart",
+      "previousImportedSha256": "d9786b1951e3b47ecf3dd6db2bfb7b4cdba5c95dfdd3b6f025b5300ff70dde4a",
+      "currentSha256": "8d9d03bb3f05fcbfef0ad54616024dfa0d5821f0a1c277bcdfa0e765188f0886",
+      "reason": "2026-11-16 修复三国霸业同势力外交和劝降后在途武将变为在野，增加结算时归属校验、归队及旧命令物资回收；AI开启外交的旧错误输出改为合法目标和固定种子回放断言。"
     }
   ]
 }
