@@ -176,7 +176,7 @@ void main() {
       expect(w.cityOfPerson(64), 3);
     }
   });
-  test('策反保护按当前城市归属判断，关闭时仍执行原规则', () {
+  test('策反保护按当前城市归属判断，关闭后只对真实敌方执行外交', () {
     final w = world();
     w.setPerson(64, w.person(64)!.copyWith(belong: 1));
     w.setPerson(56, w.person(56)!.copyWith(belong: 1));
@@ -188,6 +188,14 @@ void main() {
       diplomacyProtection: true,
     );
     expect(w.random.state, seed);
+    ExecuteStrategyOrder(database, dialogs: database.strategyDialogs)(
+      w,
+      order(15),
+      diplomacyProtection: false,
+    );
+    // 关闭玩家保护不等于允许攻击同僚；目标所属势力不同后才进入外交概率判定。
+    expect(w.random.state, seed);
+    w.setPerson(56, w.person(56)!.copyWith(belong: 2));
     ExecuteStrategyOrder(database, dialogs: database.strategyDialogs)(
       w,
       order(15),

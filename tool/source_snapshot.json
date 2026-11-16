@@ -1378,7 +1378,7 @@
       "source": "test/engine/cheat_completion_test.dart",
       "destination": "test/games/sgby/engine/cheat_completion_test.dart",
       "sourceSha256": "9c4f00030d146b5c34fe414b379de8372b47d2ec16f326fc55304915b3dfc234",
-      "importedSha256": "7e585bf6a8e712a9feb8ef10bdcfa36f6e436db15deaebac43c310b0bad69d06"
+      "importedSha256": "500e5e0a4c9c548d31f6fbda9b43872b0e0c4ddbc40aadd1c42fd9af234c79a9"
     },
     {
       "game": "sgby",
@@ -4232,6 +4232,12 @@
       "previousImportedSha256": "d9786b1951e3b47ecf3dd6db2bfb7b4cdba5c95dfdd3b6f025b5300ff70dde4a",
       "currentSha256": "8d9d03bb3f05fcbfef0ad54616024dfa0d5821f0a1c277bcdfa0e765188f0886",
       "reason": "2026-11-16 修复三国霸业同势力外交和劝降后在途武将变为在野，增加结算时归属校验、归队及旧命令物资回收；AI开启外交的旧错误输出改为合法目标和固定种子回放断言。"
+    },
+    {
+      "destination": "test/games/sgby/engine/cheat_completion_test.dart",
+      "previousImportedSha256": "7e585bf6a8e712a9feb8ef10bdcfa36f6e436db15deaebac43c310b0bad69d06",
+      "currentSha256": "500e5e0a4c9c548d31f6fbda9b43872b0e0c4ddbc40aadd1c42fd9af234c79a9",
+      "reason": "2026-11-16 同势力外交修复后，更新保护关闭场景：同僚目标仍跳过，真实敌方才执行外交判定。"
     }
   ]
 }
