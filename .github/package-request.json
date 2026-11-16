@@ -1,6 +1,7 @@
 {
-  "request": "2026-11-16-master-sgby-diplomacy-surrender-snapshot",
+  "request": "2026-11-16-master-sgby-diplomacy-targeted-packages",
   "platform": "all",
-  "skip_validation": false,
-  "reason": "修复三国霸业同势力外交及劝降时在途武将变为在野，补充回归用例；沿用master流水线执行完整校验，打包Android、iOS、macOS、Windows并发布Release。"
+  "skip_validation": true,
+  "sgby_regression": true,
+  "reason": "用户确认专项回归后直接四端打包：云端执行三国霸业外交、订单与战后结算专项，跳过本轮未通过的全量画面/剧情回归，再构建Android、iOS、macOS、Windows并发布Release。"
 }

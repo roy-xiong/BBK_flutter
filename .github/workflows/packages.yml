@@ -11,6 +11,10 @@ on:
         description: 本次跳过游戏回归与静态校验，直接构建
         type: boolean
         default: false
+      sgby_regression:
+        description: 构建前执行三国霸业外交、订单及战后结算专项回归
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -77,9 +81,35 @@ jobs:
           path: build/validation/
           if-no-files-found: ignore
           retention-days: 14
+  sgby_regression:
+    needs: version
+    if: ${{ inputs.sgby_regression }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.version.outputs.revision }}
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.4'
+          cache: true
+      - run: flutter pub get --enforce-lockfile
+      - run: dart format --output=none --set-exit-if-changed lib test
+      - run: flutter analyze --no-pub
+      - run: python3 tool/verify_source_snapshot.py
+      - name: 三国霸业外交、订单及战后结算回归
+        run: >-
+          flutter test --no-pub --reporter expanded
+          test/games/sgby/engine/computer_strategy_parity_test.dart
+          test/games/sgby/engine/diplomacy_surrender_regression_test.dart
+          test/games/sgby/engine/cheat_completion_test.dart
+          test/games/sgby/engine/diplomacy_parity_test.dart
+          test/games/sgby/engine/strategy_order_parity_test.dart
+          test/games/sgby/engine/battle_resolution_parity_test.dart
   macos:
-    needs: [version, validate]
-    if: ${{ !cancelled() && needs.version.result == 'success' && (needs.validate.result == 'success' || (inputs.skip_validation && needs.validate.result == 'skipped')) && (inputs.platform == 'macos' || inputs.platform == 'ios-macos' || inputs.platform == 'android-ios-macos' || inputs.platform == 'all') }}
+    needs: [version, validate, sgby_regression]
+    if: ${{ !cancelled() && needs.version.result == 'success' && (needs.validate.result == 'success' || (inputs.skip_validation && needs.validate.result == 'skipped')) && (!inputs.sgby_regression || needs.sgby_regression.result == 'success') && (inputs.platform == 'macos' || inputs.platform == 'ios-macos' || inputs.platform == 'android-ios-macos' || inputs.platform == 'all') }}
     runs-on: macos-26
     timeout-minutes: 45
     steps:
@@ -105,8 +135,8 @@ jobs:
           compression-level: 0
           retention-days: 30
   android:
-    needs: [version, validate]
-    if: ${{ !cancelled() && needs.version.result == 'success' && (needs.validate.result == 'success' || (inputs.skip_validation && needs.validate.result == 'skipped')) && (inputs.platform == 'android' || inputs.platform == 'android-ios-macos' || inputs.platform == 'all') }}
+    needs: [version, validate, sgby_regression]
+    if: ${{ !cancelled() && needs.version.result == 'success' && (needs.validate.result == 'success' || (inputs.skip_validation && needs.validate.result == 'skipped')) && (!inputs.sgby_regression || needs.sgby_regression.result == 'success') && (inputs.platform == 'android' || inputs.platform == 'android-ios-macos' || inputs.platform == 'all') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
@@ -145,8 +175,8 @@ jobs:
           compression-level: 0
           retention-days: 30
   ios:
-    needs: [version, validate]
-    if: ${{ !cancelled() && needs.version.result == 'success' && (needs.validate.result == 'success' || (inputs.skip_validation && needs.validate.result == 'skipped')) && (inputs.platform == 'ios' || inputs.platform == 'ios-macos' || inputs.platform == 'android-ios-macos' || inputs.platform == 'all') }}
+    needs: [version, validate, sgby_regression]
+    if: ${{ !cancelled() && needs.version.result == 'success' && (needs.validate.result == 'success' || (inputs.skip_validation && needs.validate.result == 'skipped')) && (!inputs.sgby_regression || needs.sgby_regression.result == 'success') && (inputs.platform == 'ios' || inputs.platform == 'ios-macos' || inputs.platform == 'android-ios-macos' || inputs.platform == 'all') }}
     runs-on: macos-26
     timeout-minutes: 45
     steps:
@@ -177,8 +207,8 @@ jobs:
           compression-level: 0
           retention-days: 30
   windows:
-    needs: [version, validate]
-    if: ${{ !cancelled() && needs.version.result == 'success' && (needs.validate.result == 'success' || (inputs.skip_validation && needs.validate.result == 'skipped')) && (inputs.platform == 'windows' || inputs.platform == 'all') }}
+    needs: [version, validate, sgby_regression]
+    if: ${{ !cancelled() && needs.version.result == 'success' && (needs.validate.result == 'success' || (inputs.skip_validation && needs.validate.result == 'skipped')) && (!inputs.sgby_regression || needs.sgby_regression.result == 'success') && (inputs.platform == 'windows' || inputs.platform == 'all') }}
     runs-on: windows-2022
     timeout-minutes: 45
     steps:

@@ -54,6 +54,8 @@ test/games/          原游戏回归测试与原版比对素材
 
 `BBK Flutter 手动打包` 只接受手动触发，默认平台是 **macOS**。首次先构建 macOS，其他平台等待验收后选择，不会因推送自动打包。
 
+启用 `sgby_regression` 可在各平台构建前执行三国霸业外交、订单及战后结算专项回归，并保留格式、静态分析和源快照检查。该选项可与经确认的 `skip_validation` 配合使用；默认仍执行完整校验。
+
 每次打包递增 `pubspec.yaml` 版本并提交，所有选中平台引用同一提交。产物包含 SHA-256：
 
 打包成功后，`BBK Flutter 发布下载链接` 自动校验原始安装包并发布到 [GitHub Releases](https://github.com/roy-xiong/BBK_flutter/releases)。已有成功任务也可用该流程的 `run_id` 输入补发，无须重新打包。发布标签绑定实际构建的版本提交，附件完整上传并核对摘要后才公开。

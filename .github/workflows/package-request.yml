@@ -50,10 +50,11 @@ jobs:
               inputs: {
                 platform: request.platform,
                 skip_validation: String(request.skip_validation),
+                sgby_regression: String(request.sgby_regression === true),
               },
             });
             core.summary.addHeading('已触发现有打包流水线');
-            core.summary.addRaw(`平台：${request.platform}；跳过验证：${request.skip_validation}；来源提交：${context.sha}`);
+            core.summary.addRaw(`平台：${request.platform}；跳过全量验证：${request.skip_validation}；三国霸业专项回归：${request.sgby_regression === true}；来源提交：${context.sha}`);
             await core.summary.write();
             // GITHUB_TOKEN触发的构建不会保证继续派生workflow_run事件，
             // 因此跟踪本次SHA的构建并显式派发发布；不读取开发机凭据。
