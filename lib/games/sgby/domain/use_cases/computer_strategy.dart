@@ -318,12 +318,14 @@ final class ComputerStrategy {
     }
   }
 
-  List<int> _enemyPeople(GameWorld world, int king, int kind) {
+  /// 按1基势力归属筛选外交目标，不能把城市Belong再次当成0基君主编号加一。
+  ///
+  /// 将自家太守加入反间候选会导致同势力城池自立，并在后续劝降时反复拆分人员。
+  List<int> _enemyPeople(GameWorld world, int belong, int kind) {
     final output = <int>[];
-    // 旧AI传入的是城市Belong；GetEnemy*内部仍比较king+1，保留该编号语义。
     for (var cityId = 0; cityId < world.cities.length; cityId++) {
       final city = world.city(cityId)!;
-      if (city.belong == 0 || city.belong == king + 1) continue;
+      if (city.belong == 0 || city.belong == belong) continue;
       if (kind == 0) {
         output.addAll(
           _people(world, cityId).where((id) => id + 1 != city.belong),

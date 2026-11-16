@@ -1,6 +1,6 @@
 {
-  "request": "2026-11-05-master-party-rejoin-progress",
+  "request": "2026-11-16-master-sgby-diplomacy-surrender",
   "platform": "all",
-  "skip_validation": true,
-  "reason": "修复1000倍经验练满的小梅离队再入队被重置，统一保留队友完整数据及存档；1000倍完整故事、普通故事、58项相关回归及96选关基线已验证，沿用master全平台打包并发布，不下载。"
+  "skip_validation": false,
+  "reason": "修复三国霸业同势力外交及劝降时在途武将变为在野，补充回归用例；沿用master流水线执行完整校验，打包Android、iOS、macOS、Windows并发布Release。"
 }

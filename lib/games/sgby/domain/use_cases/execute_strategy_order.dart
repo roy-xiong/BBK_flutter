@@ -240,16 +240,118 @@ final class ExecuteStrategyOrder {
     }
   }
 
-  /// 参数和比较符保留原版边界，例如rand > chance时失败，等号仍可成功。
+  /// 收编被劝降势力的全部在任武将，包含已从城池队列移出的命令执行者和出征队。
+  ///
+  /// 先保存人员集合再统一易主，避免以“仍在旧势力”为条件漏掉城内外任一批人员。
+  /// 随后取消其旧命令：整队取消时退还携粮，输送取消时退还三类物资；混合出征
+  /// 只移除本次收编者并保留原槽位和其余成员。所有修改在会话isolate内同步完成。
+  void _acceptSurrender(
+    GameWorld world,
+    int ruler,
+    int belong,
+    List<int> cities,
+  ) {
+    final destination = cities.firstOrNull;
+    if (destination == null) return;
+    final members = <int>{
+      for (var id = 0; id < world.persons.length; id++)
+        if (world.person(id)?.belong == ruler + 1) id,
+    };
+    for (final cityIndex in cities) {
+      final city = world.city(cityIndex);
+      if (city != null) {
+        world.setCity(cityIndex, city.copyWith(belong: belong));
+      }
+    }
+    for (final id in members) {
+      final person = world.person(id);
+      if (person != null) {
+        world.setPerson(id, person.copyWith(belong: belong));
+      }
+    }
+
+    /// 携带物资已在下令时扣除，只对本次真正移除的命令退还一次并限制字段宽度。
+    void refund(GameOrder pending, {bool transport = false}) {
+      final cityIndex = world.city(pending.city)?.belong == belong
+          ? pending.city
+          : destination;
+      final city = world.city(cityIndex);
+      if (city == null) return;
+      world.setCity(
+        cityIndex,
+        city.copyWith(
+          food: (city.food + pending.food).clamp(0, 65535),
+          money: transport
+              ? (city.money + pending.money).clamp(0, 65535)
+              : null,
+          mothballArms: transport
+              ? (city.mothballArms + pending.arms).clamp(0, 65535)
+              : null,
+        ),
+      );
+    }
+
+    final orders = <GameOrder>[];
+    final returning = <int, GameOrder>{};
+    for (final pending in world.orders) {
+      if (pending.orderId == 27) {
+        final retained = <int>[];
+        for (final id in pending.fighters) {
+          if (members.contains(id)) {
+            returning[id] = pending.copyWith(person: id);
+          } else {
+            retained.add(id);
+          }
+        }
+        if (retained.length == pending.fighters.length) {
+          orders.add(pending);
+        } else if (retained.isNotEmpty) {
+          orders.add(pending.copyWith(fighters: retained));
+        } else {
+          refund(pending);
+        }
+      } else if (members.contains(pending.person)) {
+        returning[pending.person] = pending;
+        if (pending.orderId == 13) refund(pending, transport: true);
+      } else {
+        orders.add(pending);
+      }
+    }
+    // 完成遍历后一次替换，避免迭代期间删改集合，也保留无关命令的固定队列槽位。
+    world.replaceOrders(orders);
+    for (final id in members) {
+      if (world.cityOfPerson(id) != null) continue;
+      final pending = returning[id];
+      if (pending != null) {
+        commands.returnPerson(world, pending);
+      } else {
+        // 兼容没有对应命令的旧城外人员，不能收编后仍永久滞留城外。
+        world.addPerson(destination, id);
+      }
+    }
+  }
+
+  /// 概率和比较符保留原版边界；结算时重新验证敌我关系，拦截过期或非法外交。
+  ///
+  /// 目标可能在下令后已被招降或随势力易主。直接跳过仍由call统一归还执行者，
+  /// 不额外消耗随机数，不对同势力、在野、俘虏或失效执行者继续执行反间等操作。
   void _diplomacy(
     GameWorld world,
     GameOrder order,
     List<GameReport> reports,
     int activity,
   ) {
-    final person = world.person(order.person)!;
+    final person = world.person(order.person);
     final target = world.person(order.object);
-    if (target == null) return;
+    if (person == null ||
+        target == null ||
+        person.belong == 0 ||
+        person.belong == 65535 ||
+        target.belong == 0 ||
+        target.belong == 65535 ||
+        target.belong == person.belong) {
+      return;
+    }
     final player = person.belong == (world.playerRulerIndex ?? -1) + 1;
     final bonus = player || activity <= 25
         ? 0
@@ -258,9 +360,12 @@ final class ExecuteStrategyOrder {
     bool passed = false;
     final command = order.orderId;
     if (command == 19) {
+      // 劝降只对仍在任的目标君主生效，防止旧命令把普通武将当成势力入口。
+      if (target.belong != order.object + 1) return;
+      final conquered = world.citiesOf(order.object);
       if (order.object != world.playerRulerIndex &&
-          world.citiesOf(person.belong - 1).length >=
-              world.citiesOf(target.belong - 1).length * 2 &&
+          conquered.isNotEmpty &&
+          world.citiesOf(person.belong - 1).length >= conquered.length * 2 &&
           world.random.next() % 100 <=
               chance(person.iq - target.iq + 50, bonus ~/ 2) &&
           world.random.next() % 100 <=
@@ -268,27 +373,7 @@ final class ExecuteStrategyOrder {
                 const [10, 1, 20, 5, 15][target.character.clamp(0, 4)],
                 bonus,
               )) {
-        final conquered = world.citiesOf(order.object);
-        for (final cityIndex in conquered) {
-          final city = world.city(cityIndex)!;
-          final people = world.personsInCity(cityIndex, belong: city.belong);
-          world.setCity(cityIndex, city.copyWith(belong: person.belong));
-          for (final index in people) {
-            world.setPerson(
-              index,
-              world.person(index)!.copyWith(belong: person.belong),
-            );
-          }
-        }
-        for (var i = 0; i < world.persons.length; i++) {
-          final subject = world.person(i)!;
-          if (subject.belong == order.object + 1) {
-            world.setPerson(
-              i,
-              subject.copyWith(belong: i == order.object ? person.belong : 0),
-            );
-          }
-        }
+        _acceptSurrender(world, order.object, person.belong, conquered);
         passed = true;
       }
       if (player) {
